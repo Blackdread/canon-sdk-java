@@ -279,7 +279,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:580</i>
          */
-        public static final long kEdsAccess_Error = 0xFFFFFFFFL;
+        public static final int kEdsAccess_Error = -1;
     }
 
     ;
@@ -382,7 +382,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:625</i>
          */
-        public static final long kEdsImageSize_Unknown = 0xffffffffL;
+        public static final int kEdsImageSize_Unknown = -1;
     }
 
     ;
@@ -411,7 +411,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:638</i>
          */
-        public static final long kEdsCompressQuality_Unknown = 0xffffffffL;
+        public static final int kEdsCompressQuality_Unknown = -1;
     }
 
     ;
@@ -814,7 +814,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:740</i>
          */
-        public static final long EdsImageQuality_Unknown = 0xffffffffL;
+        public static final int EdsImageQuality_Unknown = -1;
     }
 
     ;
@@ -937,7 +937,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:770</i>
          */
-        public static final long kEdsImageQualityForLegacy_Unknown = 0xffffffffL;
+        public static final int kEdsImageQualityForLegacy_Unknown = -1;
     }
 
     ;
@@ -1098,7 +1098,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:842</i>
          */
-        public static final long kEdsBatteryLevel2_AC = 0xFFFFFFFFL;
+        public static final int kEdsBatteryLevel2_AC = -1;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:843</i>
          */
@@ -1382,7 +1382,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:958</i>
          */
-        public static final long kEdsColorSpace_Unknown = 0xffffffffL;
+        public static final int kEdsColorSpace_Unknown = -1;
     }
 
     ;
@@ -1665,7 +1665,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1046</i>
          */
-        public static final long kEdsAEMode_Unknown = 0xffffffffL;
+        public static final int kEdsAEMode_Unknown = -1;
     }
 
     ;
@@ -1694,7 +1694,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1059</i>
          */
-        public static final long kEdsBracket_Unknown = 0xffffffffL;
+        public static final int kEdsBracket_Unknown = -1;
     }
 
     ;
