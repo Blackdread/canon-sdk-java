@@ -1,0 +1,4 @@
+
+	public static final String JNA_LIBRARY_NAME = "Edsdk";
+	public static final NativeLibrary JNA_NATIVE_LIB = NativeLibrary.getInstance(EdsdkLibrary.JNA_LIBRARY_NAME);
+	public static final EdsdkLibrary INSTANCE = (EdsdkLibrary)Native.loadLibrary(EdsdkLibrary.JNA_LIBRARY_NAME, EdsdkLibrary.class);

@@ -32,6 +32,13 @@
         </developer>
     </developers>
 
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/Blackdread/canon-sdk-java/issues</url>
+    </issueManagement>
+
+    <inceptionYear>2018</inceptionYear>
+
     <properties>
         <!--  (All inherited from parent.) -->
     </properties>

@@ -32,17 +32,46 @@
         </developer>
     </developers>
 
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/Blackdread/canon-sdk-java/issues</url>
+    </issueManagement>
+
+    <inceptionYear>2018</inceptionYear>
+
     <properties>
         <!--  (All inherited from parent.) -->
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-
+            <plugin>
+                <groupId>com.nativelibs4java</groupId>
+                <artifactId>maven-jnaerator-plugin</artifactId>
+                <executions>
+                    <!-- Manually generated as files are manually copied and modified after -->
+                    <!--<execution>-->
+                    <!--<goals>-->
+                    <!--<goal>generate</goal>-->
+                    <!--</goals>-->
+                    <!--</execution>-->
+                </executions>
+                <configuration>
+                    <!--<config>${project.basedir}/src/main/jnaerator/config.jnaerator</config>-->
+                    <!--<javaOutputDirectory>${project.build.directory}/generated-sources/java</javaOutputDirectory>-->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

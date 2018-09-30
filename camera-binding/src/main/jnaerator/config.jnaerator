@@ -1,0 +1,9 @@
+-mode Directory
+-noMangling
+-skipLibraryInstance
+-runtime JNA
+-package org.blackdread.camerabinding.jna
+-library Edsdk
+sdk-header/EDSDKErrors.h
+sdk-header/EDSDKTypes.h
+sdk-header/EDSDK.h

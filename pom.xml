@@ -27,6 +27,13 @@
         </developer>
     </developers>
 
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/Blackdread/canon-sdk-java/issues</url>
+    </issueManagement>
+
+    <inceptionYear>2018</inceptionYear>
+
     <modules>
         <module>camera-binding</module>
         <module>camera-framework</module>
@@ -38,6 +45,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <maven.version>3.0.0</maven.version>
+
+        <jna.version>4.5.2</jna.version>
+        <jnaerator.version>0.12</jnaerator.version>
 
         <!-- Logging versions -->
         <slf4j.version>1.7.5</slf4j.version>
@@ -52,12 +62,22 @@
         <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <!--<jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>-->
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Not used for now but might be to not force dependencies to all modules -->
+            <!-- Not used (a lot) for now but might be to not force dependencies to all modules -->
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna-platform</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -91,7 +111,12 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- Not used for now but might be to not force plugins to all modules -->
+                <!-- Not used (a lot) for now but might be to not force plugins to all modules -->
+                <plugin>
+                    <groupId>com.nativelibs4java</groupId>
+                    <artifactId>maven-jnaerator-plugin</artifactId>
+                    <version>${jnaerator.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -105,6 +130,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -157,6 +186,47 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <!-- TODO configuration to check -->
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>COMPLEXITY</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.60</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
