@@ -1,7 +1,9 @@
 ######################
 # Project Specific
 ######################
+/camera-binding/sdk-doc/*
 /camera-binding/sdk-header/*
+!/camera-binding/sdk-doc/.gitkeep
 !/camera-binding/sdk-header/.gitkeep
 
 
