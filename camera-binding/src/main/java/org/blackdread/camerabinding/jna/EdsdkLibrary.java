@@ -140,8 +140,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsDataType_PictureStyleDesc = 102;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -156,8 +154,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsCameraCommand_EvfAf_ON = 1;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -185,8 +181,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsCameraCommand_ShutterButton_Completely_NonAF = 0x00010003;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -219,8 +213,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsEvfDriveLens_Far3 = 0x00008003;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -235,8 +227,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsEvfDepthOfFieldPreview_ON = 0x00000001;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -256,8 +246,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsSeek_End = 2;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -281,8 +269,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsAccess_Error = -1;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -311,8 +297,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsFileCreateDisposition_TruncateExsisting = 4;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -339,8 +323,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsImageType_CR2 = 0x00000006;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -385,8 +367,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsImageSize_Unknown = -1;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -413,8 +393,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsCompressQuality_Unknown = -1;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -817,8 +795,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int EdsImageQuality_Unknown = -1;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -940,8 +916,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsImageQualityForLegacy_Unknown = -1;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -968,8 +942,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsImageSrc_RAWFullView = 4;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1006,8 +978,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsTargetImageType_DIB = 0x0000000B;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1026,8 +996,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsProgressOption_Periodically = 2;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1055,8 +1023,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsFileAttribute_Archive = 0x00000020;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1105,8 +1071,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsBatteryLevel2_Unknown = 0xFFFFFFFE;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1125,8 +1089,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsSaveTo_Both = (int) EdsSaveTo.kEdsSaveTo_Camera | (int) EdsSaveTo.kEdsSaveTo_Host;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1154,8 +1116,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsStorageType_CFast = 5;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1248,8 +1208,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsWhiteBalance_Pasted = -2;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1264,8 +1222,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsPhotoEffect_Monochrome = 5;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1306,8 +1262,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsColorMatrix_7 = 7;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1334,8 +1288,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsFilterEffect_Green = 4;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1364,8 +1316,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsTonigEffect_Green = 4;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1384,8 +1334,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsColorSpace_Unknown = -1;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1450,8 +1398,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsPictureStyle_PC3 = 0x0043;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1470,8 +1416,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsTransferOption_ToDesktop = 0x00000100;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1668,8 +1612,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsAEMode_Unknown = -1;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1697,8 +1639,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsBracket_Unknown = -1;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1722,8 +1662,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsEvfOutputDevice_MOBILE2 = 8;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1742,8 +1680,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsEvfZoom_x10 = 10;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1767,8 +1703,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int Evf_AFMode_LiveMulti = 3;
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
@@ -1805,8 +1739,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         public static final int kEdsStroboModeManual = 6;
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
@@ -1821,8 +1753,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsETTL2ModeAverage = 1;
     }
-
-    ;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
@@ -2947,16 +2877,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
         NativeLong apply(NativeLong inPercent, EdsVoid inContext, IntByReference outCancel);
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
     public interface EdsCameraAddedHandler extends StdCallCallback {
         NativeLong apply(EdsVoid inContext);
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
@@ -2965,8 +2891,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         NativeLong apply(NativeLong inEvent, NativeLong inPropertyID, NativeLong inParam, EdsVoid inContext);
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
@@ -2974,16 +2898,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
         NativeLong apply(NativeLong inEvent, Pointer inRef, EdsVoid inContext);
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
     public interface EdsStateEventHandler extends StdCallCallback {
         NativeLong apply(NativeLong inEvent, NativeLong inEventData, EdsVoid inContext);
     }
-
-    ;
 
     /**
      * ----------------------------------------------------------------------------<br>
@@ -2993,16 +2913,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
         NativeLong apply(Pointer inContext, NativeLong inReadSize, EdsVoid outBuffer, NativeLongByReference outReadSize);
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h:1369</i>
      */
     public interface EdsWriteStream extends StdCallCallback {
         NativeLong apply(Pointer inContext, NativeLong inWriteSize, EdsVoid inBuffer, NativeLongByReference outWrittenSize);
     }
-
-    ;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h:1370</i>
@@ -3011,8 +2927,6 @@ public interface EdsdkLibrary extends StdCallLibrary {
         NativeLong apply(Pointer inContext, NativeLong inSeekOffset, int inSeekOrigin);
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h:1371</i>
      */
@@ -3020,16 +2934,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
         NativeLong apply(Pointer inContext, NativeLongByReference outPosition);
     }
 
-    ;
-
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h:1372</i>
      */
     public interface EdsGetStreamLength extends StdCallCallback {
         NativeLong apply(Pointer inContext, NativeLongByReference outLength);
     }
-
-    ;
 
     /**
      * -----------------------------------------------------------------------------<br>
