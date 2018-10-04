@@ -8,6 +8,9 @@ Bindings are generated via maven plugin jnaerator and execute
 Bindings are manually modified and some methods removed (deprecated).
 Reason behind is class names are wrong for structures and a generated overloaded method is wrongly typed which fails compilation.
 
+# Type safe
+Bindings have been modified to ensure type-safe for most functions of library.
+
 # Technology used for bindings
 [JNA](https://github.com/java-native-access/jna) has been chosen over [BridJ](https://github.com/nativelibs4java/BridJ) as headers (*.h) are in C and to keep same technology with previous project.
 

@@ -14,7 +14,7 @@
     <packaging>jar</packaging>
 
     <name>Canon sdk java bindings</name>
-    <description>Bindings of C header files in java</description>
+    <description>Bindings of C header files in java of EDSDK</description>
     <url>https://github.com/Blackdread/canon-sdk-java</url>
 
     <licenses>
