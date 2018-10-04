@@ -1,5 +1,5 @@
 # Camera binding java
-Canon EOS SDK binding in java
+Canon (EDSDK) EOS SDK binding in java
 
 # Bindings generation
 Bindings are generated via maven plugin jnaerator and execute

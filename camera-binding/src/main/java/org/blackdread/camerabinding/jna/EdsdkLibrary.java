@@ -3,6 +3,7 @@ package org.blackdread.camerabinding.jna;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
+import com.sun.jna.ptr.ByReference;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.LongByReference;
 import com.sun.jna.ptr.NativeLongByReference;
@@ -1753,6 +1754,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsETTL2ModeAverage = 1;
     }
+
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
@@ -5676,27 +5678,23 @@ public interface EdsdkLibrary extends StdCallLibrary {
      */
     NativeLong EdsGetEvent();
 
-    public static class EdsImageRef extends PointerType {
-        public EdsImageRef(Pointer address) {
-            super(address);
+    public abstract class EdsObjectByReference<T extends EdsBaseRef> extends ByReference {
+
+        public EdsObjectByReference() {
+            this(null);
         }
 
-        public EdsImageRef() {
-            super();
+        public EdsObjectByReference(final T r) {
+            super(Pointer.SIZE);
+            setValue(r);
         }
+
+        public void setValue(final T r) {
+            getPointer().setPointer(0, r != null ? r.getPointer() : null);
+        }
+
+        public abstract T getValue();
     }
-
-
-    public static class EdsCameraListRef extends PointerType {
-        public EdsCameraListRef(Pointer address) {
-            super(address);
-        }
-
-        public EdsCameraListRef() {
-            super();
-        }
-    }
-
 
     public static class EdsVoid extends PointerType {
         public EdsVoid(Pointer address) {
@@ -5708,69 +5706,189 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
     }
 
-
-    public static class EdsStreamRef extends PointerType {
-        public EdsStreamRef(Pointer address) {
-            super(address);
-        }
-
-        public EdsStreamRef() {
-            super();
-        }
-    }
-
-
-    public static class EdsVolumeRef extends PointerType {
-        public EdsVolumeRef(Pointer address) {
-            super(address);
-        }
-
-        public EdsVolumeRef() {
-            super();
-        }
-    }
-
-
-    public static class EdsEvfImageRef extends PointerType {
-        public EdsEvfImageRef(Pointer address) {
-            super(address);
-        }
-
-        public EdsEvfImageRef() {
-            super();
-        }
-    }
-
-
     public static class EdsBaseRef extends PointerType {
-        public EdsBaseRef(Pointer address) {
-            super(address);
-        }
 
         public EdsBaseRef() {
             super();
         }
-    }
 
-
-    public static class EdsCameraRef extends PointerType {
-        public EdsCameraRef(Pointer address) {
+        public EdsBaseRef(Pointer address) {
             super(address);
         }
+
+        public static class ByReference extends EdsObjectByReference<EdsBaseRef> {
+
+            @Override
+            public EdsBaseRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsBaseRef(p);
+            }
+
+        }
+    }
+
+    public static class EdsCameraListRef extends EdsBaseRef {
+
+        public EdsCameraListRef() {
+            super();
+        }
+
+        public EdsCameraListRef(Pointer address) {
+            super(address);
+        }
+
+        public static class ByReference extends EdsBaseRef.ByReference {
+
+            @Override
+            public EdsCameraListRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsCameraListRef(p);
+            }
+        }
+    }
+
+    public static class EdsCameraRef extends EdsBaseRef {
 
         public EdsCameraRef() {
             super();
         }
-    }
 
-
-    public static class EdsDirectoryItemRef extends PointerType {
-        public EdsDirectoryItemRef(Pointer address) {
+        public EdsCameraRef(final Pointer address) {
             super(address);
         }
 
+        public static class ByReference extends EdsBaseRef.ByReference {
+
+            @Override
+            public EdsCameraRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsCameraRef(p);
+            }
+        }
+    }
+
+    public static class EdsVolumeRef extends EdsBaseRef {
+
+        public EdsVolumeRef() {
+            super();
+        }
+
+        public EdsVolumeRef(final Pointer address) {
+            super(address);
+        }
+
+        public static class ByReference extends EdsBaseRef.ByReference {
+
+            @Override
+            public EdsVolumeRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsVolumeRef(p);
+            }
+        }
+    }
+
+    public static class EdsDirectoryItemRef extends EdsBaseRef {
+
         public EdsDirectoryItemRef() {
             super();
+        }
+
+        public EdsDirectoryItemRef(final Pointer address) {
+            super(address);
+        }
+
+        public static class ByReference extends EdsBaseRef.ByReference {
+
+            @Override
+            public EdsDirectoryItemRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsDirectoryItemRef(p);
+            }
+        }
+    }
+
+    public static class EdsStreamRef extends EdsBaseRef {
+
+        public EdsStreamRef() {
+            super();
+        }
+
+        public EdsStreamRef(final Pointer address) {
+            super(address);
+        }
+
+        public static class ByReference extends EdsBaseRef.ByReference {
+
+            @Override
+            public EdsStreamRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsStreamRef(p);
+            }
+        }
+    }
+
+    public static class EdsImageRef extends EdsStreamRef {
+
+        public EdsImageRef() {
+            super();
+        }
+
+        public EdsImageRef(final Pointer address) {
+            super(address);
+        }
+
+        public static class ByReference extends EdsBaseRef.ByReference {
+
+            @Override
+            public EdsImageRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsImageRef(p);
+            }
+        }
+    }
+
+
+    public static class EdsEvfImageRef extends EdsBaseRef {
+
+        public EdsEvfImageRef() {
+            super();
+        }
+
+        public EdsEvfImageRef(final Pointer address) {
+            super(address);
+        }
+
+        public static class ByReference extends EdsBaseRef.ByReference {
+
+            @Override
+            public EdsEvfImageRef getValue() {
+                final Pointer p = getPointer().getPointer(0);
+                if (p == null) {
+                    return null;
+                }
+                return new EdsEvfImageRef(p);
+            }
         }
     }
 
