@@ -5,6 +5,9 @@
 /camera-binding/sdk-header/*
 !/camera-binding/sdk-doc/.gitkeep
 !/camera-binding/sdk-header/.gitkeep
+/camera-binding/target
+/camera-framework/target
+/camera-sdk/target
 
 
 ######################
