@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Blackdread/canon-sdk-java.svg?branch=master)](https://travis-ci.org/Blackdread/canon-sdk-java)
+
 # canon-sdk-java
 Canon EOS SDK in java (EDSDK)
 
