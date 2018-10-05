@@ -7,7 +7,7 @@ before_install:
 - chmod +x mvnw
 
 after_success:
-- mvn clean test
+- mvn clean test -Dgpg.skip=true
 #  - mvn clean test jacoco:report
 #  - mvn clean test jacoco:report coveralls:report
 
