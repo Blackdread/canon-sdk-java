@@ -16,9 +16,7 @@ import java.util.List;
 public class EdsVolumeInfo extends Structure {
 	/** C type : EdsUInt32 */
 	public NativeLong storageType;
-	/**
-	 * C type : EdsAccess
-	 */
+	/** C type : EdsAccess */
 	public int access;
 	/** C type : EdsUInt64 */
 	public long maxCapacity;
@@ -34,8 +32,7 @@ public class EdsVolumeInfo extends Structure {
 	}
 	/**
 	 * @param storageType C type : EdsUInt32<br>
-	 * @param access @see EdsAccess<br>
-	 * C type : EdsAccess<br>
+	 * @param access C type : EdsAccess<br>
 	 * @param maxCapacity C type : EdsUInt64<br>
 	 * @param freeSpaceInBytes C type : EdsUInt64<br>
 	 * @param szVolumeLabel C type : EdsChar[256]

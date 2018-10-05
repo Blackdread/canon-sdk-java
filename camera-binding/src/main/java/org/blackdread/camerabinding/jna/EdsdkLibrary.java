@@ -2961,6 +2961,8 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsInitializeSDK()</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:63</i>
+     *
+     * @return any of the sdk errors
      */
     NativeLong EdsInitializeSDK();
 
@@ -2982,6 +2984,8 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsTerminateSDK()</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:80</i>
+     *
+     * @return any of the sdk errors
      */
     NativeLong EdsTerminateSDK();
 
@@ -3001,6 +3005,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsUInt32 EdsRetain(EdsBaseRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:105</i>
+     *
+     * @param inRef the reference for the item
+     * @return any of the sdk errors
      */
     NativeLong EdsRetain(EdsBaseRef inRef);
 
@@ -3020,6 +3027,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsUInt32 EdsRelease(EdsBaseRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:121</i>
+     *
+     * @param inRef the reference of the item
+     * @return any of the sdk errors
      */
     NativeLong EdsRelease(EdsBaseRef inRef);
 
@@ -3040,6 +3050,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetChildCount(EdsBaseRef, EdsUInt32*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:147</i>
+     *
+     * @param inRef    the reference of the list
+     * @param outCount number of elements in this list
+     * @return any of the sdk errors
      */
     NativeLong EdsGetChildCount(EdsBaseRef inRef, NativeLongByReference outCount);
 
@@ -3061,6 +3075,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetChildAtIndex(EdsBaseRef, EdsInt32, EdsBaseRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:166</i>
+     *
+     * @param inRef   the reference of the item
+     * @param inIndex the index that is passed in, is zero based
+     * @param outRef  the pointer which receives reference of the specified index
+     * @return any of the sdk errors
      */
     NativeLong EdsGetChildAtIndex(EdsBaseRef inRef, NativeLong inIndex, EdsBaseRef.ByReference outRef);
 //    NativeLong EdsGetChildAtIndex(EdsBaseRef inRef, NativeLong inIndex, PointerByReference outRef);
@@ -3081,6 +3100,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetParent(EdsBaseRef, EdsBaseRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:184</i>
+     *
+     * @param inRef        the reference of the item
+     * @param outParentRef the pointer which receives reference
+     * @return any of the sdk errors
      */
     NativeLong EdsGetParent(EdsBaseRef inRef, EdsBaseRef.ByReference outParentRef);
 //    NativeLong EdsGetParent(EdsBaseRef inRef, PointerByReference outParentRef);
@@ -3110,6 +3133,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPropertySize(EdsBaseRef, EdsPropertyID, EdsInt32, EdsDataType*, EdsUInt32*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:218</i><br>
      *
+     * @param inRef        the reference of the item
+     * @param inPropertyID the ProprtyID
+     * @param inParam      additional information of property
+     * @param outDataType  pointer to the buffer that is to receive the property type data
+     * @param outSize      pointer to the buffer that is to receive the property size
+     * @return any of the sdk errors
      * @deprecated use the safer methods {@link #EdsGetPropertySize(EdsdkLibrary.EdsBaseRef, NativeLong, NativeLong, IntBuffer, NativeLongByReference)} and {@link #EdsGetPropertySize(EdsBaseRef, NativeLong, NativeLong, IntByReference, NativeLongByReference)} instead
      */
     @Deprecated
@@ -3139,6 +3168,13 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPropertySize(EdsBaseRef, EdsPropertyID, EdsInt32, EdsDataType*, EdsUInt32*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:218</i>
+     *
+     * @param inRef        the reference of the item
+     * @param inPropertyID the ProprtyID
+     * @param inParam      additional information of property
+     * @param outDataType  pointer to the buffer that is to receive the property type data
+     * @param outSize      pointer to the buffer that is to receive the property size
+     * @return any of the sdk errors
      */
     NativeLong EdsGetPropertySize(EdsBaseRef inRef, NativeLong inPropertyID, NativeLong inParam, IntBuffer outDataType, NativeLongByReference outSize);
 
@@ -3164,6 +3200,13 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPropertyData(EdsBaseRef, EdsPropertyID, EdsInt32, EdsUInt32, EdsVoid*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:244</i>
+     *
+     * @param inRef           The reference of the item
+     * @param inPropertyID    The ProprtyID
+     * @param inParam         Additional information of property
+     * @param inPropertySize  The number of bytes of the prepared buffer for receive property-value
+     * @param outPropertyData The buffer pointer to receive property-value
+     * @return any of the sdk errors
      */
     NativeLong EdsGetPropertyData(EdsBaseRef inRef, NativeLong inPropertyID, NativeLong inParam, NativeLong inPropertySize, EdsVoid outPropertyData);
 
@@ -3188,6 +3231,13 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetPropertyData(EdsBaseRef, EdsPropertyID, EdsInt32, EdsUInt32, const EdsVoid*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:269</i>
+     *
+     * @param inRef          The reference of the item
+     * @param inPropertyID   The ProprtyID
+     * @param inParam        Additional information of property
+     * @param inPropertySize The number of bytes of the prepared buffer for set property-value
+     * @param inPropertyData The buffer pointer to set property-value
+     * @return any of the sdk errors
      */
     NativeLong EdsSetPropertyData(EdsBaseRef inRef, NativeLong inPropertyID, NativeLong inParam, NativeLong inPropertySize, EdsVoid inPropertyData);
 
@@ -3210,6 +3260,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPropertyDesc(EdsBaseRef, EdsPropertyID, EdsPropertyDesc*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:292</i>
+     *
+     * @param inRef           The reference of the camera
+     * @param inPropertyID    The Property ID
+     * @param outPropertyDesc Array of the value which can be set up
+     * @return any of the sdk errors
      */
     NativeLong EdsGetPropertyDesc(EdsBaseRef inRef, NativeLong inPropertyID, EdsPropertyDesc outPropertyDesc);
 
@@ -3229,6 +3284,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetCameraList(EdsCameraListRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:319</i>
+     *
+     * @param outCameraListRef Pointer to the camera-list
+     * @return any of the sdk errors
      */
     NativeLong EdsGetCameraList(EdsCameraListRef.ByReference outCameraListRef);
 //    NativeLong EdsGetCameraList(PointerByReference outCameraListRef);
@@ -3253,6 +3311,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetDeviceInfo(EdsCameraRef, EdsDeviceInfo*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:348</i>
+     *
+     * @param inCameraRef   The reference of the camera
+     * @param outDeviceInfo Information as device of camera
+     * @return any of the sdk errors
      */
     NativeLong EdsGetDeviceInfo(EdsCameraRef inCameraRef, EdsDeviceInfo outDeviceInfo);
 
@@ -3273,6 +3335,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsOpenSession(EdsCameraRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:366</i>
+     *
+     * @param inCameraRef The reference of the camera
+     * @return any of the sdk errors
      */
     NativeLong EdsOpenSession(EdsCameraRef inCameraRef);
 
@@ -3292,6 +3357,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCloseSession(EdsCameraRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:382</i>
+     *
+     * @param inCameraRef The reference of the camera
+     * @return any of the sdk errors
      */
     NativeLong EdsCloseSession(EdsCameraRef inCameraRef);
 
@@ -3314,6 +3382,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSendCommand(EdsCameraRef, EdsCameraCommand, EdsInt32)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:401</i>
+     *
+     * @param inCameraRef The reference of the camera which will receive the command
+     * @param inCommand   Specifies the command to be sent
+     * @param inParam     Specifies additional command-specific information
+     * @return any of the sdk errors
      */
     NativeLong EdsSendCommand(EdsCameraRef inCameraRef, NativeLong inCommand, NativeLong inParam);
 
@@ -3336,6 +3409,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSendStatusCommand(EdsCameraRef, EdsCameraStatusCommand, EdsInt32)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:422</i>
+     *
+     * @param inCameraRef     The reference of the camera which will receive the command
+     * @param inStatusCommand Specifies the command to be sent
+     * @param inParam         Specifies additional command-specific information
+     * @return any of the sdk errors
      */
     NativeLong EdsSendStatusCommand(EdsCameraRef inCameraRef, NativeLong inStatusCommand, NativeLong inParam);
 
@@ -3367,6 +3445,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetCapacity(EdsCameraRef, EdsCapacity)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:453</i>
+     *
+     * @param inCameraRef The reference of the camera which will receive the command
+     * @param inCapacity  The remaining capacity of a transmission place
+     * @return any of the sdk errors
      */
     NativeLong EdsSetCapacity(EdsCameraRef inCameraRef, EdsCapacity.ByValue inCapacity);
 
@@ -3386,6 +3468,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetVolumeInfo(EdsVolumeRef, EdsVolumeInfo*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:479</i>
+     *
+     * @param inVolumeRef   The reference of the volume
+     * @param outVolumeInfo information of  the volume
+     * @return any of the sdk errors
      */
     NativeLong EdsGetVolumeInfo(EdsVolumeRef inVolumeRef, EdsVolumeInfo outVolumeInfo);
 
@@ -3404,6 +3490,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsFormatVolume(EdsVolumeRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:495</i>
+     *
+     * @param inVolumeRef The reference of volume
+     * @return any of the sdk errors
      */
     NativeLong EdsFormatVolume(EdsVolumeRef inVolumeRef);
 
@@ -3424,6 +3513,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetDirectoryItemInfo(EdsDirectoryItemRef, EdsDirectoryItemInfo*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:521</i>
+     *
+     * @param inDirItemRef   The reference of the directory item
+     * @param outDirItemInfo information of the directory item
+     * @return any of the sdk errors
      */
     NativeLong EdsGetDirectoryItemInfo(EdsDirectoryItemRef inDirItemRef, EdsDirectoryItemInfo outDirItemInfo);
 
@@ -3447,6 +3540,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsDeleteDirectoryItem(EdsDirectoryItemRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:543</i>
+     *
+     * @param inDirItemRef The reference of the directory item
+     * @return any of the sdk errors
      */
     NativeLong EdsDeleteDirectoryItem(EdsDirectoryItemRef inDirItemRef);
 
@@ -3474,6 +3570,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsDownload(EdsDirectoryItemRef, EdsUInt64, EdsStreamRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:566</i>
+     *
+     * @param inDirItemRef The reference of the directory item
+     * @param inReadSize   Size to read
+     * @param outStream    The reference of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsDownload(EdsDirectoryItemRef inDirItemRef, long inReadSize, EdsStreamRef outStream);
 
@@ -3495,6 +3596,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsDownloadCancel(EdsDirectoryItemRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:586</i>
+     *
+     * @param inDirItemRef The reference of the directory item
+     * @return any of the sdk errors
      */
     NativeLong EdsDownloadCancel(EdsDirectoryItemRef inDirItemRef);
 
@@ -3518,6 +3622,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsDownloadComplete(EdsDirectoryItemRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:606</i>
+     *
+     * @param inDirItemRef The reference of the directory item
+     * @return any of the sdk errors
      */
     NativeLong EdsDownloadComplete(EdsDirectoryItemRef inDirItemRef);
 
@@ -3541,6 +3648,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsDownloadThumbnail(EdsDirectoryItemRef, EdsStreamRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:626</i>
+     *
+     * @param inDirItemRef The reference of the directory item
+     * @param outStream    The reference of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsDownloadThumbnail(EdsDirectoryItemRef inDirItemRef, EdsStreamRef outStream);
 
@@ -3565,6 +3676,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetAttribute(EdsDirectoryItemRef, EdsFileAttributes*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:647</i><br>
      *
+     * @param inDirItemRef     The reference of the directory item
+     * @param outFileAttribute Indicates the file attributes
+     * @return any of the sdk errors
      * @deprecated use the safer methods {@link #EdsGetAttribute(EdsdkLibrary.EdsDirectoryItemRef, IntBuffer)} and {@link #EdsGetAttribute(EdsDirectoryItemRef, IntByReference)} instead
      */
     @Deprecated
@@ -3590,6 +3704,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetAttribute(EdsDirectoryItemRef, EdsFileAttributes*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:647</i>
+     *
+     * @param inDirItemRef     The reference of the directory item
+     * @param outFileAttribute Indicates the file attributes
+     * @return any of the sdk errors
      */
     NativeLong EdsGetAttribute(EdsDirectoryItemRef inDirItemRef, IntBuffer outFileAttribute);
 
@@ -3612,6 +3730,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetAttribute(EdsDirectoryItemRef, EdsFileAttributes)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:667</i>
+     *
+     * @param inDirItemRef    The reference of the directory item
+     * @param inFileAttribute Indicates the file attributes
+     * @return any of the sdk errors
      */
     NativeLong EdsSetAttribute(EdsDirectoryItemRef inDirItemRef, int inFileAttribute);
 
@@ -3639,6 +3761,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateFileStream(const EdsChar*, EdsFileCreateDisposition, EdsAccess, EdsStreamRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:702</i>
+     *
+     * @param inFileName          Pointer to a null-terminated string that specifies the file name
+     * @param inCreateDisposition Action to take on files that exist and which action to take when files do not exist
+     * @param inDesiredAccess     Access to the stream (reading, writing, or both)
+     * @param outStream           The reference of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateFileStream(ByteBuffer inFileName, int inCreateDisposition, int inDesiredAccess, EdsStreamRef.ByReference outStream);
 
@@ -3666,6 +3794,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateFileStream(const EdsChar*, EdsFileCreateDisposition, EdsAccess, EdsStreamRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:702</i>
+     *
+     * @param inFileName          Pointer to a null-terminated string that specifies the file name
+     * @param inCreateDisposition Action to take on files that exist and which action to take when files do not exist
+     * @param inDesiredAccess     Access to the stream (reading, writing, or both)
+     * @param outStream           The reference of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateFileStream(byte inFileName[], int inCreateDisposition, int inDesiredAccess, EdsStreamRef.ByReference outStream);
 
@@ -3688,6 +3822,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateMemoryStream(EdsUInt64, EdsStreamRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:724</i>
+     *
+     * @param inBufferSize The number of bytes of the memory to allocate
+     * @param outStream    The reference of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateMemoryStream(long inBufferSize, EdsStreamRef.ByReference outStream);
 
@@ -3713,6 +3851,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateFileStreamEx(const WCHAR*, EdsFileCreateDisposition, EdsAccess, EdsStreamRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:748</i>
+     *
+     * @param inFileName          Designate the file name
+     * @param inCreateDisposition Action to take on files that exist and which action to take when files do not exist
+     * @param inDesiredAccess     Access to the stream (reading, writing, or both)
+     * @param outStream           The reference of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateFileStreamEx(short inFileName[], int inCreateDisposition, int inDesiredAccess, EdsStreamRef.ByReference outStream);
 
@@ -3739,6 +3883,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateFileStreamEx(const WCHAR*, EdsFileCreateDisposition, EdsAccess, EdsStreamRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:748</i>
      *
+     * @param inFileName          Designate the file name
+     * @param inCreateDisposition Action to take on files that exist and which action to take when files do not exist
+     * @param inDesiredAccess     Access to the stream (reading, writing, or both)
+     * @param outStream           The reference of the stream
+     * @return any of the sdk errors
      * @deprecated use safer method {@link #EdsCreateFileStreamEx(short[], int, int, EdsStreamRef.ByReference)}
      */
     @Deprecated
@@ -3765,6 +3914,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateMemoryStreamFromPointer(EdsVoid*, EdsUInt64, EdsStreamRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:778</i>
+     *
+     * @param inUserBuffer Pointer to the buffer you have prepared. Streams created by means of this API lead to this buffer
+     * @param inBufferSize The number of bytes of the memory to allocate
+     * @param outStream    The reference of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateMemoryStreamFromPointer(EdsVoid inUserBuffer, long inBufferSize, EdsStreamRef.ByReference outStream);
 //    NativeLong EdsCreateMemoryStreamFromPointer(EdsVoid inUserBuffer, long inBufferSize, PointerByReference outStream);
@@ -3793,6 +3947,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPointer(EdsStreamRef, EdsVoid**)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:805</i>
+     *
+     * @param inStream   Designate the memory stream for the pointer to retrieve
+     * @param outPointer If successful, returns the pointer to the buffer written in the memory stream
+     * @return any of the sdk errors
      */
     NativeLong EdsGetPointer(EdsStreamRef inStream, PointerByReference outPointer);
 
@@ -3819,6 +3977,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsRead(EdsStreamRef, EdsUInt64, EdsVoid*, EdsUInt64*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:828</i>
+     *
+     * @param inStreamRef The reference of the stream or image
+     * @param inReadSize  The number of bytes to read
+     * @param outBuffer   Pointer to the user-supplied buffer that is to receive the data read from the stream
+     * @param outReadSize The actually read number of bytes
+     * @return any of the sdk errors
      */
     NativeLong EdsRead(EdsStreamRef inStreamRef, long inReadSize, EdsVoid outBuffer, LongByReference outReadSize);
 //    NativeLong EdsRead(EdsStreamRef inStreamRef, long inReadSize, EdsVoid outBuffer, NativeLongByReference outReadSize);
@@ -3846,6 +4010,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsWrite(EdsStreamRef, EdsUInt64, const EdsVoid*, EdsUInt64*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:852</i>
+     *
+     * @param inStreamRef    The reference of the stream or image
+     * @param inWriteSize    The number of bytes to write
+     * @param inBuffer       A pointer to the user-supplied buffer that contains the data to be written to the stream
+     * @param outWrittenSize The actually written-in number of bytes
+     * @return any of the sdk errors
      */
     NativeLong EdsWrite(EdsStreamRef inStreamRef, long inWriteSize, EdsVoid inBuffer, LongByReference outWrittenSize);
 //    NativeLong EdsWrite(EdsStreamRef inStreamRef, long inWriteSize, EdsVoid inBuffer, NativeLongByReference outWrittenSize);
@@ -3877,6 +4047,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSeek(EdsStreamRef, EdsInt64, EdsSeekOrigin)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:881</i>
+     *
+     * @param inStreamRef  The reference of the stream or image
+     * @param inSeekOffset Number of bytes to move the pointer
+     * @param inSeekOrigin Pointer movement mode
+     * @return any of the sdk errors
      */
     NativeLong EdsSeek(EdsStreamRef inStreamRef, long inSeekOffset, int inSeekOrigin);
 
@@ -3898,6 +4073,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPosition(EdsStreamRef, EdsUInt64*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:901</i>
+     *
+     * @param inStreamRef The reference of the stream or image
+     * @param outPosition The current stream pointer
+     * @return any of the sdk errors
      */
     NativeLong EdsGetPosition(EdsStreamRef inStreamRef, LongByReference outPosition);
 //    NativeLong EdsGetPosition(EdsStreamRef inStreamRef, NativeLongByReference outPosition);
@@ -3920,6 +4099,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetLength(EdsStreamRef, EdsUInt64*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:919</i>
+     *
+     * @param inStreamRef The reference of the stream or image
+     * @param outLength   The length of the stream
+     * @return any of the sdk errors
      */
     NativeLong EdsGetLength(EdsStreamRef inStreamRef, LongByReference outLength);
 //    NativeLong EdsGetLength(EdsStreamRef inStreamRef, NativeLongByReference outLength);
@@ -3948,6 +4131,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCopyData(EdsStreamRef, EdsUInt64, EdsStreamRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:943</i>
+     *
+     * @param inStreamRef  The reference of the stream or image
+     * @param inWriteSize  The number of bytes to copy
+     * @param outStreamRef The reference of the stream or image
+     * @return any of the sdk errors
      */
     NativeLong EdsCopyData(EdsStreamRef inStreamRef, long inWriteSize, EdsStreamRef outStreamRef);
 
@@ -3984,6 +4172,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetProgressCallback(EdsBaseRef, EdsProgressCallback, EdsProgressOption, EdsVoid*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:979</i>
+     *
+     * @param inRef              The reference of the stream or image
+     * @param inProgressCallback Pointer to a progress callback function
+     * @param inProgressOption   The option about progress is specified
+     * @param inContext          Application information, passed in the argument when the callback function is called. Any information required for your program may be added
+     * @return any of the sdk errors
      */
     NativeLong EdsSetProgressCallback(EdsBaseRef inRef, EdsProgressCallback inProgressCallback, int inProgressOption, EdsVoid inContext);
 
@@ -4010,6 +4204,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateImageRef(EdsStreamRef, EdsImageRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1015</i>
+     *
+     * @param inStreamRef The reference of the stream
+     * @param outImageRef The reference of the image
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateImageRef(EdsStreamRef inStreamRef, EdsImageRef.ByReference outImageRef);
 //    NativeLong EdsCreateImageRef(EdsStreamRef inStreamRef, PointerByReference outImageRef);
@@ -4048,6 +4246,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetImageInfo(EdsImageRef, EdsImageSource, EdsImageInfo*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1050</i>
+     *
+     * @param inImageRef    Designate the object for which to get image information
+     * @param inImageSource Designate the type of image data EdsImageSource
+     * @param outImageInfo  Stores the image data information designated in inImageSource
+     * @return any of the sdk errors
      */
     NativeLong EdsGetImageInfo(EdsImageRef inImageRef, int inImageSource, EdsImageInfo outImageInfo);
 
@@ -4094,6 +4297,14 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetImage(EdsImageRef, EdsImageSource, EdsTargetImageType, EdsRect, EdsSize, EdsStreamRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1095</i>
+     *
+     * @param inImageRef    Designate the image object for which to get the image data
+     * @param inImageSource Designate the type of image data to get from the image file (thumbnail, preview, and so on)
+     * @param inImageType   Designate the output image type
+     * @param inSrcRect     Designate the coordinates and size of the rectangle to be retrieved (processed) from the source image
+     * @param inDstSize     Designate the rectangle size for output the image
+     * @param outStreamRef  Designate the memory or file stream for output of
+     * @return any of the sdk errors
      */
     NativeLong EdsGetImage(EdsImageRef inImageRef, int inImageSource, int inImageType, EdsRect.ByValue inSrcRect, EdsSize.ByValue inDstSize, EdsStreamRef outStreamRef);
 
@@ -4124,6 +4335,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSaveImage(EdsImageRef, EdsTargetImageType, EdsSaveImageSetting, EdsStreamRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1128</i>
+     *
+     * @param inImageRef    Designate the image object for which to produce the file
+     * @param inImageType   Designate the image type to produce
+     * @param inSaveSetting Designate saving options, such as JPEG image quality
+     * @param outStreamRef  Specifies the output file stream. The memory stream cannot be specified here
+     * @return any of the sdk errors
      */
     NativeLong EdsSaveImage(EdsImageRef inImageRef, int inImageType, EdsSaveImageSetting.ByValue inSaveSetting, EdsStreamRef outStreamRef);
 
@@ -4149,6 +4366,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCacheImage(EdsImageRef, EdsBool)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1154</i>
+     *
+     * @param inImageRef The reference of the image
+     * @param inUseCache If cache image data or not. If set to FALSE, the cached image data will released
+     * @return any of the sdk errors
      */
     NativeLong EdsCacheImage(EdsImageRef inImageRef, int inUseCache);
 
@@ -4168,6 +4389,9 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsReflectImageProperty(EdsImageRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1171</i>
+     *
+     * @param inImageRef The reference of the image
+     * @return any of the sdk errors
      */
     NativeLong EdsReflectImageProperty(EdsImageRef inImageRef);
 
@@ -4186,6 +4410,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateEvfImageRef(EdsStreamRef, EdsEvfImageRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1187</i>
+     *
+     * @param inStreamRef    The stream reference which opened to get EVF JPEG image
+     * @param outEvfImageRef The EVFData reference
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateEvfImageRef(EdsStreamRef inStreamRef, EdsEvfImageRef.ByReference outEvfImageRef);
 //    NativeLong EdsCreateEvfImageRef(EdsStreamRef inStreamRef, PointerByReference outEvfImageRef);
@@ -4212,6 +4440,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsDownloadEvfImage(EdsCameraRef, EdsEvfImageRef)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1212</i>
+     *
+     * @param inCameraRef   The Camera reference
+     * @param inEvfImageRef The EVFData reference
+     * @return any of the sdk errors
      */
     NativeLong EdsDownloadEvfImage(EdsCameraRef inCameraRef, EdsEvfImageRef inEvfImageRef);
 
@@ -4234,6 +4466,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetCameraAddedHandler(EdsCameraAddedHandler, EdsVoid*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1242</i>
+     *
+     * @param inCameraAddedHandler Pointer to a callback function called when a camera is connected physically
+     * @param inContext            Specifies an application-defined value to be sent to he callback function pointed to by CallBack parameter
+     * @return any of the sdk errors
      */
     NativeLong EdsSetCameraAddedHandler(EdsCameraAddedHandler inCameraAddedHandler, EdsVoid inContext);
 
@@ -4260,6 +4496,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetPropertyEventHandler(EdsCameraRef, EdsPropertyEvent, EdsPropertyEventHandler, EdsVoid*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1267</i>
+     *
+     * @param inCameraRef            Designate the camera object
+     * @param inEvnet                Designate one or all events to be supplemented
+     * @param inPropertyEventHandler Designate the pointer to the callback function for receiving property-related camera events
+     * @param inContext              Designate application information to be passed by means of the callback function. Any data needed for your application can be passed
+     * @return any of the sdk errors
      */
     NativeLong EdsSetPropertyEventHandler(EdsCameraRef inCameraRef, NativeLong inEvnet, EdsPropertyEventHandler inPropertyEventHandler, EdsVoid inContext);
 
@@ -4288,6 +4530,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetObjectEventHandler(EdsCameraRef, EdsObjectEvent, EdsObjectEventHandler, EdsVoid*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1296</i>
+     *
+     * @param inCameraRef          Designate the camera object
+     * @param inEvnet              Designate one or all events to be supplemented. To designate all events, use kEdsObjectEvent_All
+     * @param inObjectEventHandler Designate the pointer to the callback function for receiving object-related camera events
+     * @param inContext            Passes inContext without modification, as designated as an EdsSetObjectEventHandler argument
+     * @return any of the sdk errors
      */
     NativeLong EdsSetObjectEventHandler(EdsCameraRef inCameraRef, NativeLong inEvnet, EdsObjectEventHandler inObjectEventHandler, EdsVoid inContext);
 
@@ -4315,6 +4563,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetCameraStateEventHandler(EdsCameraRef, EdsStateEvent, EdsStateEventHandler, EdsVoid*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1324</i>
+     *
+     * @param inCameraRef         Designate the camera object
+     * @param inEvnet             Designate one or all events to be supplemented. To designate all events, use kEdsStateEvent_All
+     * @param inStateEventHandler Designate the pointer to the callback function for receiving events related to camera object states
+     * @param inContext           Designate application information to be passed by means of the callback function. Any data needed for your application can be passed
+     * @return any of the sdk errors
      */
     NativeLong EdsSetCameraStateEventHandler(EdsCameraRef inCameraRef, NativeLong inEvnet, EdsStateEventHandler inStateEventHandler, EdsVoid inContext);
 
@@ -4322,6 +4576,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * ----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsCreateStream(EdsIStream*, EdsStreamRef*)</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1332</i>
+     *
+     * @param inStream     In stream
+     * @param outStreamRef Out stream ref
+     * @return any of the sdk errors
      */
     NativeLong EdsCreateStream(EdsIStream inStream, EdsStreamRef.ByReference outStreamRef);
 //    NativeLong EdsCreateStream(EdsIStream inStream, PointerByReference outStreamRef);
@@ -4344,6 +4602,8 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * -----------------------------------------------------------------------------<br>
      * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetEvent()</code><br>
      * <i>native declaration : sdk-header\EDSDK.h:1349</i>
+     *
+     * @return any of the sdk errors
      */
     NativeLong EdsGetEvent();
 
