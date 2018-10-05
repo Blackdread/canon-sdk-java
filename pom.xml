@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>Canon sdk java parent POM</name>
-    <description>Canon parent pom for modules</description>
+    <description>Canon EDSDK parent pom for modules</description>
     <url>https://github.com/Blackdread/canon-sdk-java</url>
 
     <licenses>
@@ -46,6 +46,8 @@
         <java.version>1.8</java.version>
         <maven.version>3.0.0</maven.version>
 
+        <camera-binding.version>0.0.1-SNAPSHOT</camera-binding.version>
+
         <jna.version>4.5.2</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
@@ -77,6 +79,11 @@
                 <groupId>net.java.dev.jna</groupId>
                 <artifactId>jna-platform</artifactId>
                 <version>${jna.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.blackdread</groupId>
+                <artifactId>camera-binding</artifactId>
+                <version>${camera-binding.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
