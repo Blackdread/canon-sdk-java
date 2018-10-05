@@ -17,6 +17,9 @@ abstract class ConstantValueFromLibraryTest<T extends NativeEnum> {
 
     abstract T[] getAllEnumValues();
 
+    /**
+     * @return class from library or null if not defined
+     */
     abstract Class<?> getLibraryClass();
 
     @Test
@@ -27,6 +30,8 @@ abstract class ConstantValueFromLibraryTest<T extends NativeEnum> {
 
     @Test
     void allValuesDefined() {
+        if (getLibraryClass() == null)
+            return;
         assertEquals(getAllEnumValues().length, LibraryFieldUtil.countClassField(getLibraryClass()));
     }
 

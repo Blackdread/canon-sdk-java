@@ -12,7 +12,6 @@ package org.blackdread.cameraframework.api.constant;
  *
  * @author Yoann CAPLAIN
  */
-@SuppressWarnings("unused")
 public enum EdsAFMode implements NativeEnum<Integer> {
     kEdsAFMode_OneShot(0, "One-Shot AF"),
     kEdsAFMode_AIServo(1, "AI Servo AF"),
