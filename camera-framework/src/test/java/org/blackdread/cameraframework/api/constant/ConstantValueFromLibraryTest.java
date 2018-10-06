@@ -15,6 +15,7 @@ abstract class ConstantValueFromLibraryTest<T extends NativeEnum> {
 
     abstract T getOneEnumValue();
 
+    // could deprecate this method, and use instead 'getOneEnumValue().getClass().getEnumConstants()' but T could be not an enum so would not work
     abstract T[] getAllEnumValues();
 
     /**
@@ -32,13 +33,27 @@ abstract class ConstantValueFromLibraryTest<T extends NativeEnum> {
     void allValuesDefined() {
         if (getLibraryClass() == null)
             return;
-        assertEquals(getAllEnumValues().length, LibraryFieldUtil.countClassField(getLibraryClass()));
+        assertEquals(countClassField(), getAllEnumValues().length);
+    }
+
+    /**
+     * @return count of fields in the library class from {@link #getLibraryClass()}
+     */
+    int countClassField() {
+        return LibraryFieldUtil.countClassField(getLibraryClass());
     }
 
     @Test
     void allHaveValue() {
         for (final T enumValue : getAllEnumValues()) {
             assertNotNull(enumValue.value());
+        }
+    }
+
+    @Test
+    void allHaveDescription() {
+        for (final T enumValue : getAllEnumValues()) {
+            assertNotNull(enumValue.description());
         }
     }
 

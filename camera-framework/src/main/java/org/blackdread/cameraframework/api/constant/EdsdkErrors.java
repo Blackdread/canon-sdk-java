@@ -11,7 +11,6 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  *
  * @author Yoann CAPLAIN
  */
-@SuppressWarnings("unused")
 public enum EdsdkErrors implements NativeEnum<Integer>, NativeErrorEnum<Integer> {
 
     /*

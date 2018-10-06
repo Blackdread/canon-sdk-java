@@ -51,8 +51,12 @@
         <jna.version>4.5.2</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
+        <guava.version>26.0-jre</guava.version>
+
         <!-- Logging versions -->
         <slf4j.version>1.7.5</slf4j.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
+        <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
@@ -89,6 +93,11 @@
                 <artifactId>camera-binding</artifactId>
                 <version>${camera-binding.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -98,6 +107,25 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+        <!-- Check log4j -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.logging.log4j</groupId>-->
+        <!--<artifactId>log4j-api</artifactId>-->
+        <!--<version>${log4j.version}</version>-->
+        <!--<optional>true</optional>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.logging.log4j</groupId>-->
+        <!--<artifactId>log4j-core</artifactId>-->
+        <!--<version>${log4j.version}</version>-->
+        <!--<optional>true</optional>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>

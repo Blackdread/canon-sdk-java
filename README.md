@@ -22,6 +22,9 @@ As stated by EDSDK, 64 bit version is given as is but might not work properly. I
 # Usage
 To write
 
+# Design note
+Any collection/map return type should be considered as immutable, even if implementation does not use ImmutableList/Set/etc. If collection/map is mutable, it will be clearly specified in javadoc, otherwise implementation is free to change to immutable collections anytime. 
+
 # How to contribute pull requests
 Do a pull request. Explain your changes, reasons, write tests.
 
