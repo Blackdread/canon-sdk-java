@@ -1,8 +1,9 @@
 package org.blackdread.cameraframework.api.constant;
 
+import com.google.common.collect.Lists;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 /**
  * <p>Created on 2018/10/05.<p>
@@ -24,5 +25,10 @@ class EdsBatteryLevel2Test extends ConstantValueFromLibraryTest<EdsBatteryLevel2
     @Override
     Class<?> getLibraryClass() {
         return EdsdkLibrary.EdsBatteryLevel2.class;
+    }
+
+    @Override
+    List<EdsBatteryLevel2> skipCheckDuplicateValues() {
+        return Lists.newArrayList(EdsBatteryLevel2.kEdsBatteryLevel2_Empty, EdsBatteryLevel2.kEdsBatteryLevel2_BCLevel);
     }
 }
