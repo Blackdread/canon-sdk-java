@@ -1,5 +1,14 @@
 package org.blackdread.cameraframework.api.command;
 
+import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
+import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.time.Duration;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+
 /**
  * <p>Created on 2018/10/02.<p>
  *
@@ -7,5 +16,82 @@ package org.blackdread.cameraframework.api.command;
  */
 public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
 
+    protected static final Logger log = LoggerFactory.getLogger(AbstractCanonCommand.class);
 
+    // TODO timing to know execution time, delay time between creation and time run is called, etc...
+
+    // the type should maybe be CanonCommand<R> but with DecoratorCommand it is clearer
+    private DecoratorCommand<R> decoratorCommand;
+
+    /**
+     * Called only by command executor thread(s)
+     */
+    final void run() {
+        // TODO try catch, etc
+        runInternal();
+    }
+
+    protected abstract void runInternal();
+
+    @Override
+    public R get() throws InterruptedException, ExecutionException {
+        return null;
+    }
+
+    @Override
+    public Optional<R> getOpt() throws InterruptedException, ExecutionException {
+        return Optional.empty();
+    }
+
+    /*
+     * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
+     *
+     * @return itself
+     */
+    /*
+    @Override
+    public final CanonCommand<R> getRoot() {
+        return this;
+    }
+    //*/
+
+    /**
+     * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
+     * It is called only by decorators, call instead {@link #getErrorLogicInternal()}
+     *
+     * @return
+     */
+    @Override
+    public Optional<ErrorLogic> getErrorLogic() {
+        // TODO get from global settings
+        return Optional.empty();
+    }
+
+    /**
+     * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
+     * It is called only by decorators, call instead {@link #getTimeoutInternal()}
+     *
+     * @return
+     */
+    @Override
+    public Optional<Duration> getTimeout() {
+        // TODO get from global settings
+        return Optional.empty();
+    }
+
+    protected ErrorLogic getErrorLogicInternal() {
+        return decoratorCommand.getErrorLogic()
+            .orElseGet(() -> {
+                // TODO get the default logic from global settings
+                return ErrorLogic.THROW_ALL_ERRORS;
+            });
+    }
+
+    protected Duration getTimeoutInternal() {
+        return decoratorCommand.getTimeout()
+            .orElseGet(() -> {
+                // TODO get the default logic from global settings
+                return Duration.ofMinutes(2);
+            });
+    }
 }

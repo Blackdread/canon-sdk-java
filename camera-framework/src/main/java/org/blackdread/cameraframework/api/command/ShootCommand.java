@@ -8,6 +8,6 @@ import java.util.List;
  *
  * @author Yoann CAPLAIN
  */
-public class ShootCommand extends AbstractCanonCommand<List<File>> {
+public abstract class ShootCommand extends AbstractCanonCommand<List<File>> {
 
 }

@@ -11,7 +11,7 @@ Canon (EDSDK) EOS SDK in java. Module to use library of EDSDK and send commands 
 Commands can be canceled by timeout (0 = no timeout).
 
 ### Ignore or not camera errors
-If not ignored exceptions are thrown else logic continue if possible else null return (or optional)
+If not ignored, exceptions are thrown else logic continue if possible else null is returned (or optional)
 
 ## Global settings
 - timeout 

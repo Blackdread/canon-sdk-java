@@ -17,9 +17,33 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * @author Yoann CAPLAIN
  */
 public enum EdsCameraStatusCommand implements NativeEnum<Integer> {
+    /**
+     * In this state, all operations of the camera unit are disabled and only operations from the host PC are accepted.
+     * <br>
+     * This allows data and instructions to be safely sent from the host PC to the camera
+     */
     kEdsCameraStatusCommand_UILock("Locks the UI"),
+    /**
+     * In this state, operations of the camera unit are enabled. Although data and instructions
+     * can be sent from the host PC to the camera in this state, conflicts may arise
+     */
     kEdsCameraStatusCommand_UIUnLock("Unlocks the UI"),
+    /**
+     * In this state, the camera is currently directly transferring data.
+     * <br>
+     * Available camera operations are limited to those functions related to the direct transfer.
+     * <br>
+     * It is possible to send instructions from the PC to the camera in this state.
+     * <br>
+     * A direct transfer request event notification (kEdsObjectEvent_DirItemRequestTransferDT) is issued to the
+     * EDSDK client application connected to the camera when an operation for starting image download is initiated
+     * using camera controls. The EDSDK client application receives this event and begins processing for downloading
+     * images from the camera.
+     */
     kEdsCameraStatusCommand_EnterDirectTransfer("Puts the camera in direct transfer mode"),
+    /**
+     * This state indicates that direct transfer is not currently being carried out.
+     */
     kEdsCameraStatusCommand_ExitDirectTransfer("Ends direct transfer mode");
 
     private final int value;

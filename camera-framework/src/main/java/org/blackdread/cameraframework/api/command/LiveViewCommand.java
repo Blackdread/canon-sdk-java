@@ -5,6 +5,6 @@ package org.blackdread.cameraframework.api.command;
  *
  * @author Yoann CAPLAIN
  */
-public class LiveViewCommand<R> extends AbstractCanonCommand<R> {
+public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
 
 }

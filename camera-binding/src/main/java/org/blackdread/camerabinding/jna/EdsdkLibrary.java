@@ -4659,6 +4659,14 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
     }
 
+    /**
+     * This object represents an enumeration of the cameras remotely connected to the host PC by USB interface.
+     * <br>
+     * This object can be used to select the camera to be controlled from among the cameras currently connected with
+     * EDSDK client application.
+     * <br>
+     * This object can also be used when getting an EdsCameraRef child object.
+     */
     public static class EdsCameraListRef extends EdsBaseRef {
 
         public EdsCameraListRef() {
@@ -4682,6 +4690,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
     }
 
+    /**
+     * This object represents a remotely connected camera.
+     * <br>
+     * This object is used to control the camera or to get an
+     * EdsVolumeRef object when accessing the memory card, which is a child object of the camera.
+     */
     public static class EdsCameraRef extends EdsBaseRef {
 
         public EdsCameraRef() {
@@ -4705,6 +4719,15 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
     }
 
+    /**
+     * This object represents the memory card inside the camera.
+     * <br>
+     * If the camera model allows two memory cards to be installed at once,
+     * the EdsVolumeRef object represents one memory card each.
+     * <br>
+     * This object is used to get an EdsDirectoryItemRef object, which is
+     * a child object, when performing operations on a file or folder on the memory card.
+     */
     public static class EdsVolumeRef extends EdsBaseRef {
 
         public EdsVolumeRef() {
@@ -4728,6 +4751,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
     }
 
+    /**
+     * This object represents a file or folder on the camera.
+     * <br>
+     * When files are downloaded from the camera, each file to
+     * be downloaded is treated as one of these objects.
+     */
     public static class EdsDirectoryItemRef extends EdsBaseRef {
 
         public EdsDirectoryItemRef() {
@@ -4751,6 +4780,16 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
     }
 
+    /**
+     * This object represents the file I/O stream.
+     * <br>
+     * An open stream on the host PC can be specified as the download
+     * destination when downloading files in the camera to the host PC.
+     * <br>
+     * Streams are also used when loading image files stored on the storage media of
+     * the host PC into an EDSDK client application. Furthermore,
+     * EdsStreamRef objects can also be created in memory.
+     */
     public static class EdsStreamRef extends EdsBaseRef {
 
         public EdsStreamRef() {
@@ -4774,6 +4813,14 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
     }
 
+    /**
+     * This object represents image data.
+     * <br>
+     * This data is obtained from image files.
+     * <br>
+     * This object is used to retrieve and control information included with an
+     * image such as thumbnails and parameters.
+     */
     public static class EdsImageRef extends EdsStreamRef {
 
         public EdsImageRef() {
@@ -4798,6 +4845,14 @@ public interface EdsdkLibrary extends StdCallLibrary {
     }
 
 
+    /**
+     * This object represents PC live view image data.
+     * <br>
+     * When using a camera model that supports live view, live view image
+     * data set can be downloaded from the camera.
+     * <br>
+     * Information such as zoom and histogram data is included with image data.
+     */
     public static class EdsEvfImageRef extends EdsBaseRef {
 
         public EdsEvfImageRef() {
