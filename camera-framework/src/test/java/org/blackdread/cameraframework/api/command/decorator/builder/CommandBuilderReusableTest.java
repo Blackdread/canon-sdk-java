@@ -3,10 +3,14 @@ package org.blackdread.cameraframework.api.command.decorator.builder;
 import org.blackdread.cameraframework.api.command.AbstractCanonCommand;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.DoNothingCommand;
+import org.blackdread.cameraframework.api.command.DoThrowCommand;
 import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
+import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,6 +77,21 @@ class CommandBuilderReusableTest {
     }
 
     @Test
+    void canGetRootCommand() {
+        final DoNothingCommand rootExpected = new DoNothingCommand();
+        final CanonCommand<String> command = new CommandBuilderReusable.ReusableBuilder<>(rootExpected)
+            .errorLogic(ErrorLogic.THROW_ALL_ERRORS)
+            .withDefaultOnException("aaaa")
+            .timeout(Duration.ofHours(54))
+            .build();
+        assertNotNull(command);
+        assertTrue(command.getTimeout().isPresent());
+        assertTrue(command.getErrorLogic().isPresent());
+        final DecoratorCommand<String> castCommand = (DecoratorCommand<String>) command;
+        assertEquals(rootExpected, castCommand.getRoot());
+    }
+
+    @Test
     void canSetTimeout() {
         final CanonCommand command = new CommandBuilderReusable<>()
             .setCanonCommand((AbstractCanonCommand) new DoNothingCommand())
@@ -92,6 +111,43 @@ class CommandBuilderReusableTest {
         assertNotNull(command);
         assertTrue(command.getErrorLogic().isPresent());
         assertEquals(command.getErrorLogic().get(), ErrorLogic.THROW_ALL_ERRORS);
+    }
+
+    @Test
+    void canSetDefaultValue() throws ExecutionException, InterruptedException {
+        final CanonCommand command = new CommandBuilderReusable<>()
+            .setCanonCommand((AbstractCanonCommand) new DoThrowCommand())
+            .withDefaultOnException("any")
+            .build();
+        assertNotNull(command);
+        final String value = (String) command.get();
+        assertEquals("any", value);
+        final Optional<String> valueOpt = command.getOpt();
+        assertTrue(valueOpt.isPresent());
+        assertEquals("any", valueOpt.get());
+    }
+
+    @Test
+    void isNotTypeSafeAndWillThrowOnCast() throws ExecutionException, InterruptedException {
+        final CanonCommand command = new CommandBuilderReusable<>()
+            .setCanonCommand((AbstractCanonCommand) new DoThrowCommand())
+            .withDefaultOnException(55)
+            .build();
+        assertNotNull(command);
+
+        final Object value = command.get();
+        assertEquals(55, value);
+        assertThrows(ClassCastException.class, () -> {
+            final String willThrow = (String) value;
+        });
+
+        final Optional<String> valueOpt = command.getOpt();
+
+        assertTrue(valueOpt.isPresent());
+        assertEquals(55, valueOpt.get());
+        assertThrows(ClassCastException.class, () -> {
+            final String willThrow = valueOpt.get();
+        });
     }
 
 }
