@@ -104,4 +104,16 @@ class CommandBuilderTest {
         assertEquals("any", valueOpt.get());
     }
 
+    @Test
+    void canSetDefaultValueToNull() throws ExecutionException, InterruptedException {
+        final CanonCommand<String> command = new CommandBuilder<>(new DoThrowCommand())
+            .withDefaultOnException(null)
+            .build();
+        assertNotNull(command);
+        final String value = command.get();
+        assertEquals(null, value);
+        final Optional<String> valueOpt = command.getOpt();
+        assertFalse(valueOpt.isPresent());
+    }
+
 }

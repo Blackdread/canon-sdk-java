@@ -128,6 +128,19 @@ class CommandBuilderReusableTest {
     }
 
     @Test
+    void canSetDefaultValueToNull() throws ExecutionException, InterruptedException {
+        final CanonCommand command = new CommandBuilderReusable<>()
+            .setCanonCommand((AbstractCanonCommand) new DoThrowCommand())
+            .withDefaultOnException(null)
+            .build();
+        assertNotNull(command);
+        final String value = (String) command.get();
+        assertEquals(null, value);
+        final Optional<String> valueOpt = command.getOpt();
+        assertFalse(valueOpt.isPresent());
+    }
+
+    @Test
     void isNotTypeSafeAndWillThrowOnCast() throws ExecutionException, InterruptedException {
         final CanonCommand command = new CommandBuilderReusable<>()
             .setCanonCommand((AbstractCanonCommand) new DoThrowCommand())
