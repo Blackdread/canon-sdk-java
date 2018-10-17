@@ -6,6 +6,8 @@
 !/camera-binding/sdk-doc/.gitkeep
 !/camera-binding/sdk-header/.gitkeep
 /camera-binding/target
+/camera-framework/EDSDK
+/camera-framework/EDSDK_64
 /camera-framework/target
 /camera-sdk/target
 
