@@ -71,6 +71,7 @@ public enum EdsAEMode implements NativeEnum<Integer> {
     kEdsAEMode_GroupPhoto("Group Photo"),
     kEdsAEMode_Myself("Myself"),
     kEdsAEMode_SmoothSkin("SmoothSkin"),
+    kEdsAEMode_Flexible("Flexible-priority AE"),
 
     kEdsAEMode_Unknown("Unknown");
 

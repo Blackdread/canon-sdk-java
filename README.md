@@ -2,7 +2,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/Blackdread/canon-sdk-java/badge.svg?branch=master)](https://coveralls.io/github/Blackdread/canon-sdk-java?branch=master)
 
 # canon-sdk-java
-Canon EOS SDK in java (EDSDK)
+Canon EOS SDK in java (EDSDK).
+
+Latest headers used to create bindings are with EDSDK 3.9.0 (version released on October 1st 2018)
 
 # Project motives
 Project intend to give access to Canon EOS Digital Software Development Kit EDSDK in Java.

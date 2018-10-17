@@ -1609,6 +1609,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1046</i>
          */
+        public static final int kEdsAEMode_Flexible = 55;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1047</i>
+         */
         public static final int kEdsAEMode_Unknown = -1;
     }
 
@@ -1618,23 +1622,23 @@ public interface EdsdkLibrary extends StdCallLibrary {
      */
     public static interface EdsBracket {
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1055</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1056</i>
          */
         public static final int kEdsBracket_AEB = 0x01;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1056</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1057</i>
          */
         public static final int kEdsBracket_ISOB = 0x02;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1057</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1058</i>
          */
         public static final int kEdsBracket_WBB = 0x04;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1058</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1059</i>
          */
         public static final int kEdsBracket_FEB = 0x08;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1059</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1060</i>
          */
         public static final int kEdsBracket_Unknown = -1;
     }
@@ -1645,19 +1649,19 @@ public interface EdsdkLibrary extends StdCallLibrary {
      */
     public static interface EdsEvfOutputDevice {
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1068</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1069</i>
          */
         public static final int kEdsEvfOutputDevice_TFT = 1;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1069</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1070</i>
          */
         public static final int kEdsEvfOutputDevice_PC = 2;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1070</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1071</i>
          */
         public static final int kEdsEvfOutputDevice_MOBILE = 4;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1071</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1072</i>
          */
         public static final int kEdsEvfOutputDevice_MOBILE2 = 8;
     }
@@ -1668,15 +1672,15 @@ public interface EdsdkLibrary extends StdCallLibrary {
      */
     public static interface EdsEvfZoom {
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1079</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1080</i>
          */
         public static final int kEdsEvfZoom_Fit = 1;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1080</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1081</i>
          */
         public static final int kEdsEvfZoom_x5 = 5;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1081</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1082</i>
          */
         public static final int kEdsEvfZoom_x10 = 10;
     }
@@ -1687,21 +1691,41 @@ public interface EdsdkLibrary extends StdCallLibrary {
      */
     public static interface EdsEvfAFMode {
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1089</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1090</i>
          */
         public static final int Evf_AFMode_Quick = 0;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1090</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1091</i>
          */
         public static final int Evf_AFMode_Live = 1;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1091</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1092</i>
          */
         public static final int Evf_AFMode_LiveFace = 2;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1092</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1093</i>
          */
         public static final int Evf_AFMode_LiveMulti = 3;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1094</i>
+         */
+        public static final int Evf_AFMode_LiveZone = 4;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1095</i>
+         */
+        public static final int Evf_AFMode_LiveSingleExpandCross = 5;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1096</i>
+         */
+        public static final int Evf_AFMode_LiveSingleExpandSurround = 6;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1097</i>
+         */
+        public static final int Evf_AFMode_LiveZoneLargeH = 7;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1098</i>
+         */
+        public static final int Evf_AFMode_LiveZoneLargeV = 8;
     }
 
     /**

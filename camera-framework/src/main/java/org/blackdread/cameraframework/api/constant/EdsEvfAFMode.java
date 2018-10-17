@@ -14,9 +14,14 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  */
 public enum EdsEvfAFMode implements NativeEnum<Integer> {
     Evf_AFMode_Quick("Quick Mode"),
-    Evf_AFMode_Live("Live Mode"),
-    Evf_AFMode_LiveFace("Live Face Mode"),
-    Evf_AFMode_LiveMulti("FlexiZone - Multi");
+    Evf_AFMode_Live("Live Mode - 1-point AF"),
+    Evf_AFMode_LiveFace("Live Face Mode - Face + Tracking"),
+    Evf_AFMode_LiveMulti("FlexiZone - Multi"),
+    Evf_AFMode_LiveZone("Zone AF"),
+    Evf_AFMode_LiveSingleExpandCross("Expand AF area"),
+    Evf_AFMode_LiveSingleExpandSurround("Expand AF area:Around"),
+    Evf_AFMode_LiveZoneLargeH("Large Zone AF: Horizontal"),
+    Evf_AFMode_LiveZoneLargeV("Large Zone AF: Vertical");
 
     private final int value;
     private final String description;
