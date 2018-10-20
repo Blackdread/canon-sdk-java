@@ -172,6 +172,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+                <!-- Does not work, if works then can use profile to change value between true/false -->
+                <!--<configuration>-->
+                <!--<systemPropertyVariables>-->
+                <!--<canonLibIsOnPath>true</canonLibIsOnPath>-->
+                <!--</systemPropertyVariables>-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

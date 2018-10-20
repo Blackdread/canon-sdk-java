@@ -1,8 +1,9 @@
-package org.blackdread.cameraframework.api.helper.property;
+package org.blackdread.cameraframework.api.helper.factory;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
 
 import java.util.Objects;
 
@@ -22,5 +23,10 @@ public class PropertyLogicCache implements PropertyLogic {
     @Override
     public EdsDataType getPropertyType(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long param) {
         return null;
+    }
+
+    @Override
+    public long getPropertySize(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long param) {
+        return 0;
     }
 }

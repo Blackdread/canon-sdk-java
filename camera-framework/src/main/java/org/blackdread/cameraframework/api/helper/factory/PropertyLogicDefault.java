@@ -1,8 +1,9 @@
-package org.blackdread.cameraframework.api.helper.property;
+package org.blackdread.cameraframework.api.helper.factory;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
 
 /**
  * <p>Created on 2018/10/09.<p>
@@ -11,7 +12,7 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
  */
 public class PropertyLogicDefault implements PropertyLogic {
 
-    public static final PropertyLogic DEFAULT = new PropertyLogicDefault();
+    static final PropertyLogic DEFAULT = new PropertyLogicDefault();
 
     protected PropertyLogicDefault() {
     }
@@ -34,5 +35,10 @@ public class PropertyLogicDefault implements PropertyLogic {
 //
 //        return EdsDataType.kEdsDataType_Unknown;
         return null;
+    }
+
+    @Override
+    public long getPropertySize(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long param) {
+        return 0;
     }
 }
