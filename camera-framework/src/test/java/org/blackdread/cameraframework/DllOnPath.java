@@ -1,6 +1,6 @@
 package org.blackdread.cameraframework;
 
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnabledIfEnvironmentVariable(named = "canonLibIsOnPath", matches = "*")
+@EnabledIfSystemProperty(named = "canonLibIsOnPath", matches = "true")
 public @interface DllOnPath {
     // works but is not repeatable so not very useful when need to test many things
 }

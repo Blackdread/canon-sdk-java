@@ -6,6 +6,7 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.DllOnPath;
 import org.blackdread.cameraframework.util.DllUtil;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 import org.slf4j.Logger;
@@ -35,12 +36,14 @@ class CanonLibraryTest {
     private static final String LAST_LIBRARY_VERSION_TESTED_64 = "3.9.0.6400";
 
     @Test
+    @EnabledIfSystemProperty(named = "os.arch", matches = ".*32.*")
     void loadLib32() {
         // throws on java 64 bit (win32-x86-64/EDSDK\Dll\EDSDK.dll), not tested with 32 bit runtime
         loadLibraryBasics(DEFAULT_LIB_32_PATH);
     }
 
     @Test
+    @EnabledIfSystemProperty(named = "os.arch", matches = ".*64.*")
     void loadLib64() {
         // might throw on 32 bit, not tested
         loadLibraryBasics(DEFAULT_LIB_64_PATH);
