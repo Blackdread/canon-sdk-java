@@ -3,6 +3,7 @@ package org.blackdread.cameraframework.api;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.DllOnPath;
 import org.blackdread.cameraframework.util.DllUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -23,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Yoann CAPLAIN
  */
-//@DllOnPath
+@DllOnPath
 @EnabledOnOs(OS.WINDOWS)
 class CanonLibraryTest {
 
