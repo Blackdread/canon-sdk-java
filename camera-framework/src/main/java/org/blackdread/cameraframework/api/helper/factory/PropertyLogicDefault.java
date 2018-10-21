@@ -12,10 +12,15 @@ import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
  */
 public class PropertyLogicDefault implements PropertyLogic {
 
-    static final PropertyLogic DEFAULT = new PropertyLogicDefault();
-
     protected PropertyLogicDefault() {
     }
+
+    /*
+     * @return new instance at each call
+     */
+//    static PropertyLogic getDefault() {
+//        return new PropertyLogicDefault();
+//    }
 
     @Override
     public EdsDataType getPropertyType(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long param) {
