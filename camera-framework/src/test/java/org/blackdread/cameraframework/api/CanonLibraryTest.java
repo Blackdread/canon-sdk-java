@@ -1,77 +1,47 @@
 package org.blackdread.cameraframework.api;
 
-import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.DllOnPath;
-import org.blackdread.cameraframework.util.DllUtil;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-
-import static org.blackdread.cameraframework.util.DllUtil.DEFAULT_LIB_32_PATH;
-import static org.blackdread.cameraframework.util.DllUtil.DEFAULT_LIB_64_PATH;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * <p>Created on 2018/10/20.</p>
+ * <p>Created on 2018/10/22.<p>
  *
  * @author Yoann CAPLAIN
  */
-@DllOnPath
-@EnabledOnOs(OS.WINDOWS)
 class CanonLibraryTest {
 
-    private static final Logger log = LoggerFactory.getLogger(CanonLibraryTest.class);
-
-    private static final String LAST_LIBRARY_VERSION_TESTED_32 = "3.9.0.0";
-
-    private static final String LAST_LIBRARY_VERSION_TESTED_64 = "3.9.0.6400";
-
-    @Test
-    @EnabledIfSystemProperty(named = "os.arch", matches = ".*32.*")
-    void loadLib32() {
-        // throws on java 64 bit (win32-x86-64/EDSDK\Dll\EDSDK.dll), not tested with 32 bit runtime
-        loadLibraryBasics(DEFAULT_LIB_32_PATH);
+    @BeforeEach
+    void setUp() {
     }
 
     @Test
-    @EnabledIfSystemProperty(named = "os.arch", matches = ".*64.*")
-    void loadLib64() {
-        // might throw on 32 bit, not tested
-        loadLibraryBasics(DEFAULT_LIB_64_PATH);
+    @DllOnPath
+    void edsdkLibrary() {
+        final EdsdkLibrary edsdkLibrary = CanonFactory.getCanonFactory().getCanonLibrary().edsdkLibrary();
+        assertNotNull(edsdkLibrary);
+
+        final EdsdkLibrary shortcut = CanonFactory.edsdkLibrary();
+        assertSame(edsdkLibrary, shortcut);
     }
 
     @Test
-    void libVersion32() throws FileNotFoundException {
-        final String dllVersion = DllUtil.getDllVersion(DEFAULT_LIB_32_PATH);
-        log.info("Dll version {}", dllVersion);
-        assertEquals(LAST_LIBRARY_VERSION_TESTED_32, dllVersion);
+    void archLibraryToUseIsAutoByDefault() {
+        assertEquals(CanonLibrary.ArchLibrary.AUTO, CanonFactory.getCanonFactory().getCanonLibrary().getArchLibraryToUse());
     }
 
     @Test
-    void libVersion64() throws FileNotFoundException {
-        final String dllVersion = DllUtil.getDllVersion(DEFAULT_LIB_64_PATH);
-        log.info("Dll version {}", dllVersion);
-        assertEquals(LAST_LIBRARY_VERSION_TESTED_64, dllVersion);
-    }
-
-    private static void loadLibraryBasics(final String libPath) {
-        final EdsdkLibrary library = Native.loadLibrary(libPath, EdsdkLibrary.class, new HashMap<>());
-        NativeLong result = library.EdsInitializeSDK();
-        if (result.intValue() != 0)
-            fail("Failed to init SDK");
-
-        result = library.EdsTerminateSDK();
-        if (result.intValue() != 0)
-            fail("Failed to terminate SDK");
+    void setArchLibraryToUse() {
+        CanonFactory.getCanonFactory().getCanonLibrary().setArchLibraryToUse(CanonLibrary.ArchLibrary.FORCE_32);
+        assertEquals(CanonLibrary.ArchLibrary.FORCE_32, CanonFactory.getCanonFactory().getCanonLibrary().getArchLibraryToUse());
+        CanonFactory.getCanonFactory().getCanonLibrary().setArchLibraryToUse(CanonLibrary.ArchLibrary.FORCE_64);
+        assertEquals(CanonLibrary.ArchLibrary.FORCE_64, CanonFactory.getCanonFactory().getCanonLibrary().getArchLibraryToUse());
+        CanonFactory.getCanonFactory().getCanonLibrary().setArchLibraryToUse(CanonLibrary.ArchLibrary.AUTO);
+        assertEquals(CanonLibrary.ArchLibrary.AUTO, CanonFactory.getCanonFactory().getCanonLibrary().getArchLibraryToUse());
     }
 
 }

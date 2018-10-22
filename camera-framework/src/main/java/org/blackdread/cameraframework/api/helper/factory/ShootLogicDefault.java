@@ -11,4 +11,11 @@ public class ShootLogicDefault implements ShootLogic {
 
     protected ShootLogicDefault() {
     }
+
+    /*
+    EdsError err;
+    err = EdsSendCommand(camera , kEdsCameraCommand_PressShutterButton, kEdsCameraCommand_ShutterButton_Completely);
+    err = EdsSendCommand(camera, kEdsCameraCommand_PressShutterButton, kEdsCameraCommand_ShutterButton_OFF);
+    return err;
+     */
 }

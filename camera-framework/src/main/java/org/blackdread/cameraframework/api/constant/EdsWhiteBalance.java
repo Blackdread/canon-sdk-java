@@ -36,7 +36,7 @@ public enum EdsWhiteBalance implements NativeEnum<Integer> {
     /**
      * Not in API Reference
      */
-    kEdsWhiteBalance_AwbWhite(""),
+    kEdsWhiteBalance_AwbWhite("Unknown description"),
     kEdsWhiteBalance_Click("Setting the white balance by clicking image coordinates"),
     kEdsWhiteBalance_Pasted("White balance copied from another image");
 

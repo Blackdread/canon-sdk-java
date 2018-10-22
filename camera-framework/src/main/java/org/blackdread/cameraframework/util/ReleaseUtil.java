@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.util;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +45,7 @@ public final class ReleaseUtil {
      */
     public static void release(final EdsdkLibrary.EdsBaseRef ref) {
         if (ref != null) {
-            // TODO not public yet and might be an instance from a factory
-//            CanonLibrary.getEdsdkLibrary().EdsRelease(ref);
+            CanonFactory.edsdkLibrary().EdsRelease(ref);
         }
     }
 

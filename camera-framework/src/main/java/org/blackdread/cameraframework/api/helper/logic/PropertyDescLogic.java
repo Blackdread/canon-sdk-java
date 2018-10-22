@@ -4,6 +4,8 @@ import org.blackdread.camerabinding.jna.EdsPropertyDesc;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.NativeEnum;
 
+import java.util.List;
+
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 
@@ -16,7 +18,7 @@ public interface PropertyDescLogic {
 
     // want different API
     @Deprecated
-    NativeEnum<?> getPropertyDesc(final EdsCameraRef camera, final EdsPropertyID property);
+    List<NativeEnum<?>> getPropertyDesc(final EdsCameraRef camera, final EdsPropertyID property);
 
     EdsPropertyDesc getPropertyDesc(final EdsBaseRef ref, final EdsPropertyID property);
 

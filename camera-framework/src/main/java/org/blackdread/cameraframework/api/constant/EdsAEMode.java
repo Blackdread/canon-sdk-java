@@ -45,7 +45,7 @@ public enum EdsAEMode implements NativeEnum<Integer> {
      */
     kEdsAEMode_PhotoInMovie("Photo In Movie"),
     kEdsAEMode_SceneIntelligentAuto("Scene Intelligent Auto"),
-    kEdsAEMode_SCN(""),
+    kEdsAEMode_SCN("Unknown description"),
     kEdsAEMode_NightScenes("Night Scenes"),
     kEdsAEMode_BacklitScenes("Backlit Scenes"),
     kEdsAEMode_Children("Children"),

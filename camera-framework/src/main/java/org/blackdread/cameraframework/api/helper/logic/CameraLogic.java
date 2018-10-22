@@ -14,4 +14,6 @@ public interface CameraLogic {
     EdsdkErrors setCapacity(final EdsCameraRef ref);
 
     EdsdkErrors setCapacity(final EdsCameraRef ref, final int capacity);
+
+    boolean isMirrorLockupEnabled(final EdsCameraRef camera);
 }

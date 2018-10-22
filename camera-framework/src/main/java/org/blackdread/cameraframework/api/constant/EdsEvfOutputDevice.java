@@ -19,11 +19,11 @@ public enum EdsEvfOutputDevice implements NativeEnum<Integer> {
     /**
      * Unknown enum
      */
-    kEdsEvfOutputDevice_MOBILE(""),
+    kEdsEvfOutputDevice_MOBILE("Unknown enum"),
     /**
      * Unknown enum
      */
-    kEdsEvfOutputDevice_MOBILE2("");
+    kEdsEvfOutputDevice_MOBILE2("Unknown enum");
 
     private final int value;
     private final String description;

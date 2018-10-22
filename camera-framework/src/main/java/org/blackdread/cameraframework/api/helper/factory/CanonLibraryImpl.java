@@ -93,12 +93,17 @@ class CanonLibraryImpl implements CanonLibrary {
         switch (archLibraryToUse) {
             case AUTO:
                 // is64Bit() already checks java runtime with "sun.arch.data.model" for 32 or 64
-                if (Platform.is64Bit())
+                if (Platform.is64Bit()) {
+                    log.info("Dll auto selected to 64 bit");
                     return Optional.of(DllUtil.DEFAULT_LIB_64_PATH);
+                }
+                log.info("Dll auto selected to 32 bit");
                 return Optional.of(DllUtil.DEFAULT_LIB_32_PATH);
             case FORCE_32:
+                log.info("Dll forced to 32 bit");
                 return Optional.of(DllUtil.DEFAULT_LIB_32_PATH);
             case FORCE_64:
+                log.info("Dll forced to 64 bit");
                 return Optional.of(DllUtil.DEFAULT_LIB_64_PATH);
             default:
                 throw new IllegalStateException("Enum unknown: " + archLibraryToUse);
@@ -113,6 +118,7 @@ class CanonLibraryImpl implements CanonLibrary {
                 // no options for now
                 EDSDK = Native.loadLibrary(libPath, EdsdkLibrary.class, new HashMap<>());
                 registerCanonShutdownHook();
+                return;
             }
             throw new IllegalStateException("Not supported OS");
         }

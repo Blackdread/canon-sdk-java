@@ -1,6 +1,8 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.CanonLibrary;
+import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
 import org.blackdread.cameraframework.api.helper.logic.ShootLogic;
@@ -33,6 +35,8 @@ public class CanonFactory {
     // TODO if factory is changed, we should give protected method to let user modify or set to null those variables
     private static final CanonLibrary canonLibrary = new CanonLibraryImpl();
 
+    private static final CameraLogic cameraLogic = new CameraLogicDefault();
+
     private static final PropertyLogic propertyLogic = new PropertyLogicDefault();
 
     private static final LiveViewLogic liveViewLogic = new LiveViewLogicDefault();
@@ -45,27 +49,133 @@ public class CanonFactory {
     protected CanonFactory() {
     }
 
+    /**
+     * @return instance of factory, never null
+     */
     public static CanonFactory getCanonFactory() {
         return canonFactory;
     }
 
+    /**
+     * Allow to set a custom factory to return your own implementation of the different interfaces that this factory returns.
+     * <p>It should be called as soon as possible, better first lines of main</p>
+     * <p>It is not thread-safe</p>
+     *
+     * @param canonFactory factory to set (non null)
+     */
     public static void setCanonFactory(final CanonFactory canonFactory) {
         CanonFactory.canonFactory = Objects.requireNonNull(canonFactory);
         log.info("Canon factory has been modified {} time(s)", factoryChangedCount.incrementAndGet());
     }
 
+    /**
+     * Shortcut for {@link CanonLibrary#edsdkLibrary()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCanonLibrary().edsdkLibrary(); }
+     * </pre>
+     *
+     * @return library instance, never null, throws if failed to init library
+     */
+    public static EdsdkLibrary edsdkLibrary() {
+        return CanonFactory.getCanonFactory().getCanonLibrary().edsdkLibrary();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getCanonLibrary()} ()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCanonLibrary() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static CanonLibrary canonLibrary() {
+        return CanonFactory.getCanonFactory().getCanonLibrary();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getCameraLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCameraLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static CameraLogic cameraLogic() {
+        return CanonFactory.getCanonFactory().getCameraLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getPropertyLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().propertyLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static PropertyLogic propertyLogic() {
+        return CanonFactory.getCanonFactory().getPropertyLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getLiveViewLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getLiveViewLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static LiveViewLogic liveViewLogic() {
+        return CanonFactory.getCanonFactory().getLiveViewLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getShootLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getShootLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static ShootLogic shootLogic() {
+        return CanonFactory.getCanonFactory().getShootLogic();
+    }
+
+    /**
+     * @return canon library
+     * @see CanonLibrary
+     */
     public CanonLibrary getCanonLibrary() {
         return canonLibrary;
     }
 
+    /**
+     * @return camera logic
+     * @see CameraLogic
+     */
+    public CameraLogic getCameraLogic() {
+        return cameraLogic;
+    }
+
+    /**
+     * @return property logic
+     * @see PropertyLogic
+     */
     public PropertyLogic getPropertyLogic() {
         return propertyLogic;
     }
 
+    /**
+     * @return live view logic
+     * @see LiveViewLogic
+     */
     public LiveViewLogic getLiveViewLogic() {
         return liveViewLogic;
     }
 
+    /**
+     * @return shoot logic
+     * @see ShootLogic
+     */
     public ShootLogic getShootLogic() {
         return shootLogic;
     }

@@ -155,23 +155,23 @@ public enum EdsdkErrors implements NativeEnum<Integer>, NativeErrorEnum<Integer>
     EDS_ERR_INVALID_CODE_FORMAT("Invalid code format"),
     EDS_ERR_UNKNOWN_VENDOR_CODE("Unknown vendor code"),
     EDS_ERR_CAPTURE_ALREADY_TERMINATED("Capture already terminated"),
-    EDS_ERR_PTP_DEVICE_BUSY(""),
+    EDS_ERR_PTP_DEVICE_BUSY("PTP device busy"),
     EDS_ERR_INVALID_PARENTOBJECT("Invalid parent object"),
     EDS_ERR_INVALID_DEVICEPROP_FORMAT("Invalid property format"),
     EDS_ERR_INVALID_DEVICEPROP_VALUE("Invalid property value"),
     EDS_ERR_SESSION_ALREADY_OPEN("Session already open"),
     EDS_ERR_TRANSACTION_CANCELLED("Transaction canceled"),
     EDS_ERR_SPECIFICATION_OF_DESTINATION_UNSUPPORTED("Unsupported destination specification"),
-    EDS_ERR_NOT_CAMERA_SUPPORT_SDK_VERSION(""),
+    EDS_ERR_NOT_CAMERA_SUPPORT_SDK_VERSION("SDK version not supported"),
 
     /* PTP Vendor */
     EDS_ERR_UNKNOWN_COMMAND("Unknown command"),
     EDS_ERR_OPERATION_REFUSED("Operation refused"),
     EDS_ERR_LENS_COVER_CLOSE("Lens cover closed"),
-    EDS_ERR_LOW_BATTERY(""),
+    EDS_ERR_LOW_BATTERY("Low battery"),
     EDS_ERR_OBJECT_NOTREADY("Image data set not ready for live view"),
-    EDS_ERR_CANNOT_MAKE_OBJECT(""),
-    EDS_ERR_MEMORYSTATUS_NOTREADY(""),
+    EDS_ERR_CANNOT_MAKE_OBJECT("Cannot Make Object"),
+    EDS_ERR_MEMORYSTATUS_NOTREADY("Memory not ready"),
 
     /* Take Picture errors */
     EDS_ERR_TAKE_PICTURE_AF_NG("Focus failed"),
@@ -182,11 +182,11 @@ public enum EdsdkErrors implements NativeEnum<Integer>, NativeErrorEnum<Integer>
     EDS_ERR_TAKE_PICTURE_NO_CARD_NG("Card not installed"),
     EDS_ERR_TAKE_PICTURE_CARD_NG("Error writing to card"),
     EDS_ERR_TAKE_PICTURE_CARD_PROTECT_NG("Card write protected"),
-    EDS_ERR_TAKE_PICTURE_MOVIE_CROP_NG(""),
-    EDS_ERR_TAKE_PICTURE_STROBO_CHARGE_NG(""),
-    EDS_ERR_TAKE_PICTURE_NO_LENS_NG(""),
-    EDS_ERR_TAKE_PICTURE_SPECIAL_MOVIE_MODE_NG(""),
-    EDS_ERR_TAKE_PICTURE_LV_REL_PROHIBIT_MODE_NG(""),
+    EDS_ERR_TAKE_PICTURE_MOVIE_CROP_NG("Cropping Movie"),
+    EDS_ERR_TAKE_PICTURE_STROBO_CHARGE_NG("Strobe Charging"),
+    EDS_ERR_TAKE_PICTURE_NO_LENS_NG("No lens"),
+    EDS_ERR_TAKE_PICTURE_SPECIAL_MOVIE_MODE_NG("Special movie mode"),
+    EDS_ERR_TAKE_PICTURE_LV_REL_PROHIBIT_MODE_NG("LV prohibited mode"),
 
 
     EDS_ERR_LAST_GENERIC_ERROR_PLUS_ONE("Not used");

@@ -1,5 +1,7 @@
 package org.blackdread.cameraframework.api.helper.logic;
 
+import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
+
 import java.awt.image.BufferedImage;
 
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
@@ -18,7 +20,7 @@ public interface LiveViewLogic {
      * @param camera ref of camera
      * @return true if successful to start live view
      */
-    boolean beginLiveView(final EdsCameraRef camera);
+    boolean beginLiveView(final EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice);
 
     /**
      * Stop the live view

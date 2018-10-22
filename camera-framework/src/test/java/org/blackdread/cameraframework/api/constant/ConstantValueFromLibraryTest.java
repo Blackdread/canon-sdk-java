@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
@@ -92,6 +93,7 @@ abstract class ConstantValueFromLibraryTest<T extends NativeEnum> {
     void allHaveDescription() {
         for (final T enumValue : getAllEnumValues()) {
             assertNotNull(enumValue.description());
+            assertNotEquals("", enumValue.description().trim(), "Description should not be empty: " + enumValue.name());
         }
     }
 
