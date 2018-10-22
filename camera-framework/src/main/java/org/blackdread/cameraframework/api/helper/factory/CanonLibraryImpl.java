@@ -83,6 +83,9 @@ class CanonLibraryImpl implements CanonLibrary {
         this.archLibraryToUse = archLibraryToUse;
     }
 
+    /**
+     * @return path to lib to load
+     */
     protected Optional<String> getLibPath() {
         final String jnaPath = System.getProperty(JNA_PATH_PROPERTY);
         if (jnaPath != null) {
@@ -110,6 +113,9 @@ class CanonLibraryImpl implements CanonLibrary {
         }
     }
 
+    /**
+     * <p>Method is called at every call of {@link #edsdkLibrary()}</p>
+     */
     protected void initLibrary() {
         if (EDSDK == null) {
             final String libPath = getLibPath()
