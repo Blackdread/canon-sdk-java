@@ -65,6 +65,7 @@
         <!-- Test System Properties -->
         <!-- Value are changed by profiles -->
         <canonLibIsOnPath.boolean>false</canonLibIsOnPath.boolean>
+        <canonCameraConnected.boolean>false</canonCameraConnected.boolean>
 
 
         <!-- Plugin versions -->
@@ -86,6 +87,12 @@
             <id>dllOnPath</id>
             <properties>
                 <canonLibIsOnPath.boolean>true</canonLibIsOnPath.boolean>
+            </properties>
+        </profile>
+        <profile>
+            <id>canonCameraConnected</id>
+            <properties>
+                <canonCameraConnected.boolean>true</canonCameraConnected.boolean>
             </properties>
         </profile>
     </profiles>
@@ -189,6 +196,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <canonLibIsOnPath>${canonLibIsOnPath.boolean}</canonLibIsOnPath>
+                        <canonCameraConnected>${canonCameraConnected.boolean}</canonCameraConnected>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

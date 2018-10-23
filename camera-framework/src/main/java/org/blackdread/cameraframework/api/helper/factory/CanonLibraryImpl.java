@@ -134,6 +134,7 @@ class CanonLibraryImpl implements CanonLibrary {
         final EdsdkLibrary edsdk = EDSDK;
         final Thread shutdownThread = new Thread(() ->
         {
+            log.info("Shutdown hook run");
             if (edsdk != null)
                 edsdk.EdsTerminateSDK();
         });
@@ -143,5 +144,6 @@ class CanonLibraryImpl implements CanonLibrary {
         }
         shutdownHookThread = shutdownThread;
         Runtime.getRuntime().addShutdownHook(shutdownThread);
+        log.info("Registered shutdown hook of library");
     }
 }
