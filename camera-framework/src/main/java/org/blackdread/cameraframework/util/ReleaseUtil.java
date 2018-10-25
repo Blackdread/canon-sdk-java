@@ -1,5 +1,6 @@
 package org.blackdread.cameraframework.util;
 
+import com.sun.jna.NativeLong;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.slf4j.Logger;
@@ -45,7 +46,10 @@ public final class ReleaseUtil {
      */
     public static void release(final EdsdkLibrary.EdsBaseRef ref) {
         if (ref != null) {
-            CanonFactory.edsdkLibrary().EdsRelease(ref);
+            final NativeLong nativeLong = CanonFactory.edsdkLibrary().EdsRelease(ref);
+            if (nativeLong.intValue() == 0xFFFFFFFF) {
+                log.warn("Failed to release {}", ref);
+            }
         }
     }
 
