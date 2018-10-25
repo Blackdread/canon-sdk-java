@@ -53,6 +53,8 @@
 
         <guava.version>26.0-jre</guava.version>
 
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+
         <!-- Logging versions -->
         <slf4j.version>1.7.5</slf4j.version>
         <logback-classic.version>1.2.3</logback-classic.version>
@@ -126,6 +128,12 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

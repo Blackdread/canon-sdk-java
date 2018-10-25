@@ -20,6 +20,11 @@ Support for MAC OSX is not intended for now, but only few changes in implementat
 
 As stated by EDSDK, 64 bit version is given as is but might not work properly. In any case, prefer to use 32 bit version by running on a java of x86.
 
+# Java versions
+First release will support java 8.
+
+Two branches will be maintained as to support java 8 and 11 (and maven respectively).
+
 # Usage
 To write
 
