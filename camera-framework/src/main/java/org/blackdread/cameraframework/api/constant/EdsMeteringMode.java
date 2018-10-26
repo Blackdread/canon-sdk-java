@@ -35,4 +35,8 @@ public enum EdsMeteringMode implements NativeEnum<Integer> {
     public final String description() {
         return description;
     }
+
+    public static EdsMeteringMode ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsMeteringMode.class, value);
+    }
 }

@@ -62,4 +62,8 @@ public enum EdsDataType implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsDataType ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsDataType.class, value);
+    }
+
 }

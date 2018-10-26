@@ -214,5 +214,9 @@ public enum EdsdkErrors implements NativeEnum<Integer>, NativeErrorEnum<Integer>
     public <T extends EdsdkException> T getException() {
         throw new IllegalStateException("not impl");
     }
+
+    public static EdsdkErrors ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsdkErrors.class, value);
+    }
 }
 

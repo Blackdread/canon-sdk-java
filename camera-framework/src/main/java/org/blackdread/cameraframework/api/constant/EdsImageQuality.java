@@ -122,4 +122,8 @@ public enum EdsImageQuality implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsImageQuality ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsImageQuality.class, value);
+    }
+
 }

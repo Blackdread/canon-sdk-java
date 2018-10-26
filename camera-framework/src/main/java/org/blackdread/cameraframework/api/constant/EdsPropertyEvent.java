@@ -71,4 +71,8 @@ public enum EdsPropertyEvent implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsPropertyEvent ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsPropertyEvent.class, value);
+    }
+
 }

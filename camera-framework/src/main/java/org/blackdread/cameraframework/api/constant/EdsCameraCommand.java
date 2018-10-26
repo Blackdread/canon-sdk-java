@@ -61,4 +61,8 @@ public enum EdsCameraCommand implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsCameraCommand ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsCameraCommand.class, value);
+    }
+
 }

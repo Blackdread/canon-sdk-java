@@ -44,4 +44,8 @@ public enum EdsFilterEffect implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsFilterEffect ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsFilterEffect.class, value);
+    }
+
 }

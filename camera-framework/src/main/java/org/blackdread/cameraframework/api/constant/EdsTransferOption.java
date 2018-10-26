@@ -32,4 +32,8 @@ public enum EdsTransferOption implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsTransferOption ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsTransferOption.class, value);
+    }
+
 }

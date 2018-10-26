@@ -58,4 +58,8 @@ public enum EdsWhiteBalance implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsWhiteBalance ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsWhiteBalance.class, value);
+    }
+
 }

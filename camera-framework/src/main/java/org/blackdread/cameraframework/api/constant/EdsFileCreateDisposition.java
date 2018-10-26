@@ -34,4 +34,8 @@ public enum EdsFileCreateDisposition implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsFileCreateDisposition ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsFileCreateDisposition.class, value);
+    }
+
 }

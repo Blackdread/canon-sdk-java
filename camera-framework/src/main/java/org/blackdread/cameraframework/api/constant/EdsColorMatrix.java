@@ -42,4 +42,8 @@ public enum EdsColorMatrix implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsColorMatrix ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsColorMatrix.class, value);
+    }
+
 }

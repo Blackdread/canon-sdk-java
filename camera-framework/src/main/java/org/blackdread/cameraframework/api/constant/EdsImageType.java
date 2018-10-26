@@ -33,4 +33,8 @@ public enum EdsImageType implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsImageType ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsImageType.class, value);
+    }
+
 }

@@ -337,4 +337,8 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
         return type;
     }
 
+    public static EdsPropertyID ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsPropertyID.class, value);
+    }
+
 }

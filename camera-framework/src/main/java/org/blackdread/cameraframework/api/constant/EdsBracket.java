@@ -39,4 +39,8 @@ public enum EdsBracket implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsBracket ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsBracket.class, value);
+    }
+
 }

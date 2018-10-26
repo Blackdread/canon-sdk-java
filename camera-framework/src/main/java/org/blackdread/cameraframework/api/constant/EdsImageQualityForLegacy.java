@@ -56,4 +56,8 @@ public enum EdsImageQualityForLegacy implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsImageQualityForLegacy ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsImageQualityForLegacy.class, value);
+    }
+
 }

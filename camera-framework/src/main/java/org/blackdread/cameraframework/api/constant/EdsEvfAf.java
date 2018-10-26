@@ -30,4 +30,8 @@ public enum EdsEvfAf implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsEvfAf ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsEvfAf.class, value);
+    }
+
 }

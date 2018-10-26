@@ -37,4 +37,8 @@ public enum EdsAccess implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsAccess ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsAccess.class, value);
+    }
+
 }

@@ -36,4 +36,8 @@ public enum EdsStroboMode implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsStroboMode ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsStroboMode.class, value);
+    }
+
 }

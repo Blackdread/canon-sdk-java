@@ -48,4 +48,8 @@ public enum EdsTonigEffect implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsTonigEffect ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsTonigEffect.class, value);
+    }
+
 }

@@ -39,4 +39,8 @@ public enum EdsBatteryLevel2 implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsBatteryLevel2 ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsBatteryLevel2.class, value);
+    }
+
 }

@@ -35,4 +35,8 @@ public enum EdsFileAttributes implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsFileAttributes ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsFileAttributes.class, value);
+    }
+
 }

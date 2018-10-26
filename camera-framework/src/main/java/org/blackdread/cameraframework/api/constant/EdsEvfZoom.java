@@ -36,4 +36,8 @@ public enum EdsEvfZoom implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsEvfZoom ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsEvfZoom.class, value);
+    }
+
 }

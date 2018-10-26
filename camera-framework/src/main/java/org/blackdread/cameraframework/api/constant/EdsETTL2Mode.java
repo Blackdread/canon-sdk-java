@@ -31,4 +31,8 @@ public enum EdsETTL2Mode implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsETTL2Mode ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsETTL2Mode.class, value);
+    }
+
 }

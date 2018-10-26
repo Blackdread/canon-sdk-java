@@ -92,4 +92,8 @@ public enum EdsAEMode implements NativeEnum<Integer> {
     public final String description() {
         return description;
     }
+
+    public static EdsAEMode ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsAEMode.class, value);
+    }
 }

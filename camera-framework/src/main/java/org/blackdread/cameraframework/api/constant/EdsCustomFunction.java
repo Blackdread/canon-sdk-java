@@ -113,4 +113,8 @@ public enum EdsCustomFunction implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsCustomFunction ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsCustomFunction.class, value);
+    }
+
 }

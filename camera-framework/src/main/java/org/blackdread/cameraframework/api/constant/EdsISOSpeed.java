@@ -74,4 +74,8 @@ public enum EdsISOSpeed implements NativeEnum<Integer> {
     public final String description() {
         return description;
     }
+
+    public static EdsISOSpeed ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsISOSpeed.class, value);
+    }
 }

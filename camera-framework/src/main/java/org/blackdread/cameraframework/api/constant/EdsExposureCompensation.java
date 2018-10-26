@@ -79,4 +79,8 @@ public enum EdsExposureCompensation implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsExposureCompensation ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsExposureCompensation.class, value);
+    }
+
 }

@@ -43,4 +43,8 @@ public enum EdsDriveMode implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsDriveMode ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsDriveMode.class, value);
+    }
+
 }

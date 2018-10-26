@@ -32,4 +32,8 @@ public enum EdsColorSpace implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsColorSpace ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsColorSpace.class, value);
+    }
+
 }

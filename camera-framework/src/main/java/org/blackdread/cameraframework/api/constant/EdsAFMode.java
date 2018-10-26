@@ -36,4 +36,8 @@ public enum EdsAFMode implements NativeEnum<Integer> {
     public final String description() {
         return description;
     }
+
+    public static EdsAFMode ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsAFMode.class, value);
+    }
 }

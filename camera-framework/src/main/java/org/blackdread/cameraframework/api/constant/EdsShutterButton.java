@@ -33,4 +33,8 @@ public enum EdsShutterButton implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsShutterButton ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsShutterButton.class, value);
+    }
+
 }

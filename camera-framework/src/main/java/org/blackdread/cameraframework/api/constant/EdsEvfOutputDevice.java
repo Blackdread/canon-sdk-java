@@ -43,4 +43,8 @@ public enum EdsEvfOutputDevice implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsEvfOutputDevice ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsEvfOutputDevice.class, value);
+    }
+
 }

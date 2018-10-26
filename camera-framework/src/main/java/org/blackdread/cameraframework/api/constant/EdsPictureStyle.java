@@ -61,4 +61,8 @@ public enum EdsPictureStyle implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsPictureStyle ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsPictureStyle.class, value);
+    }
+
 }

@@ -88,4 +88,8 @@ public enum EdsAv implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsAv ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsAv.class, value);
+    }
+
 }

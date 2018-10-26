@@ -129,4 +129,8 @@ public enum EdsStateEvent implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsStateEvent ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsStateEvent.class, value);
+    }
+
 }

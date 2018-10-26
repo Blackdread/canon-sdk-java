@@ -36,4 +36,8 @@ public enum EdsEvfHistogramStatus implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsEvfHistogramStatus ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsEvfHistogramStatus.class, value);
+    }
+
 }

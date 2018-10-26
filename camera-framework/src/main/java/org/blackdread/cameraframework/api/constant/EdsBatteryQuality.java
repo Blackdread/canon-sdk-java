@@ -32,4 +32,8 @@ public enum EdsBatteryQuality implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsBatteryQuality ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsBatteryQuality.class, value);
+    }
+
 }

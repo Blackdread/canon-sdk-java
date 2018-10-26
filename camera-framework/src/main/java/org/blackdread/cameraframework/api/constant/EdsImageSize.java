@@ -40,4 +40,8 @@ public enum EdsImageSize implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsImageSize ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsImageSize.class, value);
+    }
+
 }

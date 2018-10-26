@@ -32,4 +32,8 @@ public enum EdsSaveTo implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsSaveTo ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsSaveTo.class, value);
+    }
+
 }

@@ -107,4 +107,8 @@ public enum EdsTv implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsTv ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsTv.class, value);
+    }
+
 }

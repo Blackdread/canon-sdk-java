@@ -32,4 +32,8 @@ public enum EdsSeekOrigin implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsSeekOrigin ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsSeekOrigin.class, value);
+    }
+
 }

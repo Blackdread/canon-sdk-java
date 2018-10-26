@@ -34,4 +34,8 @@ public enum EdsCompressQuality implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsCompressQuality ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsCompressQuality.class, value);
+    }
+
 }

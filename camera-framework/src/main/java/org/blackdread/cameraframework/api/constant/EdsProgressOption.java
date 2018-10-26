@@ -32,4 +32,8 @@ public enum EdsProgressOption implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsProgressOption ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsProgressOption.class, value);
+    }
+
 }

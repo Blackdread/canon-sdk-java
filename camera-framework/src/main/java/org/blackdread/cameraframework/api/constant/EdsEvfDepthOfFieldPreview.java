@@ -31,4 +31,7 @@ public enum EdsEvfDepthOfFieldPreview implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsEvfDepthOfFieldPreview ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsEvfDepthOfFieldPreview.class, value);
+    }
 }

@@ -29,4 +29,8 @@ public enum EdsConstant implements NativeEnum<Integer> {
     public final String description() {
         return description;
     }
+
+    public static EdsConstant ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsConstant.class, value);
+    }
 }

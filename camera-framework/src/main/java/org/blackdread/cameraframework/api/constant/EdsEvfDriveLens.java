@@ -35,4 +35,7 @@ public enum EdsEvfDriveLens implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsEvfDriveLens ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsEvfDriveLens.class, value);
+    }
 }

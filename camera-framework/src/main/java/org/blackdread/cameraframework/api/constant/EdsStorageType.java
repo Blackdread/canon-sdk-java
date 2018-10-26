@@ -34,4 +34,8 @@ public enum EdsStorageType implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsStorageType ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsStorageType.class, value);
+    }
+
 }

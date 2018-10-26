@@ -35,4 +35,8 @@ public enum EdsPhotoEffect implements NativeEnum<Integer> {
         return description;
     }
 
+    public static EdsPhotoEffect ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsPhotoEffect.class, value);
+    }
+
 }
