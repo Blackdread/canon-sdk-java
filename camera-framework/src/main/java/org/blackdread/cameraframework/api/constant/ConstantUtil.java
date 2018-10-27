@@ -34,6 +34,7 @@ final class ConstantUtil {
 //    private static final SetMultimap<Class<? extends NativeEnum<Integer>>, NativeEnum<Integer>> enums = MultimapBuilder.SetMultimapBuilder.hashKeys().hashSetValues().build();
 
     static {
+        @SuppressWarnings("unchecked")
         final Set<? extends Class<? extends NativeEnum<Integer>>> nativeEnumClasses = (Set<? extends Class<? extends NativeEnum<Integer>>>) getNativeEnumClasses();
 //        for (final Class<? extends NativeEnum<Integer>> nativeEnumClass : nativeEnumClasses) {
 //            enums.putAll(nativeEnumClass, Arrays.asList(nativeEnumClass.getEnumConstants()));
@@ -57,8 +58,9 @@ final class ConstantUtil {
      * @throws NullPointerException     if value is null
      * @throws IllegalArgumentException if value was not found in class passed
      */
+    @SuppressWarnings("unchecked")
     //    static NativeEnum<Integer> ofValue(final Class<? extends NativeEnum<Integer>> klass, final Integer value) {
-    static <T extends NativeEnum<Integer>> T ofValue(final Class<? extends NativeEnum<Integer>> klass, final Integer value) {
+    static <T extends NativeEnum<Integer>> T ofValue(final Class<? extends NativeEnum<Integer>> klass, final Integer value) throws IllegalArgumentException {
         if (value == null) {
             throw new NullPointerException("Value cannot be null");
         }
@@ -71,7 +73,7 @@ final class ConstantUtil {
     }
 
     // return a list to make sure that classes that overload equals/hashcode will not use name or other
-    static List<NativeEnum> getNativeEnums() {
+    static List<NativeEnum> getNativeEnums() throws IllegalStateException {
         final Set<? extends Class<? extends NativeEnum>> classes = getNativeEnumClasses();
 
         final List<NativeEnum> nativeEnumList = classes.stream()
@@ -93,7 +95,8 @@ final class ConstantUtil {
         return nativeEnumList;
     }
 
-    static Set<? extends Class<? extends NativeEnum>> getNativeEnumClasses() {
+    @SuppressWarnings("unchecked")
+    static Set<? extends Class<? extends NativeEnum>> getNativeEnumClasses() throws IllegalStateException {
         try {
             final ImmutableSet<ClassPath.ClassInfo> allClasses = ClassPath.from(EdsAccess.class.getClassLoader()).getTopLevelClasses(NATIVE_ENUM_PACKAGE);
             final Set<? extends Class<?>> classes = allClasses.asList().stream()

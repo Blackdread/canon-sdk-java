@@ -124,6 +124,7 @@ class CanonLibraryImpl implements CanonLibrary {
                 // no options for now
                 EDSDK = Native.loadLibrary(libPath, EdsdkLibrary.class, new HashMap<>());
                 registerCanonShutdownHook();
+                log.info("Library successfully loaded");
                 return;
             }
             throw new IllegalStateException("Not supported OS");
