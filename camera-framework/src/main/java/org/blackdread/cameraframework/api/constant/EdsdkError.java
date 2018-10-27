@@ -1,7 +1,7 @@
 package org.blackdread.cameraframework.api.constant;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
-import org.blackdread.cameraframework.exception.EdsdkException;
+import org.blackdread.cameraframework.exception.EdsdkErrorException;
 import org.blackdread.cameraframework.util.LibraryFieldUtil;
 
 /**
@@ -11,7 +11,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  *
  * @author Yoann CAPLAIN
  */
-public enum EdsdkErrors implements NativeEnum<Integer>, NativeErrorEnum<Integer> {
+public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> {
 
     /*
      * ED-SDK Error Code Masks
@@ -195,7 +195,7 @@ public enum EdsdkErrors implements NativeEnum<Integer>, NativeErrorEnum<Integer>
 
     private final String description;
 
-    EdsdkErrors(final String description) {
+    EdsdkError(final String description) {
         this.value = LibraryFieldUtil.getNativeIntValue(EdsdkLibrary.class, name());
         this.description = description;
     }
@@ -211,12 +211,13 @@ public enum EdsdkErrors implements NativeEnum<Integer>, NativeErrorEnum<Integer>
     }
 
     @Override
-    public <T extends EdsdkException> T getException() {
-        throw new IllegalStateException("not impl");
+    public <T extends EdsdkErrorException> T getException() {
+        // simple implementation for now
+        return (T) new EdsdkErrorException(this);
     }
 
-    public static EdsdkErrors ofValue(final Integer value) {
-        return ConstantUtil.ofValue(EdsdkErrors.class, value);
+    public static EdsdkError ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsdkError.class, value);
     }
 }
 

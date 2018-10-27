@@ -16,7 +16,7 @@ import org.blackdread.camerabinding.jna.EdsTime;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
-import org.blackdread.cameraframework.api.constant.EdsdkErrors;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.constant.NativeEnum;
 import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
 import org.slf4j.Logger;
@@ -43,8 +43,8 @@ public class PropertyLogicDefault implements PropertyLogic {
         final int bufferSize = 1;
         final IntBuffer outDataType = IntBuffer.allocate(bufferSize);
         final NativeLongByReference outSize = new NativeLongByReference(new NativeLong(bufferSize));
-        final EdsdkErrors error = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertySize(ref, new NativeLong(property.value()), new NativeLong(inParam), outDataType, outSize));
-        if (error == EdsdkErrors.EDS_ERR_OK) {
+        final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertySize(ref, new NativeLong(property.value()), new NativeLong(inParam), outDataType, outSize));
+        if (error == EdsdkError.EDS_ERR_OK) {
             return new ImmutablePair<>(EdsDataType.ofValue(outDataType.get(0)), outSize.getValue().longValue());
         }
         log.error("Failed  to get property type and size of {} ({}), inParam {}. Probably not supported by camera", property, error, inParam);
@@ -56,11 +56,11 @@ public class PropertyLogicDefault implements PropertyLogic {
         final int bufferSize = 1;
         final IntBuffer outDataType = IntBuffer.allocate(bufferSize);
         final NativeLongByReference outSize = new NativeLongByReference(new NativeLong(bufferSize));
-        final EdsdkErrors error = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertySize(ref, new NativeLong(property.value()), new NativeLong(inParam), outDataType, outSize));
-        if (error == EdsdkErrors.EDS_ERR_OK) {
+        final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertySize(ref, new NativeLong(property.value()), new NativeLong(inParam), outDataType, outSize));
+        if (error == EdsdkError.EDS_ERR_OK) {
             return EdsDataType.ofValue(outDataType.get(0));
         }
-        log.error("Failed to get property type {} ({}), inParam {}. Probably not supported by camera", property, error, inParam);
+        log.error("Failed to get property type of {} ({}), inParam {}. Probably not supported by camera", property, error, inParam);
         throw error.getException();
     }
 
@@ -69,11 +69,11 @@ public class PropertyLogicDefault implements PropertyLogic {
         final int bufferSize = 1;
         final IntBuffer outDataType = IntBuffer.allocate(bufferSize);
         final NativeLongByReference outSize = new NativeLongByReference(new NativeLong(bufferSize));
-        final EdsdkErrors error = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertySize(ref, new NativeLong(property.value()), new NativeLong(inParam), outDataType, outSize));
-        if (error == EdsdkErrors.EDS_ERR_OK) {
+        final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertySize(ref, new NativeLong(property.value()), new NativeLong(inParam), outDataType, outSize));
+        if (error == EdsdkError.EDS_ERR_OK) {
             return outSize.getValue().longValue();
         }
-        log.error("Failed to get property type {} ({}), inParam {}. Probably not supported by camera", property, error, inParam);
+        log.error("Failed to get property size of {} ({}), inParam {}. Probably not supported by camera", property, error, inParam);
         throw error.getException();
     }
 
@@ -86,9 +86,9 @@ public class PropertyLogicDefault implements PropertyLogic {
 
         final Memory propertyData = new Memory(propertySize > 0 ? propertySize : 1);
 
-        final EdsdkErrors error = getPropertyData(ref, property, inParam, propertySize, propertyData);
+        final EdsdkError error = getPropertyData(ref, property, inParam, propertySize, propertyData);
 
-        if (!EdsdkErrors.EDS_ERR_OK.equals(error)) {
+        if (!EdsdkError.EDS_ERR_OK.equals(error)) {
             log.error("Failed to get property data {}, inParam: {}, propertyType:{}, propertySize: {}", property, inParam, propertyType, propertySize);
             throw error.getException();
         }
@@ -154,37 +154,37 @@ public class PropertyLogicDefault implements PropertyLogic {
     }
 
     @Override
-    public EdsdkErrors setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final NativeEnum<? extends Number> value) {
+    public EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final NativeEnum<? extends Number> value) {
         return null;
     }
 
     @Override
-    public EdsdkErrors setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final NativeEnum<? extends Number> value) {
+    public EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final NativeEnum<? extends Number> value) {
         return null;
     }
 
     @Override
-    public EdsdkErrors setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long value) {
+    public EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long value) {
         return null;
     }
 
     @Override
-    public EdsdkErrors setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final long value) {
+    public EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final long value) {
         return null;
     }
 
     @Override
-    public EdsdkErrors setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final int size, final Pointer data) {
+    public EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final int size, final Pointer data) {
         return null;
     }
 
     @Override
-    public EdsdkErrors setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final Object value) {
+    public EdsdkError setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final Object value) {
         return null;
     }
 
     @Override
-    public EdsdkErrors setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final Object value) {
+    public EdsdkError setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final Object value) {
         return null;
     }
 }

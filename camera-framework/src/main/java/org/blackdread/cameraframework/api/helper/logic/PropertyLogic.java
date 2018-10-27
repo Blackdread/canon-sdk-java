@@ -5,7 +5,7 @@ import com.sun.jna.Pointer;
 import org.apache.commons.lang3.tuple.Pair;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
-import org.blackdread.cameraframework.api.constant.EdsdkErrors;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.constant.NativeEnum;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
@@ -18,6 +18,16 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  * @author Yoann CAPLAIN
  */
 public interface PropertyLogic {
+
+    // *******************
+    // TODO might add these methods
+//    List<EdsPropertyID> getSupportedPropertiesByCamera(final EdsBaseRef ref);
+//    List<EdsPropertyID> getNotSupportedPropertiesByCamera(final EdsBaseRef ref);
+    // *******************
+
+    /*
+     * =================== TYPE AND SIZE ===================
+     */
 
     /**
      * Gets the byte size and data type of a designated property from a camera object or image object.
@@ -49,6 +59,10 @@ public interface PropertyLogic {
      */
     Pair<EdsDataType, Long> getPropertyTypeAndSize(final EdsBaseRef ref, final EdsPropertyID property, final long inParam);
 
+    /*
+     * =================== TYPE ===================
+     */
+
     /**
      * Returns the data type of a designated property from a camera object or image object.
      *
@@ -71,6 +85,10 @@ public interface PropertyLogic {
      */
     EdsDataType getPropertyType(final EdsBaseRef ref, final EdsPropertyID property, final long inParam);
 
+    /*
+     * =================== SIZE ===================
+     */
+
     /**
      * Gets the byte size of a designated property from a camera object or image object.
      *
@@ -92,6 +110,10 @@ public interface PropertyLogic {
      * @return Size in bytes
      */
     long getPropertySize(final EdsBaseRef ref, final EdsPropertyID property, final long inParam);
+
+    /*
+     * =================== GET ===================
+     */
 
     /**
      * Gets property information from the object designated in inRef.
@@ -164,8 +186,8 @@ public interface PropertyLogic {
      * @deprecated can keep but is only kind of shortcut to query camera then transform the result into an error enum. This is more an internal method
      */
     @Deprecated
-    default EdsdkErrors getPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long inParam,
-                                        final long size, final Pointer propertyData) {
+    default EdsdkError getPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long inParam,
+                                       final long size, final Pointer propertyData) {
         return toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertyData(ref, new NativeLong(property.value()), new NativeLong(inParam), new NativeLong(size), propertyData));
     }
 
@@ -173,22 +195,22 @@ public interface PropertyLogic {
      * =================== SET ===================
      */
 
-    EdsdkErrors setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
-                                final NativeEnum<? extends Number> value);
+    EdsdkError setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
+                               final NativeEnum<? extends Number> value);
 
-    EdsdkErrors setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
-                                final long inParam, final NativeEnum<? extends Number> value);
+    EdsdkError setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
+                               final long inParam, final NativeEnum<? extends Number> value);
 
-    EdsdkErrors setPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long value);
+    EdsdkError setPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long value);
 
-    EdsdkErrors setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
-                                final long inParam, final long value);
+    EdsdkError setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
+                               final long inParam, final long value);
 
-    EdsdkErrors setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
-                                final long inParam, final int size, final Pointer data);
+    EdsdkError setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
+                               final long inParam, final int size, final Pointer data);
 
-    EdsdkErrors setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property, final Object value);
+    EdsdkError setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property, final Object value);
 
-    EdsdkErrors setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property,
-                                        final long inParam, final Object value);
+    EdsdkError setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property,
+                                       final long inParam, final Object value);
 }

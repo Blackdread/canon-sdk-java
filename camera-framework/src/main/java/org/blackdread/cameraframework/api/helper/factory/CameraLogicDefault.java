@@ -1,7 +1,7 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
-import org.blackdread.cameraframework.api.constant.EdsdkErrors;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 
 /**
@@ -12,12 +12,12 @@ import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 public class CameraLogicDefault implements CameraLogic {
 
     @Override
-    public EdsdkErrors setCapacity(final EdsdkLibrary.EdsCameraRef ref) {
+    public EdsdkError setCapacity(final EdsdkLibrary.EdsCameraRef ref) {
         return null;
     }
 
     @Override
-    public EdsdkErrors setCapacity(final EdsdkLibrary.EdsCameraRef ref, final int capacity) {
+    public EdsdkError setCapacity(final EdsdkLibrary.EdsCameraRef ref, final int capacity) {
         return null;
     }
 

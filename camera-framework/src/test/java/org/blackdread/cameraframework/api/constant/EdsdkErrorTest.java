@@ -9,16 +9,16 @@ import java.util.Arrays;
  *
  * @author Yoann CAPLAIN
  */
-class EdsdkErrorsTest extends ConstantValueFromLibraryTest<EdsdkErrors> {
+class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
 
     @Override
-    EdsdkErrors getOneEnumValue() {
-        return EdsdkErrors.EDS_ERR_OK;
+    EdsdkError getOneEnumValue() {
+        return EdsdkError.EDS_ERR_OK;
     }
 
     @Override
-    EdsdkErrors[] getAllEnumValues() {
-        return EdsdkErrors.values();
+    EdsdkError[] getAllEnumValues() {
+        return EdsdkError.values();
     }
 
     @Override

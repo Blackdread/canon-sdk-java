@@ -1,6 +1,6 @@
 package org.blackdread.cameraframework.api.constant;
 
-import org.blackdread.cameraframework.exception.EdsdkException;
+import org.blackdread.cameraframework.exception.EdsdkErrorException;
 
 /**
  * <p>Created on 2018/10/04.<p>
@@ -14,6 +14,6 @@ public interface NativeErrorEnum<V> extends NativeEnum<V> {
      * @return
      * @deprecated Not yet implemented neither fully defined design
      */
-    <T extends EdsdkException> T getException();
+    <T extends EdsdkErrorException> T getException();
 
 }

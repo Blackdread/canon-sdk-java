@@ -3,7 +3,7 @@ package org.blackdread.cameraframework.api;
 import com.sun.jna.NativeLong;
 import com.sun.jna.ptr.NativeLongByReference;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
-import org.blackdread.cameraframework.api.constant.EdsdkErrors;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -24,13 +24,13 @@ public final class TestShortcutUtil {
 
 
     public static void initLibrary() {
-        final EdsdkErrors error = toEdsdkError(edsdkLibrary().EdsInitializeSDK());
-        Assertions.assertEquals(EdsdkErrors.EDS_ERR_OK, error);
+        final EdsdkError error = toEdsdkError(edsdkLibrary().EdsInitializeSDK());
+        Assertions.assertEquals(EdsdkError.EDS_ERR_OK, error);
     }
 
     public static void terminateLibrary() {
-        final EdsdkErrors error = toEdsdkError(edsdkLibrary().EdsTerminateSDK());
-        Assertions.assertEquals(EdsdkErrors.EDS_ERR_OK, error);
+        final EdsdkError error = toEdsdkError(edsdkLibrary().EdsTerminateSDK());
+        Assertions.assertEquals(EdsdkError.EDS_ERR_OK, error);
     }
 
     public static void reloadLibrary() {

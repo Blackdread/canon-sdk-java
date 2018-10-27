@@ -1,7 +1,7 @@
 package org.blackdread.cameraframework.util;
 
 import com.sun.jna.NativeLong;
-import org.blackdread.cameraframework.api.constant.EdsdkErrors;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +20,8 @@ public final class ErrorUtil {
      *
      * @param value native long that was returned by a method from {@link org.blackdread.camerabinding.jna.EdsdkLibrary}
      */
-    public static EdsdkErrors toEdsdkError(final NativeLong value) {
-        for (EdsdkErrors error : EdsdkErrors.values()) {
+    public static EdsdkError toEdsdkError(final NativeLong value) {
+        for (EdsdkError error : EdsdkError.values()) {
             if (error.value().equals(value.intValue()))
                 return error;
         }
