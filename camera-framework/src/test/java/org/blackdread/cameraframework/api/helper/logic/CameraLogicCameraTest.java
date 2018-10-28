@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.api.helper.logic;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.CameraIsConnected;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.exception.EdsdkErrorException;
 import org.blackdread.cameraframework.util.ReleaseUtil;
@@ -19,6 +20,7 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.cam
  *
  * @author Yoann CAPLAIN
  */
+@CameraIsConnected
 class CameraLogicCameraTest {
 
     private static final Logger log = LoggerFactory.getLogger(CameraLogicCameraTest.class);
