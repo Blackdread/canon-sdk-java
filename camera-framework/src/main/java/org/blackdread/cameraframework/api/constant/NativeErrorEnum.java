@@ -10,9 +10,13 @@ import org.blackdread.cameraframework.exception.EdsdkErrorException;
 public interface NativeErrorEnum<V> extends NativeEnum<V> {
 
     /**
-     * @param <T>
-     * @return
-     * @deprecated Not yet implemented neither fully defined design
+     * @return type of error
+     */
+    ErrorType getErrorType();
+
+    /**
+     * @param <T> type of exception
+     * @return exception to throw if this error is encountered
      */
     <T extends EdsdkErrorException> T getException();
 

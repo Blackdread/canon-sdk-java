@@ -1207,6 +1207,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
          * <i>native declaration : sdk-header\EDSDKTypes.h:895</i>
          */
         public static final int kEdsWhiteBalance_Pasted = -2;
+        /**
+         * @deprecated  got it from my camera... do not use. Put it here for now to let tests pass
+         */
+        public static final int kEdsWhiteBalance_UnknownSelf = 32768;
     }
 
     /**

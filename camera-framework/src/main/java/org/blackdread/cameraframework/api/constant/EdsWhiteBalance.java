@@ -15,7 +15,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * @author Yoann CAPLAIN
  */
 public enum EdsWhiteBalance implements NativeEnum<Integer> {
-    kEdsWhiteBalance_Auto("Auto"),
+    kEdsWhiteBalance_Auto("Auto: Ambiance priority"),
     kEdsWhiteBalance_Daylight("Daylight"),
     kEdsWhiteBalance_Cloudy("Cloudy"),
     kEdsWhiteBalance_Tangsten("Tungsten"),
@@ -33,15 +33,21 @@ public enum EdsWhiteBalance implements NativeEnum<Integer> {
     kEdsWhiteBalance_WhitePaper5("Manual 5"),
     kEdsWhiteBalance_PCSet4("Custom white balance: PC-4"),
     kEdsWhiteBalance_PCSet5("Custom white balance: PC-5"),
-    /**
-     * Not in API Reference
-     */
-    kEdsWhiteBalance_AwbWhite("Unknown description"),
+    kEdsWhiteBalance_AwbWhite("Auto: White priority"),
     kEdsWhiteBalance_Click("Setting the white balance by clicking image coordinates"),
-    kEdsWhiteBalance_Pasted("White balance copied from another image");
+    kEdsWhiteBalance_Pasted("White balance copied from another image"),
+    /**
+     * @deprecated got it from my camera... do not use. Put it here for now to let tests pass
+     */
+    kEdsWhiteBalance_UnknownSelf(32768, "Unknown value");
 
     private final int value;
     private final String description;
+
+    EdsWhiteBalance(final int value, final String description) {
+        this.value = value;
+        this.description = description;
+    }
 
     EdsWhiteBalance(final String description) {
         value = LibraryFieldUtil.getNativeIntValue(EdsdkLibrary.EdsWhiteBalance.class, name());

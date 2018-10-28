@@ -49,6 +49,14 @@ public enum EdsISOSpeed implements NativeEnum<Integer> {
     kEdsISOSpeed_8000(0x7b, "8000"),
     kEdsISOSpeed_10000(0x7d, "10000"),
     kEdsISOSpeed_12800(0x80, "12800"),
+    /**
+     * @deprecated not part of reference anymore
+     */
+    kEdsISOSpeed_16000(0x83, "16000"),
+    /**
+     * @deprecated not part of reference anymore
+     */
+    kEdsISOSpeed_20000(0x85, "20000"),
     kEdsISOSpeed_25600(0x88, "25600"),
     kEdsISOSpeed_51200(0x90, "51200"),
     kEdsISOSpeed_102400(0x98, "102400"),

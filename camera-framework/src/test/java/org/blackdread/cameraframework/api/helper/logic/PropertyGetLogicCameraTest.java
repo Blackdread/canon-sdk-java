@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.blackdread.cameraframework.CameraIsConnected;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
+import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.exception.EdsdkErrorException;
 import org.junit.jupiter.api.AfterAll;
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
 
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import static org.blackdread.cameraframework.api.TestUtil.assertNoError;
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetLogic;
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyLogic;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -33,9 +35,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * @author Yoann CAPLAIN
  */
 @CameraIsConnected
-class PropertyLogicCameraTest {
+class PropertyGetLogicCameraTest {
 
-    private static final Logger log = LoggerFactory.getLogger(PropertyLogicCameraTest.class);
+    private static final Logger log = LoggerFactory.getLogger(PropertyGetLogicCameraTest.class);
 
     private static EdsCameraRef.ByReference camera;
 
@@ -63,6 +65,7 @@ class PropertyLogicCameraTest {
     static Stream<Arguments> propertyTypeAndSizeExpected() {
         // some lines below are commented as camera could not get the data for some of them
         // some of those properties have been removed from newer cameras
+        // TODO some are not compatible with cameraRef, should test with EdsEvfImageRef or EdsImageRef or EdsVolumeRef
         return Stream.of(
             arguments(EdsPropertyID.kEdsPropID_ISOSpeed, EdsDataType.kEdsDataType_UInt32, 4),
             arguments(EdsPropertyID.kEdsPropID_BodyIDEx, EdsDataType.kEdsDataType_String, 10),
@@ -277,18 +280,34 @@ class PropertyLogicCameraTest {
 
     @Test
     void getPropertyDataLong() {
+        final Long value = propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
+        Assertions.assertNotNull(value);
+        final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
+        Assertions.assertNotNull(isoSpeed);
     }
 
     @Test
-    void getPropertyDataLong1() {
+    void getPropertyDataLongWithInParam() {
+        final Long value = propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, 0);
+        Assertions.assertNotNull(value);
+        final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
+        Assertions.assertNotNull(isoSpeed);
     }
 
     @Test
     void getPropertyData() {
+        final Long value = propertyGetLogic().getPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
+        Assertions.assertNotNull(value);
+        final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
+        Assertions.assertNotNull(isoSpeed);
     }
 
     @Test
-    void getPropertyData1() {
+    void getPropertyDataWithInParam() {
+        final Long value = propertyGetLogic().getPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, 0);
+        Assertions.assertNotNull(value);
+        final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
+        Assertions.assertNotNull(isoSpeed);
     }
 
     @ParameterizedTest()
@@ -312,7 +331,7 @@ class PropertyLogicCameraTest {
 
         final Memory memory = new Memory(propertySize == 0 ? 1 : propertySize);
 
-        assertNoError(propertyLogic().getPropertyData(camera.getValue(), propertyID, 0, propertySize, memory));
+        assertNoError(propertyGetLogic().getPropertyData(camera.getValue(), propertyID, 0, propertySize, memory));
 
 
     }

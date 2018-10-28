@@ -4,7 +4,10 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.CanonLibrary;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertyDescLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertyGetLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertySetLogic;
 import org.blackdread.cameraframework.api.helper.logic.ShootLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +41,12 @@ public class CanonFactory {
     private static final CameraLogic cameraLogic = new CameraLogicDefault();
 
     private static final PropertyLogic propertyLogic = new PropertyLogicDefault();
+
+    private static final PropertyDescLogic propertyDescLogic = new PropertyDescLogicDefault();
+
+    private static final PropertyGetLogic propertyGetLogic = new PropertyGetLogicDefault();
+
+    private static final PropertySetLogic propertySetLogic = new PropertySetLogicDefault();
 
     private static final LiveViewLogic liveViewLogic = new LiveViewLogicDefault();
 
@@ -107,13 +116,49 @@ public class CanonFactory {
     /**
      * Shortcut for {@link CanonFactory#getPropertyLogic()}
      * <pre>
-     * {@code CanonFactory.getCanonFactory().propertyLogic() }
+     * {@code CanonFactory.getCanonFactory().getPropertyLogic() }
      * </pre>
      *
      * @return logic instance, never null
      */
     public static PropertyLogic propertyLogic() {
         return CanonFactory.getCanonFactory().getPropertyLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getPropertyDescLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getPropertyDescLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static PropertyDescLogic propertyDescLogic() {
+        return CanonFactory.getCanonFactory().getPropertyDescLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getPropertyGetLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getPropertyGetLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static PropertyGetLogic propertyGetLogic() {
+        return CanonFactory.getCanonFactory().getPropertyGetLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getPropertySetLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getPropertySetLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static PropertySetLogic propertySetLogic() {
+        return CanonFactory.getCanonFactory().getPropertySetLogic();
     }
 
     /**
@@ -162,6 +207,30 @@ public class CanonFactory {
      */
     public PropertyLogic getPropertyLogic() {
         return propertyLogic;
+    }
+
+    /**
+     * @return property desc logic
+     * @see PropertyDescLogic
+     */
+    public PropertyDescLogic getPropertyDescLogic() {
+        return propertyDescLogic;
+    }
+
+    /**
+     * @return property get logic
+     * @see PropertyGetLogic
+     */
+    public PropertyGetLogic getPropertyGetLogic() {
+        return propertyGetLogic;
+    }
+
+    /**
+     * @return property set logic
+     * @see PropertySetLogic
+     */
+    public PropertySetLogic getPropertySetLogic() {
+        return propertySetLogic;
     }
 
     /**
