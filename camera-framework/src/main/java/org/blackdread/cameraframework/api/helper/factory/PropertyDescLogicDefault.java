@@ -27,8 +27,11 @@ public class PropertyDescLogicDefault implements PropertyDescLogic {
         for (final Integer propertyDescValue : propertyDescValues) {
             switch (property) {
                 case kEdsPropID_AEMode: // added this one as seems more logical but to check (not in documentation 3.9.0)
+                    // TODO to remove if not possible in fact
+                    nativeEnums.add(EdsAEMode.ofValue(propertyDescValue));
+                    break;
                 case kEdsPropID_AEModeSelect: // in documentation it is this property but maybe was a typo? need to check later
-                    nativeEnums.add(EdsAFMode.ofValue(propertyDescValue));
+                    nativeEnums.add(EdsAEModeSelect.ofValue(propertyDescValue));
                     break;
                 case kEdsPropID_ISOSpeed:
                     nativeEnums.add(EdsISOSpeed.ofValue(propertyDescValue));
