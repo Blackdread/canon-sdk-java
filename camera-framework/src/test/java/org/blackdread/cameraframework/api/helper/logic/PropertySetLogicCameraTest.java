@@ -3,6 +3,7 @@ package org.blackdread.cameraframework.api.helper.logic;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.CameraIsConnected;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
+import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,7 +33,11 @@ public class PropertySetLogicCameraTest {
 
     @AfterAll
     static void tearDownClass() {
-        TestShortcutUtil.closeSession(camera);
+        try {
+            TestShortcutUtil.closeSession(camera);
+        } finally {
+            ReleaseUtil.release(camera);
+        }
         TestShortcutUtil.terminateLibrary();
     }
 

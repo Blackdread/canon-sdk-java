@@ -5,6 +5,7 @@ import org.blackdread.cameraframework.CameraIsConnected;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.NativeEnum;
+import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -43,7 +44,11 @@ public class PropertyDescCameraTest {
 
     @AfterAll
     static void tearDownClass() {
-        TestShortcutUtil.closeSession(camera);
+        try {
+            TestShortcutUtil.closeSession(camera);
+        } finally {
+            ReleaseUtil.release(camera);
+        }
         TestShortcutUtil.terminateLibrary();
     }
 

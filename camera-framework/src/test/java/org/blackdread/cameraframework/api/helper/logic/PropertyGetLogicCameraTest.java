@@ -8,6 +8,7 @@ import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -50,7 +51,11 @@ class PropertyGetLogicCameraTest {
 
     @AfterAll
     static void tearDownClass() {
-        TestShortcutUtil.closeSession(camera);
+        try {
+            TestShortcutUtil.closeSession(camera);
+        } finally {
+            ReleaseUtil.release(camera);
+        }
         TestShortcutUtil.terminateLibrary();
     }
 
