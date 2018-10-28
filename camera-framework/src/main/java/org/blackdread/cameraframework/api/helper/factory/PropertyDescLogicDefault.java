@@ -18,6 +18,9 @@ public class PropertyDescLogicDefault implements PropertyDescLogic {
 
     private static final Logger log = LoggerFactory.getLogger(PropertyDescLogicDefault.class);
 
+    protected PropertyDescLogicDefault() {
+    }
+
     @Override
     public List<NativeEnum<Integer>> getPropertyDesc(final EdsdkLibrary.EdsBaseRef camera, final EdsPropertyID property) {
         final List<Integer> propertyDescValues = getPropertyDescValues(camera, property);

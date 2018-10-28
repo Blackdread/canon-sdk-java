@@ -20,6 +20,9 @@ public class CameraLogicDefault implements CameraLogic {
 
     private static final Logger log = LoggerFactory.getLogger(CameraLogicDefault.class);
 
+    protected CameraLogicDefault() {
+    }
+
     @Override
     public void setCapacity(final EdsdkLibrary.EdsCameraRef ref, final int capacity, final int bytesPerSector) {
         final EdsCapacity.ByValue edsCapacity = new EdsCapacity.ByValue();

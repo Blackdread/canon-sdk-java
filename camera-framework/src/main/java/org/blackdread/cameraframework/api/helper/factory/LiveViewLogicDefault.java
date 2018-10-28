@@ -1,11 +1,7 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-import com.sun.jna.ptr.NativeLongByReference;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
-import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
 
 import java.awt.image.BufferedImage;
@@ -37,9 +33,10 @@ public class LiveViewLogicDefault implements LiveViewLogic {
         // Start downloading of the live view image once the property change notification arrives.
         return err;
          */
-        final NativeLongByReference number = new NativeLongByReference(new NativeLong(edsEvfOutputDevice.value()));
-        final Pointer data = number.getPointer();
-        CanonFactory.propertyLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 0, NativeLong.SIZE, data);
+//        final NativeLongByReference number = new NativeLongByReference(new NativeLong(edsEvfOutputDevice.value()));
+//        final Pointer data = number.getPointer();
+//        CanonFactory.propertyLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 0, NativeLong.SIZE, data);
+
         return false;
     }
 

@@ -26,6 +26,8 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
 
     private static final Logger log = LoggerFactory.getLogger(PropertyGetLogicDefault.class);
 
+    protected PropertyGetLogicDefault() {
+    }
 
     @Override
     @SuppressWarnings("unchecked")
