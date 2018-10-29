@@ -18,7 +18,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @EnabledIf("systemProperty.get('canonCameraConnected') == 'true' || systemProperty.get('canonLibIsOnPath') == 'true'")
-//@EnabledIfSystemProperty(named = "canonLibIsOnPath", matches = "true")
 public @interface DllOnPath {
     // works but is not repeatable so not very useful when need to test many things
     // if camera is connected then we suppose that DLL are present

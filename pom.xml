@@ -68,6 +68,7 @@
         <!-- Value are changed by profiles -->
         <canonLibIsOnPath.boolean>false</canonLibIsOnPath.boolean>
         <canonCameraConnected.boolean>false</canonCameraConnected.boolean>
+        <mockLibrary.boolean>false</mockLibrary.boolean>
 
 
         <!-- Plugin versions -->
@@ -95,6 +96,14 @@
             <id>canonCameraConnected</id>
             <properties>
                 <canonCameraConnected.boolean>true</canonCameraConnected.boolean>
+            </properties>
+        </profile>
+        <profile>
+            <id>mockLibrary</id>
+            <properties>
+                <mockLibrary.boolean>true</mockLibrary.boolean>
+                <canonLibIsOnPath.boolean>false</canonLibIsOnPath.boolean>
+                <canonCameraConnected.boolean>false</canonCameraConnected.boolean>
             </properties>
         </profile>
     </profiles>
@@ -205,6 +214,7 @@
                     <systemPropertyVariables>
                         <canonLibIsOnPath>${canonLibIsOnPath.boolean}</canonLibIsOnPath>
                         <canonCameraConnected>${canonCameraConnected.boolean}</canonCameraConnected>
+                        <mockLibrary>${mockLibrary.boolean}</mockLibrary>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
