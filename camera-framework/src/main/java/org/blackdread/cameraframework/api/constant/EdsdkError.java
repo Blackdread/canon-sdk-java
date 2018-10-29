@@ -226,6 +226,11 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
         return (T) new EdsdkErrorException(this);
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsdkError ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsdkError.class, value);
     }

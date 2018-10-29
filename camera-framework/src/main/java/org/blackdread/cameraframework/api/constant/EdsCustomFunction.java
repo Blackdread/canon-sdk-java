@@ -113,6 +113,11 @@ public enum EdsCustomFunction implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsCustomFunction ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsCustomFunction.class, value);
     }

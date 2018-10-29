@@ -71,6 +71,11 @@ public enum EdsPropertyEvent implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsPropertyEvent ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsPropertyEvent.class, value);
     }

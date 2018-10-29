@@ -22,7 +22,7 @@ public class PropertyDescLogicDefault implements PropertyDescLogic {
     }
 
     @Override
-    public List<NativeEnum<Integer>> getPropertyDesc(final EdsdkLibrary.EdsBaseRef camera, final EdsPropertyID property) {
+    public <T extends NativeEnum<Integer>> List<T>  getPropertyDesc(final EdsdkLibrary.EdsBaseRef camera, final EdsPropertyID property) {
         final List<Integer> propertyDescValues = getPropertyDescValues(camera, property);
 
         final List<NativeEnum<Integer>> nativeEnums = new ArrayList<>(propertyDescValues.size());
@@ -79,7 +79,7 @@ public class PropertyDescLogicDefault implements PropertyDescLogic {
             }
         }
 
-        return nativeEnums;
+        return (List<T>) nativeEnums;
     }
 
 }

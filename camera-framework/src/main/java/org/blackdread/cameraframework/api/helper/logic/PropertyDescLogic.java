@@ -21,16 +21,67 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  */
 public interface PropertyDescLogic {
 
-    List<NativeEnum<Integer>> getPropertyDesc(final EdsBaseRef camera, final EdsPropertyID property);
+    /**
+     * Gets a list of property data that can be set for the object designated in inRef, as well as maximum and minimum values.
+     * <br>
+     * <p>Be sure before executing <b>EdsSetPropertyData</b>, use this API to get the values that can be set for the Properties supported by {@link org.blackdread.camerabinding.jna.EdsdkLibrary#EdsGetPropertyDesc(EdsBaseRef, NativeLong, EdsPropertyDesc)}.</p>
+     * <br>
+     * <p>
+     * Known property id supported are
+     * <ul>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_AEModeSelect}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_ISOSpeed}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_MeteringMode}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Av}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Tv}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_ExposureCompensation}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_ImageQuality}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_WhiteBalance}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_ColorTemperature} <b>Not be used in this method!</b></li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_PictureStyle}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_DriveMode}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Evf_WhiteBalance}</li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Evf_ColorTemperature} <b>Not be used in this method!</b></li>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Evf_AFMode}</li>
+     * </ul>
+     * </p>
+     *
+     * @param camera   the target object. Designate EdsCameraRef
+     * @param property the property ID (see Reference API for possible values)
+     * @param <T>      T type of return value (allows to not cast at the caller)
+     * @return list of available settings for the given property
+     * @throws IllegalArgumentException                                     if {@code property} is not supported by this method
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws ClassCastException                                           if type of data retrieved is not of what caller expects
+     */
+    <T extends NativeEnum<Integer>> List<T> getPropertyDesc(final EdsBaseRef camera, final EdsPropertyID property);
 
+    /**
+     * @param camera the target object. Designate EdsCameraRef
+     * @return list of available settings for {@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_ColorTemperature}
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
     default List<Integer> getPropertyDescColorTemperature(final EdsBaseRef camera) {
         return getPropertyDescValues(camera, EdsPropertyID.kEdsPropID_ColorTemperature);
     }
 
+    /**
+     * @param camera the target object. Designate EdsCameraRef
+     * @return list of available settings for {@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Evf_ColorTemperature}
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
     default List<Integer> getPropertyDescEvfColorTemperature(final EdsBaseRef camera) {
         return getPropertyDescValues(camera, EdsPropertyID.kEdsPropID_Evf_ColorTemperature);
     }
 
+    /**
+     * Gets a list of property data that can be set for the object designated in inRef, as well as maximum and minimum values
+     *
+     * @param camera   the target object. Designate EdsCameraRef
+     * @param property the property ID (see Reference API for possible values)
+     * @return list of values contained in the structure {@link EdsPropertyDesc}
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
     default List<Integer> getPropertyDescValues(final EdsBaseRef camera, final EdsPropertyID property) {
         final EdsPropertyDesc propertyDesc = getPropertyDescStructure(camera, property);
 
@@ -49,8 +100,8 @@ public interface PropertyDescLogic {
     }
 
     // TODO could add all different type Desc type possible like below
-//    default List<EdsISOSpeed> getPropertyDescIsoSpeed(final EdsCameraRef camera) {
-//        return (List<EdsISOSpeed>) (List<?>) getPropertyDesc(camera, EdsPropertyID.kEdsPropID_ISOSpeed);
+//    default List<EdsISOSpeed> getPropertyDescIsoSpeed(final EdsdkLibrary.EdsCameraRef camera) {
+//        return getPropertyDesc(camera, EdsPropertyID.kEdsPropID_ISOSpeed);
 //    }
 
     /**

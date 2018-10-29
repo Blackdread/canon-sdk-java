@@ -42,6 +42,11 @@ public enum EdsColorMatrix implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsColorMatrix ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsColorMatrix.class, value);
     }

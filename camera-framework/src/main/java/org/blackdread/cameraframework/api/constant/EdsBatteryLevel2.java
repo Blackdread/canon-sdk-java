@@ -39,6 +39,11 @@ public enum EdsBatteryLevel2 implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsBatteryLevel2 ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsBatteryLevel2.class, value);
     }

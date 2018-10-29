@@ -34,6 +34,11 @@ public enum EdsCompressQuality implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsCompressQuality ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsCompressQuality.class, value);
     }

@@ -34,8 +34,7 @@ final class ConstantUtil {
 //    private static final SetMultimap<Class<? extends NativeEnum<Integer>>, NativeEnum<Integer>> enums = MultimapBuilder.SetMultimapBuilder.hashKeys().hashSetValues().build();
 
     static {
-        @SuppressWarnings("unchecked")
-        final Set<? extends Class<? extends NativeEnum<Integer>>> nativeEnumClasses = (Set<? extends Class<? extends NativeEnum<Integer>>>) getNativeEnumClasses();
+        @SuppressWarnings("unchecked") final Set<? extends Class<? extends NativeEnum<Integer>>> nativeEnumClasses = (Set<? extends Class<? extends NativeEnum<Integer>>>) getNativeEnumClasses();
 //        for (final Class<? extends NativeEnum<Integer>> nativeEnumClass : nativeEnumClasses) {
 //            enums.putAll(nativeEnumClass, Arrays.asList(nativeEnumClass.getEnumConstants()));
 //        }
@@ -54,9 +53,10 @@ final class ConstantUtil {
      * @param klass class in which to search
      * @param value value to search
      * @param <T>   T type of return value (allows to not cast at the caller)
-     * @return
+     * @return Native enum with value and class passed
      * @throws NullPointerException     if value is null
      * @throws IllegalArgumentException if value was not found in class passed
+     * @throws ClassCastException if type of data retrieved is not of what caller expects
      */
     @SuppressWarnings("unchecked")
     //    static NativeEnum<Integer> ofValue(final Class<? extends NativeEnum<Integer>> klass, final Integer value) {

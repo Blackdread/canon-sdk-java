@@ -337,6 +337,11 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
         return type;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsPropertyID ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsPropertyID.class, value);
     }

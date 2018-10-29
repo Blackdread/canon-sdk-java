@@ -43,6 +43,11 @@ public enum EdsEvfOutputDevice implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsEvfOutputDevice ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsEvfOutputDevice.class, value);
     }

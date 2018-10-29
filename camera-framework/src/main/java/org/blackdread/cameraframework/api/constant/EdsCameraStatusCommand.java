@@ -64,6 +64,11 @@ public enum EdsCameraStatusCommand implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsCameraStatusCommand ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsCameraStatusCommand.class, value);
     }

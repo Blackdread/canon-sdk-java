@@ -32,6 +32,11 @@ public enum EdsSeekOrigin implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsSeekOrigin ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsSeekOrigin.class, value);
     }

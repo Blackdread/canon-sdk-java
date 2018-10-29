@@ -30,6 +30,11 @@ public enum EdsEvfAf implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsEvfAf ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsEvfAf.class, value);
     }

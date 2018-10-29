@@ -36,6 +36,11 @@ public enum EdsEvfZoom implements NativeEnum<Integer> {
         return description;
     }
 
+    /**
+     * @param value value to search
+     * @return enum having same value as passed
+     * @throws IllegalArgumentException if value was not found
+     */
     public static EdsEvfZoom ofValue(final Integer value) {
         return ConstantUtil.ofValue(EdsEvfZoom.class, value);
     }

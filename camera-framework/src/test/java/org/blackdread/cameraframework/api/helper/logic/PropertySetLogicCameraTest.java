@@ -57,7 +57,7 @@ public class PropertySetLogicCameraTest {
 
     @Test
     void setPropertyIsoSpeed() throws InterruptedException {
-        final List<EdsISOSpeed> isoSpeeds = (List<EdsISOSpeed>) (List<?>) CanonFactory.propertyDescLogic().getPropertyDesc(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
+        final List<EdsISOSpeed> isoSpeeds = CanonFactory.propertyDescLogic().getPropertyDesc(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
 
         CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(0));
 
