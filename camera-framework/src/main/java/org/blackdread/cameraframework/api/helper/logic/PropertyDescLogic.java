@@ -48,6 +48,11 @@ public interface PropertyDescLogic {
         return values;
     }
 
+    // TODO could add all different type Desc type possible like below
+//    default List<EdsISOSpeed> getPropertyDescIsoSpeed(final EdsCameraRef camera) {
+//        return (List<EdsISOSpeed>) (List<?>) getPropertyDesc(camera, EdsPropertyID.kEdsPropID_ISOSpeed);
+//    }
+
     /**
      * Gets a list of property data that can be set for the object designated in inRef, as well as maximum and minimum values.
      * This API is intended for only some shooting-related properties.
@@ -56,6 +61,7 @@ public interface PropertyDescLogic {
      * @param ref      the target object. Designate EdsCameraRef
      * @param property the property ID (see Reference API for possible values)
      * @return EdsPropertyDesc structure for getting a list of property data that can currently be set in the target object
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default EdsPropertyDesc getPropertyDescStructure(final EdsBaseRef ref, final EdsPropertyID property) {
         final EdsPropertyDesc propertyDesc = new EdsPropertyDesc();

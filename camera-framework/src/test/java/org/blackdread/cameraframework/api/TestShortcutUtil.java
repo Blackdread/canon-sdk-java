@@ -1,9 +1,14 @@
 package org.blackdread.cameraframework.api;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 import com.sun.jna.ptr.NativeLongByReference;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
+import org.blackdread.cameraframework.api.constant.EdsPropertyEvent;
+import org.blackdread.cameraframework.api.constant.EdsStateEvent;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -60,6 +65,18 @@ public final class TestShortcutUtil {
         } finally {
             ReleaseUtil.release(cameraListRef);
         }
+    }
+
+    public static void registerObjectEventHandler(final EdsdkLibrary.EdsCameraRef cameraRef, final EdsdkLibrary.EdsObjectEventHandler handler) {
+        CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), handler, Pointer.NULL);
+    }
+
+    public static void registerPropertyEventHandler(final EdsdkLibrary.EdsCameraRef cameraRef, final EdsdkLibrary.EdsPropertyEventHandler handler) {
+        CanonFactory.edsdkLibrary().EdsSetPropertyEventHandler(cameraRef, new NativeLong(EdsPropertyEvent.kEdsPropertyEvent_All.value()), handler, Pointer.NULL);
+    }
+
+    public static void registerStateEventHandler(final EdsdkLibrary.EdsCameraRef cameraRef, final EdsdkLibrary.EdsStateEventHandler handler) {
+        CanonFactory.edsdkLibrary().EdsSetCameraStateEventHandler(cameraRef, new NativeLong(EdsStateEvent.kEdsStateEvent_All.value()), handler, Pointer.NULL);
     }
 
     public static void openSession(final EdsdkLibrary.EdsCameraRef.ByReference camera) {

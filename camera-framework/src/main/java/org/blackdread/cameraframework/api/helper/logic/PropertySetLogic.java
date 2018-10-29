@@ -17,30 +17,30 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  */
 public interface PropertySetLogic {
 
-    default EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
+    default void setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
                                        final NativeEnum<? extends Number> value) {
-        return setPropertyDataAdvanced(ref, property, 0, value.value().longValue());
+        setPropertyDataAdvanced(ref, property, 0, value.value().longValue());
     }
 
-    default EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
+    default void setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
                                        final long inParam, final NativeEnum<? extends Number> value) {
-        return setPropertyDataAdvanced(ref, property, inParam, value.value().longValue());
+        setPropertyDataAdvanced(ref, property, inParam, value.value().longValue());
     }
 
-    default EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long value) {
-        return setPropertyDataAdvanced(ref, property, 0, value);
+    default void setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long value) {
+        setPropertyDataAdvanced(ref, property, 0, value);
     }
 
-    default EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
+    default void setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
                                        final long inParam, final long value) {
-        return setPropertyDataAdvanced(ref, property, 0, value);
+        setPropertyDataAdvanced(ref, property, 0, value);
     }
 
-    default EdsdkError setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final Object value) {
-        return setPropertyDataAdvanced(ref, property, 0, value);
+    default void setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final Object value) {
+        setPropertyDataAdvanced(ref, property, 0, value);
     }
 
-    EdsdkError setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
+    void setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,
                                        final long inParam, final Object value);
 
     default EdsdkError setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property,

@@ -15,6 +15,8 @@ public interface CanonLibrary {
      * instance returned shall never be kept but instead always call this method when library is needed.</p>
      *
      * @return library instance, never null, throws if failed to init library
+     * @throws IllegalStateException if could not load library
+     * @throws IllegalStateException if system is not supported
      */
     EdsdkLibrary edsdkLibrary();
 

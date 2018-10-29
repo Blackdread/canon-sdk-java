@@ -15,6 +15,7 @@ public interface CameraLogic {
      * Should be called before each shooting when destination is set to computer, otherwise shooting will be disabled
      *
      * @param ref the reference of the camera which will receive the command
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #setCapacity(EdsCameraRef, int, int)
      */
     default void setCapacity(final EdsCameraRef ref) {
@@ -27,6 +28,7 @@ public interface CameraLogic {
      *
      * @param ref      the reference of the camera which will receive the command
      * @param capacity The remaining capacity of a transmission place
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #setCapacity(EdsCameraRef, int, int)
      */
     default void setCapacity(final EdsCameraRef ref, final int capacity) {
@@ -45,6 +47,7 @@ public interface CameraLogic {
      * @param ref            the reference of the camera which will receive the command
      * @param capacity       the remaining capacity of a transmission place.
      * @param bytesPerSector bytes taken for each sector (smaller means more space)
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void setCapacity(final EdsCameraRef ref, final int capacity, final int bytesPerSector);
 
@@ -52,6 +55,7 @@ public interface CameraLogic {
     /**
      * @param camera the reference of the camera which will receive the command
      * @return true if mirror lockup is enabled
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     boolean isMirrorLockupEnabled(final EdsCameraRef camera);
 }

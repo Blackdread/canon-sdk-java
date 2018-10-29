@@ -31,6 +31,7 @@ public interface PropertyLogic {
      * @param ref      either EdsCameraRef or EdsImageRef
      * @param property the property id
      * @return A tuple with data type and property size (TODO might change return type later as to not enforce dependency to apache lang3)
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #getPropertyTypeAndSize(EdsBaseRef, EdsPropertyID, long)
      * @see #getPropertyType(EdsBaseRef, EdsPropertyID)
      * @see #getPropertySize(EdsBaseRef, EdsPropertyID)
@@ -48,6 +49,7 @@ public interface PropertyLogic {
      * @param property the property id
      * @param inParam  additional property information (see Reference API for possible values)
      * @return A tuple with data type and property size (TODO might change return type later as to not enforce dependency to apache lang3)
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #getPropertyType(EdsBaseRef, EdsPropertyID, long)
      * @see #getPropertySize(EdsBaseRef, EdsPropertyID, long)
      */
@@ -63,6 +65,7 @@ public interface PropertyLogic {
      * @param ref      either EdsCameraRef or EdsImageRef
      * @param property the property id
      * @return The data type, or null if the parameter isn't supported, or unknown if something else goes wrong.
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #getPropertyType(EdsBaseRef, EdsPropertyID, long)
      */
     default EdsDataType getPropertyType(final EdsBaseRef ref, final EdsPropertyID property) {
@@ -76,6 +79,7 @@ public interface PropertyLogic {
      * @param property Property id
      * @param inParam  additional property information (see Reference API for possible values)
      * @return The data type, or null if the parameter isn't supported, or unknown if something else goes wrong.
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     EdsDataType getPropertyType(final EdsBaseRef ref, final EdsPropertyID property, final long inParam);
 
@@ -89,6 +93,7 @@ public interface PropertyLogic {
      * @param ref      either EdsCameraRef or EdsImageRef
      * @param property the property id
      * @return Size in bytes
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #getPropertySize(EdsBaseRef, EdsPropertyID, long)
      */
     default long getPropertySize(final EdsBaseRef ref, final EdsPropertyID property) {
@@ -101,6 +106,7 @@ public interface PropertyLogic {
      * @param ref      either EdsCameraRef or EdsImageRef
      * @param property the property id
      * @param inParam  additional property information (see Reference API for possible values)
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @return Size in bytes
      */
     long getPropertySize(final EdsBaseRef ref, final EdsPropertyID property, final long inParam);
