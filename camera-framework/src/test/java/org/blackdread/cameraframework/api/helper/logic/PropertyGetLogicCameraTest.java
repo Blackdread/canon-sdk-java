@@ -1,7 +1,6 @@
 package org.blackdread.cameraframework.api.helper.logic;
 
 import com.sun.jna.Memory;
-import org.apache.commons.lang3.tuple.Pair;
 import org.blackdread.cameraframework.CameraIsConnected;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
@@ -194,14 +193,14 @@ class PropertyGetLogicCameraTest {
             log.warn("Skip test of {} as it is unknown", propertyID);
             return;
         }
-        final Pair<EdsDataType, Long> propertyTypeAndSize = propertyLogic().getPropertyTypeAndSize(camera.getValue(), propertyID);
+        final PropertyInfo propertyInfo = propertyLogic().getPropertyTypeAndSize(camera.getValue(), propertyID);
 
-        Assertions.assertNotNull(propertyTypeAndSize);
-        Assertions.assertEquals(expectedType, propertyTypeAndSize.getKey());
+        Assertions.assertNotNull(propertyInfo);
+        Assertions.assertEquals(expectedType, propertyInfo.getDataType());
         if (expectedType == EdsDataType.kEdsDataType_String)
-            Assertions.assertTrue(propertyTypeAndSize.getValue() > sizeExpected, "Size expected should be more than " + sizeExpected + ", was " + propertyTypeAndSize.getValue());
+            Assertions.assertTrue(propertyInfo.getSize() > sizeExpected, "Size expected should be more than " + sizeExpected + ", was " + propertyInfo.getSize());
         else
-            Assertions.assertEquals(sizeExpected, propertyTypeAndSize.getValue().longValue());
+            Assertions.assertEquals(sizeExpected, propertyInfo.getSize().longValue());
     }
 
     @ParameterizedTest()
@@ -211,14 +210,14 @@ class PropertyGetLogicCameraTest {
             log.warn("Skip test of {} as it is unknown", propertyID);
             return;
         }
-        final Pair<EdsDataType, Long> propertyTypeAndSize = propertyLogic().getPropertyTypeAndSize(camera.getValue(), propertyID, 0);
+        final PropertyInfo propertyInfo = propertyLogic().getPropertyTypeAndSize(camera.getValue(), propertyID, 0);
 
-        Assertions.assertNotNull(propertyTypeAndSize);
-        Assertions.assertEquals(expectedType, propertyTypeAndSize.getKey());
+        Assertions.assertNotNull(propertyInfo);
+        Assertions.assertEquals(expectedType, propertyInfo.getDataType());
         if (expectedType == EdsDataType.kEdsDataType_String)
-            Assertions.assertTrue(propertyTypeAndSize.getValue() > sizeExpected);
+            Assertions.assertTrue(propertyInfo.getSize() > sizeExpected);
         else
-            Assertions.assertEquals(sizeExpected, propertyTypeAndSize.getValue().longValue());
+            Assertions.assertEquals(sizeExpected, propertyInfo.getSize().longValue());
     }
 
     @ParameterizedTest()

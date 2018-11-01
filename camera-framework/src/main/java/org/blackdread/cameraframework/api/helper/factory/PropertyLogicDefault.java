@@ -2,12 +2,11 @@ package org.blackdread.cameraframework.api.helper.factory;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.ptr.NativeLongByReference;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.api.helper.logic.PropertyInfo;
 import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +28,13 @@ public class PropertyLogicDefault implements PropertyLogic {
     }
 
     @Override
-    public Pair<EdsDataType, Long> getPropertyTypeAndSize(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam) {
+    public PropertyInfo getPropertyTypeAndSize(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam) {
         final int bufferSize = 1;
         final IntBuffer outDataType = IntBuffer.allocate(bufferSize);
         final NativeLongByReference outSize = new NativeLongByReference(new NativeLong(bufferSize));
         final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertySize(ref, new NativeLong(property.value()), new NativeLong(inParam), outDataType, outSize));
         if (error == EdsdkError.EDS_ERR_OK) {
-            return new ImmutablePair<>(EdsDataType.ofValue(outDataType.get(0)), outSize.getValue().longValue());
+            return new PropertyInfo(EdsDataType.ofValue(outDataType.get(0)), outSize.getValue().longValue());
         }
         log.error("Failed  to get property type and size of {} ({}), inParam {}. Probably not supported by camera", property, error, inParam);
         throw error.getException();

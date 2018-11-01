@@ -1,6 +1,6 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
-import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import org.blackdread.cameraframework.api.constant.*;
 import org.blackdread.cameraframework.api.helper.logic.PropertyDescLogic;
 import org.slf4j.Logger;
@@ -22,7 +22,8 @@ public class PropertyDescLogicDefault implements PropertyDescLogic {
     }
 
     @Override
-    public <T extends NativeEnum<Integer>> List<T>  getPropertyDesc(final EdsdkLibrary.EdsBaseRef camera, final EdsPropertyID property) {
+    @SuppressWarnings("unchecked")
+    public <T extends NativeEnum<Integer>> List<T> getPropertyDesc(final EdsBaseRef camera, final EdsPropertyID property) {
         final List<Integer> propertyDescValues = getPropertyDescValues(camera, property);
 
         final List<NativeEnum<Integer>> nativeEnums = new ArrayList<>(propertyDescValues.size());

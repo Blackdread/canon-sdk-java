@@ -59,13 +59,13 @@ public class PropertySetLogicCameraTest {
     void setPropertyIsoSpeed() throws InterruptedException {
         final List<EdsISOSpeed> isoSpeeds = CanonFactory.propertyDescLogic().getPropertyDesc(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
 
-        CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(0));
+        CanonFactory.propertySetLogic().setPropertyDataFromNativeEnum(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(0));
 
         final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(CanonFactory.propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed).intValue());
 
         Assertions.assertSame(isoSpeeds.get(0), isoSpeed);
 
-        CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(1));
+        CanonFactory.propertySetLogic().setPropertyDataFromNativeEnum(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(1));
 
         final EdsISOSpeed isoSpeed2 = EdsISOSpeed.ofValue(CanonFactory.propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed).intValue());
 

@@ -4,11 +4,11 @@ import com.sun.jna.Memory;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
-import org.apache.commons.lang3.tuple.Pair;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.api.helper.logic.PropertyInfo;
 import org.blackdread.cameraframework.api.helper.logic.PropertySetLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,11 +36,11 @@ public class PropertySetLogicDefault implements PropertySetLogic {
      */
 
     @Override
-    public void setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final Object value) {
+    public void setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final Object value) {
 
-        final Pair<EdsDataType, Long> propertyTypeAndSize = CanonFactory.propertyLogic().getPropertyTypeAndSize(ref, property);
-        final EdsDataType propertyType = propertyTypeAndSize.getKey();
-        final Long propertySize = propertyTypeAndSize.getValue();
+        final PropertyInfo propertyInfo = CanonFactory.propertyLogic().getPropertyTypeAndSize(ref, property);
+        final EdsDataType propertyType = propertyInfo.getDataType();
+        final Long propertySize = propertyInfo.getSize();
 
         final int recalculatedSize;
         final Pointer data;

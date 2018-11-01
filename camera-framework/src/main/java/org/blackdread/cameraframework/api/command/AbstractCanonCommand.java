@@ -1,5 +1,6 @@
 package org.blackdread.cameraframework.api.command;
 
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 import org.slf4j.Logger;
@@ -20,6 +21,11 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
 
     // TODO timing to know execution time, delay time between creation and time run is called, etc...
 
+    /**
+     * Can be the cameraRef, imageRef, VolumeRef, etc
+     */
+    private EdsBaseRef targetRef;
+
     // the type should maybe be CanonCommand<R> but with DecoratorCommand it is clearer
     private DecoratorCommand<R> decoratorCommand;
 
@@ -32,6 +38,12 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
     }
 
     protected abstract void runInternal();
+
+    protected final EdsBaseRef getTargetRef() {
+        if (targetRef == null)
+            throw new IllegalStateException("TargetRef have not been set yet");
+        return targetRef;
+    }
 
     @Override
     public R get() throws InterruptedException, ExecutionException {

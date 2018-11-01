@@ -2,18 +2,18 @@ package org.blackdread.cameraframework.api.helper.factory;
 
 import com.sun.jna.Memory;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.tuple.Pair;
 import org.blackdread.camerabinding.jna.EdsFocusInfo;
 import org.blackdread.camerabinding.jna.EdsPictureStyleDesc;
 import org.blackdread.camerabinding.jna.EdsPoint;
 import org.blackdread.camerabinding.jna.EdsRational;
 import org.blackdread.camerabinding.jna.EdsRect;
 import org.blackdread.camerabinding.jna.EdsTime;
-import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.PropertyGetLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertyInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,10 +31,10 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T getPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam) {
-        final Pair<EdsDataType, Long> propertyTypeAndSize = CanonFactory.propertyLogic().getPropertyTypeAndSize(ref, property, inParam);
-        final EdsDataType propertyType = propertyTypeAndSize.getKey();
-        final Long propertySize = propertyTypeAndSize.getValue();
+    public <T> T getPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long inParam) {
+        final PropertyInfo propertyInfo = CanonFactory.propertyLogic().getPropertyTypeAndSize(ref, property, inParam);
+        final EdsDataType propertyType = propertyInfo.getDataType();
+        final long propertySize = propertyInfo.getSize();
 
         final Memory propertyData = new Memory(propertySize > 0 ? propertySize : 1);
 
@@ -51,7 +51,7 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
             case kEdsDataType_Bool:
                 // TODO not tested
                 final Boolean b = propertyData.getByte(0) != 0;
-                log.warn("to test: {}, {}", propertyData, propertyData.dump());
+                log.warn("to test: {}, {}, {}", b, propertyData, propertyData.dump());
                 return (T) b;
             case kEdsDataType_String:
                 return (T) propertyData.getString(0);
@@ -76,7 +76,7 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
                 // not tested and documentation gives this data type as many types :
                 // EdsInt8[]
                 // EdsUInt32[]
-                return (T) propertyData.getIntArray(0, propertySize.intValue() / 4);
+                return (T) propertyData.getIntArray(0, (int) (propertySize / 4));
             case kEdsDataType_Rational:
                 return (T) new EdsRational(propertyData);
             case kEdsDataType_Point:
@@ -91,13 +91,13 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
                 throw new NotImplementedException("to test");
             case kEdsDataType_Int8_Array:
             case kEdsDataType_UInt8_Array:
-                return (T) propertyData.getByteArray(0, propertySize.intValue());
+                return (T) propertyData.getByteArray(0, (int) propertySize);
             case kEdsDataType_Int16_Array:
             case kEdsDataType_UInt16_Array:
-                return (T) propertyData.getShortArray(0, propertySize.intValue() / 2);
+                return (T) propertyData.getShortArray(0, (int) (propertySize / 2));
             case kEdsDataType_Int32_Array:
             case kEdsDataType_UInt32_Array:
-                return (T) propertyData.getIntArray(0, propertySize.intValue() / 4);
+                return (T) propertyData.getIntArray(0, (int) (propertySize / 4));
             case kEdsDataType_Rational_Array:
                 // TODO not tested
                 log.warn("to test: {}, {}", propertyData, propertyData.dump());

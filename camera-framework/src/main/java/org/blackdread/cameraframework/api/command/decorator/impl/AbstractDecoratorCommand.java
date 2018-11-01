@@ -28,6 +28,11 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
             this.decoratorCommand = null;
     }
 
+    /**
+     * NOTE: Not final method but might be later, no reason to allow to override this logic
+     *
+     * @return delegate of this decorator
+     */
     protected CanonCommand<R> getDelegate() {
         return delegate;
     }
