@@ -17,27 +17,27 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  */
 public interface PropertySetLogic {
 
-    default void setPropertyDataFromNativeEnum(final EdsBaseRef ref, final EdsPropertyID property,
-                                               final NativeEnum<? extends Number> value) {
-        this.setPropertyData(ref, property, 0, value.value().longValue());
+    default void setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
+                                 final NativeEnum<? extends Number> value) {
+        this.setPropertyDataAdvanced(ref, property, 0, value.value().longValue());
     }
 
-    default void setPropertyDataFromNativeEnum(final EdsBaseRef ref, final EdsPropertyID property,
-                                               final long inParam, final NativeEnum<? extends Number> value) {
-        this.setPropertyData(ref, property, inParam, value.value().longValue());
+    default void setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
+                                 final long inParam, final NativeEnum<? extends Number> value) {
+        this.setPropertyDataAdvanced(ref, property, inParam, value.value().longValue());
     }
 
-    default void setPropertyDataFromLong(final EdsBaseRef ref, final EdsPropertyID property, final long value) {
-        this.setPropertyData(ref, property, 0, value);
+    default void setPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long value) {
+        this.setPropertyDataAdvanced(ref, property, 0, value);
     }
 
-    default void setPropertyDataFromLong(final EdsBaseRef ref, final EdsPropertyID property,
+    default void setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
                                          final long inParam, final long value) {
-        this.setPropertyData(ref, property, 0, value);
+        this.setPropertyDataAdvanced(ref, property, 0, value);
     }
 
-    default void setPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final Object value) {
-        setPropertyData(ref, property, 0, value);
+    default void setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property, final Object value) {
+        setPropertyDataAdvanced(ref, property, 0, value);
     }
 
     /**
@@ -49,7 +49,7 @@ public interface PropertySetLogic {
      * @param inParam  designate additional property information. Use additional property information if multiple items of information such as picture styles can be set or retrieved for a property. For descriptions of values that can be designated for each property, see the description of inParam for EdsGetPropertyData
      * @param value    designate the property data to set
      */
-    void setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
+    void setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property,
                          final long inParam, final Object value);
 
     default EdsdkError setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,

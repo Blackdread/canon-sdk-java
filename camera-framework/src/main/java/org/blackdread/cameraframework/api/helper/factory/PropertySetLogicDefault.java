@@ -36,7 +36,7 @@ public class PropertySetLogicDefault implements PropertySetLogic {
      */
 
     @Override
-    public void setPropertyData(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final Object value) {
+    public void setPropertyDataAdvanced(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property, final long inParam, final Object value) {
 
         final PropertyInfo propertyInfo = CanonFactory.propertyLogic().getPropertyTypeAndSize(ref, property);
         final EdsDataType propertyType = propertyInfo.getDataType();

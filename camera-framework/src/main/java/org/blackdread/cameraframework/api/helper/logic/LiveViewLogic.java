@@ -1,6 +1,8 @@
 package org.blackdread.cameraframework.api.helper.logic;
 
 import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
+import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
 import java.awt.image.BufferedImage;
 
@@ -8,20 +10,33 @@ import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 
 /**
+ * TODO After a live view and sdk terminated, usually the camera will be in a busy status -> cannot interact with camera by hand but we can still shoot, re-start live view etc by sending commands from PC. If cable disconnected then camera is not busy anymore
  * <p>Created on 2018/10/20.</p>
  *
  * @author Yoann CAPLAIN
  */
 public interface LiveViewLogic {
 
+    default void enableLiveView(final EdsCameraRef camera) {
+        CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 1L);
+    }
+
+    default void disableLiveView(final EdsCameraRef camera) {
+        CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 0L);
+    }
+
+    default void beginLiveView(final EdsCameraRef camera) {
+        beginLiveView(camera, EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
+    }
+
     /**
-     * Start the live view
+     * Start the live view and set the output device
      *
      * @param camera ref of camera
      * @return true if successful to start live view
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    boolean beginLiveView(final EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice);
+    void beginLiveView(final EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice);
 
     /**
      * Stop the live view
@@ -30,7 +45,7 @@ public interface LiveViewLogic {
      * @return true if successful to end live view
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    boolean endLiveView(final EdsCameraRef camera);
+    void endLiveView(final EdsCameraRef camera);
 
     /**
      * @param camera ref of camera

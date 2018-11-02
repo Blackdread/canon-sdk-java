@@ -1,7 +1,9 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
+import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
 
 import java.awt.image.BufferedImage;
@@ -17,64 +19,40 @@ public class LiveViewLogicDefault implements LiveViewLogic {
     }
 
     @Override
-    public boolean beginLiveView(final EdsdkLibrary.EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice) {
-        /*
-        EdsError err = EDS_ERR_OK;
-        // Get the output device for the live view image
-        EdsUInt32 device;
-        err = EdsGetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0 , sizeof(device), &device );
-        // PC live view starts by setting the PC as the output device for the live view image.
-        if(err == EDS_ERR_OK)
-        {
-        device |= kEdsEvfOutputDevice_PC;
-        err = EdsSetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0 , sizeof(device), &device);
-        }
-        // A property change event notification is issued from the camera if property settings are made successfully.
-        // Start downloading of the live view image once the property change notification arrives.
-        return err;
-         */
-//        final NativeLongByReference number = new NativeLongByReference(new NativeLong(edsEvfOutputDevice.value()));
-//        final Pointer data = number.getPointer();
-//        CanonFactory.propertyLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 0, NativeLong.SIZE, data);
+    public void beginLiveView(final EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice) {
+        // Force to set evf mode to enabled
+        enableLiveView(camera);
+
+        CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_OutputDevice, edsEvfOutputDevice);
+    }
+
+    @Override
+    public void endLiveView(final EdsCameraRef camera) {
+        CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_OutputDevice, EdsEvfOutputDevice.kEdsEvfOutputDevice_TFT);
+
+        // disable live view so to set normal mode back to camera
+        disableLiveView(camera);
+    }
+
+    @Override
+    public boolean isLiveViewEnabled(final EdsCameraRef camera) {
+        final Long state = CanonFactory.propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode);
+        return 1L == state;
+    }
+
+    @Override
+    public boolean isLiveViewEnabledByDownloadingOneImage(final EdsCameraRef camera) {
 
         return false;
     }
 
     @Override
-    public boolean endLiveView(final EdsdkLibrary.EdsCameraRef camera) {
-        /*
-        EdsError err = EDS_ERR_OK;
-        // Get the output device for the live view image
-        EdsUInt32 device;
-        err = EdsGetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0 , sizeof(device), &device );
-        // PC live view ends if the PC is disconnected from the live view image output device.
-        if(err == EDS_ERR_OK)
-        {
-        device &= ~kEdsEvfOutputDevice_PC;
-        err = EdsSetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0 , sizeof(device), &device);
-        }
-        return err;
-         */
-        return false;
-    }
-
-    @Override
-    public boolean isLiveViewEnabled(final EdsdkLibrary.EdsCameraRef camera) {
-        return false;
-    }
-
-    @Override
-    public boolean isLiveViewEnabledByDownloadingOneImage(final EdsdkLibrary.EdsCameraRef camera) {
-        return false;
-    }
-
-    @Override
-    public EdsdkLibrary.EdsBaseRef.ByReference[] getLiveViewImageReference(final EdsdkLibrary.EdsCameraRef camera) {
+    public EdsdkLibrary.EdsBaseRef.ByReference[] getLiveViewImageReference(final EdsCameraRef camera) {
         return new EdsdkLibrary.EdsBaseRef.ByReference[0];
     }
 
     @Override
-    public BufferedImage getLiveViewImage(final EdsdkLibrary.EdsCameraRef camera) {
+    public BufferedImage getLiveViewImage(final EdsCameraRef camera) {
         /*
         EdsError err = EDS_ERR_OK;
         EdsStreamRef stream = NULL;
@@ -122,7 +100,7 @@ public class LiveViewLogicDefault implements LiveViewLogic {
     }
 
     @Override
-    public byte[] getLiveViewImageBuffer(final EdsdkLibrary.EdsCameraRef camera) {
+    public byte[] getLiveViewImageBuffer(final EdsCameraRef camera) {
         return new byte[0];
     }
 

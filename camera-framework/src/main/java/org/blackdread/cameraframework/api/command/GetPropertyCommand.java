@@ -21,10 +21,24 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
         System.out.println("impl 1");
     }
 
+    /**
+     * A string representing the product name.
+     * <br>
+     * If the target object is EdsCameraRef, this property indicates the name of the remote camera.
+     * <br>
+     * If the target object is EdsImageRef, this property indicates the name of the camera used to shoot the image.
+     * <br>
+     * ASCII text strings up to 32 characters, including null-terminated strings.
+     */
     public static class ProductName extends GetPropertyCommand<String> {
 
         public ProductName() {
             final EdsPropertyID kEdsPropID_productName = EdsPropertyID.kEdsPropID_ProductName;
+        }
+
+        @Override
+        protected void runInternal() {
+            System.out.println("impl 1");
         }
     }
 
