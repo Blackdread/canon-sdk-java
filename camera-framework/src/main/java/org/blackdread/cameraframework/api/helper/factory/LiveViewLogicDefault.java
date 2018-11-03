@@ -110,13 +110,13 @@ public class LiveViewLogicDefault implements LiveViewLogic {
         final EdsdkError imageError = toEdsdkError(edsdkLibrary().EdsCreateEvfImageRef(streamRef.getValue(), imageRef));
         if (imageError != EdsdkError.EDS_ERR_OK) {
             ReleaseUtil.release(imageRef, streamRef);
-            throw streamError.getException();
+            throw imageError.getException();
         }
 
         final EdsdkError downloadError = toEdsdkError(edsdkLibrary().EdsDownloadEvfImage(camera, imageRef.getValue()));
         if (downloadError != EdsdkError.EDS_ERR_OK) {
             ReleaseUtil.release(imageRef, streamRef);
-            throw streamError.getException();
+            throw downloadError.getException();
         }
 
         return new LiveViewReference(streamRef, imageRef);

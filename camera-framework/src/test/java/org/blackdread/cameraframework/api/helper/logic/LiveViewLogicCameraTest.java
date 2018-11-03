@@ -3,7 +3,6 @@ package org.blackdread.cameraframework.api.helper.logic;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.CameraIsConnected;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
-import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.exception.EdsdkErrorException;
 import org.blackdread.cameraframework.util.ReleaseUtil;
@@ -16,11 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.image.BufferedImage;
-
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.liveViewLogic;
 
 /**
+ * Test when live view stays off or very few back and forth
  * <p>Created on 2018/10/22.<p>
  *
  * @author Yoann CAPLAIN
@@ -50,23 +48,12 @@ class LiveViewLogicCameraTest {
     }
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InterruptedException {
+        Thread.sleep(200);
     }
 
     @AfterEach
     void tearDown() {
-    }
-
-    @Test
-    void beginLiveView() throws InterruptedException {
-        liveViewLogic().beginLiveView(camera.getValue(), EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
-
-        Thread.sleep(500);
-
-        final BufferedImage bufferedImage = liveViewLogic().getLiveViewImage(camera.getValue());
-        Assertions.assertNotNull(bufferedImage);
-
-        liveViewLogic().endLiveView(camera.getValue());
     }
 
     @Test
@@ -84,14 +71,6 @@ class LiveViewLogicCameraTest {
             return;
         }
         Assertions.fail("Should have thrown");
-    }
-
-    @Test
-    void liveViewEnabledAfterBeginLiveView() {
-        liveViewLogic().enableLiveView(camera.getValue());
-        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(camera.getValue());
-        Assertions.assertTrue(liveViewEnabled, "Live view mode should be enabled");
-        liveViewLogic().endLiveView(camera.getValue());
     }
 
     @Test
@@ -123,61 +102,13 @@ class LiveViewLogicCameraTest {
     }
 
     @Test
-    void isLiveViewEnabledByDownloadingOneImage() throws InterruptedException {
-        liveViewLogic().beginLiveView(camera.getValue());
-
-        Thread.sleep(500);
-
-        final boolean isOn = liveViewLogic().isLiveViewEnabledByDownloadingOneImage(camera.getValue());
-        Assertions.assertTrue(isOn, "Expected lived view ON");
-
-        liveViewLogic().endLiveView(camera.getValue());
-    }
-
-    @Test
-    void getLiveViewImage() throws InterruptedException {
-        liveViewLogic().beginLiveView(camera.getValue());
-
-        Thread.sleep(500);
-
-        final BufferedImage liveViewImage = liveViewLogic().getLiveViewImage(camera.getValue());
-        Assertions.assertNotNull(liveViewImage);
-
-        liveViewLogic().endLiveView(camera.getValue());
-    }
-
-    @Test
     void getLiveViewImageThrowsIfNotRunning() {
         Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImage(camera.getValue()));
     }
 
     @Test
-    void getLiveViewImageBuffer() throws InterruptedException {
-        liveViewLogic().beginLiveView(camera.getValue());
-
-        Thread.sleep(500);
-
-        final byte[] liveViewImageBuffer = liveViewLogic().getLiveViewImageBuffer(camera.getValue());
-        Assertions.assertNotNull(liveViewImageBuffer);
-
-        liveViewLogic().endLiveView(camera.getValue());
-    }
-
-    @Test
     void getLiveViewImageBufferThrowsIfNotRunning() {
         Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImageBuffer(camera.getValue()));
-    }
-
-    @Test
-    void getLiveViewImageReference() throws InterruptedException {
-        liveViewLogic().beginLiveView(camera.getValue());
-
-        Thread.sleep(500);
-
-        final LiveViewReference liveViewImageReference = liveViewLogic().getLiveViewImageReference(camera.getValue());
-        Assertions.assertNotNull(liveViewImageReference);
-
-        liveViewLogic().endLiveView(camera.getValue());
     }
 
     @Test
