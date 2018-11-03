@@ -30,8 +30,6 @@ class LiveViewLogicCameraTest {
 
     private static final Logger log = LoggerFactory.getLogger(LiveViewLogicCameraTest.class);
 
-    static EdsdkLibrary edsdkLibrary;
-
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
     @BeforeAll

@@ -7,9 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
-import java.io.IOException;
 
 /**
+ * Stream and image ref of the live view.
+ * * <br>
+ * * Do not forget to <b>release both refs once not used</b> by calling close, best is to use <b>try-with-resource</b>.
  * <p>Created on 2018/11/03.</p>
  *
  * @author Yoann CAPLAIN
@@ -36,7 +38,7 @@ public final class LiveViewReference implements Closeable {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         try {
             ReleaseUtil.release(imageRef);
         } catch (Exception ex) {

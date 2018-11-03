@@ -36,6 +36,12 @@ public interface LiveViewLogic {
         CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 0L);
     }
 
+    /**
+     * Start the live view (auto enable live view), default output to PC
+     *
+     * @param camera ref of camera
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
     default void beginLiveView(final EdsCameraRef camera) {
         beginLiveView(camera, EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
     }
@@ -43,7 +49,8 @@ public interface LiveViewLogic {
     /**
      * Start the live view (auto enable live view)
      *
-     * @param camera ref of camera
+     * @param camera             ref of camera
+     * @param edsEvfOutputDevice device that will receive the live view
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void beginLiveView(final EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice);

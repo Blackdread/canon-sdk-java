@@ -66,10 +66,6 @@ public class LiveViewLogicDefault implements LiveViewLogic {
         } catch (EdsdkErrorException ex) {
             log.warn("Live view seems off while testing status", ex);
             return false;
-        } catch (IOException | UncheckedIOException ex) {
-            log.error("Error ", ex);
-//            throw new UncheckedIOException(ex);
-            return false;
         }
     }
 
@@ -97,9 +93,6 @@ public class LiveViewLogicDefault implements LiveViewLogic {
             final PointerByReference dataRef = new PointerByReference();
             toEdsdkError(edsdkLibrary().EdsGetPointer(liveViewImageReference.getStreamRef().getValue(), dataRef));
             return dataRef.getValue().getByteArray(0, (int) length.getValue());
-        } catch (IOException ex) {
-            log.error("Error to get image buffer", ex);
-            throw new UncheckedIOException(ex);
         }
     }
 
