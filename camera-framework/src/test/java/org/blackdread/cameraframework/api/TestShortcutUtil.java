@@ -67,6 +67,10 @@ public final class TestShortcutUtil {
         }
     }
 
+    public static void registerCameraAddedHandler(final EdsdkLibrary.EdsCameraAddedHandler handler) {
+        CanonFactory.edsdkLibrary().EdsSetCameraAddedHandler(handler, Pointer.NULL);
+    }
+
     public static void registerObjectEventHandler(final EdsdkLibrary.EdsCameraRef cameraRef, final EdsdkLibrary.EdsObjectEventHandler handler) {
         CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), handler, Pointer.NULL);
     }
