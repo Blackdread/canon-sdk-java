@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  * @author Yoann CAPLAIN
  */
-public class LiveViewReference implements Closeable {
+public final class LiveViewReference implements Closeable {
 
     private static final Logger log = LoggerFactory.getLogger(LiveViewReference.class);
 

@@ -70,28 +70,36 @@ public interface LiveViewLogic {
      *
      * @param camera ref of camera
      * @return true if the camera is <b>transmitting</b> live view images
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     boolean isLiveViewEnabledByDownloadingOneImage(final EdsCameraRef camera);
 
     /**
+     * Current image from live view as a BufferedImage
+     *
      * @param camera ref of camera
-     * @return
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     */
-    LiveViewReference getLiveViewImageReference(final EdsCameraRef camera);
-
-    /**
-     * @param camera ref of camera
-     * @return
+     * @return live view image as a BufferedImage
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     BufferedImage getLiveViewImage(final EdsCameraRef camera);
 
     /**
+     * Current image from live view as a byte array
+     *
      * @param camera ref of camera
-     * @return
+     * @return live view image as a byte array
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     byte[] getLiveViewImageBuffer(final EdsCameraRef camera);
+
+    /**
+     * Create a stream and image ref of the live view.
+     * <br>
+     * Do not forget to <b>release both refs once not used</b>, best is to use <b>try-with-resource</b> with the result of this method
+     *
+     * @param camera ref of camera
+     * @return live view image reference
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    LiveViewReference getLiveViewImageReference(final EdsCameraRef camera);
+
 }

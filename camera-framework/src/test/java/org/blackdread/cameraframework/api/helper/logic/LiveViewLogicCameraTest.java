@@ -6,6 +6,7 @@ import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -42,7 +43,11 @@ class LiveViewLogicCameraTest {
 
     @AfterAll
     static void tearDownClass() {
-        TestShortcutUtil.closeSession(camera);
+        try {
+            TestShortcutUtil.closeSession(camera);
+        } finally {
+            ReleaseUtil.release(camera);
+        }
         TestShortcutUtil.terminateLibrary();
     }
 
@@ -114,18 +119,71 @@ class LiveViewLogicCameraTest {
     }
 
     @Test
-    void isLiveViewEnabledByDownloadingOneImage() {
+    void isLiveViewEnabledByDownloadingOneImageDoesNotThrow() {
+        final boolean isOn = liveViewLogic().isLiveViewEnabledByDownloadingOneImage(camera.getValue());
+        Assertions.assertFalse(isOn, "Expected lived view off");
     }
 
     @Test
-    void getLiveViewImageReference() {
+    void isLiveViewEnabledByDownloadingOneImage() throws InterruptedException {
+        liveViewLogic().beginLiveView(camera.getValue());
+
+        Thread.sleep(500);
+
+        final boolean isOn = liveViewLogic().isLiveViewEnabledByDownloadingOneImage(camera.getValue());
+        Assertions.assertTrue(isOn, "Expected lived view ON");
+
+        liveViewLogic().endLiveView(camera.getValue());
     }
 
     @Test
-    void getLiveViewImage() {
+    void getLiveViewImage() throws InterruptedException {
+        liveViewLogic().beginLiveView(camera.getValue());
+
+        Thread.sleep(500);
+
+        final BufferedImage liveViewImage = liveViewLogic().getLiveViewImage(camera.getValue());
+        Assertions.assertNotNull(liveViewImage);
+
+        liveViewLogic().endLiveView(camera.getValue());
     }
 
     @Test
-    void getLiveViewImageBuffer() {
+    void getLiveViewImageThrowsIfNotRunning() {
+        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImage(camera.getValue()));
+    }
+
+    @Test
+    void getLiveViewImageBuffer() throws InterruptedException {
+        liveViewLogic().beginLiveView(camera.getValue());
+
+        Thread.sleep(500);
+
+        final byte[] liveViewImageBuffer = liveViewLogic().getLiveViewImageBuffer(camera.getValue());
+        Assertions.assertNotNull(liveViewImageBuffer);
+
+        liveViewLogic().endLiveView(camera.getValue());
+    }
+
+    @Test
+    void getLiveViewImageBufferThrowsIfNotRunning() {
+        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImageBuffer(camera.getValue()));
+    }
+
+    @Test
+    void getLiveViewImageReference() throws InterruptedException {
+        liveViewLogic().beginLiveView(camera.getValue());
+
+        Thread.sleep(500);
+
+        final LiveViewReference liveViewImageReference = liveViewLogic().getLiveViewImageReference(camera.getValue());
+        Assertions.assertNotNull(liveViewImageReference);
+
+        liveViewLogic().endLiveView(camera.getValue());
+    }
+
+    @Test
+    void getLiveViewImageReferenceThrowsIfNotRunning() {
+        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImageReference(camera.getValue()));
     }
 }
