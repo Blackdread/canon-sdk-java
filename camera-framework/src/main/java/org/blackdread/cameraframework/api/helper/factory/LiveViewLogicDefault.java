@@ -1,12 +1,20 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
-import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsEvfImageRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsStreamRef;
 import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
+import org.blackdread.cameraframework.api.helper.logic.LiveViewReference;
+import org.blackdread.cameraframework.util.ErrorUtil;
+import org.blackdread.cameraframework.util.ReleaseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * <p>Created on 2018/10/21.<p>
@@ -14,6 +22,8 @@ import java.awt.image.BufferedImage;
  * @author Yoann CAPLAIN
  */
 public class LiveViewLogicDefault implements LiveViewLogic {
+
+    private static final Logger log = LoggerFactory.getLogger(LiveViewLogicDefault.class);
 
     protected LiveViewLogicDefault() {
     }
@@ -42,13 +52,39 @@ public class LiveViewLogicDefault implements LiveViewLogic {
 
     @Override
     public boolean isLiveViewEnabledByDownloadingOneImage(final EdsCameraRef camera) {
-
-        return false;
+        try (final LiveViewReference imageReference = getLiveViewImageReference(camera)) {
+            return true;
+        } catch (IOException e) {
+            log.error("Error ", e);
+//            throw new UncheckedIOException(e);
+            return false;
+        }
     }
 
     @Override
-    public EdsdkLibrary.EdsBaseRef.ByReference[] getLiveViewImageReference(final EdsCameraRef camera) {
-        return new EdsdkLibrary.EdsBaseRef.ByReference[0];
+    public LiveViewReference getLiveViewImageReference(final EdsCameraRef camera) {
+        final EdsStreamRef.ByReference streamRef = new EdsStreamRef.ByReference();
+
+        final EdsdkError streamError = ErrorUtil.toEdsdkError(CanonFactory.edsdkLibrary().EdsCreateMemoryStream(0, streamRef));
+        if (streamError != EdsdkError.EDS_ERR_OK) {
+            ReleaseUtil.release(streamRef);
+            throw streamError.getException();
+        }
+
+        final EdsEvfImageRef.ByReference imageRef = new EdsEvfImageRef.ByReference();
+        final EdsdkError imageError = ErrorUtil.toEdsdkError(CanonFactory.edsdkLibrary().EdsCreateEvfImageRef(streamRef.getValue(), imageRef));
+        if (imageError != EdsdkError.EDS_ERR_OK) {
+            ReleaseUtil.release(imageRef, streamRef);
+
+            throw streamError.getException();
+        }
+        final EdsdkError downloadError = ErrorUtil.toEdsdkError(CanonFactory.edsdkLibrary().EdsDownloadEvfImage(camera, imageRef.getValue()));
+        if (downloadError != EdsdkError.EDS_ERR_OK) {
+            ReleaseUtil.release(imageRef, streamRef);
+            throw streamError.getException();
+        }
+
+        return null;
     }
 
     @Override

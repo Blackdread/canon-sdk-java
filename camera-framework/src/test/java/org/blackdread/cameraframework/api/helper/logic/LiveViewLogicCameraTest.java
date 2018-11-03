@@ -12,6 +12,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.image.BufferedImage;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.liveViewLogic;
 
@@ -22,6 +26,8 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.liv
  */
 @CameraIsConnected
 class LiveViewLogicCameraTest {
+
+    private static final Logger log = LoggerFactory.getLogger(LiveViewLogicCameraTest.class);
 
     static EdsdkLibrary edsdkLibrary;
 
@@ -52,7 +58,10 @@ class LiveViewLogicCameraTest {
     void beginLiveView() throws InterruptedException {
         liveViewLogic().beginLiveView(camera.getValue(), EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
 
-        Thread.sleep(10000);
+        Thread.sleep(500);
+
+        final BufferedImage bufferedImage = liveViewLogic().getLiveViewImage(camera.getValue());
+        Assertions.assertNotNull(bufferedImage);
 
         liveViewLogic().endLiveView(camera.getValue());
     }

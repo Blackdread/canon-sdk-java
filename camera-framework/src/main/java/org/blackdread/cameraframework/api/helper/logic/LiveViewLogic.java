@@ -6,7 +6,6 @@ import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
 import java.awt.image.BufferedImage;
 
-import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 
 /**
@@ -17,10 +16,22 @@ import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
  */
 public interface LiveViewLogic {
 
+    /**
+     * Enable the live view, and allow to further set settings of live view (Evf)
+     *
+     * @param camera ref of camera
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
     default void enableLiveView(final EdsCameraRef camera) {
         CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 1L);
     }
 
+    /**
+     * Disable the live view, and further set settings of live view (Evf) might not be possible until re-enabled
+     *
+     * @param camera ref of camera
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
     default void disableLiveView(final EdsCameraRef camera) {
         CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 0L);
     }
@@ -30,24 +41,24 @@ public interface LiveViewLogic {
     }
 
     /**
-     * Start the live view and set the output device
+     * Start the live view (auto enable live view)
      *
      * @param camera ref of camera
-     * @return true if successful to start live view
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void beginLiveView(final EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice);
 
     /**
-     * Stop the live view
+     * Stop the live view (auto disable live view)
      *
      * @param camera ref of camera
-     * @return true if successful to end live view
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void endLiveView(final EdsCameraRef camera);
 
     /**
+     * If is not enabled then {@link #enableLiveView} can be used
+     *
      * @param camera ref of camera
      * @return true if live view is allowed to be <b>enabled</b>
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
@@ -55,6 +66,8 @@ public interface LiveViewLogic {
     boolean isLiveViewEnabled(final EdsCameraRef camera);
 
     /**
+     * If is not enabled then {@link #enableLiveView} can be used
+     *
      * @param camera ref of camera
      * @return true if the camera is <b>transmitting</b> live view images
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
@@ -66,7 +79,7 @@ public interface LiveViewLogic {
      * @return
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    EdsBaseRef.ByReference[] getLiveViewImageReference(final EdsCameraRef camera);
+    LiveViewReference getLiveViewImageReference(final EdsCameraRef camera);
 
     /**
      * @param camera ref of camera

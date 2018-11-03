@@ -32,7 +32,7 @@ public interface PropertySetLogic {
     }
 
     default void setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
-                                         final long inParam, final long value) {
+                                 final long inParam, final long value) {
         this.setPropertyDataAdvanced(ref, property, 0, value);
     }
 
@@ -48,9 +48,11 @@ public interface PropertySetLogic {
      * @param property the property id
      * @param inParam  designate additional property information. Use additional property information if multiple items of information such as picture styles can be set or retrieved for a property. For descriptions of values that can be designated for each property, see the description of inParam for EdsGetPropertyData
      * @param value    designate the property data to set
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws ClassCastException                                           if the object {@code value} does not match the type of the property to set
      */
     void setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property,
-                         final long inParam, final Object value);
+                                 final long inParam, final Object value);
 
     default EdsdkError setPropertyData(final EdsBaseRef ref, final EdsPropertyID property,
                                        final long inParam, final int size, final Pointer data) {
