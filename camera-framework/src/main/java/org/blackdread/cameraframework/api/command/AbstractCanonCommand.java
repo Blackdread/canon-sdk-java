@@ -7,8 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+
+import static org.blackdread.cameraframework.util.TimeUtil.currentInstant;
 
 /**
  * <p>Created on 2018/10/02.<p>
@@ -20,6 +23,12 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
     protected static final Logger log = LoggerFactory.getLogger(AbstractCanonCommand.class);
 
     // TODO timing to know execution time, delay time between creation and time run is called, etc...
+
+    private final Instant createTime = currentInstant();
+
+    private Instant executionStartTime = null;
+
+    private Instant executionEndTime = null;
 
     /**
      * Can be the cameraRef, imageRef, VolumeRef, etc
@@ -33,8 +42,13 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
      * Called only by command executor thread(s)
      */
     final void run() {
-        // TODO try catch, etc
-        runInternal();
+        executionStartTime = currentInstant();
+        try {
+            // TODO try catch, etc
+            runInternal();
+        } finally {
+            executionEndTime = currentInstant();
+        }
     }
 
     protected abstract void runInternal();
@@ -43,6 +57,27 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
         if (targetRef == null)
             throw new IllegalStateException("TargetRef have not been set yet");
         return targetRef;
+    }
+
+    @Override
+    public Instant getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public Instant getExecutionStartTime() {
+        if (executionStartTime == null)
+            throw new IllegalStateException("Command not started yet");
+        return executionStartTime;
+    }
+
+    @Override
+    public Instant getExecutionEndTime() {
+        if (executionStartTime == null)
+            throw new IllegalStateException("Command not started yet");
+        if (executionEndTime == null)
+            throw new IllegalStateException("Command not finished yet");
+        return executionEndTime;
     }
 
     @Override

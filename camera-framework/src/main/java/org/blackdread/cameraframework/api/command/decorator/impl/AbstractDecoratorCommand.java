@@ -5,6 +5,7 @@ import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -35,6 +36,21 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
      */
     protected CanonCommand<R> getDelegate() {
         return delegate;
+    }
+
+    @Override
+    public Instant getCreateTime() {
+        return getDelegate().getCreateTime();
+    }
+
+    @Override
+    public Instant getExecutionStartTime() {
+        return getDelegate().getExecutionStartTime();
+    }
+
+    @Override
+    public Instant getExecutionEndTime() {
+        return getDelegate().getExecutionEndTime();
     }
 
     @Override
