@@ -2,7 +2,9 @@ package org.blackdread.cameraframework.api.helper.factory;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.CanonLibrary;
+import org.blackdread.cameraframework.api.command.SingleCommandDispatcher;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
+import org.blackdread.cameraframework.api.helper.logic.CommandDispatcher;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyDescLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyGetLogic;
@@ -34,6 +36,8 @@ public class CanonFactory {
      */
     private static CanonFactory canonFactory = new CanonFactory();
 
+    // TODO this is not lazy...
+    private static final CommandDispatcher commandDispatcher = SingleCommandDispatcher.getInstance();
 
     // TODO if factory is changed, we should give protected method to let user modify or set to null those variables
     private static final CanonLibrary canonLibrary = new CanonLibraryImpl();
@@ -76,6 +80,19 @@ public class CanonFactory {
         CanonFactory.canonFactory = Objects.requireNonNull(canonFactory);
         log.info("Canon factory has been modified {} time(s)", factoryChangedCount.incrementAndGet());
     }
+
+    /**
+     * Shortcut for {@link CanonFactory#getCommandDispatcher()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCommandDispatcher() }
+     * </pre>
+     *
+     * @return command dispatcher instance, never null
+     */
+    public static CommandDispatcher commandDispatcher() {
+        return CanonFactory.getCanonFactory().getCommandDispatcher();
+    }
+
 
     /**
      * Shortcut for {@link CanonLibrary#edsdkLibrary()}
@@ -183,6 +200,15 @@ public class CanonFactory {
      */
     public static ShootLogic shootLogic() {
         return CanonFactory.getCanonFactory().getShootLogic();
+    }
+
+
+    /**
+     * @return command dispatcher
+     * @see CommandDispatcher
+     */
+    public CommandDispatcher getCommandDispatcher() {
+        return commandDispatcher;
     }
 
     /**

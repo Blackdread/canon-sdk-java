@@ -45,6 +45,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
         executionStartTime = currentInstant();
         try {
             // TODO try catch, etc
+            // no timeout here, the dispatcher takes care of that
             runInternal();
         } finally {
             executionEndTime = currentInstant();
