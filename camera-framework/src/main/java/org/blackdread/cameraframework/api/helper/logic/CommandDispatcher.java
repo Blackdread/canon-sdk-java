@@ -6,4 +6,7 @@ package org.blackdread.cameraframework.api.helper.logic;
  * @author Yoann CAPLAIN
  */
 public interface CommandDispatcher {
+
+//    void
+
 }

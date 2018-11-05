@@ -41,6 +41,10 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
         return instance;
     }
 
+    private void commandDispatcher() {
+
+    }
+
     public void e() {
 
     }

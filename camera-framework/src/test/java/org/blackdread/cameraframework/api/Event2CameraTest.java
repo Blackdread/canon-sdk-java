@@ -56,7 +56,7 @@ public class Event2CameraTest {
     }
 
     @BeforeEach
-    void setUp() throws InterruptedException {
+    void setUp() {
         TestShortcutUtil.registerCameraAddedHandler(inContext -> {
             log.warn("Camera added called {}", inContext);
             cameraEventCalledCount.incrementAndGet();
