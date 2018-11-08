@@ -2,15 +2,21 @@ package org.blackdread.cameraframework.api.helper.factory;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraAddedHandler;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CanonEvent;
 import org.blackdread.cameraframework.api.helper.logic.event.EmptyEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.annotation.concurrent.NotThreadSafe;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUtil.cleanNullReferences;
+import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUtil.contains;
 
 /**
  * Default implementation of camera added event logic
@@ -18,9 +24,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author Yoann CAPLAIN
  */
+@NotThreadSafe
 public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
 
-    private final EdsdkLibrary.EdsCameraAddedHandler handler = inContext -> {
+    private static final Logger log = LoggerFactory.getLogger(CameraAddedEventLogicDefault.class);
+
+    private final EdsCameraAddedHandler handler = inContext -> {
         this.handle(new EmptyEvent());
         return new NativeLong(0);
     };
@@ -40,7 +49,11 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
         for (final WeakReference<CameraAddedListener> listener : listeners) {
             final CameraAddedListener cameraAddedListener = listener.get();
             if (cameraAddedListener != null) {
-                cameraAddedListener.handleCameraAddedEvent(event);
+                try {
+                    cameraAddedListener.handleCameraAddedEvent(event);
+                } catch (Exception ex) {
+                    log.warn("Listeners should not throw exceptions", ex);
+                }
             }
         }
     }
@@ -54,18 +67,10 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
 
     @Override
     public void addCameraAddedListener(final CameraAddedListener listener) {
-        // between found and add, it is not thread safe but does not matter
-        boolean found = false;
-        for (final WeakReference<CameraAddedListener> weakReference : listeners) {
-            final CameraAddedListener cameraAddedListener = weakReference.get();
-            if (cameraAddedListener != null && cameraAddedListener.equals(listener)) {
-                found = true;
-                break;
-            }
-        }
-        if (!found)
+        // between contains and add, it is not thread safe but does not matter
+        if (!contains(listeners, listener))
             listeners.add(new WeakReference<>(listener));
-        cleanNullListeners();
+        cleanNullReferences(listeners);
     }
 
     @Override
@@ -77,7 +82,7 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
             }
             return cameraAddedListener.equals(listener);
         });
-        cleanNullListeners();
+        cleanNullReferences(listeners);
     }
 
     @Override
@@ -94,7 +99,4 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
         return listeners;
     }
 
-    private void cleanNullListeners() {
-        listeners.removeIf(weakReference -> weakReference.isEnqueued() || weakReference.get() == null);
-    }
 }

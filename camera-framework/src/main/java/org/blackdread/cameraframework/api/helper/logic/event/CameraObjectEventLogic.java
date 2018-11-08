@@ -43,11 +43,22 @@ public interface CameraObjectEventLogic {
     void addCameraObjectListener(final EdsCameraRef cameraRef, final CameraObjectListener listener);
 
     /**
+     * Remove the listener from <b>all</b> notification lists.
+     * <br>
      * Nothing happens if this listener is not found
      *
      * @param listener listener to remove
      */
     void removeCameraObjectListener(final CameraObjectListener listener);
+
+    /**
+     * Remove the listener from <b>only</b> notification list of this specific camera. It may still receive events if it was also added to notification list of any camera.
+     * <br>
+     * Nothing happens if this listener is not found
+     *
+     * @param listener listener to remove
+     */
+    void removeCameraObjectListener(final EdsCameraRef cameraRef, final CameraObjectListener listener);
 
     /**
      * Clear all listeners from all camera.

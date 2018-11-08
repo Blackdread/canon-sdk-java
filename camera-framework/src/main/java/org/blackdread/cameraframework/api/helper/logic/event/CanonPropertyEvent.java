@@ -1,5 +1,6 @@
 package org.blackdread.cameraframework.api.helper.logic.event;
 
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.constant.EdsPropertyEvent;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 
@@ -10,7 +11,10 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
  */
 public interface CanonPropertyEvent extends CanonEvent {
 
-    // TODO add cameraRef
+    /**
+     * @return camera from which event is
+     */
+    EdsCameraRef getCameraRef();
 
     /**
      * @return event type that occurred

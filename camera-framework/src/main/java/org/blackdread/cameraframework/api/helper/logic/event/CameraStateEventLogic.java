@@ -40,14 +40,25 @@ public interface CameraStateEventLogic {
      *
      * @param listener listener to add, must be held a strong reference as implementation keeps a weak reference to the listener
      */
-    void addCameraStateListener(final EdsCameraRef cameraRef, final CameraObjectListener listener);
+    void addCameraStateListener(final EdsCameraRef cameraRef, final CameraStateListener listener);
 
     /**
+     * Remove the listener from <b>all</b> notification lists.
+     * <br>
      * Nothing happens if this listener is not found
      *
      * @param listener listener to remove
      */
     void removeCameraStateListener(final CameraStateListener listener);
+
+    /**
+     * Remove the listener from <b>only</b> notification list of this specific camera. It may still receive events if it was also added to notification list of any camera.
+     * <br>
+     * Nothing happens if this listener is not found
+     *
+     * @param listener listener to remove
+     */
+    void removeCameraStateListener(final EdsCameraRef cameraRef, final CameraStateListener listener);
 
     /**
      * Clear all listeners from all camera.
