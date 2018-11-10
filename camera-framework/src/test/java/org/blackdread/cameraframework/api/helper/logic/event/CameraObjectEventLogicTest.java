@@ -2,7 +2,6 @@ package org.blackdread.cameraframework.api.helper.logic.event;
 
 import com.sun.jna.Pointer;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
-import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -36,12 +35,12 @@ class CameraObjectEventLogicTest {
 
     @BeforeAll
     static void setUpClass() {
-        TestShortcutUtil.initLibrary();
+//        TestShortcutUtil.initLibrary();
     }
 
     @AfterAll
     static void tearDownClass() {
-        TestShortcutUtil.terminateLibrary();
+//        TestShortcutUtil.terminateLibrary();
     }
 
     @BeforeEach
