@@ -30,6 +30,14 @@ public final class TestUtil {
         Assertions.assertEquals(EdsdkError.EDS_ERR_OK, error);
     }
 
+    public static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Assertions.fail("Sleep interrupted");
+        }
+    }
+
     private TestUtil() {
 
     }

@@ -16,6 +16,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -83,6 +84,7 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
 
     @Override
     public void registerCameraStateEvent(final EdsCameraRef cameraRef) {
+        Objects.requireNonNull(cameraRef);
         final EdsStateEventHandler stateEventHandler = buildHandler(cameraRef);
         handlerLock.writeLock().lock();
         try {
@@ -95,6 +97,7 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
 
     @Override
     public void unregisterCameraStateEvent(final EdsCameraRef cameraRef) {
+        Objects.requireNonNull(cameraRef);
         handlerLock.writeLock().lock();
         try {
             CanonFactory.edsdkLibrary().EdsSetCameraStateEventHandler(cameraRef, new NativeLong(EdsStateEvent.kEdsStateEvent_All.value()), null, Pointer.NULL);
@@ -106,6 +109,7 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
 
     @Override
     public void addCameraStateListener(final CameraStateListener listener) {
+        Objects.requireNonNull(listener);
         listenerLock.writeLock().lock();
         try {
             if (!contains(anyCameraListeners, listener))
@@ -118,6 +122,8 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
 
     @Override
     public void addCameraStateListener(final EdsCameraRef cameraRef, final CameraStateListener listener) {
+        Objects.requireNonNull(cameraRef);
+        Objects.requireNonNull(listener);
         listenerLock.writeLock().lock();
         try {
             listenersMap.compute(cameraRef, (cameraRef1, weakReferences) -> {
@@ -140,6 +146,7 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
 
     @Override
     public void removeCameraStateListener(final CameraStateListener listener) {
+        Objects.requireNonNull(listener);
         listenerLock.writeLock().lock();
         try {
             remove(anyCameraListeners, listener);
@@ -156,6 +163,8 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
 
     @Override
     public void removeCameraStateListener(final EdsCameraRef cameraRef, final CameraStateListener listener) {
+        Objects.requireNonNull(cameraRef);
+        Objects.requireNonNull(listener);
         listenerLock.writeLock().lock();
         try {
             final List<WeakReference<CameraStateListener>> weakReferences = listenersMap.get(cameraRef);
@@ -181,6 +190,7 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
 
     @Override
     public void clearCameraStateListeners(final EdsCameraRef cameraRef) {
+        Objects.requireNonNull(cameraRef);
         listenerLock.writeLock().lock();
         try {
             final List<WeakReference<CameraStateListener>> weakReferences = listenersMap.get(cameraRef);
