@@ -101,22 +101,27 @@ class CameraObjectEventLogicTest {
     void addCameraObjectListener() {
         cameraObjectEventLogic().addCameraObjectListener(cameraObjectListener);
         cameraObjectEventLogic().addCameraObjectListener(cameraObjectListener);
+        sendAndAssertCountEvent(2, 2);
     }
 
     @Test
     void addCameraObjectListenerWithNullThrows() {
         Assertions.assertThrows(NullPointerException.class, () -> cameraObjectEventLogic().addCameraObjectListener(null));
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
     void addCameraObjectListenerCamera() {
         cameraObjectEventLogic().addCameraObjectListener(fakeCamera, cameraObjectListener);
+        cameraObjectEventLogic().addCameraObjectListener(fakeCamera, cameraObjectListener);
+        sendAndAssertCountEvent(2, 2);
     }
 
     @Test
     void addCameraObjectListenerCameraWithNullThrows() {
         Assertions.assertThrows(NullPointerException.class, () -> cameraObjectEventLogic().addCameraObjectListener(null, cameraObjectListener));
         Assertions.assertThrows(NullPointerException.class, () -> cameraObjectEventLogic().addCameraObjectListener(fakeCamera, null));
+        sendAndAssertCountEvent(2, 0);
     }
 
 
@@ -135,6 +140,7 @@ class CameraObjectEventLogicTest {
         }
 
         Assertions.assertNull(weakReference.get(), "cameraObjectEventLogic is holding a strong ref to listener");
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
@@ -143,17 +149,20 @@ class CameraObjectEventLogicTest {
         cameraObjectEventLogic().removeCameraObjectListener(cameraObjectListener);
         cameraObjectEventLogic().addCameraObjectListener(fakeCamera, cameraObjectListener);
         cameraObjectEventLogic().removeCameraObjectListener(cameraObjectListener);
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
     void removeCameraObjectListenerWithNullThrows() {
         Assertions.assertThrows(NullPointerException.class, () -> cameraObjectEventLogic().removeCameraObjectListener(null, cameraObjectListener));
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
     void removeCameraObjectListenerCamera() {
         cameraObjectEventLogic().addCameraObjectListener(fakeCamera, cameraObjectListener);
         cameraObjectEventLogic().removeCameraObjectListener(fakeCamera, cameraObjectListener);
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
@@ -163,12 +172,14 @@ class CameraObjectEventLogicTest {
         cameraObjectEventLogic().removeCameraObjectListener(new EdsdkLibrary.EdsCameraRef(), cameraObjectListener);
         cameraObjectEventLogic().removeCameraObjectListener(new EdsdkLibrary.EdsCameraRef(), a -> {
         });
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
     void removeCameraObjectListenerCameraWithNullThrows() {
         Assertions.assertThrows(NullPointerException.class, () -> cameraObjectEventLogic().removeCameraObjectListener(null, cameraObjectListener));
         Assertions.assertThrows(NullPointerException.class, () -> cameraObjectEventLogic().removeCameraObjectListener(fakeCamera, null));
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
@@ -176,6 +187,7 @@ class CameraObjectEventLogicTest {
         cameraObjectEventLogic().addCameraObjectListener(fakeCamera, cameraObjectListener);
         cameraObjectEventLogic().clearCameraObjectListeners();
         cameraObjectEventLogic().clearCameraObjectListeners();
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
@@ -183,11 +195,13 @@ class CameraObjectEventLogicTest {
         cameraObjectEventLogic().clearCameraObjectListeners(fakeCamera);
         cameraObjectEventLogic().addCameraObjectListener(fakeCamera, cameraObjectListener);
         cameraObjectEventLogic().clearCameraObjectListeners(fakeCamera);
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
     void clearCameraObjectListenersWithCameraWithNullThrows() {
         Assertions.assertThrows(NullPointerException.class, () -> cameraObjectEventLogic().clearCameraObjectListeners(null));
+        sendAndAssertCountEvent(2, 0);
     }
 
     @Test
@@ -196,6 +210,7 @@ class CameraObjectEventLogicTest {
         cameraObjectEventLogic().addCameraObjectListener(cameraObjectListener);
         createEvent(fakeCamera);
         Assertions.assertEquals(1, countEvent.get());
+        sendAndAssertCountEvent(2, 3);
     }
 
     @Test
@@ -236,5 +251,12 @@ class CameraObjectEventLogicTest {
         } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             Assertions.fail("Failed reflection", e);
         }
+    }
+
+    private void sendAndAssertCountEvent(final int countSendEvent,final int expectedCount) {
+        for (int i = 0; i < countSendEvent; i++) {
+            createEvent(fakeCamera);
+        }
+        Assertions.assertEquals(expectedCount, countEvent.get());
     }
 }
