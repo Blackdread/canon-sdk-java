@@ -127,7 +127,7 @@ class CanonLibraryImpl implements CanonLibrary {
                 log.info("Library successfully loaded");
                 return;
             }
-            throw new IllegalStateException("Not supported OS");
+            throw new IllegalStateException("Not supported OS: " + Platform.getOSType());
         }
     }
 

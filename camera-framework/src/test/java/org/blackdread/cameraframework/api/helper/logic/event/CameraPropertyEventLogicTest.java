@@ -2,6 +2,8 @@ package org.blackdread.cameraframework.api.helper.logic.event;
 
 import com.sun.jna.Pointer;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.DllOnPath;
+import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.api.constant.EdsPropertyEvent;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.junit.jupiter.api.AfterAll;
@@ -24,6 +26,7 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.cam
  *
  * @author Yoann CAPLAIN
  */
+@DllOnPath
 class CameraPropertyEventLogicTest {
 
     private EdsdkLibrary.EdsCameraRef fakeCamera;
@@ -36,12 +39,12 @@ class CameraPropertyEventLogicTest {
 
     @BeforeAll
     static void setUpClass() {
-//        TestShortcutUtil.initLibrary();
+        TestShortcutUtil.initLibrary();
     }
 
     @AfterAll
     static void tearDownClass() {
-//        TestShortcutUtil.terminateLibrary();
+        TestShortcutUtil.terminateLibrary();
     }
 
     @BeforeEach
