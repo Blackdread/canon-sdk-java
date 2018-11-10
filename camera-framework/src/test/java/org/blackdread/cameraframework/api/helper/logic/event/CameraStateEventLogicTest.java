@@ -1,7 +1,9 @@
 package org.blackdread.cameraframework.api.helper.logic.event;
 
+import com.sun.jna.Pointer;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
+import org.blackdread.cameraframework.api.constant.EdsStateEvent;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.blackdread.cameraframework.api.TestUtil.sleep;
@@ -25,6 +29,8 @@ class CameraStateEventLogicTest {
     private EdsdkLibrary.EdsCameraRef fakeCamera;
 
     private CameraStateListener cameraStateListener;
+
+    private CameraStateListener cameraStateListenerThrows;
 
     private final AtomicInteger countEvent = new AtomicInteger(0);
 
@@ -42,10 +48,14 @@ class CameraStateEventLogicTest {
     void setUp() {
         fakeCamera = new EdsdkLibrary.EdsCameraRef();
         cameraStateListener = (event) -> countEvent.incrementAndGet();
+        cameraStateListenerThrows = (event) -> {
+            throw new IllegalStateException("Always throw");
+        };
     }
 
     @AfterEach
     void tearDown() {
+        countEvent.set(0);
         cameraStateEventLogic().clearCameraStateListeners();
     }
 
@@ -77,7 +87,7 @@ class CameraStateEventLogicTest {
 
     @Test
     void unregisterCameraStateEvent() {
-        cameraStateEventLogic().registerCameraStateEvent(fakeCamera);
+        cameraStateEventLogic().unregisterCameraStateEvent(fakeCamera);
     }
 
     @Test
@@ -167,5 +177,53 @@ class CameraStateEventLogicTest {
     @Test
     void clearCameraStateListenersWithCameraWithNullThrows() {
         Assertions.assertThrows(NullPointerException.class, () -> cameraStateEventLogic().clearCameraStateListeners(null));
+    }
+
+    @Test
+    void listenerExceptionAreSuppressed() {
+        cameraStateEventLogic().addCameraStateListener(cameraStateListenerThrows);
+        cameraStateEventLogic().addCameraStateListener(cameraStateListener);
+        createEvent(fakeCamera);
+        Assertions.assertEquals(1, countEvent.get());
+    }
+
+    @Test
+    void getNotifiedFromAnyCamera() {
+        cameraStateEventLogic().addCameraStateListener(cameraStateListener);
+        createEvent(fakeCamera);
+        createEvent(new EdsdkLibrary.EdsCameraRef(new Pointer(1)));
+        Assertions.assertEquals(2, countEvent.get());
+        cameraStateListener = null;
+        for (int i = 0; i < 10; i++) {
+            System.gc();
+            sleep(10);
+        }
+        createEvent(fakeCamera);
+        createEvent(new EdsdkLibrary.EdsCameraRef(new Pointer(1)));
+        Assertions.assertEquals(2, countEvent.get());
+    }
+
+    @Test
+    void getNotifiedFromSpecificCamera() {
+        cameraStateEventLogic().addCameraStateListener(fakeCamera, cameraStateListener);
+        createEvent(fakeCamera);
+        createEvent(new EdsdkLibrary.EdsCameraRef(new Pointer(1)));
+        createEvent(new EdsdkLibrary.EdsCameraRef(new Pointer(2)));
+        Assertions.assertEquals(1, countEvent.get());
+        cameraStateEventLogic().addCameraStateListener(new EdsdkLibrary.EdsCameraRef(new Pointer(1)), cameraStateListener);
+        createEvent(new EdsdkLibrary.EdsCameraRef(new Pointer(1)));
+        Assertions.assertEquals(2, countEvent.get());
+    }
+
+
+    private void createEvent(final EdsdkLibrary.EdsCameraRef camera) {
+        try {
+            final Method handleMethod = cameraStateEventLogic().getClass().getDeclaredMethod("handle", CanonStateEvent.class);
+            final CanonStateEventImpl event = new CanonStateEventImpl(camera, EdsStateEvent.kEdsStateEvent_WillSoonShutDown, 0);
+            handleMethod.setAccessible(true);
+            handleMethod.invoke(cameraStateEventLogic(), event);
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            Assertions.fail("Failed reflection", e);
+        }
     }
 }
