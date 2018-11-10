@@ -100,6 +100,7 @@ class CameraStateEventLogicTest {
     @Test
     void addCameraStateListener() {
         cameraStateEventLogic().addCameraStateListener(cameraStateListener);
+        cameraStateEventLogic().addCameraStateListener(cameraStateListener);
     }
 
     @Test
@@ -138,6 +139,9 @@ class CameraStateEventLogicTest {
 
     @Test
     void removeCameraStateListener() {
+        cameraStateEventLogic().addCameraStateListener(cameraStateListener);
+        cameraStateEventLogic().removeCameraStateListener(cameraStateListener);
+        cameraStateEventLogic().addCameraStateListener(fakeCamera, cameraStateListener);
         cameraStateEventLogic().removeCameraStateListener(cameraStateListener);
     }
 
@@ -148,6 +152,7 @@ class CameraStateEventLogicTest {
 
     @Test
     void removeCameraStateListenerCamera() {
+        cameraStateEventLogic().addCameraStateListener(fakeCamera, cameraStateListener);
         cameraStateEventLogic().removeCameraStateListener(fakeCamera, cameraStateListener);
     }
 
@@ -168,11 +173,15 @@ class CameraStateEventLogicTest {
 
     @Test
     void clearCameraStateListeners() {
+        cameraStateEventLogic().addCameraStateListener(fakeCamera, cameraStateListener);
+        cameraStateEventLogic().clearCameraStateListeners();
         cameraStateEventLogic().clearCameraStateListeners();
     }
 
     @Test
     void clearCameraStateListenersWithCamera() {
+        cameraStateEventLogic().clearCameraStateListeners(fakeCamera);
+        cameraStateEventLogic().addCameraStateListener(fakeCamera, cameraStateListener);
         cameraStateEventLogic().clearCameraStateListeners(fakeCamera);
     }
 
