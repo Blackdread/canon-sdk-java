@@ -11,6 +11,10 @@ import org.blackdread.cameraframework.api.helper.logic.PropertyGetLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertySetLogic;
 import org.blackdread.cameraframework.api.helper.logic.ShootLogic;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedEventLogic;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraStateEventLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +47,14 @@ public class CanonFactory {
     private static final CanonLibrary canonLibrary = new CanonLibraryImpl();
 
     private static final CameraLogic cameraLogic = new CameraLogicDefault();
+
+    private static final CameraAddedEventLogic cameraAddedEventLogic = new CameraAddedEventLogicDefault();
+
+    private static final CameraObjectEventLogic cameraObjectEventLogic = new CameraObjectEventLogicDefault();
+
+    private static final CameraPropertyEventLogic cameraPropertyEventLogic = new CameraPropertyEventLogicDefault();
+
+    private static final CameraStateEventLogic cameraStateEventLogic = new CameraStateEventLogicDefault();
 
     private static final PropertyLogic propertyLogic = new PropertyLogicDefault();
 
@@ -128,6 +140,54 @@ public class CanonFactory {
      */
     public static CameraLogic cameraLogic() {
         return CanonFactory.getCanonFactory().getCameraLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getCameraAddedEventLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCameraAddedEventLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static CameraAddedEventLogic cameraAddedEventLogic() {
+        return CanonFactory.getCanonFactory().getCameraAddedEventLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getCameraObjectEventLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCameraObjectEventLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static CameraObjectEventLogic cameraObjectEventLogic() {
+        return CanonFactory.getCanonFactory().getCameraObjectEventLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getCameraPropertyEventLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCameraPropertyEventLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static CameraPropertyEventLogic cameraPropertyEventLogic() {
+        return CanonFactory.getCanonFactory().getCameraPropertyEventLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getCameraStateEventLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getCameraStateEventLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static CameraStateEventLogic cameraStateEventLogic() {
+        return CanonFactory.getCanonFactory().getCameraStateEventLogic();
     }
 
     /**
@@ -225,6 +285,38 @@ public class CanonFactory {
      */
     public CameraLogic getCameraLogic() {
         return cameraLogic;
+    }
+
+    /**
+     * @return camera added event logic
+     * @see CameraAddedEventLogic
+     */
+    public CameraAddedEventLogic getCameraAddedEventLogic() {
+        return cameraAddedEventLogic;
+    }
+
+    /**
+     * @return camera object event logic
+     * @see CameraObjectEventLogic
+     */
+    public CameraObjectEventLogic getCameraObjectEventLogic() {
+        return cameraObjectEventLogic;
+    }
+
+    /**
+     * @return camera property event logic
+     * @see CameraPropertyEventLogic
+     */
+    public CameraPropertyEventLogic getCameraPropertyEventLogic() {
+        return cameraPropertyEventLogic;
+    }
+
+    /**
+     * @return camera state event logic
+     * @see CameraStateEventLogic
+     */
+    public CameraStateEventLogic getCameraStateEventLogic() {
+        return cameraStateEventLogic;
     }
 
     /**

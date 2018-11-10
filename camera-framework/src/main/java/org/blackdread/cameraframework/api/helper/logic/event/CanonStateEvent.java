@@ -20,9 +20,8 @@ public interface CanonStateEvent extends CanonEvent {
      */
     EdsStateEvent getStateEvent();
 
-    /*
-     *
+    /**
      * @return pointer to the event data. The content designated here varies depending on the property type
      */
-//    long getEventData();
+    long getEventData();
 }

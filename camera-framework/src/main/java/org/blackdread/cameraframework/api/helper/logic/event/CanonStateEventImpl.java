@@ -14,10 +14,12 @@ public class CanonStateEventImpl implements CanonStateEvent {
 
     private final EdsCameraRef cameraRef;
     private final EdsStateEvent stateEvent;
+    private final long inEventData;
 
-    public CanonStateEventImpl(final EdsCameraRef cameraRef, final EdsStateEvent stateEvent) {
+    public CanonStateEventImpl(final EdsCameraRef cameraRef, final EdsStateEvent stateEvent, final long inEventData) {
         this.cameraRef = Objects.requireNonNull(cameraRef);
         this.stateEvent = Objects.requireNonNull(stateEvent);
+        this.inEventData = inEventData;
     }
 
     @Override
@@ -28,5 +30,10 @@ public class CanonStateEventImpl implements CanonStateEvent {
     @Override
     public EdsStateEvent getStateEvent() {
         return stateEvent;
+    }
+
+    @Override
+    public long getEventData() {
+        return inEventData;
     }
 }

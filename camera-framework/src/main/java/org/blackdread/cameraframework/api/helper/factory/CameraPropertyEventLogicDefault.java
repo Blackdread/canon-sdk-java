@@ -3,12 +3,13 @@ package org.blackdread.cameraframework.api.helper.factory;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
-import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsObjectEventHandler;
-import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
-import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic;
-import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectListener;
-import org.blackdread.cameraframework.api.helper.logic.event.CanonObjectEvent;
-import org.blackdread.cameraframework.api.helper.logic.event.CanonObjectEventImpl;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsPropertyEventHandler;
+import org.blackdread.cameraframework.api.constant.EdsPropertyEvent;
+import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyListener;
+import org.blackdread.cameraframework.api.helper.logic.event.CanonPropertyEvent;
+import org.blackdread.cameraframework.api.helper.logic.event.CanonPropertyEventImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,14 +23,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUtil.*;
 
 /**
- * <p>Created on 2018/11/06.</p>
+ * <p>Created on 2018/11/09.</p>
  *
  * @author Yoann CAPLAIN
  */
 @ThreadSafe
-public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
+public class CameraPropertyEventLogicDefault implements CameraPropertyEventLogic {
 
-    private static final Logger log = LoggerFactory.getLogger(CameraObjectEventLogicDefault.class);
+    private static final Logger log = LoggerFactory.getLogger(CameraPropertyEventLogicDefault.class);
 
     /**
      * Lock when interacting with handlers
@@ -41,15 +42,15 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
      */
     private final ReentrantReadWriteLock listenerLock = new ReentrantReadWriteLock();
 
-    private final WeakHashMap<EdsCameraRef, EdsObjectEventHandler> handlerMap = new WeakHashMap<>();
+    private final WeakHashMap<EdsCameraRef, EdsPropertyEventHandler> handlerMap = new WeakHashMap<>();
 
-    private final List<WeakReference<CameraObjectListener>> anyCameraListeners = new ArrayList<>();
+    private final List<WeakReference<CameraPropertyListener>> anyCameraListeners = new ArrayList<>();
 
-    private final WeakHashMap<EdsCameraRef, List<WeakReference<CameraObjectListener>>> listenersMap = new WeakHashMap<>();
+    private final WeakHashMap<EdsCameraRef, List<WeakReference<CameraPropertyListener>>> listenersMap = new WeakHashMap<>();
 
-    private EdsObjectEventHandler buildHandler(final EdsCameraRef cameraRef) {
+    private EdsPropertyEventHandler buildHandler(final EdsCameraRef cameraRef) {
         final WeakReference<EdsCameraRef> cameraRefWeakReference = new WeakReference<>(cameraRef);
-        return (inEvent, inRef, inContext) -> {
+        return (inEvent, inPropertyID, inParam, inContext) -> {
             final EdsCameraRef edsCameraRef = cameraRefWeakReference.get();
             if (edsCameraRef == null) {
                 // this should not happen but who knows...
@@ -57,7 +58,7 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
                 throw new IllegalStateException("Received an event from a camera ref that is not referenced in the code anymore");
                 // TODO we throw or we just return doing nothing
             }
-            this.handle(new CanonObjectEventImpl(edsCameraRef, EdsObjectEvent.ofValue(inEvent.intValue()), inRef));
+            this.handle(new CanonPropertyEventImpl(edsCameraRef, EdsPropertyEvent.ofValue(inEvent.intValue()), EdsPropertyID.ofValue(inPropertyID.intValue()), inParam.longValue()));
             return new NativeLong(0);
         };
     }
@@ -67,12 +68,12 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
      *
      * @param event event to send
      */
-    protected void handle(final CanonObjectEvent event) {
+    protected void handle(final CanonPropertyEvent event) {
         // TODO handle in this current thread or use common pool or custom thread for that...
         listenerLock.readLock().lock();
         try {
             notifyListeners(anyCameraListeners, event);
-            final List<WeakReference<CameraObjectListener>> weakReferences = listenersMap.get(event.getCameraRef());
+            final List<WeakReference<CameraPropertyListener>> weakReferences = listenersMap.get(event.getCameraRef());
             if (weakReferences != null) {
                 notifyListeners(weakReferences, event);
             }
@@ -82,22 +83,22 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
     }
 
     @Override
-    public void registerCameraObjectEvent(final EdsCameraRef cameraRef) {
-        final EdsObjectEventHandler objectEventHandler = buildHandler(cameraRef);
+    public void registerCameraPropertyEvent(final EdsCameraRef cameraRef) {
+        final EdsPropertyEventHandler propertyEventHandler = buildHandler(cameraRef);
         handlerLock.writeLock().lock();
         try {
-            handlerMap.put(cameraRef, objectEventHandler);
-            CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), objectEventHandler, Pointer.NULL);
+            handlerMap.put(cameraRef, propertyEventHandler);
+            CanonFactory.edsdkLibrary().EdsSetPropertyEventHandler(cameraRef, new NativeLong(EdsPropertyEvent.kEdsPropertyEvent_All.value()), propertyEventHandler, Pointer.NULL);
         } finally {
             handlerLock.writeLock().unlock();
         }
     }
 
     @Override
-    public void unregisterCameraObjectEvent(final EdsCameraRef cameraRef) {
+    public void unregisterCameraPropertyEvent(final EdsCameraRef cameraRef) {
         handlerLock.writeLock().lock();
         try {
-            CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), null, Pointer.NULL);
+            CanonFactory.edsdkLibrary().EdsSetPropertyEventHandler(cameraRef, new NativeLong(EdsPropertyEvent.kEdsPropertyEvent_All.value()), null, Pointer.NULL);
             handlerMap.remove(cameraRef);
         } finally {
             handlerLock.writeLock().unlock();
@@ -105,7 +106,7 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
     }
 
     @Override
-    public void addCameraObjectListener(final CameraObjectListener listener) {
+    public void addCameraPropertyListener(final CameraPropertyListener listener) {
         listenerLock.writeLock().lock();
         try {
             if (!contains(anyCameraListeners, listener))
@@ -117,12 +118,12 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
     }
 
     @Override
-    public void addCameraObjectListener(final EdsCameraRef cameraRef, final CameraObjectListener listener) {
+    public void addCameraPropertyListener(final EdsCameraRef cameraRef, final CameraPropertyListener listener) {
         listenerLock.writeLock().lock();
         try {
             listenersMap.compute(cameraRef, (cameraRef1, weakReferences) -> {
                 if (weakReferences == null) {
-                    final List<WeakReference<CameraObjectListener>> weakRefs = new ArrayList<>();
+                    final List<WeakReference<CameraPropertyListener>> weakRefs = new ArrayList<>();
                     weakRefs.add(new WeakReference<>(listener));
                     return weakRefs;
                 } else {
@@ -139,7 +140,7 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
     }
 
     @Override
-    public void removeCameraObjectListener(final CameraObjectListener listener) {
+    public void removeCameraPropertyListener(final CameraPropertyListener listener) {
         listenerLock.writeLock().lock();
         try {
             remove(anyCameraListeners, listener);
@@ -155,10 +156,10 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
     }
 
     @Override
-    public void removeCameraObjectListener(final EdsCameraRef cameraRef, final CameraObjectListener listener) {
+    public void removeCameraPropertyListener(final EdsCameraRef cameraRef, final CameraPropertyListener listener) {
         listenerLock.writeLock().lock();
         try {
-            final List<WeakReference<CameraObjectListener>> weakReferences = listenersMap.get(cameraRef);
+            final List<WeakReference<CameraPropertyListener>> weakReferences = listenersMap.get(cameraRef);
             if (weakReferences != null) {
                 remove(weakReferences, listener);
             }
@@ -169,7 +170,7 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
     }
 
     @Override
-    public void clearCameraObjectListeners() {
+    public void clearCameraPropertyListeners() {
         listenerLock.writeLock().lock();
         try {
             anyCameraListeners.clear();
@@ -180,10 +181,10 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
     }
 
     @Override
-    public void clearCameraObjectListeners(final EdsCameraRef cameraRef) {
+    public void clearCameraPropertyListeners(final EdsCameraRef cameraRef) {
         listenerLock.writeLock().lock();
         try {
-            final List<WeakReference<CameraObjectListener>> weakReferences = listenersMap.get(cameraRef);
+            final List<WeakReference<CameraPropertyListener>> weakReferences = listenersMap.get(cameraRef);
             if (weakReferences != null)
                 weakReferences.clear();
         } finally {
@@ -199,12 +200,12 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
         });
     }
 
-    private static void notifyListeners(final List<WeakReference<CameraObjectListener>> weakReferences, final CanonObjectEvent event) {
-        for (final WeakReference<CameraObjectListener> listener : weakReferences) {
-            final CameraObjectListener cameraObjectListener = listener.get();
-            if (cameraObjectListener != null) {
+    private static void notifyListeners(final List<WeakReference<CameraPropertyListener>> weakReferences, final CanonPropertyEvent event) {
+        for (final WeakReference<CameraPropertyListener> listener : weakReferences) {
+            final CameraPropertyListener cameraPropertyListener = listener.get();
+            if (cameraPropertyListener != null) {
                 try {
-                    cameraObjectListener.handleCameraObjectEvent(event);
+                    cameraPropertyListener.handleCameraPropertyEvent(event);
                 } catch (Exception ex) {
                     log.warn("Listeners should not throw exceptions", ex);
                 }
