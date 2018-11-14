@@ -14,17 +14,34 @@ import java.util.List;
  * For help, please visit <a href="http://nativelibs4java.googlecode.com/">NativeLibs4Java</a> , <a href="http://rococoa.dev.java.net/">Rococoa</a>, or <a href="http://jna.dev.java.net/">JNA</a>.
  */
 public class EdsDirectoryItemInfo extends Structure {
-	/** C type : EdsUInt64 */
+	/** C type : EdsUInt64
+     * The file size. For folders, the file size is indicated as 0.
+     */
 	public long size;
-	/** C type : EdsBool */
+	/** C type : EdsBool
+     * If a folder: True
+     * If not a folder: False
+     */
 	public int isFolder;
-	/** C type : EdsUInt32 */
+	/** C type : EdsUInt32
+     * A non-zero integer. The same group ID is assigned to files that belong to the same group, such as RAW+JPEG images or RAW+AVI images
+     */
 	public NativeLong groupID;
-	/** C type : EdsUInt32 */
+	/** C type : EdsUInt32
+     * An option when a direct transfer request is received (a kEdsObjectEvent_DirItemRequestTransferDT event).
+     * kEdsTransferOptionToDesktop is set when [Wallpaper] in the direct transfer is executed by means of camera operations.
+     * Prohibit it under other timing conditions.
+     */
 	public NativeLong option;
-	/** C type : EdsChar[256] */
+	/** C type : EdsChar[256]
+     * Returns the directory name or file name if successful.
+     * Example: "_MG_0060.JPG"
+     */
 	public byte[] szFileName = new byte[256];
-	/** C type : EdsUInt32 */
+	/** C type : EdsUInt32
+     * Returns the directory item type.
+     * Note:This type is defined in EdsImageType.
+     * */
 	public NativeLong format;
 	/** C type : EdsUInt32 */
 	public NativeLong dateTime;
@@ -49,7 +66,7 @@ public class EdsDirectoryItemInfo extends Structure {
 		this.isFolder = isFolder;
 		this.groupID = groupID;
 		this.option = option;
-		if ((szFileName.length != this.szFileName.length)) 
+		if ((szFileName.length != this.szFileName.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.szFileName = szFileName;
 		this.format = format;
@@ -59,9 +76,9 @@ public class EdsDirectoryItemInfo extends Structure {
 		super(peer);
 	}
 	public static class ByReference extends EdsDirectoryItemInfo implements Structure.ByReference {
-		
+
 	};
 	public static class ByValue extends EdsDirectoryItemInfo implements Structure.ByValue {
-		
+
 	};
 }
