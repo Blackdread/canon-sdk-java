@@ -48,7 +48,7 @@
 
         <camera-binding.version>0.0.1-SNAPSHOT</camera-binding.version>
 
-        <jna.version>4.5.2</jna.version>
+        <jna.version>5.1.0</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
         <guava.version>26.0-jre</guava.version>

@@ -1,5 +1,6 @@
 package org.blackdread.camerabinding.jna;
 
+import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
@@ -4713,7 +4714,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
         }
 
         public EdsObjectByReference(final T r) {
-            super(Pointer.SIZE);
+            super(Native.POINTER_SIZE);
             setValue(r);
         }
 
