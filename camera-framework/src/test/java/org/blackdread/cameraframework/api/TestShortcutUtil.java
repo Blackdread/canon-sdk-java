@@ -91,6 +91,21 @@ public final class TestShortcutUtil {
         assertNoError(edsdkLibrary().EdsCloseSession(camera.getValue()));
     }
 
+    public static void getEvents() {
+        getEvents(50, 25);
+    }
+
+    public static void getEvents(final long sleepMillis, final int timeRetry) {
+        for (int i = 0; i < timeRetry; i++) {
+            try {
+                Thread.sleep(sleepMillis);
+            } catch (InterruptedException e) {
+                Assertions.fail("Interrupted");
+            }
+            CanonFactory.edsdkLibrary().EdsGetEvent();
+        }
+    }
+
     private TestShortcutUtil() {
     }
 }

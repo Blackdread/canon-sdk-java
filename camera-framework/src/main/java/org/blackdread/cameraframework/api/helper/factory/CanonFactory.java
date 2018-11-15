@@ -5,6 +5,7 @@ import org.blackdread.cameraframework.api.CanonLibrary;
 import org.blackdread.cameraframework.api.command.SingleCommandDispatcher;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 import org.blackdread.cameraframework.api.helper.logic.CommandDispatcher;
+import org.blackdread.cameraframework.api.helper.logic.FileLogic;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyDescLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyGetLogic;
@@ -67,6 +68,8 @@ public class CanonFactory {
     private static final LiveViewLogic liveViewLogic = new LiveViewLogicDefault();
 
     private static final ShootLogic shootLogic = new ShootLogicDefault();
+
+    private static final FileLogic fileLogic = new FileLogicDefault();
 
     /**
      * Should never be called directly, is protected to allow to extend
@@ -262,6 +265,18 @@ public class CanonFactory {
         return CanonFactory.getCanonFactory().getShootLogic();
     }
 
+    /**
+     * Shortcut for {@link CanonFactory#getFileLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getFileLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static FileLogic fileLogic() {
+        return CanonFactory.getCanonFactory().getFileLogic();
+    }
+
 
     /**
      * @return command dispatcher
@@ -365,6 +380,14 @@ public class CanonFactory {
      */
     public ShootLogic getShootLogic() {
         return shootLogic;
+    }
+
+    /**
+     * @return file logic
+     * @see FileLogic
+     */
+    public FileLogic getFileLogic() {
+        return fileLogic;
     }
 
 }
