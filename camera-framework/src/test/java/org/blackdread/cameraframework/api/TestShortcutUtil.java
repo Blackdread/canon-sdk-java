@@ -97,12 +97,12 @@ public final class TestShortcutUtil {
 
     public static void getEvents(final long sleepMillis, final int timeRetry) {
         for (int i = 0; i < timeRetry; i++) {
+            CanonFactory.edsdkLibrary().EdsGetEvent();
             try {
                 Thread.sleep(sleepMillis);
             } catch (InterruptedException e) {
                 Assertions.fail("Interrupted");
             }
-            CanonFactory.edsdkLibrary().EdsGetEvent();
         }
     }
 

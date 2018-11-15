@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.blackdread.cameraframework.api.TestShortcutUtil.getEvents;
+import static org.blackdread.cameraframework.api.TestUtil.sleep;
 
 /**
  * <p>Created on 2018/11/15.</p>
@@ -40,7 +41,7 @@ class ShootLogicCameraTest {
 
     @BeforeAll
     static void setUpClass() throws InterruptedException {
-//        Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_APARTMENTTHREADED);
+        Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
@@ -85,13 +86,13 @@ class ShootLogicCameraTest {
             final Thread run_in = new Thread(() -> {
                 if(!init.get()){
                     init.set(true);
-                    Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_APARTMENTTHREADED);
+                    Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
                 }
                 log.warn("Run in");
                 CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely));
                 log.warn("Middle Run in");
                 CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF));
-//            Ole32.INSTANCE.CoUninitialize();
+            Ole32.INSTANCE.CoUninitialize();
                 log.warn("End Run in");
             });
             run_in.setDaemon(true);
@@ -99,13 +100,8 @@ class ShootLogicCameraTest {
 //        run_in.join();
 
             final Thread run_in2 = new Thread(() -> {
-                Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_APARTMENTTHREADED);
+                Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
                 log.warn("Run in 2");
-                getEvents();
-                getEvents();
-                getEvents();
-                getEvents();
-                getEvents();
                 getEvents();
                 getEvents();
                 log.warn("end Run in 2");
