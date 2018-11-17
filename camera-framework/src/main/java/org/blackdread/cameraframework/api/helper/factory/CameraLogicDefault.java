@@ -7,9 +7,10 @@ import org.blackdread.cameraframework.api.constant.EdsCustomFunction;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
-import org.blackdread.cameraframework.util.ErrorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
  * <p>Created on 2018/10/21.<p>
@@ -24,13 +25,13 @@ public class CameraLogicDefault implements CameraLogic {
     }
 
     @Override
-    public void setCapacity(final EdsCameraRef ref, final int capacity, final int bytesPerSector) {
+    public void setCapacity(final EdsCameraRef camera, final int capacity, final int bytesPerSector) {
         final EdsCapacity.ByValue edsCapacity = new EdsCapacity.ByValue();
         edsCapacity.bytesPerSector = new NativeLong(bytesPerSector);
         edsCapacity.numberOfFreeClusters = new NativeLong(capacity / edsCapacity.bytesPerSector.intValue());
         //  To make sure that flag is reset at each set capacity, so can keep shooting images
         edsCapacity.reset = 1;
-        final EdsdkError error = ErrorUtil.toEdsdkError(CanonFactory.edsdkLibrary().EdsSetCapacity(ref, edsCapacity));
+        final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsSetCapacity(camera, edsCapacity));
         if (error != EdsdkError.EDS_ERR_OK)
             throw error.getException();
     }

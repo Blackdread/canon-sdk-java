@@ -11,6 +11,7 @@ import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsSaveTo;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.AfterAll;
@@ -25,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.blackdread.cameraframework.api.TestShortcutUtil.getEvents;
-import static org.blackdread.cameraframework.api.TestUtil.sleep;
+import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
  * <p>Created on 2018/11/15.</p>
@@ -80,11 +81,22 @@ class ShootLogicCameraTest {
         CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_SaveTo, EdsSaveTo.kEdsSaveTo_Host);
 
         final AtomicBoolean init = new AtomicBoolean(false);
+        for (int i = 0; i < 2; i++) {
+            CanonFactory.cameraLogic().setCapacity(camera.getValue());
+
+            final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_TakePicture.value()), new NativeLong(0)));
+
+            log.warn("Error: {}", error);
+
+            getEvents();
+            // if too quick, camera will return error of busy
+            Thread.sleep(800);
+        }
 
         for (int i = 0; i < 50; i++) {
             CanonFactory.cameraLogic().setCapacity(camera.getValue());
             final Thread run_in = new Thread(() -> {
-                if(!init.get()){
+                if (!init.get()) {
                     init.set(true);
                     Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
                 }
@@ -92,7 +104,7 @@ class ShootLogicCameraTest {
                 CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely));
                 log.warn("Middle Run in");
                 CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF));
-            Ole32.INSTANCE.CoUninitialize();
+                Ole32.INSTANCE.CoUninitialize();
                 log.warn("End Run in");
             });
             run_in.setDaemon(true);
