@@ -3,15 +3,7 @@ package org.blackdread.cameraframework.api.helper.factory;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.CanonLibrary;
 import org.blackdread.cameraframework.api.command.SingleCommandDispatcher;
-import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
-import org.blackdread.cameraframework.api.helper.logic.CommandDispatcher;
-import org.blackdread.cameraframework.api.helper.logic.FileLogic;
-import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
-import org.blackdread.cameraframework.api.helper.logic.PropertyDescLogic;
-import org.blackdread.cameraframework.api.helper.logic.PropertyGetLogic;
-import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
-import org.blackdread.cameraframework.api.helper.logic.PropertySetLogic;
-import org.blackdread.cameraframework.api.helper.logic.ShootLogic;
+import org.blackdread.cameraframework.api.helper.logic.*;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic;
@@ -61,7 +53,11 @@ public class CanonFactory {
 
     private static final PropertyDescLogic propertyDescLogic = new PropertyDescLogicDefault();
 
+    private static final PropertyDescShortcutLogic propertyDescShortcutLogic = new PropertyDescShortcutLogicDefault();
+
     private static final PropertyGetLogic propertyGetLogic = new PropertyGetLogicDefault();
+
+    private static final PropertyGetShortcutLogic propertyGetShortcutLogic = new PropertyGetShortcutLogicDefault();
 
     private static final PropertySetLogic propertySetLogic = new PropertySetLogicDefault();
 
@@ -218,6 +214,18 @@ public class CanonFactory {
     }
 
     /**
+     * Shortcut for {@link CanonFactory#getPropertyDescShortcutLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getPropertyDescShortcutLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static PropertyDescShortcutLogic propertyDescShortcutLogic() {
+        return CanonFactory.getCanonFactory().getPropertyDescShortcutLogic();
+    }
+
+    /**
      * Shortcut for {@link CanonFactory#getPropertyGetLogic()}
      * <pre>
      * {@code CanonFactory.getCanonFactory().getPropertyGetLogic() }
@@ -227,6 +235,18 @@ public class CanonFactory {
      */
     public static PropertyGetLogic propertyGetLogic() {
         return CanonFactory.getCanonFactory().getPropertyGetLogic();
+    }
+
+    /**
+     * Shortcut for {@link CanonFactory#getPropertyGetShortcutLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getPropertyGetShortcutLogic() }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static PropertyGetShortcutLogic propertyGetShortcutLogic() {
+        return CanonFactory.getCanonFactory().getPropertyGetShortcutLogic();
     }
 
     /**
@@ -351,11 +371,27 @@ public class CanonFactory {
     }
 
     /**
+     * @return property desc shortcut logic
+     * @see PropertyDescShortcutLogic
+     */
+    public PropertyDescShortcutLogic getPropertyDescShortcutLogic() {
+        return propertyDescShortcutLogic;
+    }
+
+    /**
      * @return property get logic
      * @see PropertyGetLogic
      */
     public PropertyGetLogic getPropertyGetLogic() {
         return propertyGetLogic;
+    }
+
+    /**
+     * @return property get shortcut logic
+     * @see PropertyGetShortcutLogic
+     */
+    public PropertyGetShortcutLogic getPropertyGetShortcutLogic() {
+        return propertyGetShortcutLogic;
     }
 
     /**

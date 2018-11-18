@@ -3,7 +3,12 @@ package org.blackdread.cameraframework.api.helper.factory;
 import org.blackdread.cameraframework.api.CanonLibrary;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertyDescLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertyDescShortcutLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertyGetLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertyGetShortcutLogic;
 import org.blackdread.cameraframework.api.helper.logic.PropertyLogic;
+import org.blackdread.cameraframework.api.helper.logic.PropertySetLogic;
 import org.blackdread.cameraframework.api.helper.logic.ShootLogic;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +64,51 @@ class CanonFactoryTest {
 
         final PropertyLogic shortcut = CanonFactory.propertyLogic();
         assertSame(propertyLogic, shortcut);
+    }
+
+    @Test
+    void getPropertyDescLogic() {
+        final PropertyDescLogic propertyDescLogic = CanonFactory.getCanonFactory().getPropertyDescLogic();
+        assertNotNull(propertyDescLogic);
+
+        final PropertyDescLogic shortcut = CanonFactory.propertyDescLogic();
+        assertSame(propertyDescLogic, shortcut);
+    }
+
+    @Test
+    void getPropertyDescShortcutLogic() {
+        final PropertyDescShortcutLogic descShortcutLogic = CanonFactory.getCanonFactory().getPropertyDescShortcutLogic();
+        assertNotNull(descShortcutLogic);
+
+        final PropertyDescShortcutLogic shortcut = CanonFactory.propertyDescShortcutLogic();
+        assertSame(descShortcutLogic, shortcut);
+    }
+
+    @Test
+    void getPropertySetLogic() {
+        final PropertySetLogic setLogic = CanonFactory.getCanonFactory().getPropertySetLogic();
+        assertNotNull(setLogic);
+
+        final PropertySetLogic shortcut = CanonFactory.propertySetLogic();
+        assertSame(setLogic, shortcut);
+    }
+
+    @Test
+    void getPropertyGetLogic() {
+        final PropertyGetLogic getLogic = CanonFactory.getCanonFactory().getPropertyGetLogic();
+        assertNotNull(getLogic);
+
+        final PropertyGetLogic shortcut = CanonFactory.propertyGetLogic();
+        assertSame(getLogic, shortcut);
+    }
+
+    @Test
+    void getPropertyGetShortcutLogic() {
+        final PropertyGetShortcutLogic getShortcutLogic = CanonFactory.getCanonFactory().getPropertyGetShortcutLogic();
+        assertNotNull(getShortcutLogic);
+
+        final PropertyGetShortcutLogic shortcut = CanonFactory.propertyGetShortcutLogic();
+        assertSame(getShortcutLogic, shortcut);
     }
 
     @Test
