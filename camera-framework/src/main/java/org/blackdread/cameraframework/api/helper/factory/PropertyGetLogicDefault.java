@@ -91,12 +91,15 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
                 throw new NotImplementedException("to test");
             case kEdsDataType_Int8_Array:
             case kEdsDataType_UInt8_Array:
+                // TODO maybe use intArray
                 return (T) propertyData.getByteArray(0, (int) propertySize);
             case kEdsDataType_Int16_Array:
             case kEdsDataType_UInt16_Array:
+                // TODO maybe use intArray
                 return (T) propertyData.getShortArray(0, (int) (propertySize / 2));
             case kEdsDataType_Int32_Array:
             case kEdsDataType_UInt32_Array:
+                // TODO maybe use longArray
                 return (T) propertyData.getIntArray(0, (int) (propertySize / 4));
             case kEdsDataType_Rational_Array:
                 // TODO not tested

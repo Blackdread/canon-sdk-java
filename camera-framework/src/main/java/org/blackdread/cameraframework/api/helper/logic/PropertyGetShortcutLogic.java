@@ -2,12 +2,17 @@ package org.blackdread.cameraframework.api.helper.logic;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.blackdread.camerabinding.jna.EdsFocusInfo;
+import org.blackdread.camerabinding.jna.EdsPoint;
 import org.blackdread.camerabinding.jna.EdsRational;
+import org.blackdread.camerabinding.jna.EdsRect;
 import org.blackdread.camerabinding.jna.EdsTime;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsEvfImageRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef;
 import org.blackdread.cameraframework.api.constant.*;
 import org.blackdread.cameraframework.api.constant.custom.ImageOrientation;
+
+import java.time.LocalDate;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetLogic;
 
@@ -523,6 +528,958 @@ public interface PropertyGetShortcutLogic {
         return EdsExposureCompensation.ofValue(value.intValue());
     }
 
+    /**
+     * Indicates the focal length of the lens.
+     * <br>
+     * When a single-focus lens is used, the same value is returned for the Wide and Tele focal length.
+     * <br>
+     * You can obtain three items of information at once by using EdsGetPropertyData to get this property: the focal length at the time of shooting, the focal length of Wide, and the focal length of Tele. In this case, the buffer storing this property data is passed in three parts. However, if you prefer to get only the focal length at the time of shooting, you can get only that single part of the buffer.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Array number</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>Focal length at the time of shooting</td></tr>
+     * <tr><td>1</td><td>Wide focal length</td></tr>
+     * <tr><td>1</td><td>Tele focal length</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of camera
+     * @return the focal length of the lens
+     */
+    default EdsRational[] getFocalLength(final EdsImageRef image) {
+        // TODO to test and check
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_FocalLength);
+    }
 
+    /**
+     * Indicates the number of shots available on a camera.
+     * <br>
+     * The number of shots left on the camera based on the available disk capacity of the host computer they are connected to.
+     * <br>
+     * To be used with {@link CameraLogic#setCapacity(EdsCameraRef)}
+     *
+     * @param camera ref of camera
+     * @return the number of shots available on a camera
+     */
+    default long getAvailableShots(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_AvailableShots);
+    }
+
+    /**
+     * Indicates the current bracket type.
+     * <br>
+     * If multiple brackets have been set on the camera, you can get the bracket type as a logical sum.
+     * <br>
+     * This property cannot be used to get bracket compensation. Compensation is collected separately because there are separate properties for each bracket type.
+     *
+     * @param camera ref of camera
+     * @return the current bracket type
+     */
+    default EdsBracket getBracket(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Bracket);
+        return EdsBracket.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the bracket type used to shoot the image.
+     * <br>
+     * If multiple brackets have been set on the camera, you can get the bracket type as a logical sum.
+     * <br>
+     * This property cannot be used to get bracket compensation. Compensation is collected separately because there are separate properties for each bracket type.
+     *
+     * @param image ref of image
+     * @return the bracket type used to shoot the image
+     */
+    default EdsBracket getBracket(final EdsImageRef image) {
+        final Long value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_Bracket);
+        return EdsBracket.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the AE bracket compensation of image data.
+     *
+     * @param image ref of image
+     * @return the AE bracket compensation of image data
+     */
+    default EdsRational getAEBracket(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_AEBracket);
+    }
+
+    /**
+     * Indicates the FE bracket compensation at the time of shooting of image data.
+     *
+     * @param image ref of image
+     * @return the FE bracket compensation at the time of shooting of image data
+     */
+    default EdsRational getFEBracket(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_FEBracket);
+    }
+
+    /**
+     * Indicates the white balance bracket amount.
+     * <br>
+     * Note: "AB" means the bracket toward amber-blue and "GM" toward green-magenta
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Array number</th><th>Description</th><th>Value</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>BracketMode</td><td>0 = OFF<br>1 = Mode AB<br>2 = Mode GM<br>0xFFFFFFFF = Not Supported</td></tr>
+     * <tr><td>1</td><td>BracketValueAB<br>The bracket amount from the WhiteBalanceShift position toward AB</td><td>0 to +9</td></tr>
+     * <tr><td>2</td><td>BracketValueGM<br>The bracket amount from the WhiteBalanceShift position toward GM</td><td>0 to +9</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param camera ref of camera
+     * @return the white balance bracket amount
+     */
+    default int[] getWhiteBalanceBracket(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_WhiteBalanceBracket);
+    }
+
+    /**
+     * Indicates the white balance bracket amount.
+     * <br>
+     * Note: "AB" means the bracket toward amber-blue and "GM" toward green-magenta
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Array number</th><th>Description</th><th>Value</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>BracketMode</td><td>0 = OFF<br>1 = Mode AB<br>2 = Mode GM<br>0xFFFFFFFF = Not Supported</td></tr>
+     * <tr><td>1</td><td>BracketValueAB<br>The bracket amount from the WhiteBalanceShift position toward AB</td><td>–9 to +9<br>(B direction–A direction)</td></tr>
+     * <tr><td>2</td><td>BracketValueGM<br>The bracket amount from the WhiteBalanceShift position toward GM</td><td>–9 to +9<br>(G direction–M direction)</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of image
+     * @return the white balance bracket amount
+     */
+    default int[] getWhiteBalanceBracket(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_WhiteBalanceBracket);
+    }
+
+    /**
+     * Indicates the ISO bracket compensation at the time of shooting of image data.
+     *
+     * @param camera ref of camera
+     * @return the ISO bracket compensation at the time of shooting of image data
+     */
+    default EdsRational getISOBracket(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_ISOBracket);
+    }
+
+    /**
+     * Indicates the white balance type.
+     * <br>
+     * If the white balance type is "Color Temperature," to know the actual color temperature you must reference another property {@link PropertyGetShortcutLogic#getColorTemperature(EdsCameraRef)}.
+     *
+     * @param camera ref of camera
+     * @return the white balance type
+     */
+    default EdsWhiteBalance getWhiteBalance(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_WhiteBalance);
+        return EdsWhiteBalance.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the white balance type used to shoot the image.
+     * <br>
+     * If the white balance type is "Color Temperature," to know the actual color temperature you must reference another property {@link PropertyGetShortcutLogic#getColorTemperature(EdsImageRef)}.
+     *
+     * @param image ref of image
+     * @return the white balance type used to shoot the image
+     */
+    default EdsWhiteBalance getWhiteBalance(final EdsImageRef image) {
+        final Long value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_WhiteBalance);
+        return EdsWhiteBalance.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the color temperature setting value. (Units: Kelvin)
+     * <br>
+     * Valid only when the white balance is set to Color Temperature.
+     *
+     * @param camera ref of camera
+     * @return the color temperature setting value
+     */
+    default long getColorTemperature(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_ColorTemperature);
+    }
+
+    /**
+     * Indicates the color temperature setting value used to shoot the image. (Units: Kelvin)
+     * <br>
+     * Valid only when the white balance is set to Color Temperature.
+     *
+     * @param image ref of image
+     * @return the color temperature setting value used to shoot the image
+     */
+    default long getColorTemperature(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_ColorTemperature);
+    }
+
+    /**
+     * Indicates the white balance compensation.
+     * <br>
+     * Note: "AB" means compensation toward amber-blue and "GM" toward green-magenta.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th></th><th></th><th></th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>ValueAB</td><td>–9 to +9<br>0x7FFFFFFF = invalid value<br>Note: 0 means no compensation, (–) means compensation toward blue, and (+) means compensation toward amber.</td></tr>
+     * <tr><td>1</td><td>ValueGM</td><td>–9 to +9<br>0x7FFFFFFF = invalid value<br>Note: 0 means no compensation, (–) means compensation toward green, and (+) means compensation toward magenta.</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param camera ref of camera
+     * @return the white balance compensation
+     */
+    default int[] getWhiteBalanceShift(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_WhiteBalanceShift);
+    }
+
+    /**
+     * Indicates the white balance compensation used to shoot the image.
+     * <br>
+     * Note: "AB" means compensation toward amber-blue and "GM" toward green-magenta.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th></th><th></th><th></th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>ValueAB</td><td>–9 to +9<br>0x7FFFFFFF = invalid value<br>Note: 0 means no compensation, (–) means compensation toward blue, and (+) means compensation toward amber.</td></tr>
+     * <tr><td>1</td><td>ValueGM</td><td>–9 to +9<br>0x7FFFFFFF = invalid value<br>Note: 0 means no compensation, (–) means compensation toward green, and (+) means compensation toward magenta.</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of image
+     * @return the white balance compensation used to shoot the image
+     */
+    default int[] getWhiteBalanceShift(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_WhiteBalanceShift);
+    }
+
+    /**
+     * Indicates the white balance value used to shoot the image.
+     *
+     * @param image ref of image
+     * @return the white balance value used to shoot the image
+     */
+    default byte[] getWBCoeffs(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_WBCoeffs);
+    }
+
+    /**
+     * Indicates if linear processing is activated or not.
+     * <br>
+     * This property is valid only if 16-bit TIFF or 16-bit RGB has been set for image processing.
+     *
+     * @param image ref of image
+     * @return true linear processing is activated
+     */
+    default boolean getLinear(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_Linear);
+    }
+
+    /**
+     * Indicates the color space.
+     *
+     * @param camera ref of camera
+     * @return the color space
+     */
+    default EdsColorSpace getColorSpace(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_ColorSpace);
+        return EdsColorSpace.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the color space used to shoot the image.
+     *
+     * @param image ref of image
+     * @return the color space used to shoot the image
+     */
+    default EdsColorSpace getColorSpace(final EdsImageRef image) {
+        final Long value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_ColorSpace);
+        return EdsColorSpace.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the tone curve.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Value of inParam</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>Standard</td></tr>
+     * <tr><td>1</td><td>Set 1</td></tr>
+     * <tr><td>2</td><td>Set 2</td></tr>
+     * <tr><td>3</td><td>Set 3</td></tr>
+     * </tbody>
+     * </table>
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Value</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0x00000000</td><td>Standard</td></tr>
+     * <tr><td>0x00000011</td><td>User setting</td></tr>
+     * <tr><td>0x00000080</td><td>Custom setting</td></tr>
+     * <tr><td>0x00000001</td><td>TCD1</td></tr>
+     * <tr><td>0x00000002</td><td>TCD2</td></tr>
+     * <tr><td>0x00000003</td><td>TCD3</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param camera ref of camera
+     * @return the tone curve
+     * @deprecated not sure available
+     */
+    default long getToneCurve(final EdsCameraRef camera, final int inParam) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_ToneCurve);
+        // TODO to check
+        return value;
+    }
+
+    /**
+     * Indicates the tone curve.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Value</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0x00000000</td><td>Standard</td></tr>
+     * <tr><td>0x00000011</td><td>User setting</td></tr>
+     * <tr><td>0x00000080</td><td>Custom setting</td></tr>
+     * <tr><td>0x00000001</td><td>TCD1</td></tr>
+     * <tr><td>0x00000002</td><td>TCD2</td></tr>
+     * <tr><td>0x00000003</td><td>TCD3</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of image
+     * @return the tone curve
+     */
+    default long getToneCurve(final EdsImageRef image) {
+        final Long value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_ToneCurve);
+        // TODO to check
+        return value;
+    }
+
+    /**
+     * Indicates the picture style.
+     * This property is valid only for models supporting picture styles.
+     *
+     * @param camera ref of camera
+     * @return the picture style
+     */
+    default EdsPictureStyle getPictureStyle(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_PictureStyle);
+        return EdsPictureStyle.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the picture style used to shoot the image.
+     * This property is valid only for models supporting picture styles.
+     *
+     * @param image ref of image
+     * @return the picture style used to shoot the image
+     */
+    default EdsPictureStyle getPictureStyle(final EdsImageRef image) {
+        final Long value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_PictureStyle);
+        return EdsPictureStyle.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates if the flash was on at the time of shooting.
+     *
+     * @param image ref of camera
+     * @return true if the flash was on at the time of shooting
+     */
+    default boolean getFlashOn(final EdsImageRef image) {
+        // TODO API ref says EdsUInt32 -> maybe get long here then return boolean
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_FlashOn);
+    }
+
+    /**
+     * Indicates the flash type at the time of shooting.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Array number</th><th>Description</th><th>Value</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>Flash type</td><td>0 = None (the "flash type" item itself is not displayed)<br>1 = Internal<br>2 = external E-TTL<br>3 = external A-TTL<br>0xFFFFFFFF = Invalid value</td></tr>
+     * <tr><td>1</td><td>Synchro timing</td><td>0 = 1st Curtain Synchro<br>1 = 2nd Curtain Synchro<br>0xFFFFFFFF = Invalid value</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of image
+     * @return the flash type at the time of shooting
+     */
+    default int[] getFlashMode(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_FlashMode);
+    }
+
+    /**
+     * Indicates red-eye reduction.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Value</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>OFF</td></tr>
+     * <tr><td>1</td><td>ON</td></tr>
+     * <tr><td>0xFFFFFFFF</td><td>Invalid value</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of image
+     * @return red-eye reduction
+     */
+    default int getRedEye(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_RedEye);
+    }
+
+    /**
+     * Indicates noise reduction.
+     * <br>
+     * Values 1–3 vary depending on the camera model.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Value</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>OFF</td></tr>
+     * <tr><td>1</td><td>ON 1</td></tr>
+     * <tr><td>2</td><td>ON 2</td></tr>
+     * <tr><td>3</td><td>ON</td></tr>
+     * <tr><td>4</td><td>Auto</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of image
+     * @return Indicates noise reduction
+     */
+    default long getNoiseReduction(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_NoiseReduction);
+    }
+
+    /**
+     * Returns the user-specified picture style caption name at the time of shooting.
+     * <br>
+     * This property is valid only for models supporting picture styles.
+     * <br>
+     * User-specified picture styles refer to picture styles for which picture style files are read on a host computer and set on a camera.
+     *
+     * @param image ref of image
+     * @return the user-specified picture style caption name at the time of shooting
+     */
+    default String getPictureStyleCaption(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_PictureStyleCaption);
+    }
+
+    /**
+     * Indicates the destination of images after shooting.
+     * <br>
+     * If kEdsSaveTo_Host or kEdsSaveTo_Both is used, the camera caches the image data to be transferred until DownloadComplete or CancelDownload APIs are executed on the host computer (by an application).
+     * The application creates a callback function to receive camera events. If kEdsObjectEvent_DirItemRequestTransfer or kEdsObjectEvent_DirItemRequestTransferDT events are received, the application must execute DownloadComplete (after downloading) or CancelDownload (if images are not needed) for the camera.
+     *
+     * @param camera ref of camera
+     * @return the destination of images after shooting
+     */
+    default EdsSaveTo getSaveTo(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_SaveTo);
+        return EdsSaveTo.ofValue(value.intValue());
+    }
+
+    /**
+     * Returns the camera state of whether the lens attached to the camera.
+     * <br>
+     * This property can only be retrieved from images shot using models the EOS 50D or EOS 5D Mark II or later.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Value</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>The lens is not attached</td></tr>
+     * <tr><td>1</td><td>The lens is attached</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param camera ref of camera
+     * @return the camera state of whether the lens attached to the camera
+     */
+    default long getLensStatus(final EdsCameraRef camera) {
+        // TODO give method with boolean or enum...
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_LensStatus);
+    }
+
+    /**
+     * Returns the lens name at the time of shooting.
+     * <br>
+     * This property can only be retrieved from images shot using models supporting picture styles.
+     *
+     * @param image ref of image
+     * @return the lens name at the time of shooting
+     */
+    default long getLensName(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_LensName);
+    }
+
+    /**
+     * Gets the current storage media for the camera.
+     * <br>
+     * Current media name（“CF”,”SD”,”HDD”）
+     *
+     * @param camera ref of camera
+     * @return the current storage media for the camera
+     */
+    default String getCurrentStorage(final EdsCameraRef camera) {
+        // TODO define custom enum
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_CurrentStorage);
+    }
+
+    /**
+     * Gets the current folder for the camera (Current folder name).
+     *
+     * @param camera ref of camera
+     * @return the current folder for the camera (Current folder name)
+     */
+    default String getCurrentFolder(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_CurrentFolder);
+    }
+
+    /**
+     * Gets the directory structure information for USB storage (USB storage directory name).
+     *
+     * @param camera ref of camera
+     * @return the directory name currently targeted (USB storage directory name)
+     */
+    default String getHDDirectoryStructure(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_HDDirectoryStructure);
+    }
+
+    /**
+     * Current output device to receive evf output (live view)
+     *
+     * @param camera ref of camera
+     * @return current output device to receive evf output (live view)
+     */
+    default EdsEvfOutputDevice getEvfOutputDevice(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_OutputDevice);
+        return EdsEvfOutputDevice.ofValue(value.intValue());
+    }
+
+    /**
+     * Get information if live view mode is enabled
+     *
+     * @param camera ref of camera
+     * @return true if live view mode is enabled, false otherwise
+     */
+    default boolean getEvfMode(final EdsCameraRef camera) {
+        final long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode);
+        return (value == 0) ? false : true;
+    }
+
+    /**
+     * Get the white balance of the live view image.
+     *
+     * @param camera ref of camera
+     * @return the white balance of the live view image
+     */
+    default EdsWhiteBalance getEvfWhiteBalance(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_WhiteBalance);
+        return EdsWhiteBalance.ofValue(value.intValue());
+    }
+
+    /**
+     * Get the color temperature of the live view image.
+     * <br>
+     * This is applied to the live view image only when the live view white balance is set to Color temperature.
+     *
+     * @param camera ref of camera
+     * @return the color temperature of the live view image
+     */
+    default long getEvfColorTemperature(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_ColorTemperature);
+    }
+
+
+    /**
+     * Get the depth of field ON/OFF during Preview mode.
+     * <br>
+     * If kEdsEvfOutputDevice is set to KEdsEvfOutputDevice_PC and depth of field is being used, the camera will be put in UI Lock status.
+     *
+     * @param camera ref of camera
+     * @return true if depth of field is enabled during Preview mode
+     */
+    default boolean getEvfDepthOfFieldPreview(final EdsCameraRef camera) {
+        final long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_DepthOfFieldPreview);
+        return (value == 0) ? false : true;
+    }
+
+    /**
+     * Get the zoom ratio for the live view.
+     * <br>
+     * The zoom ratio is set using EdsCameraRef, but obtained using live view image data, in other words, by using EdsEvfImageRef.
+     *
+     * @param evfImage ref of evfImage
+     * @return the zoom ratio for the live view
+     */
+    default EdsEvfZoom getEvfZoom(final EdsEvfImageRef evfImage) {
+        final Long value = propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_Zoom);
+        return EdsEvfZoom.ofValue(value.intValue());
+    }
+
+    /**
+     * Get the focus and zoom border position for live view.
+     * <br>
+     * The focus and zoom border is set using EdsCameraRef, but obtained using live view image data, in other words, by using EdsEvfImageRef.
+     * <br>
+     * The coordinates are the upper left coordinates of the focus and zoom border. These values expressed in a coordinate system of kEdsPropID_Evf_CoordinateSystem.
+     * <br>
+     * The size of the focus and zoom border is one fifth the size of kEdsPropID_Evf_CoordinateSystem when 5x zoom or the entire screen is used, and one tenth the size of kEdsPropID_Evf_CoordinateSystem when 10x zoom is used.
+     *
+     * @param evfImage ref of evfImage
+     * @return the focus and zoom border position for live view
+     */
+    default EdsPoint getEvfZoomPosition(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_ZoomPosition);
+    }
+
+    /**
+     * Get the focus and zoom border rectangle for live view.
+     * <br>
+     * The “point” member is the upper left coordinates of the focus and zoom border. And the “size” member is the rectangle of focus border size. These values expressed in a coordinate system of kEdsPropID_Evf_CoordinateSystem.
+     *
+     * @param evfImage ref of evfImage
+     * @return the focus and zoom border rectangle for live view.
+     */
+    default EdsRect getEvf_ZoomRect(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_ZoomRect);
+    }
+
+    /**
+     * Gets the cropping position of the enlarged live view image.
+     * <br>
+     * The coordinates used are the upper left coordinates of the enlarged image. These values expressed in a coordinate system of kEdsPropID_Evf_CoordinateSystem.
+     *
+     * @param evfImage ref of evfImage
+     * @return the cropping position of the enlarged live view image
+     */
+    default EdsPoint getEvfImagePosition(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_ImagePosition);
+    }
+
+    /**
+     * Get the coordinate system of the live view image.
+     * <br>
+     * The coordinate system is used to express each value of the live view image.
+     *
+     * @param evfImage ref of evfImage
+     * @return the coordinate system of the live view image
+     */
+    default EdsISOSpeed getEvfCoordinateSystem(final EdsEvfImageRef evfImage) {
+        final Long value = propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_CoordinateSystem);
+        return EdsISOSpeed.ofValue(value.intValue());
+    }
+
+    /**
+     * Gets the histogram for live view image data.
+     * <br>
+     * The histogram can be used to obtain Y.
+     * <br>
+     * The histogram stores data in the form Y(0)…Y(n) (0<=n<=255).
+     * Cumulative values in the histogram differ from the total number of pixels in the image data.
+     *
+     * @param evfImage ref of evfImage
+     * @return the histogram for live view image data, for Y
+     */
+    default int[] getEvfHistogramY(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_HistogramY);
+    }
+
+    /**
+     * Gets the histogram for live view image data.
+     * <br>
+     * The histogram can be used to obtain R.
+     * <br>
+     * The histogram stores data in the form R(0)…R(n) (0<=n<=255).
+     * Cumulative values in the histogram differ from the total number of pixels in the image data.
+     *
+     * @param evfImage ref of evfImage
+     * @return the histogram for live view image data, for R
+     */
+    default int[] getEvfHistogramR(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_HistogramR);
+    }
+
+    /**
+     * Gets the histogram for live view image data.
+     * <br>
+     * The histogram can be used to obtain G.
+     * <br>
+     * The histogram stores data in the form G(0)…G(n) (0<=n<=255).
+     * Cumulative values in the histogram differ from the total number of pixels in the image data.
+     *
+     * @param evfImage ref of evfImage
+     * @return the histogram for live view image data, for G
+     */
+    default int[] getEvfHistogramG(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_HistogramG);
+    }
+
+    /**
+     * Gets the histogram for live view image data.
+     * <br>
+     * The histogram can be used to obtain B.
+     * <br>
+     * The histogram stores data in the form B(0)…B(n) (0<=n<=255).
+     * Cumulative values in the histogram differ from the total number of pixels in the image data.
+     *
+     * @param evfImage ref of evfImage
+     * @return the histogram for live view image data, for B
+     */
+    default int[] getEvfHistogramB(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_HistogramB);
+    }
+
+    /**
+     * Gets the display status of the histogram.
+     * <br>
+     * The display status of the histogram varies depending on settings such as whether live view exposure simulation is ON/OFF, whether strobe shooting is used, whether bulb shooting is used, etc.
+     *
+     * @param evfImage ref of evfImage
+     * @return the display status of the histogram
+     */
+    default EdsEvfHistogramStatus getEvfHistogramStatus(final EdsEvfImageRef evfImage) {
+        final Long value = propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_HistogramStatus);
+        return EdsEvfHistogramStatus.ofValue(value.intValue());
+    }
+
+    /**
+     * Get the AF mode for the live view.
+     * <br>
+     * This property can be set/get from the EOS 50D or EOS 5D Mark II or later.
+     *
+     * @param camera ref of camera
+     * @return the AF mode for the live view
+     */
+    default EdsEvfAFMode getEvfAFMode(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_AFMode);
+        return EdsEvfAFMode.ofValue(value.intValue());
+    }
+
+    /**
+     * Get status of recording (movie shooting)
+     *
+     * @param camera ref of camera
+     * @return status of recording (movie shooting)
+     */
+    default boolean getRecordStatus(final EdsCameraRef camera) {
+        // TODO return custom enum?
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_Record);
+        return (value == 0) ? false : true;
+    }
+
+    // TODO below
+//    default String getGPSVersionID(final EdsImageRef image) {
+//    }
+
+    /**
+     * Indicates the version of GPSInfoIFD. The version is given as 2.2.0.0
+     *
+     * @param image ref of image
+     * @return the version of GPSInfoIFD
+     */
+    default int getGPSVersionIDAsInt(final EdsImageRef image) {
+        final Byte value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSVersionID);
+        // TODO check if could return in string format directly
+        return value.intValue();
+    }
+
+    // TODO below
+//    default Enum getGPSLatitudeRef(final EdsImageRef image) {
+//    }
+
+    /**
+     * Indicates whether the latitude is north or south latitude.
+     * <br>
+     * The value 'N' indicates north latitude,and 'S' is south latitude.
+     *
+     * @param image ref of image
+     * @return whether the latitude is north or south latitude
+     */
+    default String getGPSLatitudeRefAsString(final EdsImageRef image) {
+        // TODO return custom enum?
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSLatitudeRef);
+    }
+
+    // TODO below
+//    default Object getGPSLatitude(final EdsImageRef image) {
+//    }
+
+    /**
+     * Indicates the latitude.
+     * <br>
+     * The latitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively.
+     * TODO create POJO class instead of array
+     *
+     * @param image ref of image
+     * @return the latitude
+     */
+    default EdsRational[] getGPSLatitudeAsRational(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSLatitude);
+    }
+
+    // TODO below
+//    default Enum getGPSLongitudeRef(final EdsImageRef image) {
+//    }
+
+    /**
+     * Indicates whether the longitude is east or west longitude.
+     * <br>
+     * The value 'E' indicates east longitude, and 'W' is west longitude
+     *
+     * @param image ref of image
+     * @return whether the longitude is east or west longitude
+     */
+    default String getGPSLongitudeRefAsString(final EdsImageRef image) {
+        // TODO return custom enum?
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSLongitudeRef);
+    }
+
+
+    // TODO below
+//    default Object getGPSLongitude(final EdsImageRef image) {
+//    }
+
+    /**
+     * Indicates the longitude.
+     * <br>
+     * The longitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively.
+     * TODO create POJO class instead of array
+     *
+     * @param image ref of image
+     * @return the longitude
+     */
+    default EdsRational[] getGPSLongitudeAsRational(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSLongitude);
+    }
+
+    // TODO below
+//    default Enum getGPSAltitudeRef(final EdsImageRef image) {
+//    }
+
+    /**
+     * Indicates the altitude used as the reference altitude.
+     * <br>
+     * If the reference is sea level and the altitude is above sea level, 0 is given.
+     * <br>
+     * If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the GPSAltitude.
+     * <br>
+     * The reference unit is meters.
+     * <br>
+     * <table style="border:1px solid">
+     * <thead><tr><th>Value</th><th>Description</th></tr></thead>
+     * <tbody>
+     * <tr><td>0</td><td>Sea level</td></tr>
+     * <tr><td>1</td><td>Sea level reference (negative value)</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param image ref of image
+     * @return the altitude used as the reference altitude
+     */
+    default int getGPSAltitudeRefAsInt(final EdsImageRef image) {
+        // TODO return custom enum?
+        final Byte value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSAltitudeRef);
+        return value.intValue();
+    }
+
+    /**
+     * Indicates the altitude based on the reference in GPSAltitudeRef.
+     * <br>
+     * Altitude is expressed as one RATIONAL value.
+     * <br>
+     * The reference unit is meters.
+     *
+     * @param image ref of image
+     * @return the altitude based on the reference in GPSAltitudeRef
+     */
+    default EdsRational getGPSAltitude(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSAltitude);
+    }
+
+    // TODO below
+//    default Object getGPSTimeStamp(final EdsImageRef image) {
+//        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSTimeStamp);
+//    }
+
+    /**
+     * Indicates the time as UTC (Coordinated Universal Time).
+     * <br>
+     * TimeStamp is expressed as three RATIONAL values giving the hour, minute, and second.
+     * TODO create POJO class instead of array
+     *
+     * @param image ref of image
+     * @return the time as UTC
+     */
+    default EdsRational[] getGPSTimeStampAsRational(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSTimeStamp);
+    }
+
+    /**
+     * Indicates the GPS satellites used for measurements.
+     *
+     * @param image ref of image
+     * @return the GPS satellites used for measurements
+     */
+    default String getGPSSatellites(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSSatellites);
+    }
+
+    /**
+     * Indicates the geodetic survey data used by the GPS receiver.
+     *
+     * @param image ref of image
+     * @return the geodetic survey data used by the GPS receiver
+     */
+    default String getGPSMapDatum(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSMapDatum);
+    }
+
+    /**
+     * Date information relative to UTC (Coordinated Universal Time).
+     *
+     * @param image ref of image
+     * @return date information relative to UTC
+     */
+    default LocalDate getGPSDateStamp(final EdsImageRef image) {
+        final String dateStamp = getGPSDateStampAsString(image);
+//        return LocalDate.of()
+        throw new NotImplementedException("");
+    }
+
+    /**
+     * A character string recording date and time information relative to UTC (Coordinated Universal Time).
+     * The format is "YYYY:MM:DD".
+     *
+     * @param image ref of image
+     * @return date information relative to UTC, format is "YYYY:MM:DD"
+     */
+    default String getGPSDateStampAsString(final EdsImageRef image) {
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSDateStamp);
+    }
+
+    // TODO below
+//    default Enum getGPSStatus(final EdsImageRef image) {
+//    }
+
+    /**
+     * Indicates the status of the GPS receiver when the image is recorded.
+     * <br>
+     * 'A' means measurement is in progress, and 'V' means the measurement is Interoperability.
+     * <br>
+     * TODO API ref says 'V' and 'W' for Interoperability, to check actual value (might be typo)
+     *
+     * @param image ref of image
+     * @return the status of the GPS receiver when the image is recorded
+     */
+    default String getGPSStatusAsString(final EdsImageRef image) {
+        // TODO return custom enum?
+        return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_GPSStatus);
+    }
 
 }
