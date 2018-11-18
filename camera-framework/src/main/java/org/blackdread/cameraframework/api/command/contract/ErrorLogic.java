@@ -4,7 +4,9 @@ package org.blackdread.cameraframework.api.command.contract;
  * <p>Created on 2018/10/08.<p>
  *
  * @author Yoann CAPLAIN
+ * @deprecated not meaningful and not usable
  */
+@Deprecated
 public enum ErrorLogic {
     /**
      * Errors are not rethrown but result of command will be set to null or an empty optional.

@@ -11,7 +11,9 @@ import java.util.Optional;
  * <p>Created on 2018/10/10.<p>
  *
  * @author Yoann CAPLAIN
+ * @deprecated Enum deprecated
  */
+@Deprecated
 public class ErrorLogicCommandDecorator<R> extends AbstractDecoratorCommand<R> implements ErrorLogicCommand, CanonCommand<R> {
 
     private final ErrorLogic errorLogic;
