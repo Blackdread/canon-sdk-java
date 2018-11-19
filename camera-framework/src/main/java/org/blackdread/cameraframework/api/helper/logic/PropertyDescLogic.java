@@ -99,11 +99,6 @@ public interface PropertyDescLogic {
         return values;
     }
 
-    // TODO could add all different type Desc type possible like below
-//    default List<EdsISOSpeed> getPropertyDescIsoSpeed(final EdsdkLibrary.EdsCameraRef camera) {
-//        return getPropertyDesc(camera, EdsPropertyID.kEdsPropID_ISOSpeed);
-//    }
-
     /**
      * Gets a list of property data that can be set for the object designated in inRef, as well as maximum and minimum values.
      * This API is intended for only some shooting-related properties.
