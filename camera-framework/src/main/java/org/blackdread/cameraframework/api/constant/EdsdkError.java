@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.api.constant;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.exception.EdsdkDeviceBusyErrorException;
 import org.blackdread.cameraframework.exception.EdsdkErrorException;
 import org.blackdread.cameraframework.util.LibraryFieldUtil;
 
@@ -222,8 +223,12 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends EdsdkErrorException> T getException() {
-        // simple implementation for now
-        return (T) new EdsdkErrorException(this);
+        switch (this) {
+            case EDS_ERR_DEVICE_BUSY:
+                return (T) new EdsdkDeviceBusyErrorException();
+            default:
+                return (T) new EdsdkErrorException(this);
+        }
     }
 
     /**

@@ -18,6 +18,12 @@ public interface LiveViewLogic {
 
     /**
      * Enable the live view, and allow to further set settings of live view (Evf)
+     * <br>
+     * A property change event notification is issued from the camera if property settings were made successfully.
+     * <br>
+     * Can start downloading live view image once the property change notification arrives (for output device set to PC).
+     * <br>
+     * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "starting" live view.
      *
      * @param camera ref of camera
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
@@ -28,6 +34,10 @@ public interface LiveViewLogic {
 
     /**
      * Disable the live view, and further set settings of live view (Evf) might not be possible until re-enabled
+     * <br>
+     * A property change event notification is issued from the camera if property settings were made successfully.
+     * <br>
+     * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "stopping" live view.
      *
      * @param camera ref of camera
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
@@ -37,7 +47,13 @@ public interface LiveViewLogic {
     }
 
     /**
-     * Start the live view (auto enable live view), default output to PC
+     * Start the live view (auto enable live view), default output to PC.
+     * <br>
+     * A property change event notification is issued from the camera if property settings were made successfully.
+     * <br>
+     * Can start downloading live view image once the property change notification arrives.
+     * <br>
+     * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "starting" live view.
      *
      * @param camera ref of camera
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
@@ -48,6 +64,12 @@ public interface LiveViewLogic {
 
     /**
      * Start the live view (auto enable live view)
+     * <br>
+     * A property change event notification is issued from the camera if property settings were made successfully.
+     * <br>
+     * Can start downloading live view image once the property change notification arrives (for output device set to PC).
+     * <br>
+     * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "starting" live view.
      *
      * @param camera             ref of camera
      * @param edsEvfOutputDevice device that will receive the live view
@@ -57,6 +79,10 @@ public interface LiveViewLogic {
 
     /**
      * Stop the live view (auto disable live view)
+     * <br>
+     * A property change event notification is issued from the camera if property settings were made successfully.
+     * <br>
+     * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "stopping" live view.
      *
      * @param camera ref of camera
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
@@ -74,6 +100,8 @@ public interface LiveViewLogic {
 
     /**
      * If is not enabled then {@link #enableLiveView} can be used
+     * <br>
+     * Important: swallow any exception returned by camera
      *
      * @param camera ref of camera
      * @return true if the camera is <b>transmitting</b> live view images

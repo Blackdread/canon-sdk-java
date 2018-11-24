@@ -17,6 +17,8 @@ public interface ShootLogic {
      * <p>
      * Old command to make camera shoot.
      * Depending on current camera setting, it will do AF or not.
+     * <br>
+     * If AF is "enabled" then it might fail to do it and camera will return an error {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_TAKE_PICTURE_AF_NG}
      * </p>
      * <br>
      * Supported by EOS-1D Mark III, EOS 40D, EOS-1Ds Mark III, EOS DIGITAL REBEL Xsi/450D/ Kiss X2, EOS DIGITAL REBEL XS/ 1000D/ KISS F.

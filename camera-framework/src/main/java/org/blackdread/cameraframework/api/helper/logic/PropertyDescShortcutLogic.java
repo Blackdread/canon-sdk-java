@@ -38,6 +38,7 @@ public interface PropertyDescShortcutLogic {
      * @param camera ref of camera
      * @return settings available for AE mode select
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @deprecated not sure this one is supported
      */
     default List<EdsAEModeSelect> getAEModeSelectDesc(final EdsCameraRef camera) {
         return propertyDescLogic().getPropertyDesc(camera, EdsPropertyID.kEdsPropID_AEModeSelect);

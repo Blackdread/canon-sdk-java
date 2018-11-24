@@ -29,6 +29,7 @@ public interface PropertyDescLogic {
      * <p>
      * Known property id supported are
      * <ul>
+     * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_AEMode}</li>
      * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_AEModeSelect}</li>
      * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_ISOSpeed}</li>
      * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_MeteringMode}</li>
