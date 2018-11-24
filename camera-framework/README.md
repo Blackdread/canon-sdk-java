@@ -4,6 +4,9 @@ Canon (EDSDK) EOS SDK in java. Module to use library of EDSDK and send commands 
 
 # Commands
 
+## Interval between commands
+If commands that were issued fail (because of DeviceBusy or other reasons)  and retry is required, some cameras may become unstable if multiple commands are issued in succession without an intervening interval.
+Thus, leave an interval of about 500 ms before commands are reissued.
 
 # Command settings
 
