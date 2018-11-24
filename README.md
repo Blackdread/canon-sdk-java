@@ -35,9 +35,24 @@ Any collection/map return type should be considered as immutable, even if implem
 # How to contribute pull requests
 Do a pull request. Explain your changes, reasons, write tests.
 
+# Analysis with sonar
+[![sonar-quality-gate][sonar-quality-gate]][sonar-url] [![sonar-coverage][sonar-coverage]][sonar-url] [![sonar-bugs][sonar-bugs]][sonar-url] [![sonar-vulnerabilities][sonar-vulnerabilities]][sonar-url] [![sonar-code-lines][sonar-code-lines]][sonar-url]
+
+
 # Previous project
 It starts from scratch due to [older project](https://github.com/kritzikratzi/edsdk4j) that is not maintained (and some design could be changed).
 
 # Links
 
 [Previous project that allowed to communicate with Canon EDSDK with java](https://github.com/kritzikratzi/edsdk4j)
+
+
+[sonar-url]: https://sonarcloud.io/dashboard?id=canon-sdk-java
+[sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=alert_status
+[sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=coverage
+[sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=bugs
+[sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=vulnerabilities
+[sonar-code-lines]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=ncloc
+[sonar-reliability-rating]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=reliability_rating
+[sonar-code-smalls]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=code_smells
+[sonar-maintainability-rating]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=sqale_rating
