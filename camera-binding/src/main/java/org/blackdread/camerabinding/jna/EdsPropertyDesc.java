@@ -25,6 +25,7 @@ public class EdsPropertyDesc extends Structure {
 	public EdsPropertyDesc() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("form", "access", "numElements", "propDesc");
 	}
@@ -48,8 +49,8 @@ public class EdsPropertyDesc extends Structure {
 	}
 	public static class ByReference extends EdsPropertyDesc implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsPropertyDesc implements Structure.ByValue {
 		
-	};
+	}
 }

@@ -48,6 +48,7 @@ public class EdsDirectoryItemInfo extends Structure {
 	public EdsDirectoryItemInfo() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("size", "isFolder", "groupID", "option", "szFileName", "format", "dateTime");
 	}
@@ -77,8 +78,8 @@ public class EdsDirectoryItemInfo extends Structure {
 	}
 	public static class ByReference extends EdsDirectoryItemInfo implements Structure.ByReference {
 
-	};
+	}
 	public static class ByValue extends EdsDirectoryItemInfo implements Structure.ByValue {
 
-	};
+	}
 }

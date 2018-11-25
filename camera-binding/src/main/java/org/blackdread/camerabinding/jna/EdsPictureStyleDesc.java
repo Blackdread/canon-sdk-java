@@ -33,6 +33,7 @@ public class EdsPictureStyleDesc extends Structure {
 	public EdsPictureStyleDesc() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("contrast", "sharpness", "saturation", "colorTone", "filterEffect", "toningEffect", "sharpFineness", "sharpThreshold");
 	}
@@ -62,8 +63,8 @@ public class EdsPictureStyleDesc extends Structure {
 	}
 	public static class ByReference extends EdsPictureStyleDesc implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsPictureStyleDesc implements Structure.ByValue {
 		
-	};
+	}
 }

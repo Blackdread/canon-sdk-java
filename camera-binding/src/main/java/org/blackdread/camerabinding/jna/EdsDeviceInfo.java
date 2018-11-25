@@ -25,6 +25,7 @@ public class EdsDeviceInfo extends Structure {
 	public EdsDeviceInfo() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("szPortName", "szDeviceDescription", "deviceSubType", "reserved");
 	}
@@ -50,8 +51,8 @@ public class EdsDeviceInfo extends Structure {
 	}
 	public static class ByReference extends EdsDeviceInfo implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsDeviceInfo implements Structure.ByValue {
 		
-	};
+	}
 }

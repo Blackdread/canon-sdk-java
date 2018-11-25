@@ -31,6 +31,7 @@ public class EdsImageInfo extends Structure {
 	public EdsImageInfo() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("width", "height", "numOfComponents", "componentDepth", "effectiveRect", "reserved1", "reserved2");
 	}
@@ -58,8 +59,8 @@ public class EdsImageInfo extends Structure {
 	}
 	public static class ByReference extends EdsImageInfo implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsImageInfo implements Structure.ByValue {
 		
-	};
+	}
 }

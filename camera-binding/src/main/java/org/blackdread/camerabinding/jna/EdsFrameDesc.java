@@ -27,6 +27,7 @@ public class EdsFrameDesc extends Structure {
 	public EdsFrameDesc() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("valid", "selected", "justFocus", "rect", "reserved");
 	}
@@ -50,8 +51,8 @@ public class EdsFrameDesc extends Structure {
 	}
 	public static class ByReference extends EdsFrameDesc implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsFrameDesc implements Structure.ByValue {
 		
-	};
+	}
 }

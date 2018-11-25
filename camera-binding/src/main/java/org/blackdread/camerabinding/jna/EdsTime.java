@@ -31,6 +31,7 @@ public class EdsTime extends Structure {
 	public EdsTime() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("year", "month", "day", "hour", "minute", "second", "milliseconds");
 	}
@@ -58,8 +59,8 @@ public class EdsTime extends Structure {
 	}
 	public static class ByReference extends EdsTime implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsTime implements Structure.ByValue {
 		
-	};
+	}
 }

@@ -25,6 +25,7 @@ public class EdsUsersetData extends Structure {
 	public EdsUsersetData() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("valid", "dataSize", "szCaption", "data");
 	}
@@ -50,8 +51,8 @@ public class EdsUsersetData extends Structure {
 	}
 	public static class ByReference extends EdsUsersetData implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsUsersetData implements Structure.ByValue {
 		
-	};
+	}
 }

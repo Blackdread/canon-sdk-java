@@ -27,6 +27,7 @@ public class EdsVolumeInfo extends Structure {
 	public EdsVolumeInfo() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("storageType", "access", "maxCapacity", "freeSpaceInBytes", "szVolumeLabel");
 	}
@@ -52,8 +53,8 @@ public class EdsVolumeInfo extends Structure {
 	}
 	public static class ByReference extends EdsVolumeInfo implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsVolumeInfo implements Structure.ByValue {
 		
-	};
+	}
 }

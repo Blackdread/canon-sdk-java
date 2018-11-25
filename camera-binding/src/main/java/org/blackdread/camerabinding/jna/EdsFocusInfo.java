@@ -25,6 +25,7 @@ public class EdsFocusInfo extends Structure {
 	public EdsFocusInfo() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("imageRect", "pointNumber", "focusPoint", "executeMode");
 	}
@@ -38,7 +39,7 @@ public class EdsFocusInfo extends Structure {
 		super();
 		this.imageRect = imageRect;
 		this.pointNumber = pointNumber;
-		if ((focusPoint.length != this.focusPoint.length)) 
+		if ((focusPoint.length != this.focusPoint.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.focusPoint = focusPoint;
 		this.executeMode = executeMode;
@@ -47,9 +48,9 @@ public class EdsFocusInfo extends Structure {
 		super(peer);
 	}
 	public static class ByReference extends EdsFocusInfo implements Structure.ByReference {
-		
-	};
+
+	}
 	public static class ByValue extends EdsFocusInfo implements Structure.ByValue {
-		
-	};
+
+	}
 }

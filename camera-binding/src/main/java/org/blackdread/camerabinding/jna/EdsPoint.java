@@ -21,6 +21,7 @@ public class EdsPoint extends Structure {
 	public EdsPoint() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("x", "y");
 	}
@@ -38,8 +39,8 @@ public class EdsPoint extends Structure {
 	}
 	public static class ByReference extends EdsPoint implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsPoint implements Structure.ByValue {
 		
-	};
+	}
 }

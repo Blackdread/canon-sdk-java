@@ -20,6 +20,7 @@ public class EdsRect extends Structure {
 	public EdsRect() {
 		super();
 	}
+	@Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("point", "size");
 	}
@@ -37,8 +38,8 @@ public class EdsRect extends Structure {
 	}
 	public static class ByReference extends EdsRect implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsRect implements Structure.ByValue {
 		
-	};
+	}
 }

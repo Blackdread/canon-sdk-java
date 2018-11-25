@@ -21,6 +21,7 @@ public class EdsSize extends Structure {
 	public EdsSize() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("width", "height");
 	}
@@ -38,8 +39,8 @@ public class EdsSize extends Structure {
 	}
 	public static class ByReference extends EdsSize implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsSize implements Structure.ByValue {
 		
-	};
+	}
 }

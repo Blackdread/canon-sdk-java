@@ -24,6 +24,7 @@ public class EdsSaveImageSetting extends Structure {
 	public EdsSaveImageSetting() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("JPEGQuality", "iccProfileStream", "reserved");
 	}
@@ -43,8 +44,8 @@ public class EdsSaveImageSetting extends Structure {
 	}
 	public static class ByReference extends EdsSaveImageSetting implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsSaveImageSetting implements Structure.ByValue {
 		
-	};
+	}
 }

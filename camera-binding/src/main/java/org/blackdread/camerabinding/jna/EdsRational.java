@@ -21,6 +21,7 @@ public class EdsRational extends Structure {
 	public EdsRational() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("numerator", "denominator");
 	}
@@ -38,8 +39,8 @@ public class EdsRational extends Structure {
 	}
 	public static class ByReference extends EdsRational implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsRational implements Structure.ByValue {
 		
-	};
+	}
 }

@@ -23,6 +23,7 @@ public class EdsCapacity extends Structure {
 	public EdsCapacity() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("numberOfFreeClusters", "bytesPerSector", "reset");
 	}
@@ -42,8 +43,8 @@ public class EdsCapacity extends Structure {
 	}
 	public static class ByReference extends EdsCapacity implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsCapacity implements Structure.ByValue {
 		
-	};
+	}
 }

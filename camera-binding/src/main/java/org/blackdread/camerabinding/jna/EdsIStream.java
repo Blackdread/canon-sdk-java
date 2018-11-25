@@ -33,6 +33,7 @@ public class EdsIStream extends Structure {
 	public EdsIStream() {
 		super();
 	}
+    @Override
 	protected List<String> getFieldOrder() {
 		return Arrays.asList("context", "read", "write", "seek", "tell", "getLength");
 	}
@@ -58,8 +59,8 @@ public class EdsIStream extends Structure {
 	}
 	public static class ByReference extends EdsIStream implements Structure.ByReference {
 		
-	};
+	}
 	public static class ByValue extends EdsIStream implements Structure.ByValue {
 		
-	};
+	}
 }
