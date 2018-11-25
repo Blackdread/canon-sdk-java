@@ -1787,1119 +1787,1119 @@ public interface EdsdkLibrary extends StdCallLibrary {
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ISSPECIFIC_MASK = (int) 0x80000000;
+    public static final int EDS_ISSPECIFIC_MASK = 0x80000000;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_COMPONENTID_MASK = (int) 0x7F000000;
+    public static final int EDS_COMPONENTID_MASK = 0x7F000000;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_RESERVED_MASK = (int) 0x00FF0000;
+    public static final int EDS_RESERVED_MASK = 0x00FF0000;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERRORID_MASK = (int) 0x0000FFFF;
+    public static final int EDS_ERRORID_MASK = 0x0000FFFF;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_CMP_ID_CLIENT_COMPONENTID = (int) 0x01000000;
+    public static final int EDS_CMP_ID_CLIENT_COMPONENTID = 0x01000000;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_CMP_ID_LLSDK_COMPONENTID = (int) 0x02000000;
+    public static final int EDS_CMP_ID_LLSDK_COMPONENTID = 0x02000000;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_CMP_ID_HLSDK_COMPONENTID = (int) 0x03000000;
+    public static final int EDS_CMP_ID_HLSDK_COMPONENTID = 0x03000000;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_OK = (int) 0x00000000;
+    public static final int EDS_ERR_OK = 0x00000000;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_UNIMPLEMENTED = (int) 0x00000001;
+    public static final int EDS_ERR_UNIMPLEMENTED = 0x00000001;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INTERNAL_ERROR = (int) 0x00000002;
+    public static final int EDS_ERR_INTERNAL_ERROR = 0x00000002;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_MEM_ALLOC_FAILED = (int) 0x00000003;
+    public static final int EDS_ERR_MEM_ALLOC_FAILED = 0x00000003;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_MEM_FREE_FAILED = (int) 0x00000004;
+    public static final int EDS_ERR_MEM_FREE_FAILED = 0x00000004;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_OPERATION_CANCELLED = (int) 0x00000005;
+    public static final int EDS_ERR_OPERATION_CANCELLED = 0x00000005;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INCOMPATIBLE_VERSION = (int) 0x00000006;
+    public static final int EDS_ERR_INCOMPATIBLE_VERSION = 0x00000006;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_NOT_SUPPORTED = (int) 0x00000007;
+    public static final int EDS_ERR_NOT_SUPPORTED = 0x00000007;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_UNEXPECTED_EXCEPTION = (int) 0x00000008;
+    public static final int EDS_ERR_UNEXPECTED_EXCEPTION = 0x00000008;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_PROTECTION_VIOLATION = (int) 0x00000009;
+    public static final int EDS_ERR_PROTECTION_VIOLATION = 0x00000009;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_MISSING_SUBCOMPONENT = (int) 0x0000000A;
+    public static final int EDS_ERR_MISSING_SUBCOMPONENT = 0x0000000A;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_SELECTION_UNAVAILABLE = (int) 0x0000000B;
+    public static final int EDS_ERR_SELECTION_UNAVAILABLE = 0x0000000B;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_IO_ERROR = (int) 0x00000020;
+    public static final int EDS_ERR_FILE_IO_ERROR = 0x00000020;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_TOO_MANY_OPEN = (int) 0x00000021;
+    public static final int EDS_ERR_FILE_TOO_MANY_OPEN = 0x00000021;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_NOT_FOUND = (int) 0x00000022;
+    public static final int EDS_ERR_FILE_NOT_FOUND = 0x00000022;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_OPEN_ERROR = (int) 0x00000023;
+    public static final int EDS_ERR_FILE_OPEN_ERROR = 0x00000023;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_CLOSE_ERROR = (int) 0x00000024;
+    public static final int EDS_ERR_FILE_CLOSE_ERROR = 0x00000024;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_SEEK_ERROR = (int) 0x00000025;
+    public static final int EDS_ERR_FILE_SEEK_ERROR = 0x00000025;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_TELL_ERROR = (int) 0x00000026;
+    public static final int EDS_ERR_FILE_TELL_ERROR = 0x00000026;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_READ_ERROR = (int) 0x00000027;
+    public static final int EDS_ERR_FILE_READ_ERROR = 0x00000027;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_WRITE_ERROR = (int) 0x00000028;
+    public static final int EDS_ERR_FILE_WRITE_ERROR = 0x00000028;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_PERMISSION_ERROR = (int) 0x00000029;
+    public static final int EDS_ERR_FILE_PERMISSION_ERROR = 0x00000029;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_DISK_FULL_ERROR = (int) 0x0000002A;
+    public static final int EDS_ERR_FILE_DISK_FULL_ERROR = 0x0000002A;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_ALREADY_EXISTS = (int) 0x0000002B;
+    public static final int EDS_ERR_FILE_ALREADY_EXISTS = 0x0000002B;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_FORMAT_UNRECOGNIZED = (int) 0x0000002C;
+    public static final int EDS_ERR_FILE_FORMAT_UNRECOGNIZED = 0x0000002C;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_DATA_CORRUPT = (int) 0x0000002D;
+    public static final int EDS_ERR_FILE_DATA_CORRUPT = 0x0000002D;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_FILE_NAMING_NA = (int) 0x0000002E;
+    public static final int EDS_ERR_FILE_NAMING_NA = 0x0000002E;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DIR_NOT_FOUND = (int) 0x00000040;
+    public static final int EDS_ERR_DIR_NOT_FOUND = 0x00000040;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DIR_IO_ERROR = (int) 0x00000041;
+    public static final int EDS_ERR_DIR_IO_ERROR = 0x00000041;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DIR_ENTRY_NOT_FOUND = (int) 0x00000042;
+    public static final int EDS_ERR_DIR_ENTRY_NOT_FOUND = 0x00000042;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DIR_ENTRY_EXISTS = (int) 0x00000043;
+    public static final int EDS_ERR_DIR_ENTRY_EXISTS = 0x00000043;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DIR_NOT_EMPTY = (int) 0x00000044;
+    public static final int EDS_ERR_DIR_NOT_EMPTY = 0x00000044;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_PROPERTIES_UNAVAILABLE = (int) 0x00000050;
+    public static final int EDS_ERR_PROPERTIES_UNAVAILABLE = 0x00000050;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_PROPERTIES_MISMATCH = (int) 0x00000051;
+    public static final int EDS_ERR_PROPERTIES_MISMATCH = 0x00000051;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_PROPERTIES_NOT_LOADED = (int) 0x00000053;
+    public static final int EDS_ERR_PROPERTIES_NOT_LOADED = 0x00000053;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_PARAMETER = (int) 0x00000060;
+    public static final int EDS_ERR_INVALID_PARAMETER = 0x00000060;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_HANDLE = (int) 0x00000061;
+    public static final int EDS_ERR_INVALID_HANDLE = 0x00000061;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_POINTER = (int) 0x00000062;
+    public static final int EDS_ERR_INVALID_POINTER = 0x00000062;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_INDEX = (int) 0x00000063;
+    public static final int EDS_ERR_INVALID_INDEX = 0x00000063;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_LENGTH = (int) 0x00000064;
+    public static final int EDS_ERR_INVALID_LENGTH = 0x00000064;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_FN_POINTER = (int) 0x00000065;
+    public static final int EDS_ERR_INVALID_FN_POINTER = 0x00000065;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_SORT_FN = (int) 0x00000066;
+    public static final int EDS_ERR_INVALID_SORT_FN = 0x00000066;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_NOT_FOUND = (int) 0x00000080;
+    public static final int EDS_ERR_DEVICE_NOT_FOUND = 0x00000080;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_BUSY = (int) 0x00000081;
+    public static final int EDS_ERR_DEVICE_BUSY = 0x00000081;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_INVALID = (int) 0x00000082;
+    public static final int EDS_ERR_DEVICE_INVALID = 0x00000082;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_EMERGENCY = (int) 0x00000083;
+    public static final int EDS_ERR_DEVICE_EMERGENCY = 0x00000083;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_MEMORY_FULL = (int) 0x00000084;
+    public static final int EDS_ERR_DEVICE_MEMORY_FULL = 0x00000084;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_INTERNAL_ERROR = (int) 0x00000085;
+    public static final int EDS_ERR_DEVICE_INTERNAL_ERROR = 0x00000085;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_INVALID_PARAMETER = (int) 0x00000086;
+    public static final int EDS_ERR_DEVICE_INVALID_PARAMETER = 0x00000086;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_NO_DISK = (int) 0x00000087;
+    public static final int EDS_ERR_DEVICE_NO_DISK = 0x00000087;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_DISK_ERROR = (int) 0x00000088;
+    public static final int EDS_ERR_DEVICE_DISK_ERROR = 0x00000088;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_CF_GATE_CHANGED = (int) 0x00000089;
+    public static final int EDS_ERR_DEVICE_CF_GATE_CHANGED = 0x00000089;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_DIAL_CHANGED = (int) 0x0000008A;
+    public static final int EDS_ERR_DEVICE_DIAL_CHANGED = 0x0000008A;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_NOT_INSTALLED = (int) 0x0000008B;
+    public static final int EDS_ERR_DEVICE_NOT_INSTALLED = 0x0000008B;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_STAY_AWAKE = (int) 0x0000008C;
+    public static final int EDS_ERR_DEVICE_STAY_AWAKE = 0x0000008C;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_NOT_RELEASED = (int) 0x0000008D;
+    public static final int EDS_ERR_DEVICE_NOT_RELEASED = 0x0000008D;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_IO_ERROR = (int) 0x000000A0;
+    public static final int EDS_ERR_STREAM_IO_ERROR = 0x000000A0;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_NOT_OPEN = (int) 0x000000A1;
+    public static final int EDS_ERR_STREAM_NOT_OPEN = 0x000000A1;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_ALREADY_OPEN = (int) 0x000000A2;
+    public static final int EDS_ERR_STREAM_ALREADY_OPEN = 0x000000A2;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_OPEN_ERROR = (int) 0x000000A3;
+    public static final int EDS_ERR_STREAM_OPEN_ERROR = 0x000000A3;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_CLOSE_ERROR = (int) 0x000000A4;
+    public static final int EDS_ERR_STREAM_CLOSE_ERROR = 0x000000A4;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_SEEK_ERROR = (int) 0x000000A5;
+    public static final int EDS_ERR_STREAM_SEEK_ERROR = 0x000000A5;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_TELL_ERROR = (int) 0x000000A6;
+    public static final int EDS_ERR_STREAM_TELL_ERROR = 0x000000A6;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_READ_ERROR = (int) 0x000000A7;
+    public static final int EDS_ERR_STREAM_READ_ERROR = 0x000000A7;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_WRITE_ERROR = (int) 0x000000A8;
+    public static final int EDS_ERR_STREAM_WRITE_ERROR = 0x000000A8;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_PERMISSION_ERROR = (int) 0x000000A9;
+    public static final int EDS_ERR_STREAM_PERMISSION_ERROR = 0x000000A9;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_COULDNT_BEGIN_THREAD = (int) 0x000000AA;
+    public static final int EDS_ERR_STREAM_COULDNT_BEGIN_THREAD = 0x000000AA;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_BAD_OPTIONS = (int) 0x000000AB;
+    public static final int EDS_ERR_STREAM_BAD_OPTIONS = 0x000000AB;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STREAM_END_OF_STREAM = (int) 0x000000AC;
+    public static final int EDS_ERR_STREAM_END_OF_STREAM = 0x000000AC;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_COMM_PORT_IS_IN_USE = (int) 0x000000C0;
+    public static final int EDS_ERR_COMM_PORT_IS_IN_USE = 0x000000C0;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_COMM_DISCONNECTED = (int) 0x000000C1;
+    public static final int EDS_ERR_COMM_DISCONNECTED = 0x000000C1;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_COMM_DEVICE_INCOMPATIBLE = (int) 0x000000C2;
+    public static final int EDS_ERR_COMM_DEVICE_INCOMPATIBLE = 0x000000C2;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_COMM_BUFFER_FULL = (int) 0x000000C3;
+    public static final int EDS_ERR_COMM_BUFFER_FULL = 0x000000C3;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_COMM_USB_BUS_ERR = (int) 0x000000C4;
+    public static final int EDS_ERR_COMM_USB_BUS_ERR = 0x000000C4;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_USB_DEVICE_LOCK_ERROR = (int) 0x000000D0;
+    public static final int EDS_ERR_USB_DEVICE_LOCK_ERROR = 0x000000D0;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_USB_DEVICE_UNLOCK_ERROR = (int) 0x000000D1;
+    public static final int EDS_ERR_USB_DEVICE_UNLOCK_ERROR = 0x000000D1;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STI_UNKNOWN_ERROR = (int) 0x000000E0;
+    public static final int EDS_ERR_STI_UNKNOWN_ERROR = 0x000000E0;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STI_INTERNAL_ERROR = (int) 0x000000E1;
+    public static final int EDS_ERR_STI_INTERNAL_ERROR = 0x000000E1;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STI_DEVICE_CREATE_ERROR = (int) 0x000000E2;
+    public static final int EDS_ERR_STI_DEVICE_CREATE_ERROR = 0x000000E2;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_STI_DEVICE_RELEASE_ERROR = (int) 0x000000E3;
+    public static final int EDS_ERR_STI_DEVICE_RELEASE_ERROR = 0x000000E3;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICE_NOT_LAUNCHED = (int) 0x000000E4;
+    public static final int EDS_ERR_DEVICE_NOT_LAUNCHED = 0x000000E4;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_ENUM_NA = (int) 0x000000F0;
+    public static final int EDS_ERR_ENUM_NA = 0x000000F0;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_FN_CALL = (int) 0x000000F1;
+    public static final int EDS_ERR_INVALID_FN_CALL = 0x000000F1;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_HANDLE_NOT_FOUND = (int) 0x000000F2;
+    public static final int EDS_ERR_HANDLE_NOT_FOUND = 0x000000F2;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_ID = (int) 0x000000F3;
+    public static final int EDS_ERR_INVALID_ID = 0x000000F3;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_WAIT_TIMEOUT_ERROR = (int) 0x000000F4;
+    public static final int EDS_ERR_WAIT_TIMEOUT_ERROR = 0x000000F4;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_SESSION_NOT_OPEN = (int) 0x00002003;
+    public static final int EDS_ERR_SESSION_NOT_OPEN = 0x00002003;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_TRANSACTIONID = (int) 0x00002004;
+    public static final int EDS_ERR_INVALID_TRANSACTIONID = 0x00002004;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INCOMPLETE_TRANSFER = (int) 0x00002007;
+    public static final int EDS_ERR_INCOMPLETE_TRANSFER = 0x00002007;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_STRAGEID = (int) 0x00002008;
+    public static final int EDS_ERR_INVALID_STRAGEID = 0x00002008;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_DEVICEPROP_NOT_SUPPORTED = (int) 0x0000200A;
+    public static final int EDS_ERR_DEVICEPROP_NOT_SUPPORTED = 0x0000200A;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_OBJECTFORMATCODE = (int) 0x0000200B;
+    public static final int EDS_ERR_INVALID_OBJECTFORMATCODE = 0x0000200B;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_SELF_TEST_FAILED = (int) 0x00002011;
+    public static final int EDS_ERR_SELF_TEST_FAILED = 0x00002011;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_PARTIAL_DELETION = (int) 0x00002012;
+    public static final int EDS_ERR_PARTIAL_DELETION = 0x00002012;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_SPECIFICATION_BY_FORMAT_UNSUPPORTED = (int) 0x00002014;
+    public static final int EDS_ERR_SPECIFICATION_BY_FORMAT_UNSUPPORTED = 0x00002014;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_NO_VALID_OBJECTINFO = (int) 0x00002015;
+    public static final int EDS_ERR_NO_VALID_OBJECTINFO = 0x00002015;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_CODE_FORMAT = (int) 0x00002016;
+    public static final int EDS_ERR_INVALID_CODE_FORMAT = 0x00002016;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_UNKNOWN_VENDOR_CODE = (int) 0x00002017;
+    public static final int EDS_ERR_UNKNOWN_VENDOR_CODE = 0x00002017;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_CAPTURE_ALREADY_TERMINATED = (int) 0x00002018;
+    public static final int EDS_ERR_CAPTURE_ALREADY_TERMINATED = 0x00002018;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_PTP_DEVICE_BUSY = (int) 0x00002019;
+    public static final int EDS_ERR_PTP_DEVICE_BUSY = 0x00002019;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_PARENTOBJECT = (int) 0x0000201A;
+    public static final int EDS_ERR_INVALID_PARENTOBJECT = 0x0000201A;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_DEVICEPROP_FORMAT = (int) 0x0000201B;
+    public static final int EDS_ERR_INVALID_DEVICEPROP_FORMAT = 0x0000201B;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_INVALID_DEVICEPROP_VALUE = (int) 0x0000201C;
+    public static final int EDS_ERR_INVALID_DEVICEPROP_VALUE = 0x0000201C;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_SESSION_ALREADY_OPEN = (int) 0x0000201E;
+    public static final int EDS_ERR_SESSION_ALREADY_OPEN = 0x0000201E;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TRANSACTION_CANCELLED = (int) 0x0000201F;
+    public static final int EDS_ERR_TRANSACTION_CANCELLED = 0x0000201F;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_SPECIFICATION_OF_DESTINATION_UNSUPPORTED = (int) 0x00002020;
+    public static final int EDS_ERR_SPECIFICATION_OF_DESTINATION_UNSUPPORTED = 0x00002020;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_NOT_CAMERA_SUPPORT_SDK_VERSION = (int) 0x00002021;
+    public static final int EDS_ERR_NOT_CAMERA_SUPPORT_SDK_VERSION = 0x00002021;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_UNKNOWN_COMMAND = (int) 0x0000A001;
+    public static final int EDS_ERR_UNKNOWN_COMMAND = 0x0000A001;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_OPERATION_REFUSED = (int) 0x0000A005;
+    public static final int EDS_ERR_OPERATION_REFUSED = 0x0000A005;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_LENS_COVER_CLOSE = (int) 0x0000A006;
+    public static final int EDS_ERR_LENS_COVER_CLOSE = 0x0000A006;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_LOW_BATTERY = (int) 0x0000A101;
+    public static final int EDS_ERR_LOW_BATTERY = 0x0000A101;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_OBJECT_NOTREADY = (int) 0x0000A102;
+    public static final int EDS_ERR_OBJECT_NOTREADY = 0x0000A102;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_CANNOT_MAKE_OBJECT = (int) 0x0000A104;
+    public static final int EDS_ERR_CANNOT_MAKE_OBJECT = 0x0000A104;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_MEMORYSTATUS_NOTREADY = (int) 0x0000A106;
+    public static final int EDS_ERR_MEMORYSTATUS_NOTREADY = 0x0000A106;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_AF_NG = (int) 0x00008D01;
+    public static final int EDS_ERR_TAKE_PICTURE_AF_NG = 0x00008D01;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_RESERVED = (int) 0x00008D02;
+    public static final int EDS_ERR_TAKE_PICTURE_RESERVED = 0x00008D02;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_MIRROR_UP_NG = (int) 0x00008D03;
+    public static final int EDS_ERR_TAKE_PICTURE_MIRROR_UP_NG = 0x00008D03;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_SENSOR_CLEANING_NG = (int) 0x00008D04;
+    public static final int EDS_ERR_TAKE_PICTURE_SENSOR_CLEANING_NG = 0x00008D04;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_SILENCE_NG = (int) 0x00008D05;
+    public static final int EDS_ERR_TAKE_PICTURE_SILENCE_NG = 0x00008D05;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_NO_CARD_NG = (int) 0x00008D06;
+    public static final int EDS_ERR_TAKE_PICTURE_NO_CARD_NG = 0x00008D06;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_CARD_NG = (int) 0x00008D07;
+    public static final int EDS_ERR_TAKE_PICTURE_CARD_NG = 0x00008D07;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_CARD_PROTECT_NG = (int) 0x00008D08;
+    public static final int EDS_ERR_TAKE_PICTURE_CARD_PROTECT_NG = 0x00008D08;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_MOVIE_CROP_NG = (int) 0x00008D09;
+    public static final int EDS_ERR_TAKE_PICTURE_MOVIE_CROP_NG = 0x00008D09;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_STROBO_CHARGE_NG = (int) 0x00008D0A;
+    public static final int EDS_ERR_TAKE_PICTURE_STROBO_CHARGE_NG = 0x00008D0A;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_NO_LENS_NG = (int) 0x00008D0B;
+    public static final int EDS_ERR_TAKE_PICTURE_NO_LENS_NG = 0x00008D0B;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_SPECIAL_MOVIE_MODE_NG = (int) 0x00008D0C;
+    public static final int EDS_ERR_TAKE_PICTURE_SPECIAL_MOVIE_MODE_NG = 0x00008D0C;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_TAKE_PICTURE_LV_REL_PROHIBIT_MODE_NG = (int) 0x00008D0D;
+    public static final int EDS_ERR_TAKE_PICTURE_LV_REL_PROHIBIT_MODE_NG = 0x00008D0D;
     /**
      * <i>native declaration : sdk-header\EDSDKErrors.h</i>
      */
-    public static final int EDS_ERR_LAST_GENERIC_ERROR_PLUS_ONE = (int) 0x000000F5;
+    public static final int EDS_ERR_LAST_GENERIC_ERROR_PLUS_ONE = 0x000000F5;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int EDS_MAX_NAME = (int) 256;
+    public static final int EDS_MAX_NAME = 256;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int EDS_TRANSFER_BLOCK_SIZE = (int) 512;
+    public static final int EDS_TRANSFER_BLOCK_SIZE = 512;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int NULL = (int) 0;
+    public static final int NULL = 0;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int FALSE = (int) 0;
+    public static final int FALSE = 0;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int TRUE = (int) 1;
+    public static final int TRUE = 1;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Unknown = (int) 0x0000ffff;
+    public static final int kEdsPropID_Unknown = 0x0000ffff;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ProductName = (int) 0x00000002;
+    public static final int kEdsPropID_ProductName = 0x00000002;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_OwnerName = (int) 0x00000004;
+    public static final int kEdsPropID_OwnerName = 0x00000004;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_MakerName = (int) 0x00000005;
+    public static final int kEdsPropID_MakerName = 0x00000005;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_DateTime = (int) 0x00000006;
+    public static final int kEdsPropID_DateTime = 0x00000006;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FirmwareVersion = (int) 0x00000007;
+    public static final int kEdsPropID_FirmwareVersion = 0x00000007;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_BatteryLevel = (int) 0x00000008;
+    public static final int kEdsPropID_BatteryLevel = 0x00000008;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_CFn = (int) 0x00000009;
+    public static final int kEdsPropID_CFn = 0x00000009;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_SaveTo = (int) 0x0000000b;
+    public static final int kEdsPropID_SaveTo = 0x0000000b;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_CurrentStorage = (int) 0x0000000c;
+    public static final int kEdsPropID_CurrentStorage = 0x0000000c;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_CurrentFolder = (int) 0x0000000d;
+    public static final int kEdsPropID_CurrentFolder = 0x0000000d;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_MyMenu = (int) 0x0000000e;
+    public static final int kEdsPropID_MyMenu = 0x0000000e;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_BatteryQuality = (int) 0x00000010;
+    public static final int kEdsPropID_BatteryQuality = 0x00000010;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_BodyIDEx = (int) 0x00000015;
+    public static final int kEdsPropID_BodyIDEx = 0x00000015;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_HDDirectoryStructure = (int) 0x00000020;
+    public static final int kEdsPropID_HDDirectoryStructure = 0x00000020;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ImageQuality = (int) 0x00000100;
+    public static final int kEdsPropID_ImageQuality = 0x00000100;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_JpegQuality = (int) 0x00000101;
+    public static final int kEdsPropID_JpegQuality = 0x00000101;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Orientation = (int) 0x00000102;
+    public static final int kEdsPropID_Orientation = 0x00000102;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ICCProfile = (int) 0x00000103;
+    public static final int kEdsPropID_ICCProfile = 0x00000103;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FocusInfo = (int) 0x00000104;
+    public static final int kEdsPropID_FocusInfo = 0x00000104;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_DigitalExposure = (int) 0x00000105;
+    public static final int kEdsPropID_DigitalExposure = 0x00000105;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_WhiteBalance = (int) 0x00000106;
+    public static final int kEdsPropID_WhiteBalance = 0x00000106;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ColorTemperature = (int) 0x00000107;
+    public static final int kEdsPropID_ColorTemperature = 0x00000107;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_WhiteBalanceShift = (int) 0x00000108;
+    public static final int kEdsPropID_WhiteBalanceShift = 0x00000108;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Contrast = (int) 0x00000109;
+    public static final int kEdsPropID_Contrast = 0x00000109;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ColorSaturation = (int) 0x0000010a;
+    public static final int kEdsPropID_ColorSaturation = 0x0000010a;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ColorTone = (int) 0x0000010b;
+    public static final int kEdsPropID_ColorTone = 0x0000010b;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Sharpness = (int) 0x0000010c;
+    public static final int kEdsPropID_Sharpness = 0x0000010c;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ColorSpace = (int) 0x0000010d;
+    public static final int kEdsPropID_ColorSpace = 0x0000010d;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ToneCurve = (int) 0x0000010e;
+    public static final int kEdsPropID_ToneCurve = 0x0000010e;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_PhotoEffect = (int) 0x0000010f;
+    public static final int kEdsPropID_PhotoEffect = 0x0000010f;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FilterEffect = (int) 0x00000110;
+    public static final int kEdsPropID_FilterEffect = 0x00000110;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ToningEffect = (int) 0x00000111;
+    public static final int kEdsPropID_ToningEffect = 0x00000111;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ParameterSet = (int) 0x00000112;
+    public static final int kEdsPropID_ParameterSet = 0x00000112;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ColorMatrix = (int) 0x00000113;
+    public static final int kEdsPropID_ColorMatrix = 0x00000113;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_PictureStyle = (int) 0x00000114;
+    public static final int kEdsPropID_PictureStyle = 0x00000114;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_PictureStyleDesc = (int) 0x00000115;
+    public static final int kEdsPropID_PictureStyleDesc = 0x00000115;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_PictureStyleCaption = (int) 0x00000200;
+    public static final int kEdsPropID_PictureStyleCaption = 0x00000200;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Linear = (int) 0x00000300;
+    public static final int kEdsPropID_Linear = 0x00000300;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ClickWBPoint = (int) 0x00000301;
+    public static final int kEdsPropID_ClickWBPoint = 0x00000301;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_WBCoeffs = (int) 0x00000302;
+    public static final int kEdsPropID_WBCoeffs = 0x00000302;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSVersionID = (int) 0x00000800;
+    public static final int kEdsPropID_GPSVersionID = 0x00000800;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSLatitudeRef = (int) 0x00000801;
+    public static final int kEdsPropID_GPSLatitudeRef = 0x00000801;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSLatitude = (int) 0x00000802;
+    public static final int kEdsPropID_GPSLatitude = 0x00000802;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSLongitudeRef = (int) 0x00000803;
+    public static final int kEdsPropID_GPSLongitudeRef = 0x00000803;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSLongitude = (int) 0x00000804;
+    public static final int kEdsPropID_GPSLongitude = 0x00000804;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSAltitudeRef = (int) 0x00000805;
+    public static final int kEdsPropID_GPSAltitudeRef = 0x00000805;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSAltitude = (int) 0x00000806;
+    public static final int kEdsPropID_GPSAltitude = 0x00000806;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSTimeStamp = (int) 0x00000807;
+    public static final int kEdsPropID_GPSTimeStamp = 0x00000807;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSSatellites = (int) 0x00000808;
+    public static final int kEdsPropID_GPSSatellites = 0x00000808;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSStatus = (int) 0x00000809;
+    public static final int kEdsPropID_GPSStatus = 0x00000809;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSMapDatum = (int) 0x00000812;
+    public static final int kEdsPropID_GPSMapDatum = 0x00000812;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_GPSDateStamp = (int) 0x0000081D;
+    public static final int kEdsPropID_GPSDateStamp = 0x0000081D;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_AtCapture_Flag = (int) 0x80000000;
+    public static final int kEdsPropID_AtCapture_Flag = 0x80000000;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_AEMode = (int) 0x00000400;
+    public static final int kEdsPropID_AEMode = 0x00000400;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_DriveMode = (int) 0x00000401;
+    public static final int kEdsPropID_DriveMode = 0x00000401;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ISOSpeed = (int) 0x00000402;
+    public static final int kEdsPropID_ISOSpeed = 0x00000402;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_MeteringMode = (int) 0x00000403;
+    public static final int kEdsPropID_MeteringMode = 0x00000403;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_AFMode = (int) 0x00000404;
+    public static final int kEdsPropID_AFMode = 0x00000404;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Av = (int) 0x00000405;
+    public static final int kEdsPropID_Av = 0x00000405;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Tv = (int) 0x00000406;
+    public static final int kEdsPropID_Tv = 0x00000406;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ExposureCompensation = (int) 0x00000407;
+    public static final int kEdsPropID_ExposureCompensation = 0x00000407;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FlashCompensation = (int) 0x00000408;
+    public static final int kEdsPropID_FlashCompensation = 0x00000408;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FocalLength = (int) 0x00000409;
+    public static final int kEdsPropID_FocalLength = 0x00000409;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_AvailableShots = (int) 0x0000040a;
+    public static final int kEdsPropID_AvailableShots = 0x0000040a;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Bracket = (int) 0x0000040b;
+    public static final int kEdsPropID_Bracket = 0x0000040b;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_WhiteBalanceBracket = (int) 0x0000040c;
+    public static final int kEdsPropID_WhiteBalanceBracket = 0x0000040c;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_LensName = (int) 0x0000040d;
+    public static final int kEdsPropID_LensName = 0x0000040d;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_AEBracket = (int) 0x0000040e;
+    public static final int kEdsPropID_AEBracket = 0x0000040e;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FEBracket = (int) 0x0000040f;
+    public static final int kEdsPropID_FEBracket = 0x0000040f;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_ISOBracket = (int) 0x00000410;
+    public static final int kEdsPropID_ISOBracket = 0x00000410;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_NoiseReduction = (int) 0x00000411;
+    public static final int kEdsPropID_NoiseReduction = 0x00000411;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FlashOn = (int) 0x00000412;
+    public static final int kEdsPropID_FlashOn = 0x00000412;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_RedEye = (int) 0x00000413;
+    public static final int kEdsPropID_RedEye = 0x00000413;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_FlashMode = (int) 0x00000414;
+    public static final int kEdsPropID_FlashMode = 0x00000414;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_LensStatus = (int) 0x00000416;
+    public static final int kEdsPropID_LensStatus = 0x00000416;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Artist = (int) 0x00000418;
+    public static final int kEdsPropID_Artist = 0x00000418;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Copyright = (int) 0x00000419;
+    public static final int kEdsPropID_Copyright = 0x00000419;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_DepthOfField = (int) 0x0000041b;
+    public static final int kEdsPropID_DepthOfField = 0x0000041b;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_EFCompensation = (int) 0x0000041e;
+    public static final int kEdsPropID_EFCompensation = 0x0000041e;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_AEModeSelect = (int) 0x00000436;
+    public static final int kEdsPropID_AEModeSelect = 0x00000436;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_OutputDevice = (int) 0x00000500;
+    public static final int kEdsPropID_Evf_OutputDevice = 0x00000500;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_Mode = (int) 0x00000501;
+    public static final int kEdsPropID_Evf_Mode = 0x00000501;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_WhiteBalance = (int) 0x00000502;
+    public static final int kEdsPropID_Evf_WhiteBalance = 0x00000502;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_ColorTemperature = (int) 0x00000503;
+    public static final int kEdsPropID_Evf_ColorTemperature = 0x00000503;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_DepthOfFieldPreview = (int) 0x00000504;
+    public static final int kEdsPropID_Evf_DepthOfFieldPreview = 0x00000504;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_Zoom = (int) 0x00000507;
+    public static final int kEdsPropID_Evf_Zoom = 0x00000507;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_ZoomPosition = (int) 0x00000508;
+    public static final int kEdsPropID_Evf_ZoomPosition = 0x00000508;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_FocusAid = (int) 0x00000509;
+    public static final int kEdsPropID_Evf_FocusAid = 0x00000509;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_Histogram = (int) 0x0000050A;
+    public static final int kEdsPropID_Evf_Histogram = 0x0000050A;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_ImagePosition = (int) 0x0000050B;
+    public static final int kEdsPropID_Evf_ImagePosition = 0x0000050B;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_HistogramStatus = (int) 0x0000050C;
+    public static final int kEdsPropID_Evf_HistogramStatus = 0x0000050C;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_AFMode = (int) 0x0000050E;
+    public static final int kEdsPropID_Evf_AFMode = 0x0000050E;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Record = (int) 0x00000510;
+    public static final int kEdsPropID_Record = 0x00000510;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_HistogramY = (int) 0x00000515;
+    public static final int kEdsPropID_Evf_HistogramY = 0x00000515;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_HistogramR = (int) 0x00000516;
+    public static final int kEdsPropID_Evf_HistogramR = 0x00000516;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_HistogramG = (int) 0x00000517;
+    public static final int kEdsPropID_Evf_HistogramG = 0x00000517;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_HistogramB = (int) 0x00000518;
+    public static final int kEdsPropID_Evf_HistogramB = 0x00000518;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_CoordinateSystem = (int) 0x00000540;
+    public static final int kEdsPropID_Evf_CoordinateSystem = 0x00000540;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_ZoomRect = (int) 0x00000541;
+    public static final int kEdsPropID_Evf_ZoomRect = 0x00000541;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropID_Evf_ImageClipRect = (int) 0x00000545;
+    public static final int kEdsPropID_Evf_ImageClipRect = 0x00000545;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_TakePicture = (int) 0x00000000;
+    public static final int kEdsCameraCommand_TakePicture = 0x00000000;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_ExtendShutDownTimer = (int) 0x00000001;
+    public static final int kEdsCameraCommand_ExtendShutDownTimer = 0x00000001;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_BulbStart = (int) 0x00000002;
+    public static final int kEdsCameraCommand_BulbStart = 0x00000002;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_BulbEnd = (int) 0x00000003;
+    public static final int kEdsCameraCommand_BulbEnd = 0x00000003;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_DoEvfAf = (int) 0x00000102;
+    public static final int kEdsCameraCommand_DoEvfAf = 0x00000102;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_DriveLensEvf = (int) 0x00000103;
+    public static final int kEdsCameraCommand_DriveLensEvf = 0x00000103;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_DoClickWBEvf = (int) 0x00000104;
+    public static final int kEdsCameraCommand_DoClickWBEvf = 0x00000104;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraCommand_PressShutterButton = (int) 0x00000004;
+    public static final int kEdsCameraCommand_PressShutterButton = 0x00000004;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraStatusCommand_UILock = (int) 0x00000000;
+    public static final int kEdsCameraStatusCommand_UILock = 0x00000000;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraStatusCommand_UIUnLock = (int) 0x00000001;
+    public static final int kEdsCameraStatusCommand_UIUnLock = 0x00000001;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraStatusCommand_EnterDirectTransfer = (int) 0x00000002;
+    public static final int kEdsCameraStatusCommand_EnterDirectTransfer = 0x00000002;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsCameraStatusCommand_ExitDirectTransfer = (int) 0x00000003;
+    public static final int kEdsCameraStatusCommand_ExitDirectTransfer = 0x00000003;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropertyEvent_All = (int) 0x00000100;
+    public static final int kEdsPropertyEvent_All = 0x00000100;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropertyEvent_PropertyChanged = (int) 0x00000101;
+    public static final int kEdsPropertyEvent_PropertyChanged = 0x00000101;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsPropertyEvent_PropertyDescChanged = (int) 0x00000102;
+    public static final int kEdsPropertyEvent_PropertyDescChanged = 0x00000102;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_All = (int) 0x00000200;
+    public static final int kEdsObjectEvent_All = 0x00000200;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_VolumeInfoChanged = (int) 0x00000201;
+    public static final int kEdsObjectEvent_VolumeInfoChanged = 0x00000201;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_VolumeUpdateItems = (int) 0x00000202;
+    public static final int kEdsObjectEvent_VolumeUpdateItems = 0x00000202;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_FolderUpdateItems = (int) 0x00000203;
+    public static final int kEdsObjectEvent_FolderUpdateItems = 0x00000203;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_DirItemCreated = (int) 0x00000204;
+    public static final int kEdsObjectEvent_DirItemCreated = 0x00000204;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_DirItemRemoved = (int) 0x00000205;
+    public static final int kEdsObjectEvent_DirItemRemoved = 0x00000205;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_DirItemInfoChanged = (int) 0x00000206;
+    public static final int kEdsObjectEvent_DirItemInfoChanged = 0x00000206;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_DirItemContentChanged = (int) 0x00000207;
+    public static final int kEdsObjectEvent_DirItemContentChanged = 0x00000207;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_DirItemRequestTransfer = (int) 0x00000208;
+    public static final int kEdsObjectEvent_DirItemRequestTransfer = 0x00000208;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_DirItemRequestTransferDT = (int) 0x00000209;
+    public static final int kEdsObjectEvent_DirItemRequestTransferDT = 0x00000209;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_DirItemCancelTransferDT = (int) 0x0000020a;
+    public static final int kEdsObjectEvent_DirItemCancelTransferDT = 0x0000020a;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_VolumeAdded = (int) 0x0000020c;
+    public static final int kEdsObjectEvent_VolumeAdded = 0x0000020c;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsObjectEvent_VolumeRemoved = (int) 0x0000020d;
+    public static final int kEdsObjectEvent_VolumeRemoved = 0x0000020d;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_All = (int) 0x00000300;
+    public static final int kEdsStateEvent_All = 0x00000300;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_Shutdown = (int) 0x00000301;
+    public static final int kEdsStateEvent_Shutdown = 0x00000301;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_JobStatusChanged = (int) 0x00000302;
+    public static final int kEdsStateEvent_JobStatusChanged = 0x00000302;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_WillSoonShutDown = (int) 0x00000303;
+    public static final int kEdsStateEvent_WillSoonShutDown = 0x00000303;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_ShutDownTimerUpdate = (int) 0x00000304;
+    public static final int kEdsStateEvent_ShutDownTimerUpdate = 0x00000304;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_CaptureError = (int) 0x00000305;
+    public static final int kEdsStateEvent_CaptureError = 0x00000305;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_InternalError = (int) 0x00000306;
+    public static final int kEdsStateEvent_InternalError = 0x00000306;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_AfResult = (int) 0x00000309;
+    public static final int kEdsStateEvent_AfResult = 0x00000309;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
-    public static final int kEdsStateEvent_BulbExposureTime = (int) 0x00000310;
+    public static final int kEdsStateEvent_BulbExposureTime = 0x00000310;
     /**
      * <i>native declaration : sdk-header\EDSDK.h</i>
      */
-    public static final int oldif = (int) 0;
+    public static final int oldif = 0;
 
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
