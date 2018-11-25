@@ -26,7 +26,7 @@ public interface CameraLogic {
      *
      * @param camera the reference of the camera which will receive the command
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     * @see #setCapacity(EdsCameraRef, int, int)
+     * @see CameraLogic#setCapacity(EdsCameraRef, int, int)
      */
     default void setCapacity(final EdsCameraRef camera) {
         setCapacity(camera, Integer.MAX_VALUE, DEFAULT_BYTES_PER_SECTOR);
@@ -39,7 +39,7 @@ public interface CameraLogic {
      * @param camera   the reference of the camera which will receive the command
      * @param capacity The remaining capacity of a transmission place
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     * @see #setCapacity(EdsCameraRef, int, int)
+     * @see CameraLogic#setCapacity(EdsCameraRef, int, int)
      */
     default void setCapacity(final EdsCameraRef camera, final int capacity) {
         setCapacity(camera, capacity, DEFAULT_BYTES_PER_SECTOR);

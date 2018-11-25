@@ -20,6 +20,7 @@ public final class ErrorUtil {
      * Convert a long value to it's corresponding EDSDK error.
      *
      * @param value native long that was returned by a method from {@link org.blackdread.camerabinding.jna.EdsdkLibrary}
+     * @return edsdk error from native long
      */
     public static EdsdkError toEdsdkError(final NativeLong value) {
         for (EdsdkError error : EdsdkError.values()) {
@@ -47,7 +48,8 @@ public final class ErrorUtil {
     }
 
     /**
-     * @param runnable runnable to execute
+     * @param runnable    runnable to execute
+     * @param delayMillis delay between retries
      * @deprecated not yet used and need to review, might use a better API to give more option (Interface with fluent)
      */
     public static void retryOnBusy(final Runnable runnable, final long delayMillis) {

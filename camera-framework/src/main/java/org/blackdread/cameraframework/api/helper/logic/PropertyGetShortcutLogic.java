@@ -245,6 +245,7 @@ public interface PropertyGetShortcutLogic {
      * The EOS 50D or EOS 5D Mark II or later cameras obtain the AF frame from EdsCameraRef. The value obtained during live view operations is different.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Live View</th><th>AF Frame</th></tr></thead>
      * <tbody>
      * <tr><td>When operating</td><td>The AF frame depending on the AF mode during live view set for the camera</td></tr>
@@ -577,6 +578,7 @@ public interface PropertyGetShortcutLogic {
      * You can obtain three items of information at once by using EdsGetPropertyData to get this property: the focal length at the time of shooting, the focal length of Wide, and the focal length of Tele. In this case, the buffer storing this property data is passed in three parts. However, if you prefer to get only the focal length at the time of shooting, you can get only that single part of the buffer.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Array number</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>Focal length at the time of shooting</td></tr>
@@ -669,6 +671,7 @@ public interface PropertyGetShortcutLogic {
      * Note: "AB" means the bracket toward amber-blue and "GM" toward green-magenta
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Array number</th><th>Description</th><th>Value</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>BracketMode</td><td>0 = OFF<br>1 = Mode AB<br>2 = Mode GM<br>0xFFFFFFFF = Not Supported</td></tr>
@@ -691,6 +694,7 @@ public interface PropertyGetShortcutLogic {
      * Note: "AB" means the bracket toward amber-blue and "GM" toward green-magenta
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Array number</th><th>Description</th><th>Value</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>BracketMode</td><td>0 = OFF<br>1 = Mode AB<br>2 = Mode GM<br>0xFFFFFFFF = Not Supported</td></tr>
@@ -778,6 +782,7 @@ public interface PropertyGetShortcutLogic {
      * Note: "AB" means compensation toward amber-blue and "GM" toward green-magenta.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th></th><th></th><th></th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>ValueAB</td><td>–9 to +9<br>0x7FFFFFFF = invalid value<br>Note: 0 means no compensation, (–) means compensation toward blue, and (+) means compensation toward amber.</td></tr>
@@ -799,6 +804,7 @@ public interface PropertyGetShortcutLogic {
      * Note: "AB" means compensation toward amber-blue and "GM" toward green-magenta.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th></th><th></th><th></th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>ValueAB</td><td>–9 to +9<br>0x7FFFFFFF = invalid value<br>Note: 0 means no compensation, (–) means compensation toward blue, and (+) means compensation toward amber.</td></tr>
@@ -866,6 +872,7 @@ public interface PropertyGetShortcutLogic {
      * Indicates the tone curve.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Value of inParam</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>Standard</td></tr>
@@ -876,6 +883,7 @@ public interface PropertyGetShortcutLogic {
      * </table>
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Value</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0x00000000</td><td>Standard</td></tr>
@@ -888,6 +896,7 @@ public interface PropertyGetShortcutLogic {
      * </table>
      *
      * @param camera ref of camera
+     * @param inParam param
      * @return the tone curve
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @deprecated not sure available
@@ -902,6 +911,7 @@ public interface PropertyGetShortcutLogic {
      * Indicates the tone curve.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Value</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0x00000000</td><td>Standard</td></tr>
@@ -965,6 +975,7 @@ public interface PropertyGetShortcutLogic {
      * Indicates the flash type at the time of shooting.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Array number</th><th>Description</th><th>Value</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>Flash type</td><td>0 = None (the "flash type" item itself is not displayed)<br>1 = Internal<br>2 = external E-TTL<br>3 = external A-TTL<br>0xFFFFFFFF = Invalid value</td></tr>
@@ -984,6 +995,7 @@ public interface PropertyGetShortcutLogic {
      * Indicates red-eye reduction.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Value</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>OFF</td></tr>
@@ -1006,6 +1018,7 @@ public interface PropertyGetShortcutLogic {
      * Values 1–3 vary depending on the camera model.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Value</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>OFF</td></tr>
@@ -1060,6 +1073,7 @@ public interface PropertyGetShortcutLogic {
      * This property can only be retrieved from images shot using models the EOS 50D or EOS 5D Mark II or later.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Value</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>The lens is not attached</td></tr>
@@ -1265,7 +1279,7 @@ public interface PropertyGetShortcutLogic {
      * <br>
      * The histogram can be used to obtain Y.
      * <br>
-     * The histogram stores data in the form Y(0)…Y(n) (0<=n<=255).
+     * The histogram stores data in the form Y(0)…Y(n) (0{@literal <}=n{@literal <}=255).
      * Cumulative values in the histogram differ from the total number of pixels in the image data.
      *
      * @param evfImage ref of evfImage
@@ -1281,7 +1295,7 @@ public interface PropertyGetShortcutLogic {
      * <br>
      * The histogram can be used to obtain R.
      * <br>
-     * The histogram stores data in the form R(0)…R(n) (0<=n<=255).
+     * The histogram stores data in the form R(0)…R(n) (0{@literal <}=n{@literal <}=255).
      * Cumulative values in the histogram differ from the total number of pixels in the image data.
      *
      * @param evfImage ref of evfImage
@@ -1297,7 +1311,7 @@ public interface PropertyGetShortcutLogic {
      * <br>
      * The histogram can be used to obtain G.
      * <br>
-     * The histogram stores data in the form G(0)…G(n) (0<=n<=255).
+     * The histogram stores data in the form G(0)…G(n) (0{@literal <}=n{@literal <}=255).
      * Cumulative values in the histogram differ from the total number of pixels in the image data.
      *
      * @param evfImage ref of evfImage
@@ -1313,7 +1327,7 @@ public interface PropertyGetShortcutLogic {
      * <br>
      * The histogram can be used to obtain B.
      * <br>
-     * The histogram stores data in the form B(0)…B(n) (0<=n<=255).
+     * The histogram stores data in the form B(0)…B(n) (0{@literal <}=n{@literal <}=255).
      * Cumulative values in the histogram differ from the total number of pixels in the image data.
      *
      * @param evfImage ref of evfImage
@@ -1469,6 +1483,7 @@ public interface PropertyGetShortcutLogic {
      * The reference unit is meters.
      * <br>
      * <table style="border:1px solid">
+     * <caption>none</caption>
      * <thead><tr><th>Value</th><th>Description</th></tr></thead>
      * <tbody>
      * <tr><td>0</td><td>Sea level</td></tr>

@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 /**
  * <p>Allow to decorate commands with builder. Easier and less verbose than chaining instance of decorators</p>
  * <p>This builder is reusable meaning that decorators are applied for each command passed {@link #setCanonCommand(AbstractCanonCommand)} and build only when {@link #build()} is called.
- * <br/>
+ * <br>
  * Useful when want to apply always same decorators and values.
  * </p>
  * <p>
@@ -40,7 +40,7 @@ public class CommandBuilderReusable<T extends CommandBuilderReusable<T, R>, R> {
     }
 
     /**
-     * @param canonCommand
+     * @param canonCommand initial command to decorate
      * @deprecated not sure to keep this constructor, might be confusing but allow to have a type-safe one even if can still pass other types
      */
     public CommandBuilderReusable(final AbstractCanonCommand<R> canonCommand) {

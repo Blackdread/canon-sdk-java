@@ -24,16 +24,16 @@ public interface PropertyLogic {
 
     /**
      * Gets the byte size and data type of a designated property from a camera object or image object.
-     * <br/>
+     * <br>
      * Similar to {@link #getPropertyType(EdsBaseRef, EdsPropertyID)} and {@link #getPropertySize(EdsBaseRef, EdsPropertyID)} but in <b>one call to the camera</b>
      *
      * @param ref      either EdsCameraRef or EdsImageRef
      * @param property the property id
      * @return Property information of data type and property size
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     * @see #getPropertyTypeAndSize(EdsBaseRef, EdsPropertyID, long)
-     * @see #getPropertyType(EdsBaseRef, EdsPropertyID)
-     * @see #getPropertySize(EdsBaseRef, EdsPropertyID)
+     * @see org.blackdread.cameraframework.api.helper.logic.PropertyLogic#getPropertyTypeAndSize(EdsBaseRef, EdsPropertyID, long)
+     * @see org.blackdread.cameraframework.api.helper.logic.PropertyLogic#getPropertyType(EdsBaseRef, EdsPropertyID)
+     * @see org.blackdread.cameraframework.api.helper.logic.PropertyLogic#getPropertySize(EdsBaseRef, EdsPropertyID)
      */
     default PropertyInfo getPropertyTypeAndSize(final EdsBaseRef ref, final EdsPropertyID property) {
         return getPropertyTypeAndSize(ref, property, 0);
@@ -41,7 +41,7 @@ public interface PropertyLogic {
 
     /**
      * Gets the byte size and data type of a designated property from a camera object or image object.
-     * <br/>
+     * <br>
      * Similar to {@link #getPropertyType(EdsBaseRef, EdsPropertyID, long)} and {@link #getPropertySize(EdsBaseRef, EdsPropertyID, long)} but in one call to the camera
      *
      * @param ref      either EdsCameraRef or EdsImageRef
@@ -49,8 +49,8 @@ public interface PropertyLogic {
      * @param inParam  additional property information (see Reference API for possible values)
      * @return Property information of data type and property size
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     * @see #getPropertyType(EdsBaseRef, EdsPropertyID, long)
-     * @see #getPropertySize(EdsBaseRef, EdsPropertyID, long)
+     * @see org.blackdread.cameraframework.api.helper.logic.PropertyLogic#getPropertyType(EdsBaseRef, EdsPropertyID, long)
+     * @see org.blackdread.cameraframework.api.helper.logic.PropertyLogic#getPropertySize(EdsBaseRef, EdsPropertyID, long)
      */
     PropertyInfo getPropertyTypeAndSize(final EdsBaseRef ref, final EdsPropertyID property, final long inParam);
 
@@ -65,7 +65,7 @@ public interface PropertyLogic {
      * @param property the property id
      * @return The data type, or null if the parameter isn't supported, or unknown if something else goes wrong.
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     * @see #getPropertyType(EdsBaseRef, EdsPropertyID, long)
+     * @see org.blackdread.cameraframework.api.helper.logic.PropertyLogic#getPropertyType(EdsBaseRef, EdsPropertyID, long)
      */
     default EdsDataType getPropertyType(final EdsBaseRef ref, final EdsPropertyID property) {
         return getPropertyType(ref, property, 0);
@@ -93,7 +93,7 @@ public interface PropertyLogic {
      * @param property the property id
      * @return Size in bytes
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     * @see #getPropertySize(EdsBaseRef, EdsPropertyID, long)
+     * @see org.blackdread.cameraframework.api.helper.logic.PropertyLogic#getPropertySize(EdsBaseRef, EdsPropertyID, long)
      */
     default long getPropertySize(final EdsBaseRef ref, final EdsPropertyID property) {
         return getPropertySize(ref, property, 0);

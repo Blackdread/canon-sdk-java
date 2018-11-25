@@ -49,7 +49,7 @@ public interface PropertyGetLogic {
 
     /**
      * Gets property information from the object designated in inRef.
-     * <br/>
+     * <br>
      * Return type is automatically casted to caller type but it can still throws {@link ClassCastException}
      *
      * @param ref      designate the object for which to get properties. The EDSDK objects you can designate are EdsCameraRef, EdsDirectoryItemRef, or EdsImageRef
@@ -66,7 +66,7 @@ public interface PropertyGetLogic {
     /**
      * Gets property information from the object designated in inRef.
      * It automatically convert the return value from the library in the enum or object type of property.
-     * <br/>
+     * <br>
      * Return type is automatically casted to caller type but it can still throws {@link ClassCastException}
      *
      * @param ref      designate the object for which to get properties. The EDSDK objects you can designate are EdsCameraRef, EdsDirectoryItemRef, or EdsImageRef

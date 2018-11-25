@@ -23,8 +23,8 @@ public interface CanonObjectEvent extends CanonEvent {
 
     /**
      * For example:
-     * <p>
      * <table border="1">
+     * <caption>none</caption>
      * <tr>
      * <td>kEdsObjectEvent_DirItemCreated</td> <td>EdsDirectoryItemRef</td> <td>Pointer to the directory or file object</td>
      * </tr>
@@ -38,7 +38,6 @@ public interface CanonObjectEvent extends CanonEvent {
      * <td>kEdsObjectEvent_DirItemRequestTransferDT</td> <td>EdsDirectoryItemRef[]</td> <td>Array of directories and file objects</td>
      * </tr>
      * </table>
-     * </p>
      *
      * @return reference to object created by the event
      */

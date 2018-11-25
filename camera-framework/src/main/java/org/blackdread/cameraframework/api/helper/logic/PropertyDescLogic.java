@@ -26,7 +26,6 @@ public interface PropertyDescLogic {
      * <br>
      * <p>Be sure before executing <b>EdsSetPropertyData</b>, use this API to get the values that can be set for the Properties supported by {@link org.blackdread.camerabinding.jna.EdsdkLibrary#EdsGetPropertyDesc(EdsBaseRef, NativeLong, EdsPropertyDesc)}.</p>
      * <br>
-     * <p>
      * Known property id supported are
      * <ul>
      * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_AEMode}</li>
@@ -45,7 +44,6 @@ public interface PropertyDescLogic {
      * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Evf_ColorTemperature} <b>Not be used in this method!</b></li>
      * <li>{@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Evf_AFMode}</li>
      * </ul>
-     * </p>
      *
      * @param camera   the target object. Designate EdsCameraRef
      * @param property the property ID (see Reference API for possible values)

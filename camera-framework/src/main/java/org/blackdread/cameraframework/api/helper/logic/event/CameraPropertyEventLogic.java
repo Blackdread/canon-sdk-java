@@ -38,7 +38,8 @@ public interface CameraPropertyEventLogic {
      * Add a listener that will be notified of camera property events of the camera passed.
      * Caller must hold a strong reference to the listener as implementation use WeakReference.
      *
-     * @param listener listener to add, must be held a strong reference as implementation keeps a weak reference to the listener
+     * @param cameraRef camera for which to listen event
+     * @param listener  listener to add, must be held a strong reference as implementation keeps a weak reference to the listener
      */
     void addCameraPropertyListener(final EdsCameraRef cameraRef, final CameraPropertyListener listener);
 
@@ -56,19 +57,20 @@ public interface CameraPropertyEventLogic {
      * <br>
      * Nothing happens if this listener is not found
      *
-     * @param listener listener to remove
+     * @param cameraRef camera for which to remove listener
+     * @param listener  listener to remove
      */
     void removeCameraPropertyListener(final EdsCameraRef cameraRef, final CameraPropertyListener listener);
 
     /**
      * Clear all listeners from all camera.
-     * Callback is still registered, call {@link #unregisterCameraPropertyEvent(EdsCameraRef)} if needed
+     * Callback is still registered, call {@link org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic#unregisterCameraPropertyEvent(EdsCameraRef)} if needed
      */
     void clearCameraPropertyListeners();
 
     /**
      * Clear all listeners of the camera passed.
-     * Callback is still registered, call {@link #unregisterCameraPropertyEvent(EdsCameraRef)} if needed.
+     * Callback is still registered, call {@link org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic#unregisterCameraPropertyEvent(EdsCameraRef)} if needed.
      * Nothing happens if this camera is not found.
      *
      * @param cameraRef camera to remove listeners registered

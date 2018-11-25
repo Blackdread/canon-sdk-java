@@ -107,7 +107,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
      * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
      * It is called only by decorators, call instead {@link #getErrorLogicInternal()}
      *
-     * @return
+     * @return e
      */
     @Override
     public Optional<ErrorLogic> getErrorLogic() {
@@ -119,7 +119,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
      * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
      * It is called only by decorators, call instead {@link #getTimeoutInternal()}
      *
-     * @return
+     * @return e
      */
     @Override
     public Optional<Duration> getTimeout() {
