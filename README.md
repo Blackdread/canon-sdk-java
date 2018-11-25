@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Blackdread/canon-sdk-java/badge.svg?branch=master)](https://coveralls.io/github/Blackdread/canon-sdk-java?branch=master)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/Blackdread/canon-sdk-java)
 
-# canon-sdk-java
+# Canon EOS SDK (EDSDK)
 Canon EOS SDK in java (EDSDK).
 
 Latest headers used to create bindings are with EDSDK 3.9.0 (version released on October 1st 2018)
@@ -34,6 +34,12 @@ Any collection/map return type should be considered as immutable, even if implem
 
 # How to contribute pull requests
 Do a pull request. Explain your changes, reasons, write tests.
+
+# Get EDSDK library from Canon
+
+- [Canon Europe](https://www.didp.canon-europa.com/)
+- [Canon Asia](https://asia.canon/en/consumer/web/developerresource-digital-imaging)
+- [Canon Asia](https://www.developersupport.canon.com/)
 
 # Analysis with sonar
 [![sonar-quality-gate][sonar-quality-gate]][sonar-url] [![sonar-coverage][sonar-coverage]][sonar-url] [![sonar-bugs][sonar-bugs]][sonar-url] [![sonar-vulnerabilities][sonar-vulnerabilities]][sonar-url] [![sonar-code-lines][sonar-code-lines]][sonar-url]
