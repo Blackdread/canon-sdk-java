@@ -9,12 +9,13 @@ import java.awt.image.BufferedImage;
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 
 /**
- * TODO After a live view and sdk terminated, usually the camera will be in a busy status -> cannot interact with camera by hand but we can still shoot, re-start live view etc by sending commands from PC. If cable disconnected then camera is not busy anymore
  * <p>Created on 2018/10/20.</p>
  *
  * @author Yoann CAPLAIN
  */
 public interface LiveViewLogic {
+
+    // TODO After a live view and sdk terminated, usually the camera will be in a busy status -> cannot interact with camera by hand but we can still shoot, re-start live view etc by sending commands from PC. If cable disconnected then camera is not busy anymore
 
     /**
      * Enable the live view, and allow to further set settings of live view (Evf)
