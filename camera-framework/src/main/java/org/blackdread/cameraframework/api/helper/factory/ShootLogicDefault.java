@@ -140,7 +140,8 @@ public class ShootLogicDefault implements ShootLogic {
                 if (resultWrapper.isShootSuccess()) {
                     return;
                 } else {
-                    lastExceptionOfShoot = resultWrapper.getException().get();
+                    if (resultWrapper.getException().isPresent()) // should always be present if here
+                        lastExceptionOfShoot = resultWrapper.getException().get();
                 }
             }
 
@@ -149,7 +150,8 @@ public class ShootLogicDefault implements ShootLogic {
                 if (resultWrapper.isShootSuccess()) {
                     return;
                 } else {
-                    lastExceptionOfShoot = resultWrapper.getException().get();
+                    if (resultWrapper.getException().isPresent()) // should always be present if here
+                        lastExceptionOfShoot = resultWrapper.getException().get();
                 }
             }
 
@@ -158,7 +160,8 @@ public class ShootLogicDefault implements ShootLogic {
                 if (resultWrapper.isShootSuccess()) {
                     return;
                 } else {
-                    lastExceptionOfShoot = resultWrapper.getException().get();
+                    if (resultWrapper.getException().isPresent()) // should always be present if here
+                        lastExceptionOfShoot = resultWrapper.getException().get();
                 }
             }
         }
@@ -197,9 +200,7 @@ public class ShootLogicDefault implements ShootLogic {
      * @param option options for shoot
      */
     protected void restoreLiveViewState(final EdsCameraRef camera, final ShootOption option) {
-//        if (option.isCheckLiveViewState()) {
         liveViewLogic().enableLiveView(camera);
-//        }
     }
 
     protected ShootResultWrapper shootWithV0(final EdsCameraRef camera, final ShootOption option) {

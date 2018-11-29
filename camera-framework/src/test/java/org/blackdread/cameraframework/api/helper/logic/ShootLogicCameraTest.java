@@ -177,10 +177,10 @@ class ShootLogicCameraTest {
         getEvents();
 
         final List<File> files = future.get();
+        log.info("Files: {}", files);
 
         Assertions.assertNotNull(files);
         Assertions.assertTrue(files.size() > 0);
-
     }
 
 }

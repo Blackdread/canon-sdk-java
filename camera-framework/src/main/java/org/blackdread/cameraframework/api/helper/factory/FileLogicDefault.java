@@ -34,6 +34,11 @@ public class FileLogicDefault implements FileLogic {
 
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
+    /**
+     * On windows, application cannot write directly files in the temp folder so must create a fake file
+     */
+    private static final String TEMP_FILE_PREFIX = "edsdk-framework-";
+
     protected FileLogicDefault() {
     }
 
@@ -45,7 +50,37 @@ public class FileLogicDefault implements FileLogic {
 
         final File fileDestination = getDestinationOfDownloadFile(dirItemInfo, folderDestination, filename);
 
-        return download(directoryItem, dirItemInfo, fileDestination);
+        final File securedFileDestination = secureFileDestination(fileDestination, folderDestination, filename);
+
+        return download(directoryItem, dirItemInfo, securedFileDestination);
+    }
+
+    /**
+     * On Windows, if destination is temp folder, it is not possible to create/rename files in it.
+     * This will secure this use case by changing the provided destination and filename
+     *
+     * @param fileDestination   previous file destination found with folder and filename
+     * @param folderDestination destination folder where downloaded file should be saved
+     * @param filename          desired filename of downloaded file
+     * @return
+     */
+    protected File secureFileDestination(final File fileDestination, @Nullable final File folderDestination, @Nullable final String filename) {
+        if (fileDestination.getAbsolutePath().startsWith(FileLogic.SYSTEM_TEMP_DIR.getAbsolutePath()) || folderDestination == null || folderDestination.equals(FileLogic.SYSTEM_TEMP_DIR)) {
+            final String fileExtension = Files.getFileExtension(fileDestination.getName());
+            final File tempFile;
+            try {
+                tempFile = File.createTempFile(TEMP_FILE_PREFIX, StringUtils.isBlank(fileExtension) ? null : "." + fileExtension);
+            } catch (IOException e) {
+                // TODO throw or just ignore and it might succeed or not with camera tries to open a stream to download the file
+                throw new IllegalStateException(e);
+            }
+            final File destinationDesired = new File(FileLogic.SYSTEM_TEMP_DIR, fileDestination.getName());
+            if (!tempFile.renameTo(destinationDesired)) {
+                return tempFile;
+            }
+            return destinationDesired;
+        }
+        return fileDestination;
     }
 
     /**
@@ -57,7 +92,8 @@ public class FileLogicDefault implements FileLogic {
      * @return final destination of the downloaded file on success (not mandatory identical as {@code fileDestination})
      */
     protected File download(final EdsDirectoryItemRef directoryItem, final EdsDirectoryItemInfo dirItemInfo, final File fileDestination) {
-        if (!fileDestination.mkdirs()) {
+        final File parentFile = fileDestination.getParentFile();
+        if (parentFile != null && !parentFile.exists() && !fileDestination.mkdirs()) {
             log.warn("Failed to create directories of path: {}", fileDestination);
         }
 
