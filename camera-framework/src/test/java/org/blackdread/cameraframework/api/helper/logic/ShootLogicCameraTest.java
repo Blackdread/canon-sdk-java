@@ -13,9 +13,11 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsSaveTo;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectListener;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -23,9 +25,15 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.blackdread.cameraframework.api.TestShortcutUtil.getEvents;
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.cameraObjectEventLogic;
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.shootLogic;
 import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
@@ -141,6 +149,38 @@ class ShootLogicCameraTest {
             getEvents();
             Thread.sleep(2000);
         }
+    }
+
+
+    @Disabled("Only run manually")
+    @Test
+    void testShootWithShortcut() throws InterruptedException, ExecutionException {
+        final EdsdkLibrary.EdsCameraRef cameraRef = camera.getValue();
+        cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
+
+        final CameraObjectListener cameraObjectListener = event -> {
+            log.warn("Got event: {}", event);
+        };
+        cameraObjectEventLogic().addCameraObjectListener(cameraRef, cameraObjectListener);
+
+        final CompletableFuture<List<File>> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                return shootLogic().shoot(cameraRef);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        getEvents();
+        getEvents();
+        getEvents();
+        getEvents();
+
+        final List<File> files = future.get();
+
+        Assertions.assertNotNull(files);
+        Assertions.assertTrue(files.size() > 0);
+
     }
 
 }

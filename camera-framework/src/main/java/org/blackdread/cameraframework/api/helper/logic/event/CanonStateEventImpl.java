@@ -36,4 +36,13 @@ public class CanonStateEventImpl implements CanonStateEvent {
     public long getEventData() {
         return inEventData;
     }
+
+    @Override
+    public String toString() {
+        return "CanonStateEventImpl{" +
+            "cameraRef=" + cameraRef +
+            ", stateEvent=" + stateEvent +
+            ", inEventData=" + inEventData +
+            '}';
+    }
 }

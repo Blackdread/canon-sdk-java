@@ -37,4 +37,13 @@ public class CanonObjectEventImpl implements CanonObjectEvent {
     public EdsBaseRef getBaseRef() {
         return baseRef;
     }
+
+    @Override
+    public String toString() {
+        return "CanonObjectEventImpl{" +
+            "cameraRef=" + cameraRef +
+            ", objectEvent=" + objectEvent +
+            ", baseRef=" + baseRef +
+            '}';
+    }
 }

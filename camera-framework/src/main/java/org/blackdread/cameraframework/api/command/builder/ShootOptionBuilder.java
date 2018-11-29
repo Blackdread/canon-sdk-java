@@ -4,6 +4,12 @@ import org.blackdread.cameraframework.api.constant.EdsSaveTo;
 
 import java.io.File;
 
+
+/**
+ * <p>Created on 2018/11/29.</p>
+ *
+ * @author Yoann CAPLAIN
+ */
 public class ShootOptionBuilder {
     private int shootAttemptCount = 5;
     private boolean checkLiveViewState = false;

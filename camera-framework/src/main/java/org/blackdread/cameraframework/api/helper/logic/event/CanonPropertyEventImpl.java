@@ -44,4 +44,14 @@ public class CanonPropertyEventImpl implements CanonPropertyEvent {
     public long getInParam() {
         return inParam;
     }
+
+    @Override
+    public String toString() {
+        return "CanonPropertyEventImpl{" +
+            "cameraRef=" + cameraRef +
+            ", propertyEvent=" + propertyEvent +
+            ", propertyID=" + propertyID +
+            ", inParam=" + inParam +
+            '}';
+    }
 }
