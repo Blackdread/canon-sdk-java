@@ -66,8 +66,8 @@ class LiveViewLogicCameraTest {
     void endLiveViewFailsIfNotEnabledFirst() {
         try {
             liveViewLogic().endLiveView(camera.getValue());
-        } catch (EdsdkErrorException ex) {
-            Assertions.assertEquals(EdsdkError.EDS_ERR_DEVICE_BUSY, ex.getEdsdkError());
+        } catch (EdsdkErrorException e) {
+            Assertions.assertEquals(EdsdkError.EDS_ERR_DEVICE_BUSY, e.getEdsdkError());
             return;
         }
         Assertions.fail("Should have thrown");

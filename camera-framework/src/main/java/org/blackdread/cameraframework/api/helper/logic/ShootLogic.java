@@ -1,8 +1,12 @@
 package org.blackdread.cameraframework.api.helper.logic;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
+
+import java.io.File;
+import java.util.List;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.cameraLogic;
 
@@ -57,4 +61,26 @@ public interface ShootLogic {
         cameraLogic().sendCommand(camera, EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF);
     }
 
+
+    /**
+     * In case that events from camera are handled directly in this method, then it should not be called by the thread that fetch events if a single thread design is used
+     *
+     * @param camera ref of camera
+     * @return files that were shot (only if PC is saveTo), may be empty if events are skipped
+     * @throws InterruptedException if interrupted while waiting for events of files shot by camera
+     */
+    default List<File> shoot(final EdsCameraRef camera) throws InterruptedException {
+        // TODO get default option
+        return shoot(camera, null);
+    }
+
+    /**
+     * In case that events from camera are handled directly in this method, then it should not be called by the thread that fetch events if a single thread design is used
+     *
+     * @param camera ref of camera
+     * @param option options for shoot
+     * @return files that were shot (only if PC is saveTo), may be empty if events are skipped
+     * @throws InterruptedException if interrupted while waiting for events of files shot by camera
+     */
+    List<File> shoot(final EdsCameraRef camera, final ShootOption option) throws InterruptedException;
 }

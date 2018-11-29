@@ -69,9 +69,9 @@ public interface FileLogic {
      *     final String filename = ....
      *     try{
      *         download(directoryItem, folderDestination, filename);
-     *     } catch(EdsdkErrorException ex){
+     *     } catch(EdsdkErrorException e){
      *         downloadCancel(directoryItem);
-     *     } catch(Exception ex){
+     *     } catch(Exception e){
      *         downloadCancel(directoryItem);
      *         // handle other exceptions
      *     }

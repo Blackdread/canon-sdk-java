@@ -48,6 +48,10 @@ public class ShootOption {
      */
     private final boolean shootWithAF;
 
+    /**
+     * If not null, set saveTo of camera.
+     * If PC is destination part of the destination, user should also set to true {@link #waitForItemDownloadEvent} to let implementation to automatically download the shot file.
+     */
     private final EdsSaveTo saveTo;
 
     /**
@@ -57,12 +61,17 @@ public class ShootOption {
      */
     private final boolean waitForItemDownloadEvent;
 
+    /**
+     * If shoot is to wait for download events, it will sleep in a loop
+     */
+    private final long busyWaitMillis;
+
     private final File folderDestination;
 
     private final String filename;
 
     // TODO will use a builder after (current constructor is to let it compile)
-    private ShootOption(final int shootAttemptCount, final int shootRetryCount, final boolean checkLiveViewState, final boolean shootWithV0, final boolean shootWithNoAF, final boolean shootWithAF, final EdsSaveTo saveTo, final boolean waitForItemDownloadEvent, final File folderDestination, final String filename) {
+    private ShootOption(final int shootAttemptCount, final int shootRetryCount, final boolean checkLiveViewState, final boolean shootWithV0, final boolean shootWithNoAF, final boolean shootWithAF, final EdsSaveTo saveTo, final boolean waitForItemDownloadEvent, final long busyWaitMillis, final File folderDestination, final String filename) {
         this.shootAttemptCount = shootAttemptCount;
         this.shootRetryCount = shootRetryCount;
         this.checkLiveViewState = checkLiveViewState;
@@ -71,6 +80,7 @@ public class ShootOption {
         this.shootWithAF = shootWithAF;
         this.saveTo = saveTo;
         this.waitForItemDownloadEvent = waitForItemDownloadEvent;
+        this.busyWaitMillis = busyWaitMillis >= 1 ? busyWaitMillis : 1;
         this.folderDestination = folderDestination;
         this.filename = filename;
     }
@@ -101,6 +111,10 @@ public class ShootOption {
 
     public boolean isWaitForItemDownloadEvent() {
         return waitForItemDownloadEvent;
+    }
+
+    public long getBusyWaitMillis() {
+        return busyWaitMillis;
     }
 
     public Optional<EdsSaveTo> getSaveTo() {

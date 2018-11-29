@@ -41,13 +41,13 @@ public final class LiveViewReference implements Closeable {
     public void close() {
         try {
             ReleaseUtil.release(imageRef);
-        } catch (Exception ex) {
-            log.warn("Fail release (should never occur)", ex);
+        } catch (Exception e) {
+            log.warn("Fail release (should never occur)", e);
         }
         try {
             ReleaseUtil.release(streamRef);
-        } catch (Exception ex) {
-            log.warn("Fail release (should never occur)", ex);
+        } catch (Exception e) {
+            log.warn("Fail release (should never occur)", e);
         }
     }
 }

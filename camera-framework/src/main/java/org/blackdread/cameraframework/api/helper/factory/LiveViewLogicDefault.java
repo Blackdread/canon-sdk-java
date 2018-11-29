@@ -63,8 +63,8 @@ public class LiveViewLogicDefault implements LiveViewLogic {
     public boolean isLiveViewEnabledByDownloadingOneImage(final EdsCameraRef camera) {
         try (final LiveViewReference imageReference = getLiveViewImageReference(camera)) {
             return true;
-        } catch (EdsdkErrorException ex) {
-            log.warn("Live view seems off while testing status", ex);
+        } catch (EdsdkErrorException e) {
+            log.warn("Live view seems off while testing status", e);
             return false;
         }
     }
@@ -76,9 +76,9 @@ public class LiveViewLogicDefault implements LiveViewLogic {
         byte[] data = getLiveViewImageBuffer(camera);
         try {
             return ImageIO.read(new ByteArrayInputStream(data));
-        } catch (final IOException ex) {
-            log.error("Error to build BufferedImage", ex);
-            throw new UncheckedIOException(ex);
+        } catch (final IOException e) {
+            log.error("Error to build BufferedImage", e);
+            throw new UncheckedIOException(e);
         }
     }
 

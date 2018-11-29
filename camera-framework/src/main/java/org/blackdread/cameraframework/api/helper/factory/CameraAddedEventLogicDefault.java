@@ -51,8 +51,8 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
             if (cameraAddedListener != null) {
                 try {
                     cameraAddedListener.handleCameraAddedEvent(event);
-                } catch (Exception ex) {
-                    log.warn("Listeners should not throw exceptions", ex);
+                } catch (Exception e) {
+                    log.warn("Listeners should not throw exceptions", e);
                 }
             }
         }

@@ -228,7 +228,7 @@ class PropertyGetLogicCameraTest {
             try {
                 propertyType = propertyLogic().getPropertyType(camera.getValue(), propertyID);
                 Assertions.fail("Property " + propertyID + "works but was not supported with my camera");
-            } catch (EdsdkErrorException ex) {
+            } catch (EdsdkErrorException e) {
                 log.warn("Skip test of {} as it is unknown", propertyID);
                 return;
             }

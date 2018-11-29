@@ -18,8 +18,8 @@ final class WeakReferenceUtil {
      */
     static <T> boolean contains(final List<WeakReference<T>> list, final T object) {
         for (final WeakReference<T> weakReference : list) {
-            final T cameraObjectListener = weakReference.get();
-            if (cameraObjectListener != null && cameraObjectListener.equals(object)) {
+            final T ref = weakReference.get();
+            if (ref != null && ref.equals(object)) {
                 return true;
             }
         }
@@ -33,11 +33,11 @@ final class WeakReferenceUtil {
      */
     static <T> void remove(final List<WeakReference<T>> weakReferences, final T object) {
         weakReferences.removeIf(weakReference -> {
-            final T cameraObjectListener = weakReference.get();
-            if (weakReference.isEnqueued() || cameraObjectListener == null) {
+            final T ref = weakReference.get();
+            if (weakReference.isEnqueued() || ref == null) {
                 return true;
             }
-            return cameraObjectListener.equals(object);
+            return ref.equals(object);
         });
     }
 

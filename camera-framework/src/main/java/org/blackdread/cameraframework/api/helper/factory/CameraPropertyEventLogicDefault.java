@@ -216,8 +216,8 @@ public class CameraPropertyEventLogicDefault implements CameraPropertyEventLogic
             if (cameraPropertyListener != null) {
                 try {
                     cameraPropertyListener.handleCameraPropertyEvent(event);
-                } catch (Exception ex) {
-                    log.warn("Listeners should not throw exceptions", ex);
+                } catch (Exception e) {
+                    log.warn("Listeners should not throw exceptions", e);
                 }
             }
         }

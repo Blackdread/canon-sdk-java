@@ -215,8 +215,8 @@ public class CameraStateEventLogicDefault implements CameraStateEventLogic {
             if (cameraStateListener != null) {
                 try {
                     cameraStateListener.handleCameraStateEvent(event);
-                } catch (Exception ex) {
-                    log.warn("Listeners should not throw exceptions", ex);
+                } catch (Exception e) {
+                    log.warn("Listeners should not throw exceptions", e);
                 }
             }
         }

@@ -74,8 +74,8 @@ class CameraLogicCameraTest {
         try {
             final boolean mirrorLockupEnabled = cameraLogic().isMirrorLockupEnabled(camera.getValue());
             log.info("mirrorLockupEnabled was {}", mirrorLockupEnabled);
-        } catch (EdsdkErrorException ex) {
-            log.warn("Might not be supported", ex);
+        } catch (EdsdkErrorException e) {
+            log.warn("Might not be supported", e);
         }
     }
 }
