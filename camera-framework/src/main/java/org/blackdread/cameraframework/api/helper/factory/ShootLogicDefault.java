@@ -15,11 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.*;
@@ -43,7 +43,7 @@ public class ShootLogicDefault implements ShootLogic {
         /*
          * Mutable as to let event listener populate with files downloaded
          */
-        final List<File> filesSavedOnPc = new ArrayList<>(2);
+        final List<File> filesSavedOnPc = new CopyOnWriteArrayList<>();
         /*
          * Receiver of exception that may happen in objectListener.
          * We should be able to stop waiting to receive file events in case of error.
@@ -108,10 +108,11 @@ public class ShootLogicDefault implements ShootLogic {
                 final EdsdkLibrary.EdsDirectoryItemRef itemRef = new EdsdkLibrary.EdsDirectoryItemRef(event.getBaseRef().getPointer());
 
                 try {
-                    final File downloadedFile = fileLogic().download(itemRef, option.getFolderDestination(), option.getFilename());
+                    final File downloadedFile = fileLogic().download(itemRef, option.getFolderDestination().orElse(null), option.getFilename().orElse(null));
+                    filesSavedOnPc.add(downloadedFile);
                 } catch (RuntimeException e) {
-                    fileLogic().downloadCancel(itemRef);
                     cameraObjectListenerException.set(e);
+                    fileLogic().downloadCancel(itemRef);
                     // TODO not sure to throw, handlers are not supposed to throw exceptions
                     throw e;
                 }

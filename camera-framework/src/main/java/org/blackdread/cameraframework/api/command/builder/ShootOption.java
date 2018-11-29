@@ -4,7 +4,10 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
 import org.blackdread.cameraframework.api.constant.EdsSaveTo;
 
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 import java.io.File;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -13,6 +16,7 @@ import java.util.Optional;
  *
  * @author Yoann CAPLAIN
  */
+@Immutable
 public class ShootOption {
 
     /**
@@ -20,8 +24,6 @@ public class ShootOption {
      * That is number of times the complete logic of shooting retried, not each different type of shooting
      */
     private final int shootAttemptCount;
-
-    private final int shootRetryCount;
 
     /**
      * If true the live view state will be <b>checked</b> and <b>paused</b> for shoot commands (re-enabled after shoot if was ON).
@@ -70,10 +72,8 @@ public class ShootOption {
 
     private final String filename;
 
-    // TODO will use a builder after (current constructor is to let it compile)
-    private ShootOption(final int shootAttemptCount, final int shootRetryCount, final boolean checkLiveViewState, final boolean shootWithV0, final boolean shootWithNoAF, final boolean shootWithAF, final EdsSaveTo saveTo, final boolean waitForItemDownloadEvent, final long busyWaitMillis, final File folderDestination, final String filename) {
+    protected ShootOption(final int shootAttemptCount, final boolean checkLiveViewState, final boolean shootWithV0, final boolean shootWithNoAF, final boolean shootWithAF, @Nullable final EdsSaveTo saveTo, final boolean waitForItemDownloadEvent, final long busyWaitMillis, @Nullable final File folderDestination, @Nullable final String filename) {
         this.shootAttemptCount = shootAttemptCount;
-        this.shootRetryCount = shootRetryCount;
         this.checkLiveViewState = checkLiveViewState;
         this.shootWithV0 = shootWithV0;
         this.shootWithNoAF = shootWithNoAF;
@@ -87,10 +87,6 @@ public class ShootOption {
 
     public int getShootAttemptCount() {
         return shootAttemptCount;
-    }
-
-    public int getShootRetryCount() {
-        return shootRetryCount;
     }
 
     public boolean isCheckLiveViewState() {
@@ -121,11 +117,49 @@ public class ShootOption {
         return Optional.ofNullable(saveTo);
     }
 
-    public File getFolderDestination() {
-        return folderDestination;
+    public Optional<File> getFolderDestination() {
+        return Optional.ofNullable(folderDestination);
     }
 
-    public String getFilename() {
-        return filename;
+    public Optional<String> getFilename() {
+        return Optional.ofNullable(filename);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final ShootOption that = (ShootOption) o;
+        return shootAttemptCount == that.shootAttemptCount &&
+            checkLiveViewState == that.checkLiveViewState &&
+            shootWithV0 == that.shootWithV0 &&
+            shootWithNoAF == that.shootWithNoAF &&
+            shootWithAF == that.shootWithAF &&
+            waitForItemDownloadEvent == that.waitForItemDownloadEvent &&
+            busyWaitMillis == that.busyWaitMillis &&
+            saveTo == that.saveTo &&
+            Objects.equals(folderDestination, that.folderDestination) &&
+            Objects.equals(filename, that.filename);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shootAttemptCount, checkLiveViewState, shootWithV0, shootWithNoAF, shootWithAF, saveTo, waitForItemDownloadEvent, busyWaitMillis, folderDestination, filename);
+    }
+
+    @Override
+    public String toString() {
+        return "ShootOption{" +
+            "shootAttemptCount=" + shootAttemptCount +
+            ", checkLiveViewState=" + checkLiveViewState +
+            ", shootWithV0=" + shootWithV0 +
+            ", shootWithNoAF=" + shootWithNoAF +
+            ", shootWithAF=" + shootWithAF +
+            ", saveTo=" + saveTo +
+            ", waitForItemDownloadEvent=" + waitForItemDownloadEvent +
+            ", busyWaitMillis=" + busyWaitMillis +
+            ", folderDestination=" + folderDestination +
+            ", filename='" + filename + '\'' +
+            '}';
     }
 }
