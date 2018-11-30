@@ -4,10 +4,8 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
- * <p>Created on 07/10/2018</p>
+ * <p>Created on 2018/10/07</p>
  *
  * @author Yoann CAPLAIN
  */

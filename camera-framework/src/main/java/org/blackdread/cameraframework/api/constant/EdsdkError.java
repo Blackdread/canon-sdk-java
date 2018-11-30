@@ -10,7 +10,7 @@ import static org.blackdread.cameraframework.api.constant.ErrorType.*;
 /**
  * ED-SDK Generic Error IDs
  *
- * <p>Created on 04/10/2018</p>
+ * <p>Created on 2018/10/04</p>
  *
  * @author Yoann CAPLAIN
  */

@@ -18,7 +18,7 @@ public class ShootOptionBuilder {
     private boolean shootWithAF = true;
     private EdsSaveTo saveTo = EdsSaveTo.kEdsSaveTo_Both;
     private boolean waitForItemDownloadEvent = true;
-    private long busyWaitMillis = 300;
+    private long busyWaitMillis = 200;
     private File folderDestination = null;
     private String filename = null;
 

@@ -5,7 +5,7 @@ import java.time.Instant;
 /**
  * Simple util class to return current time.
  * Is not customizable but UTC should fit any purpose.
- * <p>Created on 03/11/2018</p>
+ * <p>Created on 2018/11/03</p>
  *
  * @author Yoann CAPLAIN
  */

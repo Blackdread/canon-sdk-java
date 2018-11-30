@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Created on 04/10/2018</p>
+ * <p>Created on 2018/10/04</p>
  *
  * @author Yoann CAPLAIN
  * @deprecated Might be moved to helper/logic to allow to override the default behavior
