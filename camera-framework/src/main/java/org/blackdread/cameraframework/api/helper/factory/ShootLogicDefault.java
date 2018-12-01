@@ -100,6 +100,15 @@ public class ShootLogicDefault implements ShootLogic {
         }
     }
 
+    /**
+     * Listener of a shooting, should be unregistered after shooting (error or no error)
+     *
+     * @param option                        options for shoot
+     * @param expectedFileCount             file count expected to be seen by this handler (created per shooting)
+     * @param filesSavedOnPc                mutable list of files, files are added by handler when it receives an event and successfully download a file
+     * @param cameraObjectListenerException atomic ref to receive exception if any occurred
+     * @return new listener instance to receive events for one shooting
+     */
     protected CameraObjectListener handleObjectEvent(final ShootOption option, final int expectedFileCount, final List<File> filesSavedOnPc, final AtomicReference<RuntimeException> cameraObjectListenerException) {
         return event -> {
             if (event.getObjectEvent() == EdsObjectEvent.kEdsObjectEvent_DirItemCreated
