@@ -12,6 +12,12 @@
     <description>Canon EDSDK parent pom for modules</description>
     <url>https://github.com/Blackdread/canon-sdk-java</url>
 
+    <scm>
+        <connection>scm:git:https://github.com/blackdread/canon-sdk-java.git</connection>
+        <developerConnection>scm:git:https://github.com/blackdread/canon-sdk-java.git</developerConnection>
+        <url>https://github.com/blackdread/canon-sdk-java</url>
+    </scm>
+
     <licenses>
         <license>
             <name>MIT</name>
