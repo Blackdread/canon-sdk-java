@@ -11,7 +11,8 @@
 
     <artifactId>camera-binding</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <!-- Cannot use separate version so instead ${project.version} and binding module is deployed every time with new version even if no changes -->
+    <!--<version>1.0.0</version>-->
 
     <name>Canon sdk java bindings</name>
     <description>Bindings of C header files in java of EDSDK</description>
