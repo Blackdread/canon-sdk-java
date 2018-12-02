@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.blackdread</groupId>
     <artifactId>canon-sdk-java</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
 
     <name>Canon sdk java parent POM</name>
@@ -16,7 +15,8 @@
         <connection>scm:git:https://github.com/blackdread/canon-sdk-java.git</connection>
         <developerConnection>scm:git:https://github.com/blackdread/canon-sdk-java.git</developerConnection>
         <url>https://github.com/blackdread/canon-sdk-java</url>
-    </scm>
+      <tag>0.0.1</tag>
+  </scm>
 
     <licenses>
         <license>
@@ -54,7 +54,7 @@
         <maven.version>3.0.0</maven.version>
 
         <!-- Version of bindings to use -->
-        <camera-binding.version>1.0.0</camera-binding.version>
+        <camera-binding.version>0.0.1</camera-binding.version>
 
         <jna.version>5.1.0</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
@@ -346,7 +346,7 @@
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
                         <tagNameFormat>@{project.version}</tagNameFormat>
-                        <scmCommentPrefix/>
+                        <scmCommentPrefix />
                         <username>blackdread</username>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <useReleaseProfile>false</useReleaseProfile>
