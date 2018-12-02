@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.blackdread</groupId>
         <artifactId>canon-sdk-java</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>camera-binding</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
 
     <name>Canon sdk java bindings</name>
     <description>Bindings of C header files in java of EDSDK</description>
