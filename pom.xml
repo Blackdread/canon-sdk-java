@@ -4,7 +4,7 @@
 
     <groupId>org.blackdread</groupId>
     <artifactId>canon-sdk-java</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Canon sdk java parent POM</name>
@@ -388,6 +388,10 @@
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
