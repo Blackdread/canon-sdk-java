@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/Blackdread/canon-sdk-java.svg?branch=master)](https://travis-ci.org/Blackdread/canon-sdk-java)
 [![Coverage Status](https://coveralls.io/repos/github/Blackdread/canon-sdk-java/badge.svg?branch=master)](https://coveralls.io/github/Blackdread/canon-sdk-java?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.blackdread/canon-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.blackdread/canon-sdk-java)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/Blackdread/canon-sdk-java)
 
 # Canon EOS SDK (EDSDK)
