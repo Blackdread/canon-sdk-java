@@ -5,7 +5,7 @@
 
     <groupId>org.blackdread</groupId>
     <artifactId>canon-sdk-java</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Canon sdk java parent POM</name>
@@ -345,6 +345,9 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                        <scmCommentPrefix/>
+                        <username>blackdread</username>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <useReleaseProfile>false</useReleaseProfile>
                         <releaseProfiles>release</releaseProfiles>
