@@ -40,7 +40,7 @@ Do a pull request. Explain your changes, reasons, write tests.
 
 - [Canon Europe](https://www.didp.canon-europa.com/)
 - [Canon Asia](https://asia.canon/en/consumer/web/developerresource-digital-imaging)
-- [Canon Asia](https://www.developersupport.canon.com/)
+- [Canon USA](https://www.developersupport.canon.com/)
 
 # Analysis with sonar
 [![sonar-quality-gate][sonar-quality-gate]][sonar-url] [![sonar-coverage][sonar-coverage]][sonar-url] [![sonar-bugs][sonar-bugs]][sonar-url] [![sonar-vulnerabilities][sonar-vulnerabilities]][sonar-url] [![sonar-code-lines][sonar-code-lines]][sonar-url]
@@ -54,12 +54,12 @@ It starts from scratch due to [older project](https://github.com/kritzikratzi/ed
 [Previous project that allowed to communicate with Canon EDSDK with java](https://github.com/kritzikratzi/edsdk4j)
 
 
-[sonar-url]: https://sonarcloud.io/dashboard?id=canon-sdk-java
-[sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=alert_status
-[sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=coverage
-[sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=bugs
-[sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=vulnerabilities
-[sonar-code-lines]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=ncloc
-[sonar-reliability-rating]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=reliability_rating
-[sonar-code-smalls]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=code_smells
-[sonar-maintainability-rating]: https://sonarcloud.io/api/project_badges/measure?project=canon-sdk-java&metric=sqale_rating
+[sonar-url]: https://sonarcloud.io/dashboard?id=org.blackdread%3Acanon-sdk-java
+[sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=alert_status
+[sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=coverage
+[sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=bugs
+[sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=vulnerabilities
+[sonar-code-lines]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=ncloc
+[sonar-reliability-rating]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=reliability_rating
+[sonar-code-smalls]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=code_smells
+[sonar-maintainability-rating]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=sqale_rating

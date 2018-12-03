@@ -15,8 +15,8 @@
         <connection>scm:git:https://github.com/blackdread/canon-sdk-java.git</connection>
         <developerConnection>scm:git:https://github.com/blackdread/canon-sdk-java.git</developerConnection>
         <url>https://github.com/blackdread/canon-sdk-java</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <licenses>
         <license>
@@ -348,7 +348,7 @@
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
                         <tagNameFormat>@{project.version}</tagNameFormat>
-                        <scmCommentPrefix />
+                        <scmCommentPrefix/>
                         <username>blackdread</username>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <useReleaseProfile>false</useReleaseProfile>
