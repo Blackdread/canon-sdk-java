@@ -10,4 +10,10 @@ import java.util.List;
  */
 public abstract class ShootCommand extends AbstractCanonCommand<List<File>> {
 
+    public ShootCommand() {
+    }
+
+    public ShootCommand(final ShootCommand toCopy) {
+        super(toCopy);
+    }
 }

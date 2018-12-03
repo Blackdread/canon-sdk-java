@@ -8,4 +8,11 @@ package org.blackdread.cameraframework.api.command;
  * @author Yoann CAPLAIN
  */
 public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
+
+    public SetPropertyCommand() {
+    }
+
+    public SetPropertyCommand(final SetPropertyCommand<R> toCopy) {
+        super(toCopy);
+    }
 }

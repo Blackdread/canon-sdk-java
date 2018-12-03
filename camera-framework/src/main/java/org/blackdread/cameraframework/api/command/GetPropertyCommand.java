@@ -16,6 +16,13 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
  */
 public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
+    public GetPropertyCommand() {
+    }
+
+    public GetPropertyCommand(final GetPropertyCommand<R> toCopy) {
+        super(toCopy);
+    }
+
     @Override
     protected void runInternal() {
         System.out.println("impl 1");
@@ -34,6 +41,10 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
         public ProductName() {
             final EdsPropertyID kEdsPropID_productName = EdsPropertyID.kEdsPropID_ProductName;
+        }
+
+        public ProductName(final ProductName toCopy) {
+            super(toCopy);
         }
 
         @Override

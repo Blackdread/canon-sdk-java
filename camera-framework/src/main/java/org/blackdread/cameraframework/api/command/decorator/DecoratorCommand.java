@@ -9,4 +9,7 @@ import org.blackdread.cameraframework.api.command.CanonCommand;
  * @author Yoann CAPLAIN
  */
 public interface DecoratorCommand<R> extends CanonCommand<R>, RootDecoratorCommand<R> {
+
+    DecoratorCommand<R> copy();
+
 }

@@ -20,6 +20,11 @@ public class TimeoutCommandDecorator<R> extends AbstractDecoratorCommand<R> {
         this.timeout = Objects.requireNonNull(timeout);
     }
 
+    protected TimeoutCommandDecorator(final FakeClassArgument fake, final TimeoutCommandDecorator<R> toCopy) {
+        super(fake, toCopy);
+        this.timeout = toCopy.timeout;
+    }
+
     @Override
     public Optional<Duration> getTimeout() {
         return Optional.of(timeout);

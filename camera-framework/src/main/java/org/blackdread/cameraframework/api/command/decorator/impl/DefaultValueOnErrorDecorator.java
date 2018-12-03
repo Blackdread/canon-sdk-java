@@ -23,6 +23,11 @@ public class DefaultValueOnErrorDecorator<R> extends AbstractDecoratorCommand<R>
         this.defaultValue = defaultValue;
     }
 
+    public DefaultValueOnErrorDecorator(final FakeClassArgument fake, final DefaultValueOnErrorDecorator<R> toCopy) {
+        super(fake, toCopy);
+        this.defaultValue = toCopy.defaultValue;
+    }
+
     @Override
     public R get() {
         try {

@@ -7,4 +7,10 @@ package org.blackdread.cameraframework.api.command;
  */
 public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
 
+    public LiveViewCommand() {
+    }
+
+    public LiveViewCommand(final LiveViewCommand toCopy) {
+        super(toCopy);
+    }
 }
