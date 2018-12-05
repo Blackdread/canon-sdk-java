@@ -8,6 +8,7 @@ import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedEventLog
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraStateEventLogic;
+import org.blackdread.cameraframework.api.helper.logic.event.EventFetcherLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +36,8 @@ public class CanonFactory {
 
     // TODO this is not lazy...
     private static final CommandDispatcher commandDispatcher = SingleCommandDispatcher.getInstance();
+
+    private static final EventFetcherLogic eventFetcherLogic = new EventFetcherLogicDefault();
 
     // TODO if factory is changed, we should give protected method to let user modify or set to null those variables
     private static final CanonLibrary canonLibrary = new CanonLibraryImpl();
@@ -104,6 +107,18 @@ public class CanonFactory {
         return CanonFactory.getCanonFactory().getCommandDispatcher();
     }
 
+
+    /**
+     * Shortcut for {@link CanonFactory#getEventFetcherLogic()}
+     * <pre>
+     * {@code CanonFactory.getCanonFactory().getEventFetcherLogic(); }
+     * </pre>
+     *
+     * @return logic instance, never null
+     */
+    public static EventFetcherLogic eventFetcherLogic() {
+        return CanonFactory.getCanonFactory().getEventFetcherLogic();
+    }
 
     /**
      * Shortcut for {@link CanonLibrary#edsdkLibrary()}
@@ -304,6 +319,14 @@ public class CanonFactory {
      */
     public CommandDispatcher getCommandDispatcher() {
         return commandDispatcher;
+    }
+
+    /**
+     * @return event fetcher logic
+     * @see EventFetcherLogic
+     */
+    public EventFetcherLogic getEventFetcherLogic() {
+        return eventFetcherLogic;
     }
 
     /**
