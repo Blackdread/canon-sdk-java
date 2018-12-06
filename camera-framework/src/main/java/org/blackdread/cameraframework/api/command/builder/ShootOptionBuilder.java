@@ -9,6 +9,7 @@ import java.io.File;
  * <p>Created on 2018/11/29.</p>
  *
  * @author Yoann CAPLAIN
+ * @see ShootOption ShootOption for documentation on options
  */
 public class ShootOptionBuilder {
     private int shootAttemptCount = 5;
@@ -19,6 +20,7 @@ public class ShootOptionBuilder {
     private EdsSaveTo saveTo = EdsSaveTo.kEdsSaveTo_Both;
     private boolean waitForItemDownloadEvent = true;
     private long busyWaitMillis = 200;
+    private boolean fetchEvents = false;
     private File folderDestination = null;
     private String filename = null;
 
@@ -62,6 +64,14 @@ public class ShootOptionBuilder {
         return this;
     }
 
+    public ShootOptionBuilder setFetchEvents(final boolean fetchEvents) {
+        this.fetchEvents = fetchEvents;
+        if (fetchEvents) {
+            this.waitForItemDownloadEvent = true;
+        }
+        return this;
+    }
+
     public ShootOptionBuilder setFolderDestination(final File folderDestination) {
         this.folderDestination = folderDestination;
         return this;
@@ -74,7 +84,7 @@ public class ShootOptionBuilder {
 
     public ShootOption build() {
         validate();
-        return new ShootOption(shootAttemptCount, checkLiveViewState, shootWithV0, shootWithNoAF, shootWithAF, saveTo, waitForItemDownloadEvent, busyWaitMillis, folderDestination, filename);
+        return new ShootOption(shootAttemptCount, checkLiveViewState, shootWithV0, shootWithNoAF, shootWithAF, saveTo, waitForItemDownloadEvent, busyWaitMillis, fetchEvents, folderDestination, filename);
     }
 
     private void validate() {
@@ -86,6 +96,9 @@ public class ShootOptionBuilder {
         }
         if (busyWaitMillis <= 0) {
             throw new IllegalArgumentException("Sleep time must be more than 0 millis");
+        }
+        if (fetchEvents && !waitForItemDownloadEvent) {
+            throw new IllegalStateException("If fetchEvents is true then waitForItemDownloadEvent must be as well");
         }
     }
 }

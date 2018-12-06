@@ -68,11 +68,16 @@ public class ShootOption {
      */
     private final long busyWaitMillis;
 
+    /**
+     * Shoot command can fetch events itself while busy waiting but care is recommended as it may not work in some circumstances, see documentation on how to use events.
+     */
+    private final boolean fetchEvents;
+
     private final File folderDestination;
 
     private final String filename;
 
-    protected ShootOption(final int shootAttemptCount, final boolean checkLiveViewState, final boolean shootWithV0, final boolean shootWithNoAF, final boolean shootWithAF, @Nullable final EdsSaveTo saveTo, final boolean waitForItemDownloadEvent, final long busyWaitMillis, @Nullable final File folderDestination, @Nullable final String filename) {
+    protected ShootOption(final int shootAttemptCount, final boolean checkLiveViewState, final boolean shootWithV0, final boolean shootWithNoAF, final boolean shootWithAF, @Nullable final EdsSaveTo saveTo, final boolean waitForItemDownloadEvent, final long busyWaitMillis, final boolean fetchEvents, @Nullable final File folderDestination, @Nullable final String filename) {
         this.shootAttemptCount = shootAttemptCount;
         this.checkLiveViewState = checkLiveViewState;
         this.shootWithV0 = shootWithV0;
@@ -81,6 +86,7 @@ public class ShootOption {
         this.saveTo = saveTo;
         this.waitForItemDownloadEvent = waitForItemDownloadEvent;
         this.busyWaitMillis = busyWaitMillis >= 1 ? busyWaitMillis : 1;
+        this.fetchEvents = fetchEvents;
         this.folderDestination = folderDestination;
         this.filename = filename;
     }
@@ -113,6 +119,10 @@ public class ShootOption {
         return busyWaitMillis;
     }
 
+    public boolean isFetchEvents() {
+        return fetchEvents;
+    }
+
     public Optional<EdsSaveTo> getSaveTo() {
         return Optional.ofNullable(saveTo);
     }
@@ -137,6 +147,7 @@ public class ShootOption {
             shootWithAF == that.shootWithAF &&
             waitForItemDownloadEvent == that.waitForItemDownloadEvent &&
             busyWaitMillis == that.busyWaitMillis &&
+            fetchEvents == that.fetchEvents &&
             saveTo == that.saveTo &&
             Objects.equals(folderDestination, that.folderDestination) &&
             Objects.equals(filename, that.filename);
@@ -144,7 +155,7 @@ public class ShootOption {
 
     @Override
     public int hashCode() {
-        return Objects.hash(shootAttemptCount, checkLiveViewState, shootWithV0, shootWithNoAF, shootWithAF, saveTo, waitForItemDownloadEvent, busyWaitMillis, folderDestination, filename);
+        return Objects.hash(shootAttemptCount, checkLiveViewState, shootWithV0, shootWithNoAF, shootWithAF, saveTo, waitForItemDownloadEvent, busyWaitMillis, fetchEvents, folderDestination, filename);
     }
 
     @Override
@@ -158,6 +169,7 @@ public class ShootOption {
             ", saveTo=" + saveTo +
             ", waitForItemDownloadEvent=" + waitForItemDownloadEvent +
             ", busyWaitMillis=" + busyWaitMillis +
+            ", fetchEvents=" + fetchEvents +
             ", folderDestination=" + folderDestination +
             ", filename='" + filename + '\'' +
             '}';

@@ -81,7 +81,11 @@ public class ShootLogicDefault implements ShootLogic {
                         if (cameraObjectListenerException.get() != null) {
                             throw cameraObjectListenerException.get();
                         }
-                        // TODO We could try to fetch events here but another thread is supposed to handle that
+                        if (option.isFetchEvents()) {
+                            // Fetch events can work for here but should be careful with thread that can or not get events
+                            // See documentation for event logic
+                            fetchEvents();
+                        }
                         Thread.sleep(option.getBusyWaitMillis());
                     }
                     return ImmutableList.copyOf(filesSavedOnPc);
@@ -149,8 +153,9 @@ public class ShootLogicDefault implements ShootLogic {
                 if (resultWrapper.isShootSuccess()) {
                     return;
                 } else {
-                    if (resultWrapper.getException().isPresent()) // should always be present if here
+                    if (resultWrapper.getException().isPresent()) { // should always be present if here
                         lastExceptionOfShoot = resultWrapper.getException().get();
+                    }
                 }
             }
 
@@ -159,8 +164,9 @@ public class ShootLogicDefault implements ShootLogic {
                 if (resultWrapper.isShootSuccess()) {
                     return;
                 } else {
-                    if (resultWrapper.getException().isPresent()) // should always be present if here
+                    if (resultWrapper.getException().isPresent()) { // should always be present if here
                         lastExceptionOfShoot = resultWrapper.getException().get();
+                    }
                 }
             }
 
@@ -169,8 +175,9 @@ public class ShootLogicDefault implements ShootLogic {
                 if (resultWrapper.isShootSuccess()) {
                     return;
                 } else {
-                    if (resultWrapper.getException().isPresent()) // should always be present if here
+                    if (resultWrapper.getException().isPresent()) { // should always be present if here
                         lastExceptionOfShoot = resultWrapper.getException().get();
+                    }
                 }
             }
         }
@@ -246,6 +253,10 @@ public class ShootLogicDefault implements ShootLogic {
             return new ShootResultWrapper(e);
         }
         return new ShootResultWrapper();
+    }
+
+    protected void fetchEvents() {
+        CanonFactory.edsdkLibrary().EdsGetEvent();
     }
 
     protected class ShootResultWrapper {
