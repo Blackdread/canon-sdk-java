@@ -8,6 +8,10 @@ Canon EOS SDK in java (EDSDK).
 
 Latest headers used to create bindings are with EDSDK 3.9.0 (version released on October 1st 2018)
 
+See [Bindings README](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-binding) for more detailed information of that module
+
+See [Framework README](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework) for more detailed information of that module, important design is explained about Threads and events.
+
 # Project motives
 Project intend to give access to Canon EOS Digital Software Development Kit EDSDK in Java.
 
