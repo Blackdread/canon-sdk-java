@@ -1,7 +1,13 @@
 package org.blackdread.cameraframework.api.command;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsEvfImageRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsVolumeRef;
 import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
+import org.blackdread.cameraframework.api.command.contract.TargetRefCommand;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -19,7 +26,7 @@ import static org.blackdread.cameraframework.util.TimeUtil.currentInstant;
  *
  * @author Yoann CAPLAIN
  */
-public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
+public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, TargetRefCommand {
 
     protected static final Logger log = LoggerFactory.getLogger(AbstractCanonCommand.class);
 
@@ -36,6 +43,8 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
      */
     private EdsBaseRef targetRef;
 
+    private TargetRefType targetRefType;
+
     // the type should maybe be CanonCommand<R> but with DecoratorCommand it is clearer
     private DecoratorCommand<R> decoratorCommand;
 
@@ -49,11 +58,14 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
      * @param toCopy command to copy
      */
     protected AbstractCanonCommand(final AbstractCanonCommand<R> toCopy) {
-        // Values below no copied on purpose
+        // By default target ref is copied, it can be modified later with the public setter
+        targetRef = toCopy.targetRef;
+
+        // Values below not copied on purpose
         executionStartTime = null;
         executionEndTime = null;
 
-        // TODO will do later for targetRef and decoratorCommand
+        // TODO will do later for decoratorCommand
     }
 
     @SuppressWarnings("unchecked")
@@ -73,6 +85,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
      * Called only by command executor thread(s)
      */
     final void run() {
+        throwIfRunAlreadyCalled();
         executionStartTime = currentInstant();
         try {
             // TODO try catch, etc
@@ -87,7 +100,44 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R> {
 
     protected abstract void runInternal() throws InterruptedException;
 
-    protected final EdsBaseRef getTargetRef() {
+    private void throwIfRunAlreadyCalled() {
+        if (executionStartTime != null) {
+            throw new IllegalStateException("Run method already called");
+        }
+    }
+
+    @Override
+    public void setTargetRef(final EdsBaseRef targetRef) {
+        throwIfRunAlreadyCalled();
+        this.targetRef = Objects.requireNonNull(targetRef);
+
+        if (targetRef instanceof EdsCameraRef) {
+            this.targetRefType = TargetRefType.CAMERA;
+        } else if (targetRef instanceof EdsImageRef) {
+            this.targetRefType = TargetRefType.IMAGE;
+        } else if (targetRef instanceof EdsEvfImageRef) {
+            this.targetRefType = TargetRefType.EVF_IMAGE;
+        } else if (targetRef instanceof EdsVolumeRef) {
+            this.targetRefType = TargetRefType.VOLUME;
+        } else if (targetRef instanceof EdsDirectoryItemRef) {
+            this.targetRefType = TargetRefType.VOLUME;
+        } else {
+            throw new IllegalArgumentException("Target ref not supported");
+        }
+    }
+
+    public final Optional<EdsBaseRef> getTargetRef() {
+        return Optional.of(targetRef);
+    }
+
+    @Override
+    public TargetRefType getTargetRefType() {
+        if (targetRefType == null)
+            throw new IllegalStateException("TargetRefType have not been set yet");
+        return targetRefType;
+    }
+
+    protected final EdsBaseRef getTargetRefInternal() {
         if (targetRef == null)
             throw new IllegalStateException("TargetRef have not been set yet");
         return targetRef;

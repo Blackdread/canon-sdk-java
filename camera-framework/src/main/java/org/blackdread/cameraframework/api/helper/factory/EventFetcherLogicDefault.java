@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.sun.jna.Platform;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Ole32;
 import com.sun.jna.platform.win32.User32;
@@ -48,6 +49,7 @@ public class EventFetcherLogicDefault implements EventFetcherLogic {
 
     private void runLogic() {
         initializeOle32Thread();
+        initializeSdk();
         try {
             while (!stopRun) {
                 try {
@@ -64,8 +66,31 @@ public class EventFetcherLogicDefault implements EventFetcherLogic {
             }
         } finally {
             unInitializeOle32Thread();
+            terminateSdk();
         }
         log.info("Event runner end");
+    }
+
+    /**
+     * No checks are done (right now) if sdk was already initialized in another part of the program.
+     * Use inheritance to change default behavior.
+     */
+    protected void initializeSdk() {
+        final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsInitializeSDK());
+        if (edsdkError != EdsdkError.EDS_ERR_OK) {
+            log.error("Failed to initialize SDK");
+        }
+    }
+
+    /**
+     * No checks are done (right now) if sdk was already initialized by this thread or not.
+     * Use inheritance to change default behavior.
+     */
+    protected void terminateSdk() {
+        final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsTerminateSDK());
+        if (edsdkError != EdsdkError.EDS_ERR_OK) {
+            log.error("Failed to terminate SDK");
+        }
     }
 
     /**
@@ -76,18 +101,16 @@ public class EventFetcherLogicDefault implements EventFetcherLogic {
      * <br>
      * <p>Implementation use COINIT_MULTITHREADED as during tests in {@code ShootLogicCameraTest}, it has been shown that it would work for events but not with COINIT_APARTMENTTHREADED</p>
      * <br>
-     * <p>It is important to note that tests revealed that to fetch events from camera required the thread that loaded the Edsdk library to be used, therefore it might be advisable to call {@code start()} at the beginning of the program to let this implementation initialize the library.
+     * See {@code EventFetcherLogic} for full documentation
      * <br>
-     * In any case it has been shown that {@code User32} implementation seems to be also impacted by precedent problem.
-     * <br>
-     * <br>
-     * One solution found is to call {@code CanonFactory.edsdkLibrary().EdsInitializeSDK();} before the fetch event loop (by the fetcher thread); if this solution is used then {@code stop()} should be handled with care as all cameras ref previously returned by library should be discarded.
-     * </p>
      * <br>
      * <p><b>Compatible only with windows!</b></p>
      */
     protected void initializeOle32Thread() {
-        final WinNT.HRESULT hresult = Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
+        if (Platform.isWindows()) {
+            final WinNT.HRESULT hresult = Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
+            log.info("CoInitializeEx result: {}", hresult);
+        }
     }
 
     /**
@@ -100,7 +123,11 @@ public class EventFetcherLogicDefault implements EventFetcherLogic {
      * <p><b>Compatible only with windows!</b></p>
      */
     protected void unInitializeOle32Thread() {
-//        Ole32.INSTANCE.CoUninitialize();
+        /*
+        if (Platform.isWindows()) {
+        Ole32.INSTANCE.CoUninitialize();
+        }
+        //*/
     }
 
     protected void fetchEvent() {
@@ -151,6 +178,12 @@ public class EventFetcherLogicDefault implements EventFetcherLogic {
                 stopRun = false;
                 currentThread = threadFactory.newThread(this::runLogic);
                 currentThread.start();
+                try {
+                    // Just to let the fetcher initialize the sdk for default behaviour
+                    Thread.sleep(100);
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }

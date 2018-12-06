@@ -7,6 +7,8 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef;
 import org.blackdread.cameraframework.CameraIsConnected;
 import org.blackdread.cameraframework.api.TestShortcutUtil;
+import org.blackdread.cameraframework.api.command.builder.ShootOption;
+import org.blackdread.cameraframework.api.command.builder.ShootOptionBuilder;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
@@ -29,11 +31,12 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.blackdread.cameraframework.api.TestShortcutUtil.getEvents;
-import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.cameraObjectEventLogic;
-import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.shootLogic;
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.*;
 import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
@@ -181,6 +184,67 @@ class ShootLogicCameraTest {
 
         Assertions.assertNotNull(files);
         Assertions.assertTrue(files.size() > 0);
+    }
+
+    @Disabled("Only run manually")
+    @Test
+    void testShootWithSelfFetched() throws InterruptedException {
+        final EdsdkLibrary.EdsCameraRef cameraRef = camera.getValue();
+        cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
+
+        final CameraObjectListener cameraObjectListener = event -> {
+            log.warn("Got event: {}", event);
+        };
+        cameraObjectEventLogic().addCameraObjectListener(cameraRef, cameraObjectListener);
+
+        final ShootOption shootOption = new ShootOptionBuilder()
+            .setFetchEvents(true)
+            .build();
+
+        final List<File> files = shootLogic().shoot(cameraRef, shootOption);
+
+        log.info("Files: {}", files);
+
+        Assertions.assertNotNull(files);
+        Assertions.assertTrue(files.size() > 0);
+    }
+
+    @Disabled("Only run manually")
+    @Test
+    void testShootWithLogic() throws InterruptedException, ExecutionException, TimeoutException {
+        // Since EventFetcherLogic on start will init the SDK, I need to terminate and let start
+        // Doing so will make this test work but see further comment that says it would hang forever otherwise
+        TestShortcutUtil.terminateLibrary();
+        eventFetcherLogic().start();
+
+        Thread.sleep(100);
+
+        camera = TestShortcutUtil.getFirstCamera();
+        TestShortcutUtil.openSession(camera);
+
+        final EdsdkLibrary.EdsCameraRef cameraRef = camera.getValue();
+        cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
+
+        final CameraObjectListener cameraObjectListener = event -> {
+            log.warn("Got event: {}", event);
+        };
+        cameraObjectEventLogic().addCameraObjectListener(cameraRef, cameraObjectListener);
+
+        final CompletableFuture<List<File>> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                return shootLogic().shoot(cameraRef);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        // When we do not initialize the SDK in the EventFetcherLogic then it hangs forever as library was initialized by the main thread... and not the event fetcher
+        final List<File> files = future.get(20, TimeUnit.SECONDS);
+        log.info("Files: {}", files);
+
+        Assertions.assertNotNull(files);
+        Assertions.assertTrue(files.size() > 0);
+
     }
 
 }

@@ -1,5 +1,6 @@
 package org.blackdread.cameraframework.api.command.decorator.impl;
 
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
@@ -121,6 +122,21 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
             return getDelegate();
         }
         return decoratorCommand.getRoot();
+    }
+
+    @Override
+    public void setTargetRef(final EdsdkLibrary.EdsBaseRef targetRef) {
+
+    }
+
+    @Override
+    public Optional<EdsdkLibrary.EdsBaseRef> getTargetRef() {
+        return Optional.empty();
+    }
+
+    @Override
+    public TargetRefType getTargetRefType() {
+        return null;
     }
 
     /**

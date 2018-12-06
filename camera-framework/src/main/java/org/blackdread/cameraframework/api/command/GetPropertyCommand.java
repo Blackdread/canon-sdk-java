@@ -1,6 +1,9 @@
 package org.blackdread.cameraframework.api.command;
 
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetShortcutLogic;
 
 /**
  * Gets a property from the camera.
@@ -49,6 +52,16 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
         @Override
         protected void runInternal() {
+            switch (getTargetRefType()) {
+                case CAMERA:
+                    propertyGetShortcutLogic().getProductName((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
+                    break;
+                case IMAGE:
+                    propertyGetShortcutLogic().getProductName((EdsdkLibrary.EdsImageRef) getTargetRefInternal());
+                    break;
+                default:
+                    throw new IllegalStateException("Unsupported type");
+            }
             System.out.println("impl 1");
         }
     }

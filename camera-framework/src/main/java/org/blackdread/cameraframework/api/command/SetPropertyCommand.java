@@ -1,5 +1,7 @@
 package org.blackdread.cameraframework.api.command;
 
+import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
+
 /**
  * Sets a property on the camera.
  *
@@ -14,5 +16,17 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
     public SetPropertyCommand(final SetPropertyCommand<R> toCopy) {
         super(toCopy);
+    }
+
+    public static class IsoSpeed extends SetPropertyCommand<EdsISOSpeed> {
+
+        public IsoSpeed(final EdsISOSpeed value) {
+
+        }
+
+        @Override
+        protected void runInternal() {
+
+        }
     }
 }

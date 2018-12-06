@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.api.command;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.helper.logic.CommandDispatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,12 +46,17 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
 
     }
 
-    public void e() {
+    @Override
+    public void execute(final CanonCommand<?> command) {
+
+    }
+
+    @Override
+    public void execute(final EdsdkLibrary.EdsCameraRef owner, final CanonCommand<?> command) {
 
     }
 
 
     private SingleCommandDispatcher() {
     }
-
 }

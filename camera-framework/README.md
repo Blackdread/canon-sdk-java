@@ -9,6 +9,10 @@ Many commands, class, methods, etc are public (and not final) or protected to le
 # Events
 Different ways may work to handle events, framework use a default implementation where it uses one unique thread that initialize the library then loop to fetch events. And uses multi-threads to send commands to different cameras.
 
+Therefore, all commands are implemented to support all use cases which mainly are (other cases exist but mostly derive from those):
+- One thread for fetching events, commands does not fetch event by itself
+- Only one single thread to communicate entirely with Edsdk, commands are implemented to "busy wait" and fetch events when a command should wait for an asynchronous event  
+
 # Library thread
 From EDSDK API reference, it is noted that other threads than the one that initialized the library requires to call another method in order to communicate with the camera. If this is indeed necessary then this framework will encapsulate calls in a single thread created by the framework.
 It has already been seen that calling EdsGetEvent from another thread would do nothing and no event would be received but initializing from of pool thread and then calling EdsGetEvent from that same thread allowed to receive events.
