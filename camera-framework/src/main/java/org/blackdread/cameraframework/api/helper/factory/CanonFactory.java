@@ -2,7 +2,6 @@ package org.blackdread.cameraframework.api.helper.factory;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.CanonLibrary;
-import org.blackdread.cameraframework.api.command.SingleCommandDispatcher;
 import org.blackdread.cameraframework.api.helper.logic.*;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic;

@@ -20,6 +20,12 @@ import java.util.concurrent.ExecutionException;
 public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, TimeoutCommand, ErrorLogicCommand/*, RootDecoratorCommand<R>/*, Future<R>*/ {
 
     /**
+     * Should be called only by command dispatcher thread(s).
+     * Provided in interface to not require Reflection for each command execution.
+     */
+    void run();
+
+    /**
      * @return time when command was created
      */
     Instant getCreateTime();

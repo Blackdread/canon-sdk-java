@@ -8,7 +8,7 @@ import org.blackdread.cameraframework.util.DllUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.ThreadSafe;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.security.CodeSource;
@@ -20,18 +20,12 @@ import java.util.Optional;
  *
  * @author Yoann CAPLAIN
  */
-@NotThreadSafe
+@ThreadSafe
 class CanonLibraryImpl implements CanonLibrary {
 
     private static final Logger log = LoggerFactory.getLogger(CanonLibraryImpl.class);
 
     private static final String JNA_PATH_PROPERTY = "jna.library.path";
-
-    /*
-     * Library needed to forward windows messages
-     * TODO Not added for now, was part of previous project but not sure is necessary
-     */
-//    private static final User32 user32Lib;
 
     // fields are static but will change to instance fields
 
@@ -55,10 +49,12 @@ class CanonLibraryImpl implements CanonLibrary {
      */
     private static final File jarDir = jarFile.getParentFile();
 
+    private final Object initLibraryLock = new Object();
+
     /**
      * Instance of library
      */
-    private EdsdkLibrary EDSDK = null;
+    private volatile EdsdkLibrary EDSDK = null;
 
     private Thread shutdownHookThread = null;
 
@@ -118,16 +114,20 @@ class CanonLibraryImpl implements CanonLibrary {
      */
     protected void initLibrary() {
         if (EDSDK == null) {
-            final String libPath = getLibPath()
-                .orElseThrow(() -> new IllegalStateException("Could not init library, lib path not found"));
-            if (Platform.isWindows()) {
-                // no options for now
-                EDSDK = Native.loadLibrary(libPath, EdsdkLibrary.class, new HashMap<>());
-                registerCanonShutdownHook();
-                log.info("Library successfully loaded");
-                return;
+            synchronized (initLibraryLock) {
+                if (EDSDK == null) {
+                    final String libPath = getLibPath()
+                        .orElseThrow(() -> new IllegalStateException("Could not init library, lib path not found"));
+                    if (Platform.isWindows()) {
+                        // no options for now
+                        EDSDK = Native.loadLibrary(libPath, EdsdkLibrary.class, new HashMap<>());
+                        registerCanonShutdownHook();
+                        log.info("Library successfully loaded");
+                        return;
+                    }
+                    throw new IllegalStateException("Not supported OS: " + Platform.getOSType());
+                }
             }
-            throw new IllegalStateException("Not supported OS: " + Platform.getOSType());
         }
     }
 

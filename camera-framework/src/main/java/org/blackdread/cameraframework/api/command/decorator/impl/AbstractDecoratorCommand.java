@@ -80,6 +80,11 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
     }
 
     @Override
+    public void run() {
+        getDelegate().run();
+    }
+
+    @Override
     public Instant getCreateTime() {
         return getDelegate().getCreateTime();
     }
@@ -126,17 +131,17 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
 
     @Override
     public void setTargetRef(final EdsdkLibrary.EdsBaseRef targetRef) {
-
+        getDelegate().setTargetRef(targetRef);
     }
 
     @Override
     public Optional<EdsdkLibrary.EdsBaseRef> getTargetRef() {
-        return Optional.empty();
+        return getDelegate().getTargetRef();
     }
 
     @Override
     public TargetRefType getTargetRefType() {
-        return null;
+        return getDelegate().getTargetRefType();
     }
 
     /**

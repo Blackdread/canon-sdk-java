@@ -10,7 +10,7 @@ import org.blackdread.cameraframework.api.helper.logic.event.EmptyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.ThreadSafe;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,7 +24,7 @@ import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUti
  *
  * @author Yoann CAPLAIN
  */
-@NotThreadSafe
+@ThreadSafe
 public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
 
     private static final Logger log = LoggerFactory.getLogger(CameraAddedEventLogicDefault.class);
@@ -33,6 +33,11 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
         this.handle(new EmptyEvent());
         return new NativeLong(0);
     };
+
+    /**
+     * Lock for add only, just to make it thread safe
+     */
+    private final Object addLock = new Object();
 
     private final CopyOnWriteArrayList<WeakReference<CameraAddedListener>> listeners = new CopyOnWriteArrayList<>();
 
@@ -67,9 +72,10 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
 
     @Override
     public void addCameraAddedListener(final CameraAddedListener listener) {
-        // between contains and add, it is not thread safe but does not matter
-        if (!contains(listeners, listener))
-            listeners.add(new WeakReference<>(listener));
+        synchronized (addLock) {
+            if (!contains(listeners, listener))
+                listeners.add(new WeakReference<>(listener));
+        }
         cleanNullReferences(listeners);
     }
 

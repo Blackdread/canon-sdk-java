@@ -22,7 +22,7 @@ public interface CameraLogic {
     int DEFAULT_BYTES_PER_SECTOR = 512;
 
     /**
-     * Should be called before each shooting when destination is set to computer, otherwise shooting will be disabled
+     * Should be called before each shooting when destination is set to computer, otherwise shooting may not work as camera will consider destination as full.
      *
      * @param camera the reference of the camera which will receive the command
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
@@ -33,8 +33,9 @@ public interface CameraLogic {
     }
 
     /**
-     * Should be called before each shooting when destination is set to computer, otherwise shooting will be disabled.
-     * This method gives more flexibility with capacity
+     * Should be called before each shooting when destination is set to computer, otherwise shooting may not work as camera will consider destination as full.
+     * <br>
+     * This method gives more flexibility with capacity.
      *
      * @param camera   the reference of the camera which will receive the command
      * @param capacity The remaining capacity of a transmission place

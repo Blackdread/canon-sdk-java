@@ -81,10 +81,8 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         }
     }
 
-    /**
-     * Called only by command executor thread(s)
-     */
-    final void run() {
+    @Override
+    public final void run() {
         throwIfRunAlreadyCalled();
         executionStartTime = currentInstant();
         try {
