@@ -7,11 +7,16 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsPropertyEventHandler;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.GetPropertyCommand.ProductName;
 import org.blackdread.cameraframework.api.command.SetPropertyCommand;
+import org.blackdread.cameraframework.api.command.ShootCommand;
+import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.decorator.builder.CommandBuilderReusable;
 import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * <p>Created on 2018/11/01.</p>
@@ -59,10 +64,10 @@ public class CanonCamera {
         return command;
     }
 
-    protected <T extends CanonCommand<R>, R> T execute(T command) {
+    protected <T extends CanonCommand<R>, R> T dispatchCommand(T command) {
         command = applyTarget(command);
         command = applyDefaultCommandDecoration(command);
-//        CanonFactory.commandDispatcher()
+        CanonFactory.commandDispatcher().scheduleCommand(cameraRef, command);
         return command;
     }
 
@@ -74,22 +79,35 @@ public class CanonCamera {
         return property;
     }
 
-    public static final class Shoot {
+    public final class Shoot {
+
+        public List<File> shoot() throws ExecutionException, InterruptedException {
+            return dispatchCommand(new ShootCommand()).get();
+        }
+
+        public ShootCommand shootAsync() {
+            return dispatchCommand(new ShootCommand());
+        }
+
+        public ShootCommand shootAsync(final ShootOption shootOption) {
+            return dispatchCommand(new ShootCommand(shootOption));
+        }
 
     }
 
     public final class Property {
 
-        public ProductName getProductName() {
-            return null;
+        public String getProductName() throws ExecutionException, InterruptedException {
+            return dispatchCommand(new ProductName()).get();
         }
 
         public ProductName getProductNameAsync() {
-            return null;
+            return dispatchCommand(new ProductName());
         }
 
-        public SetPropertyCommand.IsoSpeed setIsoSpeed(final EdsISOSpeed value) {
-            return null;
+
+        public SetPropertyCommand.IsoSpeed setIsoSpeedAsync(final EdsISOSpeed value) {
+            return dispatchCommand(new SetPropertyCommand.IsoSpeed(value));
         }
     }
 }

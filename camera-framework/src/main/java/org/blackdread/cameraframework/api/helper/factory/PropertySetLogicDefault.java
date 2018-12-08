@@ -22,6 +22,8 @@ public class PropertySetLogicDefault implements PropertySetLogic {
 
     private static final Logger log = LoggerFactory.getLogger(PropertySetLogicDefault.class);
 
+    private static final String DEBUG_RETURNED_SIZE_AND_PRESET_ONE = "Size returned is {} but we reset set it to {}";
+
     protected PropertySetLogicDefault() {
     }
 
@@ -60,40 +62,40 @@ public class PropertySetLogicDefault implements PropertySetLogic {
             case kEdsDataType_Int8:
             case kEdsDataType_UInt8:
                 recalculatedSize = 1;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.setByte(0, (Byte) value);
                 break;
             case kEdsDataType_Int16:
             case kEdsDataType_UInt16:
                 recalculatedSize = 2;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.setShort(0, (Short) value);
                 break;
             case kEdsDataType_Int32:
             case kEdsDataType_UInt32:
                 recalculatedSize = 4;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.setNativeLong(0, new NativeLong((Long) value));
                 break;
             case kEdsDataType_Int64:
             case kEdsDataType_UInt64:
                 recalculatedSize = 8;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.setLong(0, (Long) value);
                 break;
             case kEdsDataType_Float:
                 recalculatedSize = 4;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.setFloat(0, (Float) value);
                 break;
             case kEdsDataType_Double:
                 recalculatedSize = 8;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.setDouble(0, (Double) value);
                 break;
@@ -101,7 +103,7 @@ public class PropertySetLogicDefault implements PropertySetLogic {
                 // In API reference, was seen as EdsInt8[] or EdsUInt32[], we use the later one as a safety
                 final int[] array = (int[]) value;
                 recalculatedSize = 4 * array.length;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.write(0, array, 0, array.length);
                 break;
@@ -116,7 +118,7 @@ public class PropertySetLogicDefault implements PropertySetLogic {
                 structure.write();
                 data = structure.getPointer();
                 recalculatedSize = structure.size();
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 break;
             case kEdsDataType_Bool_Array:
                 log.error("property: {}, propertyType: {}, propertySize: {}, value: {}", property, propertyType, propertySize, value);
@@ -125,7 +127,7 @@ public class PropertySetLogicDefault implements PropertySetLogic {
             case kEdsDataType_UInt8_Array: {
                 final byte[] array = (byte[]) value;
                 recalculatedSize = array.length;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.write(0, array, 0, array.length);
                 break;
@@ -134,7 +136,7 @@ public class PropertySetLogicDefault implements PropertySetLogic {
             case kEdsDataType_UInt16_Array: {
                 final short[] array = (short[]) value;
                 recalculatedSize = 2 * array.length;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.write(0, array, 0, array.length);
                 break;
@@ -143,7 +145,7 @@ public class PropertySetLogicDefault implements PropertySetLogic {
             case kEdsDataType_UInt32_Array: {
                 final int[] array = (int[]) value;
                 recalculatedSize = 4 * array.length;
-                log.debug("Size returned is {} but we reset set it to {}", propertySize, recalculatedSize);
+                log.debug(DEBUG_RETURNED_SIZE_AND_PRESET_ONE, propertySize, recalculatedSize);
                 data = new Memory(recalculatedSize);
                 data.write(0, array, 0, array.length);
                 break;

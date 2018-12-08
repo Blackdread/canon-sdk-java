@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.api.command.contract;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
+import org.blackdread.cameraframework.api.command.TargetRefType;
 
 import java.util.Optional;
 
@@ -10,14 +11,6 @@ import java.util.Optional;
  * @author Yoann CAPLAIN
  */
 public interface TargetRefCommand {
-
-    enum TargetRefType {
-        CAMERA,
-        IMAGE,
-        EVF_IMAGE,
-        VOLUME,
-        DIRECTORY_ITEM
-    }
 
     void setTargetRef(final EdsBaseRef targetRef);
 

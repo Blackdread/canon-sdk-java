@@ -2,6 +2,7 @@ package org.blackdread.cameraframework.api.command.decorator.impl;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.command.CanonCommand;
+import org.blackdread.cameraframework.api.command.TargetRefType;
 import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 
