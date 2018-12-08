@@ -34,6 +34,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
 
     private final Instant createTime = currentInstant();
 
+    // might require volatile
     private Instant executionStartTime = null;
 
     private Instant executionEndTime = null;
@@ -151,6 +152,11 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         if (executionStartTime == null)
             throw new IllegalStateException("Command not started yet");
         return executionStartTime;
+    }
+
+    @Override
+    public boolean hasExecutionStarted() {
+        return executionStartTime != null;
     }
 
     @Override

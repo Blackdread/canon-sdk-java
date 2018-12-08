@@ -96,6 +96,11 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
     }
 
     @Override
+    public boolean hasExecutionStarted() {
+        return getDelegate().hasExecutionStarted();
+    }
+
+    @Override
     public Instant getExecutionEndTime() {
         return getDelegate().getExecutionEndTime();
     }

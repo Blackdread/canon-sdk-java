@@ -8,9 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.time.Duration;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Dispatcher that use only one thread to execute commands, all exception are caught and ignored, as a result commands will always be executed unless the dispatcher is stopped.
@@ -37,6 +40,11 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
         return instance;
     }
 
+    private final ThreadFactory watchDogFactory = new ThreadFactoryBuilder()
+        .setNameFormat("watchdog-dispatcher-%d")
+        .setDaemon(true)
+        .build();
+
     private final ThreadFactory threadFactory = new ThreadFactoryBuilder()
         .setNameFormat("cmd-dispatcher-%d")
         .setDaemon(true)
@@ -44,9 +52,68 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
 
     private final BlockingQueue<CanonCommand> commandQueue = new LinkedBlockingQueue<>();
 
-    private volatile Thread currentThread;
+    private final Semaphore waitForCommandSemaphore = new Semaphore(0);
+    private volatile Thread watchDogTimeoutThread;
+
+    private volatile Thread commandDispatcherThread;
 
 //    private volatile boolean stopRun = false;
+
+    /**
+     * Dispatcher current command running or null
+     */
+    private final AtomicReference<CanonCommand> currentCommand = new AtomicReference<>();
+
+    private void watchDogRunner() {
+        // TODO There may be some multi-thread issue between timeout and interrupt, can see later to minimize it more
+        try {
+            CanonCommand previousCommand = null;
+            while (true) {
+                try {
+                    if (previousCommand == null) {
+                        waitForCommandSemaphore.acquireUninterruptibly();
+                        waitForCommandSemaphore.drainPermits();
+                        previousCommand = currentCommand.get();
+                    } else {
+                        // can get rid of localCurrentCommand
+                        final CanonCommand localCurrentCommand = currentCommand.get();
+                        if (localCurrentCommand == null) {
+                            previousCommand = null;
+                            continue;
+                        }
+                        if (previousCommand != localCurrentCommand) {
+                            previousCommand = localCurrentCommand;
+                        }
+
+                        final Duration timeout = previousCommand.getTimeout()
+                            .orElse(null);// Later we can add a default timeout -> around 60 sec is way more than enough
+
+                        if (timeout == null) {
+                            previousCommand = null;
+                            continue;
+                        }
+
+                        if (!previousCommand.hasExecutionStarted()) {
+                            sleep(5);
+                            continue;
+                        }
+
+                        final Duration executionDurationSinceNow = previousCommand.getExecutionDurationSinceNow();
+
+                        if (executionDurationSinceNow.compareTo(timeout) > 0) {
+                            commandDispatcherThread.interrupt();
+                            log.warn("A command has exceeded timeout, interrupt was triggered");
+                            sleep(1);
+                        }
+                    }
+                } catch (Exception e) {
+                    log.warn("Ignored exception in watchdog dispatcher runner", e);
+                }
+            }
+        } finally {
+            log.warn("Watchdog dispatcher thread ended");
+        }
+    }
 
     private void commandDispatcher() {
         // TODO later, watch dog thread that interrupt runner if doing a command and timeout was reached
@@ -54,7 +121,13 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
             while (true) {
                 try {
                     final CanonCommand cmd = commandQueue.take();
-                    cmd.run();
+                    try {
+                        currentCommand.set(cmd);
+                        waitForCommandSemaphore.release();
+                        cmd.run();
+                    } finally {
+                        currentCommand.set(null);
+                    }
                 } catch (Exception e) {
                     log.warn("Ignored exception in command dispatcher runner", e);
                 }
@@ -80,14 +153,24 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
      * Start dispatcher only not already started
      */
     private void startDispatcher() {
-        if (currentThread != null) {
+        if (commandDispatcherThread != null) {
             return;
         }
         synchronized (threadFactory) {
-            if (currentThread == null) {
-                currentThread = threadFactory.newThread(this::commandDispatcher);
-                currentThread.start();
+            if (commandDispatcherThread == null) {
+                commandDispatcherThread = threadFactory.newThread(this::commandDispatcher);
+                commandDispatcherThread.start();
+                watchDogTimeoutThread = watchDogFactory.newThread(this::watchDogRunner);
+                watchDogTimeoutThread.start();
             }
+        }
+    }
+
+    private void sleep(final long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ignored) {
+            // ignored
         }
     }
 

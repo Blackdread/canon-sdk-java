@@ -37,6 +37,13 @@ public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, Timeo
     Instant getExecutionStartTime();
 
     /**
+     * If true is returned then {@link #getExecutionStartTime()} and {@link #getExecutionDurationSinceNow()} can be safely called
+     *
+     * @return true if execution has been started (run method called)
+     */
+    boolean hasExecutionStarted();
+
+    /**
      * @return time when command was finished (with or without error)
      * @throws IllegalStateException if called when command not ran or not finished yet
      */
