@@ -136,7 +136,7 @@ public class ShootLogicDefault implements ShootLogic {
     /**
      * Actual logic to send shoot command to camera
      * <p>
-     * In case of success to execute a shoot command then no exception should be thrown (even if one was previously catched).
+     * In case of success to execute a shoot command then no exception should be thrown (even if one was previously caught).
      * On the opposite, if no shoot command succeed then an exception must be thrown (best to throw the last exception returned by the camera).
      * </p>
      *
@@ -274,6 +274,8 @@ public class ShootLogicDefault implements ShootLogic {
 
         /**
          * Shoot failed with exception
+         *
+         * @param exception exception that was thrown
          */
         public ShootResultWrapper(final EdsdkErrorException exception) {
             this.shootSuccess = false;

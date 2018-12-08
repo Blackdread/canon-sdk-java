@@ -62,7 +62,7 @@ public class FileLogicDefault implements FileLogic {
      * @param fileDestination   previous file destination found with folder and filename
      * @param folderDestination destination folder where downloaded file should be saved
      * @param filename          desired filename of downloaded file
-     * @return
+     * @return secured file destination as temp folder cannot be written to (without invoking specific methods)
      */
     protected File secureFileDestination(final File fileDestination, @Nullable final File folderDestination, @Nullable final String filename) {
         if (fileDestination.getAbsolutePath().startsWith(FileLogic.SYSTEM_TEMP_DIR.getAbsolutePath()) || folderDestination == null || folderDestination.equals(FileLogic.SYSTEM_TEMP_DIR)) {

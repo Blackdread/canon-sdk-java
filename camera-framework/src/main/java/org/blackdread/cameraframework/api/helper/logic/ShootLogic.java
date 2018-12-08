@@ -31,7 +31,7 @@ public interface ShootLogic {
      * <br>
      * Supported by EOS-1D Mark III, EOS 40D, EOS-1Ds Mark III, EOS DIGITAL REBEL Xsi/450D/ Kiss X2, EOS DIGITAL REBEL XS/ 1000D/ KISS F.
      * <br>
-     * For EOS 50D or EOS 5D Mark II or later, prefer to use kEdsCameraCommand_PressShutterButton, {@link #shootAF(EdsCameraRef)} or {@link #shootNoAF(EdsCameraRef)}
+     * For EOS 50D or EOS 5D Mark II or later, prefer to use kEdsCameraCommand_PressShutterButton, {@link #shootAF(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef)} or {@link #shootNoAF(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef)}
      * <br>
      *
      * @param camera ref of camera

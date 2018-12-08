@@ -322,7 +322,7 @@ public interface PropertyGetShortcutLogic {
      *
      * @param image ref of image
      * @return image rotation information as int
-     * @see #getOrientation(EdsImageRef)
+     * @see #getOrientation(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef)
      */
     default int getOrientationAsInt(final EdsImageRef image) {
         return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_Orientation);
@@ -601,7 +601,7 @@ public interface PropertyGetShortcutLogic {
      * <br>
      * The number of shots left on the camera based on the available disk capacity of the host computer they are connected to.
      * <br>
-     * To be used with {@link CameraLogic#setCapacity(EdsCameraRef)}
+     * To be used with {@link CameraLogic#setCapacity(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef)}
      *
      * @param camera ref of camera
      * @return the number of shots available on a camera
@@ -725,7 +725,7 @@ public interface PropertyGetShortcutLogic {
     /**
      * Indicates the white balance type.
      * <br>
-     * If the white balance type is "Color Temperature," to know the actual color temperature you must reference another property {@link PropertyGetShortcutLogic#getColorTemperature(EdsCameraRef)}.
+     * If the white balance type is "Color Temperature," to know the actual color temperature you must reference another property {@link PropertyGetShortcutLogic#getColorTemperature(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef)}.
      *
      * @param camera ref of camera
      * @return the white balance type
@@ -739,7 +739,7 @@ public interface PropertyGetShortcutLogic {
     /**
      * Indicates the white balance type used to shoot the image.
      * <br>
-     * If the white balance type is "Color Temperature," to know the actual color temperature you must reference another property {@link PropertyGetShortcutLogic#getColorTemperature(EdsImageRef)}.
+     * If the white balance type is "Color Temperature," to know the actual color temperature you must reference another property {@link PropertyGetShortcutLogic#getColorTemperature(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef)}.
      *
      * @param image ref of image
      * @return the white balance type used to shoot the image

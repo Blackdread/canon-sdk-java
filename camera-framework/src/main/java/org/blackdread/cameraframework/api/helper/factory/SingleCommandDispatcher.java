@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * Dispatcher that use only one thread to execute commands, <s>a new thread is created if the thread is interrupted or throws an un-expected exception</s> -> all exception are caught and ignored, as a result commands will always be executed unless the dispatcher is stopped.
+ * Dispatcher that use only one thread to execute commands, all exception are caught and ignored, as a result commands will always be executed unless the dispatcher is stopped.
  * <p>Created on 2018/11/01.</p>
  *
  * @author Yoann CAPLAIN
@@ -49,6 +49,7 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
 //    private volatile boolean stopRun = false;
 
     private void commandDispatcher() {
+        // TODO later, watch dog thread that interrupt runner if doing a command and timeout was reached
         try {
             while (true) {
                 try {

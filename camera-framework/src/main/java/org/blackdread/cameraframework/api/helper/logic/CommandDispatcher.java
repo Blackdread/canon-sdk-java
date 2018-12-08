@@ -21,7 +21,7 @@ public interface CommandDispatcher {
     /**
      * Schedule a command to be executed by dispatcher
      *
-     * @param owner   camera owner of this command
+     * @param owner   camera owner of this command, the owner is simply from which camera this command was created from or that target of command is that camera, dispatcher implementation may apply some logic with this information
      * @param command command to execute asynchronously
      */
     void scheduleCommand(final EdsCameraRef owner, final CanonCommand<?> command);

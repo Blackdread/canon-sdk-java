@@ -64,13 +64,13 @@ public interface CameraStateEventLogic {
 
     /**
      * Clear all listeners from all camera.
-     * Callback is still registered, call {@link CameraStateEventLogic#unregisterCameraStateEvent(EdsCameraRef)} if needed
+     * Callback is still registered, call {@link CameraStateEventLogic#unregisterCameraStateEvent(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef)} if needed
      */
     void clearCameraStateListeners();
 
     /**
      * Clear all listeners of the camera passed.
-     * Callback is still registered, call {@link CameraStateEventLogic#unregisterCameraStateEvent(EdsCameraRef)} if needed.
+     * Callback is still registered, call {@link CameraStateEventLogic#unregisterCameraStateEvent(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef)} if needed.
      * Nothing happens if this camera is not found.
      *
      * @param cameraRef camera to remove listeners registered
