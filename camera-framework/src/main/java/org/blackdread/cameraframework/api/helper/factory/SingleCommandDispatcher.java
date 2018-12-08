@@ -116,7 +116,6 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
     }
 
     private void commandDispatcher() {
-        // TODO later, watch dog thread that interrupt runner if doing a command and timeout was reached
         try {
             while (true) {
                 try {
