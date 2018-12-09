@@ -1,15 +1,22 @@
 package org.blackdread.cameraframework.api.camera;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.cameraframework.api.CallableCommand;
+import org.blackdread.cameraframework.api.command.CameraCommand;
 import org.blackdread.cameraframework.api.command.CanonCommand;
+import org.blackdread.cameraframework.api.command.GenericCommand;
 import org.blackdread.cameraframework.api.command.GetPropertyCommand.ProductName;
 import org.blackdread.cameraframework.api.command.GetPropertyDescCommand;
 import org.blackdread.cameraframework.api.command.LiveViewCommand;
 import org.blackdread.cameraframework.api.command.SetPropertyCommand;
 import org.blackdread.cameraframework.api.command.ShootCommand;
+import org.blackdread.cameraframework.api.command.StatusCommand;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.decorator.builder.CommandBuilderReusable;
+import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
+import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
 import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
+import org.blackdread.cameraframework.api.constant.NativeEnum;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
 import java.io.File;
@@ -95,6 +102,30 @@ public class CanonCamera {
 
     public Property getProperty() {
         return property;
+    }
+
+    public <R> GenericCommand<R> sendGenericCommandAsync(final GenericCommand<R> command) {
+        return dispatchCommand(command);
+    }
+
+    public <R> GenericCommand<R> sendGenericCommandAsync(final CallableCommand<R> callableCommand) {
+        return dispatchCommand(new GenericCommand<>(callableCommand));
+    }
+
+    public CameraCommand sendCameraCommandAsync(final EdsCameraCommand cameraCommand) {
+        return dispatchCommand(new CameraCommand(cameraCommand));
+    }
+
+    public CameraCommand sendCameraCommandAsync(final EdsCameraCommand cameraCommand, final NativeEnum<? extends Number> param) {
+        return dispatchCommand(new CameraCommand(cameraCommand, param));
+    }
+
+    public CameraCommand sendCameraCommandAsync(final EdsCameraCommand cameraCommand, final long inParam) {
+        return dispatchCommand(new CameraCommand(cameraCommand, inParam));
+    }
+
+    public StatusCommand sendStatusCommandAsync(final EdsCameraStatusCommand statusCommand) {
+        return dispatchCommand(new StatusCommand(statusCommand));
     }
 
     public final class Shoot {
@@ -203,7 +234,6 @@ public class CanonCamera {
         public GetPropertyDescCommand.LiveViewWhiteBalanceDesc getAvailableLiveViewWhiteBalanceAsync() {
             return dispatchCommand(new GetPropertyDescCommand.LiveViewWhiteBalanceDesc());
         }
-
 
 
         public SetPropertyCommand.IsoSpeed setIsoSpeedAsync(final EdsISOSpeed value) {
