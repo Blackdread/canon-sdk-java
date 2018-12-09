@@ -20,6 +20,7 @@ import org.blackdread.cameraframework.api.constant.NativeEnum;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -41,6 +42,11 @@ public class CanonCamera {
      */
     private CommandBuilderReusable commandBuilderReusable;
 
+    /**
+     * Default timeout set to commands created by this canon camera.
+     */
+    private Duration defaultTimeout;
+
     private final Shoot shoot = new Shoot();
 
     private final LiveView liveView = new LiveView();
@@ -55,7 +61,9 @@ public class CanonCamera {
     }
 
     protected <T extends CanonCommand<R>, R> T applyExtraOptions(final T command) {
-
+        if (defaultTimeout != null) {
+            command.setTimeout(defaultTimeout);
+        }
         return command;
     }
 
@@ -90,6 +98,14 @@ public class CanonCamera {
 
     public void setCommandBuilderReusable(final CommandBuilderReusable commandBuilderReusable) {
         this.commandBuilderReusable = commandBuilderReusable;
+    }
+
+    public Duration getDefaultTimeout() {
+        return defaultTimeout;
+    }
+
+    public void setDefaultTimeout(final Duration defaultTimeout) {
+        this.defaultTimeout = defaultTimeout;
     }
 
     public Shoot getShoot() {

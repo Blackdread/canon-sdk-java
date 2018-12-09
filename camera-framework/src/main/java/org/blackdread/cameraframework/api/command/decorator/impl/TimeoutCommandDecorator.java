@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public class TimeoutCommandDecorator<R> extends AbstractDecoratorCommand<R> {
 
-    private final Duration timeout;
+    private Duration timeout;
 
     public TimeoutCommandDecorator(final CanonCommand<R> delegate, final Duration timeout) {
         super(delegate);
@@ -30,4 +30,8 @@ public class TimeoutCommandDecorator<R> extends AbstractDecoratorCommand<R> {
         return Optional.of(timeout);
     }
 
+    @Override
+    public void setTimeout(final Duration timeout) {
+        this.timeout = Objects.requireNonNull(timeout);
+    }
 }

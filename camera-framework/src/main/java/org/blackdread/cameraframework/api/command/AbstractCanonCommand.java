@@ -30,11 +30,19 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
 
     protected static final Logger log = LoggerFactory.getLogger(AbstractCanonCommand.class);
 
+    private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(60);
+
     private final Instant createTime = currentInstant();
 
     private volatile Instant executionStartTime = null;
 
     private volatile Instant executionEndTime = null;
+
+    /**
+     * As timeout is one of the most used option, it is provided directly without need of decorator.
+     * A command should be interrupted if its execution exceeded timeout duration.
+     */
+    private Duration timeout;
 
     /**
      * Can be the cameraRef, imageRef, VolumeRef, etc
@@ -140,7 +148,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     }
 
     public final Optional<EdsBaseRef> getTargetRef() {
-        return Optional.of(targetRef);
+        return Optional.ofNullable(targetRef);
     }
 
     @Override
@@ -219,19 +227,29 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
      * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
      * It is called only by decorators, call instead {@link #getTimeoutInternal()}
      *
-     * @return e
+     * @return timeout of command
      */
     @Override
     public Optional<Duration> getTimeout() {
-        // TODO get from global settings
-        return Optional.empty();
+        // TODO get default timeout from global settings
+        if (timeout == null) {
+            return Optional.of(DEFAULT_TIMEOUT);
+        }
+        return Optional.of(timeout);
+    }
+
+    @Override
+    public void setTimeout(final Duration timeout) {
+        this.timeout = timeout;
     }
 
     protected Duration getTimeoutInternal() {
+        // TODO get the default timeout from global settings
+        if (decoratorCommand == null) {
+            return getTimeout()
+                .orElse(DEFAULT_TIMEOUT);
+        }
         return decoratorCommand.getTimeout()
-            .orElseGet(() -> {
-                // TODO get the default logic from global settings
-                return Duration.ofMinutes(2);
-            });
+            .orElse(DEFAULT_TIMEOUT);
     }
 }

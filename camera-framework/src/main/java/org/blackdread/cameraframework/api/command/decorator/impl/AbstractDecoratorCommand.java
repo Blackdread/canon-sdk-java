@@ -126,6 +126,11 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
     }
 
     @Override
+    public void setTimeout(final Duration timeout) {
+        getDelegate().setTimeout(timeout);
+    }
+
+    @Override
     public CanonCommand<R> getRoot() {
         if (decoratorCommand == null) {
             // this is the root object
