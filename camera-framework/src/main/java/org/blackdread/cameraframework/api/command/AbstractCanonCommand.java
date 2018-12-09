@@ -91,6 +91,8 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
             runInternal();
         } catch (InterruptedException e) {
             // TODO
+        } catch (Exception e) {
+            // TODO
         } finally {
             executionEndTime = currentInstant();
         }

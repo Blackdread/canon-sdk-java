@@ -20,6 +20,7 @@ public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, Timeo
 
     /**
      * Should be called only by command dispatcher thread(s).
+     * <br>
      * Provided in interface to not require Reflection for each command execution.
      */
     void run();
