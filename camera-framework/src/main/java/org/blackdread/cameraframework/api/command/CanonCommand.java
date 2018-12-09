@@ -1,7 +1,6 @@
 package org.blackdread.cameraframework.api.command;
 
 import org.blackdread.cameraframework.api.command.contract.CopyCommand;
-import org.blackdread.cameraframework.api.command.contract.ErrorLogicCommand;
 import org.blackdread.cameraframework.api.command.contract.TargetRefCommand;
 import org.blackdread.cameraframework.api.command.contract.TimeoutCommand;
 import org.blackdread.cameraframework.util.TimeUtil;
@@ -17,7 +16,7 @@ import java.util.concurrent.ExecutionException;
  * @param <R> Return type of command
  * @author Yoann CAPLAIN
  */
-public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, TimeoutCommand, ErrorLogicCommand/*, RootDecoratorCommand<R>/*, Future<R>*/ {
+public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, TimeoutCommand/*, RootDecoratorCommand<R>/*, Future<R>*/ {
 
     /**
      * Should be called only by command dispatcher thread(s).

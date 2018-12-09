@@ -3,7 +3,6 @@ package org.blackdread.cameraframework.api.command.decorator.impl;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.TargetRefType;
-import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 
 import java.lang.reflect.InvocationTargetException;
@@ -113,11 +112,6 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
     @Override
     public Optional<R> getOpt() throws InterruptedException, ExecutionException {
         return getDelegate().getOpt();
-    }
-
-    @Override
-    public Optional<ErrorLogic> getErrorLogic() {
-        return getDelegate().getErrorLogic();
     }
 
     @Override

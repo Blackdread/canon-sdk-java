@@ -2,10 +2,8 @@ package org.blackdread.cameraframework.api.command.decorator.builder;
 
 import org.blackdread.cameraframework.api.command.AbstractCanonCommand;
 import org.blackdread.cameraframework.api.command.CanonCommand;
-import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 import org.blackdread.cameraframework.api.command.decorator.impl.DefaultValueOnErrorDecorator;
-import org.blackdread.cameraframework.api.command.decorator.impl.ErrorLogicCommandDecorator;
 import org.blackdread.cameraframework.api.command.decorator.impl.TimeoutCommandDecorator;
 
 import javax.annotation.concurrent.NotThreadSafe;
@@ -58,11 +56,6 @@ public class CommandBuilder<T extends CommandBuilder<T, R>, R> {
 
     public T timeout(final Duration timeout) {
         getDecorators().add(() -> new TimeoutCommandDecorator<>(getCommandToDecorate(), timeout));
-        return self();
-    }
-
-    public T errorLogic(final ErrorLogic errorLogic) {
-        getDecorators().add(() -> new ErrorLogicCommandDecorator<>(getCommandToDecorate(), errorLogic));
         return self();
     }
 

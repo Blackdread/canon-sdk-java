@@ -6,7 +6,6 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsEvfImageRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsVolumeRef;
-import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.contract.TargetRefCommand;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 import org.slf4j.Logger;
@@ -192,18 +191,6 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
 
     /**
      * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
-     * It is called only by decorators, call instead {@link #getErrorLogicInternal()}
-     *
-     * @return e
-     */
-    @Override
-    public Optional<ErrorLogic> getErrorLogic() {
-        // TODO get from global settings
-        return Optional.empty();
-    }
-
-    /**
-     * <b>Must not be called from itself neither sub-classes of {@link AbstractCanonCommand}</b>
      * It is called only by decorators, call instead {@link #getTimeoutInternal()}
      *
      * @return e
@@ -212,14 +199,6 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     public Optional<Duration> getTimeout() {
         // TODO get from global settings
         return Optional.empty();
-    }
-
-    protected ErrorLogic getErrorLogicInternal() {
-        return decoratorCommand.getErrorLogic()
-            .orElseGet(() -> {
-                // TODO get the default logic from global settings
-                return ErrorLogic.THROW_ALL_ERRORS;
-            });
     }
 
     protected Duration getTimeoutInternal() {
