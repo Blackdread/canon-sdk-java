@@ -1,5 +1,6 @@
 package org.blackdread.cameraframework.api.command.decorator.builder;
 
+import org.blackdread.cameraframework.api.command.AbstractCanonCommand;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.DoNothingCommand;
 import org.blackdread.cameraframework.api.command.DoThrowCommand;
@@ -37,12 +38,12 @@ class CommandBuilderTest {
         final CommandBuilder.SimpleBuilder<String> builder = new CommandBuilder.SimpleBuilder<>(new DoNothingCommand());
         final CanonCommand<String> canonCommand = builder.build();
         assertNotNull(canonCommand);
-        assertFalse(canonCommand.getTimeout().isPresent());
+        assertTrue(canonCommand instanceof AbstractCanonCommand);
 
         final CanonCommand<String> canonCommand1 = new CommandBuilder<>(new DoNothingCommand())
             .build();
         assertNotNull(canonCommand1);
-        assertFalse(canonCommand1.getTimeout().isPresent());
+        assertTrue(canonCommand1 instanceof AbstractCanonCommand);
     }
 
     @Test
