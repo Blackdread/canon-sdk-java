@@ -9,6 +9,7 @@ import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
  * <p>Created on 2018/10/09.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface PropertyLogic {
 

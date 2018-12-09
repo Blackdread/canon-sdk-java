@@ -6,6 +6,7 @@ package org.blackdread.cameraframework.api;
  *
  * @param <R> the result type of method {@code call}
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface CallableCommand<R> {

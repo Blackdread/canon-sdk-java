@@ -13,6 +13,7 @@ import static org.blackdread.cameraframework.api.command.TargetRefType.*;
  * <p>Created on 2018/12/08.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @Immutable
 public final class TargetRefAccessType {

@@ -21,6 +21,7 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  * <p>Created on 2018/12/05.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @ThreadSafe
 public class EventFetcherLogicDefault implements EventFetcherLogic {

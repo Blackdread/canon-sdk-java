@@ -7,6 +7,7 @@ import org.blackdread.cameraframework.api.constant.NativeEnum;
  * <p>Created on 2018/11/18.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum ImageOrientation implements NativeEnum<Integer> {
     NORMAL(1, "The 0th row is at the visual top of the image, and the 0th column is on the visual left-hand side"),

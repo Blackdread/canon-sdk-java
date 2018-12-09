@@ -24,6 +24,7 @@ package org.blackdread.cameraframework.api.helper.logic.event;
  * <p>Created on 2018/12/05.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface EventFetcherLogic {
 

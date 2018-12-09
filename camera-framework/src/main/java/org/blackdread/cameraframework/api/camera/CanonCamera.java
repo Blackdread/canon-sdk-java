@@ -31,6 +31,7 @@ import java.util.concurrent.ExecutionException;
  * <p>Created on 2018/11/01.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class CanonCamera {
 

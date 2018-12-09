@@ -12,6 +12,7 @@ import java.lang.annotation.Target;
  * <p>Created on 2018/10/24.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @Documented
 @Retention(RetentionPolicy.SOURCE)

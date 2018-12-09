@@ -12,6 +12,7 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.pro
  * <p>Created on 2018/12/09.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @SuppressWarnings("unused")
 public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> {

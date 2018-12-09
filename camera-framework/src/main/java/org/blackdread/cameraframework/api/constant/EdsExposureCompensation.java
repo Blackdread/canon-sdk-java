@@ -16,6 +16,7 @@ package org.blackdread.cameraframework.api.constant;
  * <p>Created on 2018/10/06.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsExposureCompensation implements NativeEnum<Integer> {
     kEdsExposureCompensation_5(0x28, "+5"),

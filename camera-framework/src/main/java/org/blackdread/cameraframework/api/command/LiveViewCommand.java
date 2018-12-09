@@ -10,6 +10,7 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.liv
  * <p>Created on 2018/10/02.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
 

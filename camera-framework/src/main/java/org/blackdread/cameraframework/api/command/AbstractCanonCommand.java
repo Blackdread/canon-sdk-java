@@ -25,6 +25,7 @@ import static org.blackdread.cameraframework.util.TimeUtil.currentInstant;
  * <p>Created on 2018/10/02.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, TargetRefCommand {
 

@@ -8,6 +8,7 @@ import org.blackdread.cameraframework.api.constant.EdsdkError;
  * <p>Created on 2018/10/27.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class EdsdkErrorException extends EdsdkException {
 

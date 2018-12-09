@@ -12,6 +12,7 @@ import java.nio.IntBuffer;
  * <p>Created on 2018/11/01.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public final class PropertyInfo {
 

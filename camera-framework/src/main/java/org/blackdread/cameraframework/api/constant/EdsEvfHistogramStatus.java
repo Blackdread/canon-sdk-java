@@ -12,6 +12,7 @@ package org.blackdread.cameraframework.api.constant;
  * <p>Created on 2018/10/06.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsEvfHistogramStatus implements NativeEnum<Integer> {
     kEdsEvfHistogramStatus_Hide(0, "Hide the histogram"),

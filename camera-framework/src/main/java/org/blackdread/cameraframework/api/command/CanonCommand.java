@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutionException;
  *
  * @param <R> Return type of command
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, TimeoutCommand/*, RootDecoratorCommand<R>/*, Future<R>*/ {
 

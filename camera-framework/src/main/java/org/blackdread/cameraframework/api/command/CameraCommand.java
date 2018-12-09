@@ -9,6 +9,7 @@ import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
  * <p>Created on 2018/10/02.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class CameraCommand extends AbstractCanonCommand<Void> {
 

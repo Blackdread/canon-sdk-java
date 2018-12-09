@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * <p>Created on 2018/10/26.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 final class ConstantUtil {
 

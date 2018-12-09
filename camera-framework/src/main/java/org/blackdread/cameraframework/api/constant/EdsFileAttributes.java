@@ -8,6 +8,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * <p>Created on 2018/10/05.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsFileAttributes implements NativeEnum<Integer> {
     kEdsFileAttribute_Normal("A standard file"),

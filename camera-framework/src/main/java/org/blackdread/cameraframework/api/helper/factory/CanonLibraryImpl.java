@@ -19,6 +19,7 @@ import java.util.Optional;
  * <p>Created on 2018/10/16.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @ThreadSafe
 class CanonLibraryImpl implements CanonLibrary {

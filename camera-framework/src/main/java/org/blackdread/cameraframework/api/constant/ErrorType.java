@@ -4,6 +4,7 @@ package org.blackdread.cameraframework.api.constant;
  * <p>Created on 2018/10/28.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum ErrorType {
     /**

@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>Created on 2018/10/09.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @NotThreadSafe
 public class CanonFactory {

@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * <p>Created on 2018/11/01.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @ThreadSafe
 public final class SingleCommandDispatcher implements CommandDispatcher {

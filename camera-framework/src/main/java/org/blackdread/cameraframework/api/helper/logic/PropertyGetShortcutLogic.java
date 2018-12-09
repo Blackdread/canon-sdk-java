@@ -25,6 +25,7 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.pro
  * <p>Created on 2018/10/28.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface PropertyGetShortcutLogic {
 

@@ -7,6 +7,7 @@ package org.blackdread.cameraframework.api.helper.logic;
  * <p>Created on 2018/10/25.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface MovieLogic {
 }

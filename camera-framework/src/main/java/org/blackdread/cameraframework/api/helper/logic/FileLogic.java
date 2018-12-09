@@ -10,6 +10,7 @@ import java.io.File;
  * <p>Created on 2018/11/12.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface FileLogic {
 

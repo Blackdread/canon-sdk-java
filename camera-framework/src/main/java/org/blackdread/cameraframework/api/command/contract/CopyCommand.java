@@ -14,6 +14,7 @@ import org.blackdread.cameraframework.api.command.CanonCommand;
  * <p>Created on 2018/12/03.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface CopyCommand<R> {
 

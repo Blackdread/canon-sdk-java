@@ -8,6 +8,7 @@ import org.blackdread.cameraframework.api.command.CanonCommand;
  * <p>Created on 2018/11/03</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface CommandDispatcher {
 

@@ -27,6 +27,7 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  * <p>Created on 2018/10/21.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class FileLogicDefault implements FileLogic {
 

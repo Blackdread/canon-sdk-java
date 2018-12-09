@@ -7,6 +7,7 @@ import org.blackdread.cameraframework.api.CallableCommand;
  * <p>Created on 2018/10/02.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class GenericCommand<R> extends AbstractCanonCommand<R> {
 

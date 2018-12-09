@@ -7,6 +7,7 @@ import java.util.List;
  * <p>Created on 2018/11/08.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 final class WeakReferenceUtil {
 

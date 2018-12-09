@@ -11,6 +11,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * <p>Created on 2018/10/06.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsCameraCommand implements NativeEnum<Integer> {
     kEdsCameraCommand_TakePicture("Take Picture. Requests the camera to shoot"),

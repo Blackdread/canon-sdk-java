@@ -15,6 +15,7 @@ import java.util.Optional;
  * <p>Created on 2018/11/24.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @Immutable
 public class ShootOption {

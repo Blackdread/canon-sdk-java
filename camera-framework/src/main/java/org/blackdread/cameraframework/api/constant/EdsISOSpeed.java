@@ -11,6 +11,7 @@ package org.blackdread.cameraframework.api.constant;
  * <p>Created on 2018/10/05.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsISOSpeed implements NativeEnum<Integer> {
     kEdsISOSpeed_Auto(0x0, "Auto"),

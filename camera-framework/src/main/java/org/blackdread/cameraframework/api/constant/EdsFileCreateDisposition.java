@@ -8,6 +8,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * <p>Created on 2018/10/05.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsFileCreateDisposition implements NativeEnum<Integer> {
     kEdsFileCreateDisposition_CreateNew("Creates a new file. An error occurs if the designated file already exists"),

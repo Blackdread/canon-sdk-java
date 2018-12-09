@@ -10,6 +10,7 @@ import java.util.Optional;
  * <p>Created on 2018/10/10.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class TimeoutCommandDecorator<R> extends AbstractDecoratorCommand<R> {
 

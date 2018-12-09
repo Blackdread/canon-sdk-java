@@ -13,6 +13,7 @@ import static org.blackdread.cameraframework.api.constant.ErrorType.*;
  * <p>Created on 2018/10/04</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> {
 

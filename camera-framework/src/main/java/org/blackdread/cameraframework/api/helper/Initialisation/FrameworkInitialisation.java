@@ -14,6 +14,7 @@ import java.util.Set;
  * <p>Created on 2018/12/07.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public final class FrameworkInitialisation {
 

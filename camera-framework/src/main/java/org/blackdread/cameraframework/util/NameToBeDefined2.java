@@ -19,6 +19,7 @@ import java.util.function.Function;
  * <p>Created on 2018/11/17.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class NameToBeDefined2<V> implements Callable<V> {
 

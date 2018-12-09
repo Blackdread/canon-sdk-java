@@ -7,6 +7,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * <p>Created on 2018/10/04.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsConstant implements NativeEnum<Integer> {
     EDS_MAX_NAME("Maximum File Name Length"),

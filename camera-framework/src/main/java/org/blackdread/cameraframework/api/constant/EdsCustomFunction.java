@@ -18,6 +18,7 @@ package org.blackdread.cameraframework.api.constant;
  * <p>Created on 2018/10/07.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  * @deprecated Not tested and not part of Reference API neither library. Will not be removed but at your own risk
  */
 public enum EdsCustomFunction implements NativeEnum<Integer> {

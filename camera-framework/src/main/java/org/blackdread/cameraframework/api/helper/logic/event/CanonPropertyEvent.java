@@ -8,6 +8,7 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
  * <p>Created on 2018/11/04.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface CanonPropertyEvent extends CanonEvent {
 

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
  * <p>Created on 2018/11/18.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public class PropertyDescShortcutLogicDefault implements PropertyDescShortcutLogic {
 

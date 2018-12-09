@@ -9,6 +9,7 @@ import java.io.File;
  * <p>Created on 2018/11/29.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  * @see ShootOption ShootOption for documentation on options
  */
 public class ShootOptionBuilder {

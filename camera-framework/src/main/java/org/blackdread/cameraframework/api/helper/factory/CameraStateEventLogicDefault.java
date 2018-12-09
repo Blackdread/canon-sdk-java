@@ -26,6 +26,7 @@ import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUti
  * <p>Created on 2018/11/09.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 @ThreadSafe
 public class CameraStateEventLogicDefault implements CameraStateEventLogic {

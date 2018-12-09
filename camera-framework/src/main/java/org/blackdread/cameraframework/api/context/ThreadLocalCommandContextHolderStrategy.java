@@ -8,6 +8,7 @@ import java.util.Objects;
  * <p>Created on 2018/10/23.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  * @see ThreadLocal
  * @deprecated not used and not sure if would be useful
  */

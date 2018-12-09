@@ -15,6 +15,7 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.cam
  * <p>Created on 2018/10/20.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public interface ShootLogic {
 

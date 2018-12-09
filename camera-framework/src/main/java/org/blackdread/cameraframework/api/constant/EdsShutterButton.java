@@ -7,6 +7,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * <p>Created on 2018/10/05.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsShutterButton implements NativeEnum<Integer> {
     kEdsCameraCommand_ShutterButton_OFF("Not Depressed"),

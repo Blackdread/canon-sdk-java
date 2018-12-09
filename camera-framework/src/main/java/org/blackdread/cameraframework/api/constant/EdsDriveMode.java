@@ -7,6 +7,7 @@ package org.blackdread.cameraframework.api.constant;
  * <p>Created on 2018/10/06.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsDriveMode implements NativeEnum<Integer> {
     kEdsDriveMode_SingleFrame(0x00000000, "Single-Frame Shooting"),

@@ -8,6 +8,7 @@ import java.time.Instant;
  * <p>Created on 2018/11/03</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public final class TimeUtil {
 

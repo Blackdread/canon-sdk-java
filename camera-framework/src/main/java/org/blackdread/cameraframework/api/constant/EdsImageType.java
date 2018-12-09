@@ -7,6 +7,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  * <p>Created on 2018/10/05.<p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public enum EdsImageType implements NativeEnum<Integer> {
     kEdsImageType_Unknown("Folder, or unknown image type"),
