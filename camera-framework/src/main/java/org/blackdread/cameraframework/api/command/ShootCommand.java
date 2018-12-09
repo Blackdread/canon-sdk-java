@@ -30,13 +30,12 @@ public class ShootCommand extends AbstractCanonCommand<List<File>> {
     }
 
     @Override
-    protected void runInternal() throws InterruptedException {
+    protected List<File> runInternal() throws InterruptedException {
         final EdsCameraRef ref = (EdsCameraRef) getTargetRefInternal();
         if (shootOption == null) {
-            CanonFactory.shootLogic().shoot(ref);
+            return CanonFactory.shootLogic().shoot(ref);
         } else {
-            CanonFactory.shootLogic().shoot(ref, shootOption);
+            return CanonFactory.shootLogic().shoot(ref, shootOption);
         }
-
     }
 }

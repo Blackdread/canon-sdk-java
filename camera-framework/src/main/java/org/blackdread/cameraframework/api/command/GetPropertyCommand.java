@@ -27,8 +27,10 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
     }
 
     @Override
-    protected void runInternal() {
+    protected R runInternal() {
+        // TODO generify get values so less duplicate code in runInternal() for get commands
         System.out.println("impl 1");
+        return null;
     }
 
     /**
@@ -51,18 +53,15 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
         }
 
         @Override
-        protected void runInternal() {
+        protected String runInternal() {
             switch (getTargetRefType()) {
                 case CAMERA:
-                    propertyGetShortcutLogic().getProductName((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-                    break;
+                    return propertyGetShortcutLogic().getProductName((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
                 case IMAGE:
-                    propertyGetShortcutLogic().getProductName((EdsdkLibrary.EdsImageRef) getTargetRefInternal());
-                    break;
+                    return propertyGetShortcutLogic().getProductName((EdsdkLibrary.EdsImageRef) getTargetRefInternal());
                 default:
                     throw new IllegalStateException("Unsupported type");
             }
-            System.out.println("impl 1");
         }
     }
 

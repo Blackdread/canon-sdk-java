@@ -88,8 +88,26 @@ public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, Timeo
         return Duration.between(getCreateTime(), getExecutionEndTime()).abs();
     }
 
+    /**
+     * Waits if necessary for this command to complete, and then returns its result.
+     *
+     * @return the result value
+     * @throws ExecutionException   if this command completed exceptionally
+     * @throws InterruptedException if the current thread was interrupted
+     *                              while waiting
+     */
     R get() throws InterruptedException, ExecutionException;
 
-    Optional<R> getOpt() throws InterruptedException, ExecutionException;
+    /**
+     * Waits if necessary for this command to complete, and then returns its result.
+     *
+     * @return the result value or empty if none
+     * @throws ExecutionException   if this command completed exceptionally
+     * @throws InterruptedException if the current thread was interrupted
+     *                              while waiting
+     */
+    default Optional<R> getOpt() throws InterruptedException, ExecutionException {
+        return Optional.ofNullable(get());
+    }
 
 }

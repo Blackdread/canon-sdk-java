@@ -3,7 +3,6 @@ package org.blackdread.cameraframework.api.command.decorator.builder;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.DoNothingCommand;
 import org.blackdread.cameraframework.api.command.DoThrowCommand;
-import org.blackdread.cameraframework.api.command.contract.ErrorLogic;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 import org.junit.jupiter.api.Test;
 
@@ -38,13 +37,11 @@ class CommandBuilderTest {
         final CommandBuilder.SimpleBuilder<String> builder = new CommandBuilder.SimpleBuilder<>(new DoNothingCommand());
         final CanonCommand<String> canonCommand = builder.build();
         assertNotNull(canonCommand);
-        assertFalse(canonCommand.getErrorLogic().isPresent());
         assertFalse(canonCommand.getTimeout().isPresent());
 
         final CanonCommand<String> canonCommand1 = new CommandBuilder<>(new DoNothingCommand())
             .build();
         assertNotNull(canonCommand1);
-        assertFalse(canonCommand1.getErrorLogic().isPresent());
         assertFalse(canonCommand1.getTimeout().isPresent());
     }
 
@@ -52,13 +49,11 @@ class CommandBuilderTest {
     void canGetRootCommand() {
         final DoNothingCommand rootExpected = new DoNothingCommand();
         final CanonCommand<String> command = new CommandBuilder<>(rootExpected)
-            .errorLogic(ErrorLogic.THROW_ALL_ERRORS)
             .withDefaultOnException("aaaa")
             .timeout(Duration.ofHours(54))
             .build();
         assertNotNull(command);
         assertTrue(command.getTimeout().isPresent());
-        assertTrue(command.getErrorLogic().isPresent());
         final DecoratorCommand<String> castCommand = (DecoratorCommand<String>) command;
         assertEquals(rootExpected, castCommand.getRoot());
     }
@@ -71,24 +66,6 @@ class CommandBuilderTest {
         assertNotNull(command);
         assertTrue(command.getTimeout().isPresent());
         assertEquals(command.getTimeout().get(), Duration.ofSeconds(90));
-    }
-
-    @Test
-    void canSetErrorLogic() {
-        CanonCommand<String> command = new CommandBuilder<>(new DoNothingCommand())
-            .errorLogic(ErrorLogic.THROW_ALL_ERRORS)
-            .build();
-        assertNotNull(command);
-        assertTrue(command.getErrorLogic().isPresent());
-        assertEquals(command.getErrorLogic().get(), ErrorLogic.THROW_ALL_ERRORS);
-
-        command = new CommandBuilder<>(new DoNothingCommand())
-            .errorLogic(ErrorLogic.THROW_ALL_ERRORS)
-            .errorLogic(ErrorLogic.SKIP_ERRORS)
-            .build();
-        assertNotNull(command);
-        assertTrue(command.getErrorLogic().isPresent());
-        assertEquals(command.getErrorLogic().get(), ErrorLogic.SKIP_ERRORS);
     }
 
     @Test

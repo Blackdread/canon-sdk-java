@@ -16,8 +16,9 @@ public class NeverFinishCommand extends AbstractCanonCommand<String> {
     }
 
     @Override
-    protected void runInternal() throws InterruptedException {
+    protected String runInternal() throws InterruptedException {
         Thread.sleep(60_000);
+        throw new IllegalStateException("Should have been interrupted before finish to sleep");
     }
 
 }

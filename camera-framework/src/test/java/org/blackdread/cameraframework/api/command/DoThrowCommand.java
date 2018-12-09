@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 public class DoThrowCommand extends AbstractCanonCommand<String> {
 
     @Override
-    protected void runInternal() {
+    protected String runInternal() {
         throw new RuntimeException("I always throw");
     }
 

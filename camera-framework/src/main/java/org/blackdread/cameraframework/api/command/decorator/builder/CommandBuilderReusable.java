@@ -41,7 +41,7 @@ public class CommandBuilderReusable<T extends CommandBuilderReusable<T, R>, R> {
      * @param canonCommand initial command to decorate
      * @deprecated not sure to keep this constructor, might be confusing but allow to have a type-safe one even if can still pass other types
      */
-    public CommandBuilderReusable(final AbstractCanonCommand<R> canonCommand) {
+    public CommandBuilderReusable(final CanonCommand<R> canonCommand) {
         this.canonCommand = canonCommand;
     }
 

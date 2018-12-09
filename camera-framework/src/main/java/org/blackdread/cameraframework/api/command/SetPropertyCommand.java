@@ -22,26 +22,7 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
         super(toCopy);
     }
 
-    public static class IsoSpeed extends SetPropertyCommand<EdsISOSpeed> {
-
-        private final EdsISOSpeed value;
-
-        public IsoSpeed(final EdsISOSpeed value) {
-            this.value = value;
-        }
-
-        public IsoSpeed(final IsoSpeed toCopy) {
-            super(toCopy);
-            this.value = toCopy.value;
-        }
-
-        @Override
-        protected void runInternal() {
-            CanonFactory.propertySetLogic().setPropertyData(getTargetRefInternal(), EdsPropertyID.kEdsPropID_ISOSpeed, value);
-        }
-    }
-
-    public static class Aperture extends SetPropertyCommand<EdsAv> {
+    public static class Aperture extends SetPropertyCommand<Void> {
 
         private final EdsAv value;
 
@@ -55,12 +36,33 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
         }
 
         @Override
-        protected void runInternal() {
+        protected Void runInternal() {
             CanonFactory.propertySetLogic().setPropertyData(getTargetRefInternal(), EdsPropertyID.kEdsPropID_Av, value);
+            return null;
         }
     }
 
-    public static class ShutterSpeed extends SetPropertyCommand<EdsTv> {
+    public static class IsoSpeed extends SetPropertyCommand<Void> {
+
+        private final EdsISOSpeed value;
+
+        public IsoSpeed(final EdsISOSpeed value) {
+            this.value = value;
+        }
+
+        public IsoSpeed(final IsoSpeed toCopy) {
+            super(toCopy);
+            this.value = toCopy.value;
+        }
+
+        @Override
+        protected Void runInternal() {
+            CanonFactory.propertySetLogic().setPropertyData(getTargetRefInternal(), EdsPropertyID.kEdsPropID_ISOSpeed, value);
+            return null;
+        }
+    }
+
+    public static class ShutterSpeed extends SetPropertyCommand<Void> {
 
         private final EdsTv value;
 
@@ -74,8 +76,9 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
         }
 
         @Override
-        protected void runInternal() {
+        protected Void runInternal() {
             CanonFactory.propertySetLogic().setPropertyData(getTargetRefInternal(), EdsPropertyID.kEdsPropID_Tv, value);
+            return null;
         }
     }
 }

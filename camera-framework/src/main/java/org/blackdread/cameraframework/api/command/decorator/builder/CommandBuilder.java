@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 @NotThreadSafe
 public class CommandBuilder<T extends CommandBuilder<T, R>, R> {
 
-    private final AbstractCanonCommand<R> canonCommand;
+    private final CanonCommand<R> canonCommand;
 
     private DecoratorCommand<R> decoratedCommand;
 
@@ -35,11 +35,9 @@ public class CommandBuilder<T extends CommandBuilder<T, R>, R> {
     private final List<Supplier<DecoratorCommand<R>>> decorators = new ArrayList<>(5);
 
     /**
-     * TODO For now type is the abstract class which is not really good but can change to {@link CanonCommand} later
-     *
      * @param canonCommand command to decorate
      */
-    public CommandBuilder(final AbstractCanonCommand<R> canonCommand) {
+    public CommandBuilder(final CanonCommand<R> canonCommand) {
         this.canonCommand = Objects.requireNonNull(canonCommand);
     }
 

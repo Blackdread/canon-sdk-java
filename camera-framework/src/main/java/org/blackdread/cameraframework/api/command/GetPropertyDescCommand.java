@@ -37,9 +37,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsAEMode> aeModes = propertyDescShortcutLogic().getAEModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsAEMode> runInternal() {
+            return propertyDescShortcutLogic().getAEModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -57,9 +56,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsAEModeSelect> aeModeSelects = propertyDescShortcutLogic().getAEModeSelectDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsAEModeSelect> runInternal() {
+            return propertyDescShortcutLogic().getAEModeSelectDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -73,9 +71,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsAv> apertures = propertyDescShortcutLogic().getAvDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsAv> runInternal() {
+            return propertyDescShortcutLogic().getAvDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -89,9 +86,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<Integer> colorTemperatures = propertyDescShortcutLogic().getColorTemperatureDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<Integer> runInternal() {
+            return propertyDescShortcutLogic().getColorTemperatureDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -105,9 +101,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsDriveMode> driveModes = propertyDescShortcutLogic().getDriveModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsDriveMode> runInternal() {
+            return propertyDescShortcutLogic().getDriveModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -121,9 +116,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsExposureCompensation> exposureCompensations = propertyDescShortcutLogic().getExposureCompensationDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsExposureCompensation> runInternal() {
+            return propertyDescShortcutLogic().getExposureCompensationDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -137,9 +131,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsImageQuality> imageQualities = propertyDescShortcutLogic().getImageQualityDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsImageQuality> runInternal() {
+            return propertyDescShortcutLogic().getImageQualityDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -153,9 +146,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsISOSpeed> isoSpeeds = propertyDescShortcutLogic().getISOSpeedDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsISOSpeed> runInternal() {
+            return propertyDescShortcutLogic().getISOSpeedDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -169,9 +161,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsMeteringMode> meteringModes = propertyDescShortcutLogic().getMeteringModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsMeteringMode> runInternal() {
+            return propertyDescShortcutLogic().getMeteringModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -185,20 +176,15 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsPictureStyle> pictureStyles;
+        protected List<EdsPictureStyle> runInternal() {
             switch (getTargetRefType()) {
                 case CAMERA:
-                    pictureStyles = propertyDescShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-                    break;
+                    return propertyDescShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
                 case IMAGE:
-                    pictureStyles = propertyDescShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-                    break;
+                    return propertyDescShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
                 default:
                     throw new IllegalStateException("Unsupported type");
             }
-
-
         }
     }
 
@@ -212,9 +198,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsTv> tvs = propertyDescShortcutLogic().getTvDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsTv> runInternal() {
+            return propertyDescShortcutLogic().getTvDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -228,9 +213,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsWhiteBalance> whiteBalances = propertyDescShortcutLogic().getWhiteBalanceDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsWhiteBalance> runInternal() {
+            return propertyDescShortcutLogic().getWhiteBalanceDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -249,9 +233,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsEvfAFMode> evfAFModes = propertyDescShortcutLogic().getEvfAFModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsEvfAFMode> runInternal() {
+            return propertyDescShortcutLogic().getEvfAFModeDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -265,9 +248,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<Integer> evfColorTemperatures = propertyDescShortcutLogic().getEvfColorTemperatureDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<Integer> runInternal() {
+            return propertyDescShortcutLogic().getEvfColorTemperatureDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 
@@ -281,9 +263,8 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
         }
 
         @Override
-        protected void runInternal() {
-            final List<EdsWhiteBalance> evfWhiteBalances = propertyDescShortcutLogic().getEvfWhiteBalanceDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
-
+        protected List<EdsWhiteBalance> runInternal() {
+            return propertyDescShortcutLogic().getEvfWhiteBalanceDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
         }
     }
 

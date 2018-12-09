@@ -33,10 +33,9 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
 
     private final Instant createTime = currentInstant();
 
-    // might require volatile
-    private Instant executionStartTime = null;
+    private volatile Instant executionStartTime = null;
 
-    private Instant executionEndTime = null;
+    private volatile Instant executionEndTime = null;
 
     /**
      * Can be the cameraRef, imageRef, VolumeRef, etc
@@ -47,6 +46,9 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
 
     // the type should maybe be CanonCommand<R> but with DecoratorCommand it is clearer
     private DecoratorCommand<R> decoratorCommand;
+
+    private volatile R result;
+    private volatile Throwable resultException;
 
     protected AbstractCanonCommand() {
     }
@@ -88,7 +90,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         try {
             // TODO try catch, etc
             // no timeout here, the dispatcher takes care of that
-            runInternal();
+            result = runInternal();
         } catch (InterruptedException e) {
             // TODO
         } catch (Exception e) {
@@ -98,7 +100,11 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         }
     }
 
-    protected abstract void runInternal() throws InterruptedException;
+    /**
+     * @return result of command, may be null
+     * @throws InterruptedException in case that internal logic is waiting/joining/etc and that executing thread is interrupted
+     */
+    protected abstract R runInternal() throws InterruptedException;
 
     private void throwIfRunAlreadyCalled() {
         if (executionStartTime != null) {
@@ -172,11 +178,6 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     @Override
     public R get() throws InterruptedException, ExecutionException {
         return null;
-    }
-
-    @Override
-    public Optional<R> getOpt() throws InterruptedException, ExecutionException {
-        return Optional.empty();
     }
 
     /*

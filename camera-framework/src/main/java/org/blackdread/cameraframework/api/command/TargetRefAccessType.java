@@ -2,6 +2,7 @@ package org.blackdread.cameraframework.api.command;
 
 import com.google.common.collect.ImmutableSet;
 
+import javax.annotation.concurrent.Immutable;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -13,6 +14,7 @@ import static org.blackdread.cameraframework.api.command.TargetRefType.*;
  *
  * @author Yoann CAPLAIN
  */
+@Immutable
 public final class TargetRefAccessType {
 
     public static final TargetRefAccessType CAMERA_READ = new TargetRefAccessType(CAMERA, true, false);
@@ -25,6 +27,10 @@ public final class TargetRefAccessType {
 
     public static final TargetRefAccessType EVF_IMAGE_READ = new TargetRefAccessType(EVF_IMAGE, true, false);
 //    public static final TargetRefAccessType EVF_IMAGE_READ_WRITE = new TargetRefAccessType(EVF_IMAGE, true, true);
+
+    /*
+     * Groups must have only one same TargetRefType, different constants exist to have: READ/READ_WRITE/WRITE for same type
+     */
 
     public static final Set<TargetRefAccessType> GROUP_NONE = Collections.emptySet();
 
