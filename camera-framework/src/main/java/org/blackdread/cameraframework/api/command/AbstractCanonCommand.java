@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
 import static org.blackdread.cameraframework.util.TimeUtil.currentInstant;
@@ -28,8 +29,6 @@ import static org.blackdread.cameraframework.util.TimeUtil.currentInstant;
 public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, TargetRefCommand {
 
     protected static final Logger log = LoggerFactory.getLogger(AbstractCanonCommand.class);
-
-    // TODO timing to know execution time, delay time between creation and time run is called, etc...
 
     private final Instant createTime = currentInstant();
 
@@ -47,6 +46,9 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     // the type should maybe be CanonCommand<R> but with DecoratorCommand it is clearer
     private DecoratorCommand<R> decoratorCommand;
 
+    private final CountDownLatch resultBlocker = new CountDownLatch(1);
+
+    // Could do something similar to CompletableFuture
     private volatile R result;
     private volatile Throwable resultException;
 
@@ -62,12 +64,16 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     protected AbstractCanonCommand(final AbstractCanonCommand<R> toCopy) {
         // By default target ref is copied, it can be modified later with the public setter
         targetRef = toCopy.targetRef;
+        targetRefType = toCopy.targetRefType;
 
         // Values below not copied on purpose
         executionStartTime = null;
         executionEndTime = null;
+        result = null;
+        resultException = null;
 
-        // TODO will do later for decoratorCommand
+        // set to null, supposed to be set by camera or dispatcher but this is not used and maybe not necessary to have
+        decoratorCommand = null;
     }
 
     @SuppressWarnings("unchecked")
@@ -88,15 +94,16 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         throwIfRunAlreadyCalled();
         executionStartTime = currentInstant();
         try {
-            // TODO try catch, etc
             // no timeout here, the dispatcher takes care of that
             result = runInternal();
         } catch (InterruptedException e) {
-            // TODO
+            resultException = e;
         } catch (Exception e) {
-            // TODO
+            // same as interrupted catch for now
+            resultException = e;
         } finally {
             executionEndTime = currentInstant();
+            resultBlocker.countDown();
         }
     }
 
@@ -126,7 +133,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         } else if (targetRef instanceof EdsVolumeRef) {
             this.targetRefType = TargetRefType.VOLUME;
         } else if (targetRef instanceof EdsDirectoryItemRef) {
-            this.targetRefType = TargetRefType.VOLUME;
+            this.targetRefType = TargetRefType.DIRECTORY_ITEM;
         } else {
             throw new IllegalArgumentException("Target ref not supported");
         }
@@ -177,7 +184,18 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
 
     @Override
     public R get() throws InterruptedException, ExecutionException {
-        return null;
+        if (executionEndTime != null) {
+            if (resultException != null) {
+                throw new ExecutionException(resultException);
+            }
+            return result;
+        } else {
+            resultBlocker.await();
+            if (resultException != null) {
+                throw new ExecutionException(resultException);
+            }
+            return result;
+        }
     }
 
     /*

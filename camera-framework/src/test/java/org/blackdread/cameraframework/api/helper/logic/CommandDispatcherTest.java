@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,8 +64,9 @@ class CommandDispatcherTest {
         log.info("executionDuration: {}", executionDuration);
         Assertions.assertTrue(executionDuration.compareTo(TIMEOUT) > 0);
 
-        // TODO uncomment when implemented
-//        Assertions.assertThrows(InterruptedException.class, () -> timeoutCommand.get());
+        final ExecutionException exThrown = assertThrows(ExecutionException.class, () -> timeoutCommand.get());
+        assertTrue(exThrown.getCause() instanceof InterruptedException);
+        log.debug("Stack of ex:", exThrown);
     }
 
     @Test
