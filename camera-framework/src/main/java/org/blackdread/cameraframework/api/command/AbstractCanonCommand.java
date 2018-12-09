@@ -183,6 +183,11 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     }
 
     @Override
+    public boolean hasExecutionEnded() {
+        return executionEndTime != null;
+    }
+
+    @Override
     public R get() throws InterruptedException, ExecutionException {
         if (executionEndTime != null) {
             if (resultException != null) {

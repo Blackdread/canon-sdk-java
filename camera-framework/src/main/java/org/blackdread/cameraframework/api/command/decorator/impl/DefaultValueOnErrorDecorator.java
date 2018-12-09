@@ -13,11 +13,22 @@ public class DefaultValueOnErrorDecorator<R> extends AbstractDecoratorCommand<R>
 
     private final R defaultValue;
 
+    /**
+     * Return null or empty on exception
+     *
+     * @param delegate command to decorate
+     */
     public DefaultValueOnErrorDecorator(final CanonCommand<R> delegate) {
         super(delegate);
         this.defaultValue = null;
     }
 
+    /**
+     * Return the value passed on exception
+     *
+     * @param delegate     command to decorate
+     * @param defaultValue value on exception
+     */
     public DefaultValueOnErrorDecorator(final CanonCommand<R> delegate, final R defaultValue) {
         super(delegate);
         this.defaultValue = defaultValue;

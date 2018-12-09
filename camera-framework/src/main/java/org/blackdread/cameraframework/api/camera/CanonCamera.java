@@ -3,6 +3,7 @@ package org.blackdread.cameraframework.api.camera;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.GetPropertyCommand.ProductName;
+import org.blackdread.cameraframework.api.command.GetPropertyDescCommand;
 import org.blackdread.cameraframework.api.command.LiveViewCommand;
 import org.blackdread.cameraframework.api.command.SetPropertyCommand;
 import org.blackdread.cameraframework.api.command.ShootCommand;
@@ -155,8 +156,59 @@ public class CanonCamera {
         }
 
 
+        public GetPropertyDescCommand.ApertureDesc getAvailableApertureAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.ApertureDesc());
+        }
+
+        public GetPropertyDescCommand.ColorTemperatureDesc getAvailableColorTemperatureAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.ColorTemperatureDesc());
+        }
+
+        public GetPropertyDescCommand.DriveModeDesc getAvailableDriveModeAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.DriveModeDesc());
+        }
+
+        public GetPropertyDescCommand.ExposureCompensationDesc getAvailableExposureCompensationAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.ExposureCompensationDesc());
+        }
+
+        public GetPropertyDescCommand.ImageQualityDesc getAvailableImageQualityAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.ImageQualityDesc());
+        }
+
+        public GetPropertyDescCommand.IsoSpeedDesc getAvailableIsoSpeedAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.IsoSpeedDesc());
+        }
+
+        public GetPropertyDescCommand.MeteringModeDesc getAvailableMeteringModeAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.MeteringModeDesc());
+        }
+
+        public GetPropertyDescCommand.PictureStyleDesc getAvailablePictureStyleAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.PictureStyleDesc());
+        }
+
+        public GetPropertyDescCommand.ShutterSpeedDesc getAvailableShutterSpeedAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.ShutterSpeedDesc());
+        }
+
+        public GetPropertyDescCommand.LiveViewAutoFocusModeDesc getAvailableLiveViewAutoFocusModeAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.LiveViewAutoFocusModeDesc());
+        }
+
+        public GetPropertyDescCommand.LiveViewColorTemperatureDesc getAvailableLiveViewColorTemperatureAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.LiveViewColorTemperatureDesc());
+        }
+
+        public GetPropertyDescCommand.LiveViewWhiteBalanceDesc getAvailableLiveViewWhiteBalanceAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.LiveViewWhiteBalanceDesc());
+        }
+
+
+
         public SetPropertyCommand.IsoSpeed setIsoSpeedAsync(final EdsISOSpeed value) {
             return dispatchCommand(new SetPropertyCommand.IsoSpeed(value));
         }
+
     }
 }

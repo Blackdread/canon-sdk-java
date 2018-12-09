@@ -10,6 +10,9 @@ import java.util.Optional;
  */
 public interface TimeoutCommand {
 
+    /**
+     * @return timeout of command
+     */
     Optional<Duration> getTimeout();
 
 }

@@ -104,6 +104,12 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
         return getDelegate().getExecutionEndTime();
     }
 
+
+    @Override
+    public boolean hasExecutionEnded() {
+        return getDelegate().hasExecutionEnded();
+    }
+
     @Override
     public R get() throws InterruptedException, ExecutionException {
         return getDelegate().get();
