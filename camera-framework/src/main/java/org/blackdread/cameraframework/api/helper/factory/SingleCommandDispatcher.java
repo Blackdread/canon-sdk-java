@@ -104,6 +104,8 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
                             commandDispatcherThread.interrupt();
                             log.warn("A command has exceeded timeout, interrupt was triggered");
                             sleep(1);
+                        } else {
+                            // TODO sleep a bit
                         }
                     }
                 } catch (Exception e) {
