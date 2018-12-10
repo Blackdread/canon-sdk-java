@@ -47,3 +47,6 @@ If a setting is not set for a command, default global setting applies if any.
 - ~~ignore or not camera errors~~
 
 
+
+#### TODO
+- Add annotation to specify commands/methods and library functions that have been removed from SDK, allow to specify date, etc.

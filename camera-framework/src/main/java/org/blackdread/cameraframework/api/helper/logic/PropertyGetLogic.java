@@ -80,6 +80,7 @@ public interface PropertyGetLogic {
      */
     <T> T getPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long inParam);
 
+
     /**
      * Gets property information from the object designated in inRef.
      *
@@ -90,9 +91,7 @@ public interface PropertyGetLogic {
      * @param propertyData pointer that receives the data, the data type and value returned vary depending on the property
      * @return error from the camera, the real data is in the pointer <code>propertyData</code>
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
-     * @deprecated can keep but is only kind of shortcut to query camera then transform the result into an error enum. This is more an internal method
      */
-    @Deprecated
     default EdsdkError getPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long inParam,
                                        final long size, final Pointer propertyData) {
         return toEdsdkError(CanonFactory.edsdkLibrary().EdsGetPropertyData(ref, new NativeLong(property.value()), new NativeLong(inParam), new NativeLong(size), propertyData));

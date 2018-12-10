@@ -22,6 +22,7 @@ import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -93,16 +94,29 @@ public class CanonCamera {
         return command;
     }
 
-    public CommandBuilderReusable getCommandBuilderReusable() {
-        return commandBuilderReusable;
+    public Optional<EdsCameraRef> getCameraRef() {
+        return Optional.ofNullable(cameraRef);
+    }
+
+    /**
+     * May be used to set the camera but should usually be set automatically by the OpenSession command
+     *
+     * @param cameraRef actual camera to use
+     */
+    public void setCameraRef(final EdsCameraRef cameraRef) {
+        this.cameraRef = cameraRef;
+    }
+
+    public Optional<CommandBuilderReusable> getCommandBuilderReusable() {
+        return Optional.ofNullable(commandBuilderReusable);
     }
 
     public void setCommandBuilderReusable(final CommandBuilderReusable commandBuilderReusable) {
         this.commandBuilderReusable = commandBuilderReusable;
     }
 
-    public Duration getDefaultTimeout() {
-        return defaultTimeout;
+    public Optional<Duration> getDefaultTimeout() {
+        return Optional.ofNullable(defaultTimeout);
     }
 
     public void setDefaultTimeout(final Duration defaultTimeout) {
@@ -145,7 +159,7 @@ public class CanonCamera {
         return dispatchCommand(new StatusCommand(statusCommand));
     }
 
-    public final class Shoot {
+    public class Shoot {
 
         public List<File> shoot() throws ExecutionException, InterruptedException {
             return dispatchCommand(new ShootCommand()).get();
@@ -165,7 +179,7 @@ public class CanonCamera {
 
     }
 
-    public final class LiveView {
+    public class LiveView {
 
         public LiveViewCommand.Begin beginLiveViewAsync() {
             return dispatchCommand(new LiveViewCommand.Begin());
@@ -193,11 +207,7 @@ public class CanonCamera {
 
     }
 
-    public final class Property {
-
-        public String getProductName() throws ExecutionException, InterruptedException {
-            return dispatchCommand(new ProductName()).get();
-        }
+    public class Property {
 
         public ProductName getProductNameAsync() {
             return dispatchCommand(new ProductName());

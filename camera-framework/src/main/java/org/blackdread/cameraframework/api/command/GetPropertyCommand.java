@@ -1,7 +1,9 @@
 package org.blackdread.cameraframework.api.command;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetShortcutLogic;
 
@@ -20,18 +22,40 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.pro
  */
 public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
+    // TODO more fields are necessary to simplify get
+
+    private final EdsPropertyID propertyID;
+
+    private final long inParam;
+
     public GetPropertyCommand() {
+        propertyID = null;
+        inParam = 0;
+    }
+
+    public GetPropertyCommand(final EdsPropertyID propertyID, final long inParam) {
+        this.propertyID = propertyID;
+        this.inParam = inParam;
     }
 
     public GetPropertyCommand(final GetPropertyCommand<R> toCopy) {
         super(toCopy);
+        this.propertyID = toCopy.propertyID;
+        this.inParam = toCopy.inParam;
     }
 
     @Override
     protected R runInternal() {
-        // TODO generify get values so less duplicate code in runInternal() for get commands
-        System.out.println("impl 1");
-        return null;
+        /*
+         * Implementation to simplify get values so less duplicate code in runInternal() for get commands
+         * but we may get ClassCastException if wrong return type is used (shortcut methods are safer from this part).
+         * See ProductName where runInternal() is overridden, quite some boilerplate code.
+         *
+         * This implementation might not fit for all get, if it is the case then sub-class should override runInternal().
+         */
+        final Object data = CanonFactory.propertyGetLogic().getPropertyData(getTargetRefInternal(), propertyID, inParam);
+
+        throw new NotImplementedException("that's a pity...");
     }
 
     /**

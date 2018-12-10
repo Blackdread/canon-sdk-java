@@ -48,6 +48,9 @@ public class PropertySetLogicDefault implements PropertySetLogic {
         final int recalculatedSize;
         final Pointer data;
 
+        // TODO Add support to give a value of Long then is automatically changed to int/short/etc if necessary and throws if value is more than max bound of lower value (use Number class for that)
+        // TODO Add same behavior but from lower size to higher (long) (use Number class for that)
+
         switch (propertyType) {
             case kEdsDataType_Unknown:
                 throw new IllegalStateException("Unknown data type returned by camera to set property data");
