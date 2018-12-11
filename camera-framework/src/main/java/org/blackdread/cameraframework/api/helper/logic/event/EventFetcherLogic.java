@@ -25,7 +25,9 @@ package org.blackdread.cameraframework.api.helper.logic.event;
  *
  * @author Yoann CAPLAIN
  * @since 1.0.0
+ * @deprecated Kept as is (will not remove) but EDSDK might not work well with multi-thread, framework supports to fetch events directly in commands to not be dependent on this EventFetcherLogic
  */
+@Deprecated
 public interface EventFetcherLogic {
 
     /**
