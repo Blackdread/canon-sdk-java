@@ -10,6 +10,8 @@ import org.blackdread.cameraframework.api.constant.EdsdkError;
  */
 public abstract class EdsdkDeviceErrorException extends EdsdkErrorException {
 
+    private static final long serialVersionUID = 1L;
+
     public EdsdkDeviceErrorException(final EdsdkError edsdkError) {
         super(edsdkError);
     }

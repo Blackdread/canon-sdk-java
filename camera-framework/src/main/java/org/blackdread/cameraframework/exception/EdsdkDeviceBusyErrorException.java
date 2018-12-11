@@ -10,6 +10,8 @@ import org.blackdread.cameraframework.api.constant.EdsdkError;
  */
 public class EdsdkDeviceBusyErrorException extends EdsdkDeviceErrorException {
 
+    private static final long serialVersionUID = 1L;
+
     public EdsdkDeviceBusyErrorException() {
         super(EdsdkError.EDS_ERR_DEVICE_BUSY);
     }

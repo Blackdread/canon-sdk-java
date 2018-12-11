@@ -285,7 +285,7 @@ public interface PropertyGetShortcutLogic {
      */
     default int getJpegQuality(final EdsCameraRef camera) {
         final Integer value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_JpegQuality);
-        throw new NotImplementedException("");
+        return value;
     }
 
     /**
@@ -299,7 +299,7 @@ public interface PropertyGetShortcutLogic {
      */
     default int getJpegQuality(final EdsImageRef image) {
         final Integer value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_JpegQuality);
-        throw new NotImplementedException("");
+        return value;
     }
 
     /**
@@ -338,9 +338,9 @@ public interface PropertyGetShortcutLogic {
      * @return setting value of the camera in shooting mode
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    default EdsISOSpeed getAEMode(final EdsCameraRef camera) {
+    default EdsAEMode getAEMode(final EdsCameraRef camera) {
         final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_AEMode);
-        return EdsISOSpeed.ofValue(value.intValue());
+        return EdsAEMode.ofValue(value.intValue());
     }
 
     /**
@@ -352,9 +352,9 @@ public interface PropertyGetShortcutLogic {
      * @return setting value of the camera in shooting mode used to shoot the image
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    default EdsISOSpeed getAEMode(final EdsImageRef image) {
+    default EdsAEMode getAEMode(final EdsImageRef image) {
         final Long value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_AEMode);
-        return EdsISOSpeed.ofValue(value.intValue());
+        return EdsAEMode.ofValue(value.intValue());
     }
 
     /**
@@ -1100,7 +1100,7 @@ public interface PropertyGetShortcutLogic {
      * @return the lens name at the time of shooting
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    default long getLensName(final EdsImageRef image) {
+    default String getLensName(final EdsImageRef image) {
         return propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_LensName);
     }
 

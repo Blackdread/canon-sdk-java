@@ -1,6 +1,5 @@
 package org.blackdread.cameraframework.api.command.decorator.builder;
 
-import org.blackdread.cameraframework.api.command.AbstractCanonCommand;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.decorator.DecoratorCommand;
 import org.blackdread.cameraframework.api.command.decorator.impl.DefaultValueOnErrorDecorator;
@@ -97,7 +96,7 @@ public class CommandBuilder<T extends CommandBuilder<T, R>, R> {
 
 
     public static class SimpleBuilder<R> extends CommandBuilderReusable<CommandBuilder.SimpleBuilder<R>, R> {
-        public SimpleBuilder(final AbstractCanonCommand<R> canonCommand) {
+        public SimpleBuilder(final CanonCommand<R> canonCommand) {
             super(canonCommand);
         }
     }

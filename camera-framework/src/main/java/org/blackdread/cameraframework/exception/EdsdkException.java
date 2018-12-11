@@ -10,6 +10,8 @@ package org.blackdread.cameraframework.exception;
  */
 public abstract class EdsdkException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     protected EdsdkException(final String message) {
         super(message);
     }
