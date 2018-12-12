@@ -2,7 +2,10 @@ package org.blackdread.cameraframework.api.command;
 
 import org.blackdread.camerabinding.jna.EdsFocusInfo;
 import org.blackdread.camerabinding.jna.EdsPictureStyleDesc;
+import org.blackdread.camerabinding.jna.EdsPoint;
 import org.blackdread.camerabinding.jna.EdsRational;
+import org.blackdread.camerabinding.jna.EdsRect;
+import org.blackdread.camerabinding.jna.EdsSize;
 import org.blackdread.camerabinding.jna.EdsTime;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.*;
@@ -12,6 +15,7 @@ import org.blackdread.cameraframework.exception.UnsupportedTargetTypeException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetLogic;
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetShortcutLogic;
 
 /**
@@ -659,6 +663,63 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
         }
     }
 
+    public static class LiveViewCoordinateSystem extends GetPropertyCommand<EdsSize> {
+        public LiveViewCoordinateSystem() {
+        }
+
+        public LiveViewCoordinateSystem(final LiveViewCoordinateSystem toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected EdsSize runInternal() {
+            switch (getTargetRefType()) {
+                case EVF_IMAGE:
+                    return propertyGetShortcutLogic().getEvfCoordinateSystem((EdsdkLibrary.EdsEvfImageRef) getTargetRefInternal());
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
+    public static class LiveViewImagePosition extends GetPropertyCommand<EdsPoint> {
+        public LiveViewImagePosition() {
+        }
+
+        public LiveViewImagePosition(final LiveViewImagePosition toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected EdsPoint runInternal() {
+            switch (getTargetRefType()) {
+                case EVF_IMAGE:
+                    return propertyGetShortcutLogic().getEvfImagePosition((EdsdkLibrary.EdsEvfImageRef) getTargetRefInternal());
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
+    public static class LiveViewHistogram extends GetPropertyCommand<int[]> {
+        public LiveViewHistogram() {
+        }
+
+        public LiveViewHistogram(final LiveViewHistogram toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected int[] runInternal() {
+            switch (getTargetRefType()) {
+                case EVF_IMAGE:
+                    return propertyGetLogic().getPropertyData(getTargetRefInternal(), EdsPropertyID.kEdsPropID_Evf_Histogram);
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
     public static class LiveViewHistogramB extends GetPropertyCommand<int[]> {
         public LiveViewHistogramB() {
         }
@@ -766,7 +827,6 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
     public static class LiveViewWhiteBalance extends GetPropertyCommand<EdsWhiteBalance> {
         public LiveViewWhiteBalance() {
-            super(EdsPropertyID.kEdsPropID_Evf_OutputDevice, EdsEvfOutputDevice.class);
         }
 
         public LiveViewWhiteBalance(final LiveViewWhiteBalance toCopy) {
@@ -778,6 +838,44 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
             switch (getTargetRefType()) {
                 case CAMERA:
                     return propertyGetShortcutLogic().getEvfWhiteBalance((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
+    public static class LiveViewZoomPosition extends GetPropertyCommand<EdsPoint> {
+        public LiveViewZoomPosition() {
+        }
+
+        public LiveViewZoomPosition(final LiveViewZoomPosition toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected EdsPoint runInternal() {
+            switch (getTargetRefType()) {
+                case EVF_IMAGE:
+                    return propertyGetShortcutLogic().getEvfZoomPosition((EdsdkLibrary.EdsEvfImageRef) getTargetRefInternal());
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
+    public static class LiveViewZoomRectangle extends GetPropertyCommand<EdsRect> {
+        public LiveViewZoomRectangle() {
+        }
+
+        public LiveViewZoomRectangle(final LiveViewZoomRectangle toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected EdsRect runInternal() {
+            switch (getTargetRefType()) {
+                case EVF_IMAGE:
+                    return propertyGetShortcutLogic().getEvf_ZoomRect((EdsdkLibrary.EdsEvfImageRef) getTargetRefInternal());
                 default:
                     throw new UnsupportedTargetTypeException(getTargetRefType());
             }

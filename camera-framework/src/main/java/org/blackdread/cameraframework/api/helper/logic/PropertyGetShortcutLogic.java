@@ -5,6 +5,7 @@ import org.blackdread.camerabinding.jna.EdsFocusInfo;
 import org.blackdread.camerabinding.jna.EdsPoint;
 import org.blackdread.camerabinding.jna.EdsRational;
 import org.blackdread.camerabinding.jna.EdsRect;
+import org.blackdread.camerabinding.jna.EdsSize;
 import org.blackdread.camerabinding.jna.EdsTime;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsEvfImageRef;
@@ -1270,9 +1271,8 @@ public interface PropertyGetShortcutLogic {
      * @return the coordinate system of the live view image
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    default EdsISOSpeed getEvfCoordinateSystem(final EdsEvfImageRef evfImage) {
-        final Long value = propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_CoordinateSystem);
-        return EdsISOSpeed.ofValue(value.intValue());
+    default EdsSize getEvfCoordinateSystem(final EdsEvfImageRef evfImage) {
+        return propertyGetLogic().getPropertyData(evfImage, EdsPropertyID.kEdsPropID_Evf_CoordinateSystem);
     }
 
     /**
