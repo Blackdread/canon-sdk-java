@@ -896,7 +896,7 @@ public interface PropertyGetShortcutLogic {
      * </tbody>
      * </table>
      *
-     * @param camera ref of camera
+     * @param camera  ref of camera
      * @param inParam param
      * @return the tone curve
      * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}

@@ -57,7 +57,7 @@ final class ConstantUtil {
      * @return Native enum with value and class passed
      * @throws NullPointerException     if value is null
      * @throws IllegalArgumentException if value was not found in class passed
-     * @throws ClassCastException if type of data retrieved is not of what caller expects
+     * @throws ClassCastException       if type of data retrieved is not of what caller expects
      */
     @SuppressWarnings("unchecked")
     //    static NativeEnum<Integer> ofValue(final Class<? extends NativeEnum<Integer>> klass, final Integer value) {

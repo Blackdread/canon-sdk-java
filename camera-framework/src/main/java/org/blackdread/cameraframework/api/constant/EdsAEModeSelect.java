@@ -20,8 +20,8 @@ package org.blackdread.cameraframework.api.constant;
  * <p>Created on 2018/10/28.</p>
  *
  * @author Yoann CAPLAIN
- * @since 1.0.0
  * @see EdsAEMode
+ * @since 1.0.0
  */
 public enum EdsAEModeSelect implements NativeEnum<Integer> {
     kEdsAEModeSelect_Custom1(7, "Custom1"),
