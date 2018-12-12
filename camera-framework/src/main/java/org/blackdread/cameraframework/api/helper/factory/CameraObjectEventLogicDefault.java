@@ -5,6 +5,7 @@ import com.sun.jna.Pointer;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsObjectEventHandler;
 import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CanonObjectEvent;
@@ -21,6 +22,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUtil.*;
+import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
  * <p>Created on 2018/11/06.</p>
@@ -43,6 +45,9 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
      */
     private final ReentrantReadWriteLock listenerLock = new ReentrantReadWriteLock();
 
+    /**
+     * Used to keep handlers as strong reference but can be GC if EdsCameraRef is not anymore
+     */
     private final WeakHashMap<EdsCameraRef, EdsObjectEventHandler> handlerMap = new WeakHashMap<>();
 
     private final List<WeakReference<CameraObjectListener>> anyCameraListeners = new ArrayList<>();
@@ -57,7 +62,7 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
                 // this should not happen but who knows...
                 log.error("Received an event from a camera ref that is not referenced in the code anymore");
                 throw new IllegalStateException("Received an event from a camera ref that is not referenced in the code anymore");
-                // TODO we throw or we just return doing nothing
+                // we throw or we just return doing nothing
             }
             this.handle(new CanonObjectEventImpl(edsCameraRef, EdsObjectEvent.ofValue(inEvent.intValue()), inRef));
             return new NativeLong(0);
@@ -70,7 +75,7 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
      * @param event event to send
      */
     protected void handle(final CanonObjectEvent event) {
-        // TODO handle in this current thread or use common pool or custom thread for that...
+        // Must handle in current thread, is the one that called EdsGetEvent
         listenerLock.readLock().lock();
         try {
             notifyListeners(anyCameraListeners, event);
@@ -90,7 +95,10 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
         handlerLock.writeLock().lock();
         try {
             handlerMap.put(cameraRef, objectEventHandler);
-            CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), objectEventHandler, Pointer.NULL);
+            final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), objectEventHandler, Pointer.NULL));
+            if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                throw edsdkError.getException();
+            }
         } finally {
             handlerLock.writeLock().unlock();
         }
@@ -101,8 +109,12 @@ public class CameraObjectEventLogicDefault implements CameraObjectEventLogic {
         Objects.requireNonNull(cameraRef);
         handlerLock.writeLock().lock();
         try {
-            CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), null, Pointer.NULL);
+            final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsSetObjectEventHandler(cameraRef, new NativeLong(EdsObjectEvent.kEdsObjectEvent_All.value()), null, Pointer.NULL));
             handlerMap.remove(cameraRef);
+
+            if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                throw edsdkError.getException();
+            }
         } finally {
             handlerLock.writeLock().unlock();
         }

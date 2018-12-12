@@ -9,8 +9,8 @@ import java.io.File;
  * <p>Created on 2018/11/29.</p>
  *
  * @author Yoann CAPLAIN
- * @since 1.0.0
  * @see ShootOption ShootOption for documentation on options
+ * @since 1.0.0
  */
 public class ShootOptionBuilder {
     private int shootAttemptCount = 5;
@@ -21,7 +21,8 @@ public class ShootOptionBuilder {
     private EdsSaveTo saveTo = EdsSaveTo.kEdsSaveTo_Both;
     private boolean waitForItemDownloadEvent = true;
     private long busyWaitMillis = 200;
-    private boolean fetchEvents = false;
+    // Defult is true due to non multi-thread model
+    private boolean fetchEvents = true;
     private File folderDestination = null;
     private String filename = null;
 

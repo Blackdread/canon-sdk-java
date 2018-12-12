@@ -6,6 +6,7 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsPropertyEventHandler;
 import org.blackdread.cameraframework.api.constant.EdsPropertyEvent;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CanonPropertyEvent;
@@ -22,6 +23,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUtil.*;
+import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
  * <p>Created on 2018/11/09.</p>
@@ -58,7 +60,7 @@ public class CameraPropertyEventLogicDefault implements CameraPropertyEventLogic
                 // this should not happen but who knows...
                 log.error("Received an event from a camera ref that is not referenced in the code anymore");
                 throw new IllegalStateException("Received an event from a camera ref that is not referenced in the code anymore");
-                // TODO we throw or we just return doing nothing
+                // we throw or we just return doing nothing
             }
             this.handle(new CanonPropertyEventImpl(edsCameraRef, EdsPropertyEvent.ofValue(inEvent.intValue()), EdsPropertyID.ofValue(inPropertyID.intValue()), inParam.longValue()));
             return new NativeLong(0);
@@ -71,7 +73,7 @@ public class CameraPropertyEventLogicDefault implements CameraPropertyEventLogic
      * @param event event to send
      */
     protected void handle(final CanonPropertyEvent event) {
-        // TODO handle in this current thread or use common pool or custom thread for that...
+        // Must handle in current thread, is the one that called EdsGetEvent
         listenerLock.readLock().lock();
         try {
             notifyListeners(anyCameraListeners, event);
@@ -91,7 +93,10 @@ public class CameraPropertyEventLogicDefault implements CameraPropertyEventLogic
         handlerLock.writeLock().lock();
         try {
             handlerMap.put(cameraRef, propertyEventHandler);
-            CanonFactory.edsdkLibrary().EdsSetPropertyEventHandler(cameraRef, new NativeLong(EdsPropertyEvent.kEdsPropertyEvent_All.value()), propertyEventHandler, Pointer.NULL);
+            final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsSetPropertyEventHandler(cameraRef, new NativeLong(EdsPropertyEvent.kEdsPropertyEvent_All.value()), propertyEventHandler, Pointer.NULL));
+            if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                throw edsdkError.getException();
+            }
         } finally {
             handlerLock.writeLock().unlock();
         }
@@ -102,8 +107,12 @@ public class CameraPropertyEventLogicDefault implements CameraPropertyEventLogic
         Objects.requireNonNull(cameraRef);
         handlerLock.writeLock().lock();
         try {
-            CanonFactory.edsdkLibrary().EdsSetPropertyEventHandler(cameraRef, new NativeLong(EdsPropertyEvent.kEdsPropertyEvent_All.value()), null, Pointer.NULL);
+            final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsSetPropertyEventHandler(cameraRef, new NativeLong(EdsPropertyEvent.kEdsPropertyEvent_All.value()), null, Pointer.NULL));
             handlerMap.remove(cameraRef);
+
+            if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                throw edsdkError.getException();
+            }
         } finally {
             handlerLock.writeLock().unlock();
         }

@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public final class FrameworkInitialisation {
 
-    private boolean useEventFetcher = true;
+    private boolean useEventFetcher = false;
 
     /**
      * If null then left with default value of implementation
@@ -29,6 +29,11 @@ public final class FrameworkInitialisation {
 
     public FrameworkInitialisation withoutEventFetcherLogic() {
         useEventFetcher = false;
+        return this;
+    }
+
+    public FrameworkInitialisation withEventFetcherLogic() {
+        useEventFetcher = true;
         return this;
     }
 

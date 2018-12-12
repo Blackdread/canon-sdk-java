@@ -11,6 +11,10 @@ public interface CameraAddedEventLogic {
     /**
      * Register the handler for the camera added event of the library.
      * <p>Can be called many times, has no side effects. Nevertheless it makes more sense to call it once at the beginning of the program.</p>
+     * <br>
+     * <p>Due to Canon multi-thread model, it might be preferable to call this method from thread that initialized the SDK</p>
+     *
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void registerCameraAddedEvent();
 

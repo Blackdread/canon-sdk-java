@@ -13,8 +13,11 @@ public interface CameraStateEventLogic {
     /**
      * Register the handler for the camera state event of the camera passed.
      * <p>Can be called many times for same camera, has no side effects. Nevertheless it makes more sense to call it once per camera.</p>
+     * <br>
+     * <p>Due to Canon multi-thread model, it might be preferable to call this method from thread that initialized the SDK</p>
      *
      * @param cameraRef camera to register a handler with
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void registerCameraStateEvent(final EdsCameraRef cameraRef);
 
@@ -22,8 +25,11 @@ public interface CameraStateEventLogic {
      * Unregister the handler for the camera state event of the camera passed.
      * <p>Can be called many times for same camera, has no side effects</p>
      * <p>Listeners are not removed</p>
+     * <br>
+     * <p>Due to Canon multi-thread model, it might be preferable to call this method from thread that initialized the SDK</p>
      *
      * @param cameraRef camera to unregister a handler from
+     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void unregisterCameraStateEvent(final EdsCameraRef cameraRef);
 

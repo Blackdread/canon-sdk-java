@@ -3,6 +3,7 @@ package org.blackdread.cameraframework.api.helper.factory;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraAddedHandler;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedEventLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CanonEvent;
@@ -17,6 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUtil.cleanNullReferences;
 import static org.blackdread.cameraframework.api.helper.factory.WeakReferenceUtil.contains;
+import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
  * Default implementation of camera added event logic
@@ -51,7 +53,7 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
      * @param event event to send
      */
     protected void handle(final CanonEvent event) {
-        // TODO handle in this current thread or use common pool or custom thread for that...
+        // Must handle in current thread, is the one that called EdsGetEvent
         for (final WeakReference<CameraAddedListener> listener : listeners) {
             final CameraAddedListener cameraAddedListener = listener.get();
             if (cameraAddedListener != null) {
@@ -68,7 +70,10 @@ public class CameraAddedEventLogicDefault implements CameraAddedEventLogic {
     public void registerCameraAddedEvent() {
         // We could make this once with a variable to remember but anyway, library will discard previous one registered if any
         // Good to let it be registered again if for some reason library was terminated then re-initialized
-        CanonFactory.edsdkLibrary().EdsSetCameraAddedHandler(handler, Pointer.NULL);
+        final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsSetCameraAddedHandler(handler, Pointer.NULL));
+        if (edsdkError != EdsdkError.EDS_ERR_OK) {
+            throw edsdkError.getException();
+        }
     }
 
     @Override
