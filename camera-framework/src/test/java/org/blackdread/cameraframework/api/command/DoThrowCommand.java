@@ -11,6 +11,13 @@ import java.util.concurrent.ExecutionException;
  */
 public class DoThrowCommand extends AbstractCanonCommand<String> {
 
+    public DoThrowCommand() {
+    }
+
+    public DoThrowCommand(final DoThrowCommand toCopy) {
+        super(toCopy);
+    }
+
     @Override
     protected String runInternal() {
         throw new RuntimeException("I always throw");

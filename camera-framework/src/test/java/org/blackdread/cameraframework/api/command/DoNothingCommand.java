@@ -8,6 +8,13 @@ package org.blackdread.cameraframework.api.command;
  */
 public class DoNothingCommand extends AbstractCanonCommand<String> {
 
+    public DoNothingCommand() {
+    }
+
+    public DoNothingCommand(final DoNothingCommand toCopy) {
+        super(toCopy);
+    }
+
     @Override
     protected String runInternal() {
         return null;

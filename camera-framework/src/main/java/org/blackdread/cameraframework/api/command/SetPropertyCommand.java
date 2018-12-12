@@ -218,12 +218,12 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
         }
     }
 
-    public static class JPEGQuality extends SetPropertyCommand<Void> {
-        public JPEGQuality(final int value) {
+    public static class JpegQuality extends SetPropertyCommand<Void> {
+        public JpegQuality(final int value) {
             super(EdsPropertyID.kEdsPropID_JpegQuality, value);
         }
 
-        public JPEGQuality(final JPEGQuality toCopy) {
+        public JpegQuality(final JpegQuality toCopy) {
             super(toCopy);
         }
     }

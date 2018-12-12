@@ -74,6 +74,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         // By default target ref is copied, it can be modified later with the public setter
         targetRef = toCopy.targetRef;
         targetRefType = toCopy.targetRefType;
+        timeout = toCopy.timeout;
 
         // Values below not copied on purpose
         executionStartTime = null;

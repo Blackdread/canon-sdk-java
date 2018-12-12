@@ -114,7 +114,7 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
             super(propertyID, inParam);
         }
 
-        public ByProperty(final ByEnum toCopy) {
+        public ByProperty(final ByProperty toCopy) {
             super(toCopy);
         }
     }
@@ -268,6 +268,15 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
                 default:
                     throw new UnsupportedTargetTypeException(getTargetRefType());
             }
+        }
+    }
+
+    public static class SerialNumber extends BodyIDEx {
+        public SerialNumber() {
+        }
+
+        public SerialNumber(final SerialNumber toCopy) {
+            super(toCopy);
         }
     }
 

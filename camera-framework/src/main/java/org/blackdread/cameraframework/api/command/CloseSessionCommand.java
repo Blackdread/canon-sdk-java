@@ -5,6 +5,8 @@ import org.blackdread.cameraframework.api.camera.CanonCamera;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
+import java.util.Objects;
+
 import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
@@ -17,6 +19,9 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  */
 public class CloseSessionCommand extends AbstractCanonCommand<Void> {
 
+    /**
+     * May be null
+     */
     private final CanonCamera camera;
     private final EdsCameraRef cameraRef;
 
@@ -25,7 +30,7 @@ public class CloseSessionCommand extends AbstractCanonCommand<Void> {
      */
     public CloseSessionCommand(final EdsCameraRef cameraRef) {
         this.camera = null;
-        this.cameraRef = cameraRef;
+        this.cameraRef = Objects.requireNonNull(cameraRef);
     }
 
     /**
@@ -34,7 +39,7 @@ public class CloseSessionCommand extends AbstractCanonCommand<Void> {
      */
     public CloseSessionCommand(final CanonCamera camera, final EdsCameraRef cameraRef) {
         this.camera = camera;
-        this.cameraRef = cameraRef;
+        this.cameraRef = Objects.requireNonNull(cameraRef);
     }
 
     public CloseSessionCommand(final CloseSessionCommand toCopy) {

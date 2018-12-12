@@ -48,7 +48,7 @@ class ShootOptionBuilderTest {
         Assertions.assertEquals(5, shootOption.getShootAttemptCount());
         Assertions.assertEquals(200, shootOption.getBusyWaitMillis());
         Assertions.assertFalse(shootOption.isCheckLiveViewState());
-        Assertions.assertFalse(shootOption.isFetchEvents());
+        Assertions.assertTrue(shootOption.isFetchEvents());
         Assertions.assertTrue(shootOption.isShootWithAF());
         Assertions.assertTrue(shootOption.isShootWithNoAF());
         Assertions.assertTrue(shootOption.isShootWithV0());
