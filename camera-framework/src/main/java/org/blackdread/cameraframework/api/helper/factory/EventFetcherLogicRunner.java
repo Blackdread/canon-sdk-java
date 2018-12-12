@@ -18,15 +18,32 @@ import java.util.concurrent.ThreadFactory;
 import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
+ * <p>
+ * Ref API says that threads other than main thread shall:
+ * <br>
+ * When creating applications that run under Windows, a COM Initialisation is required for each thread in order to access a camera from a thread other than the main thread. To create a user thread and access the camera from that thread, be sure to execute CoInitializeEx(NULL, COINIT_APARTMENTTHREADED) at the start of the thread and CoUnInitialize() at the end.</p>
+ * <br>
+ * <p>Implementation use COINIT_MULTITHREADED as during tests in {@code ShootLogicCameraTest}, it has been shown that it would work for events but not with COINIT_APARTMENTTHREADED</p>
+ * <br>
+ * <p>It is important to note that tests revealed that to fetch events from camera required the thread that loaded the Edsdk library to be used (and it called {@code EdsInitializeSDK}), therefore it might be advisable to call {@code start()} at the beginning of the program to let this implementation initialize the library.
+ * <br>
+ * In any case it has been shown that {@code User32} implementation seems to be also impacted by precedent problem.
+ * <br>
+ * <br>
+ * One solution found is to call {@code CanonFactory.edsdkLibrary().EdsInitializeSDK();} before the fetch event loop (by the fetcher thread); if this solution is used then {@code stop()} should be handled with care as all cameras ref previously returned by library should be discarded.
+ * </p>
+ * <p>In case that {@link org.blackdread.cameraframework.api.helper.logic.CommandDispatcher} is used to initialize SDK and with the single thread implementation then commands may fetch events directly from implementation; also this implementation should not be used.</p>
  * <p>Created on 2018/12/05.</p>
  *
  * @author Yoann CAPLAIN
  * @since 1.0.0
+ * @deprecated Kept as is (will not remove) but EDSDK might not work well with multi-thread, framework supports to fetch events directly in commands to not be dependent on this EventFetcherLogic
  */
 @ThreadSafe
-public class EventFetcherLogicDefault implements EventFetcherLogic {
+@Deprecated
+public class EventFetcherLogicRunner implements EventFetcherLogic {
 
-    private static final Logger log = LoggerFactory.getLogger(EventFetcherLogicDefault.class);
+    private static final Logger log = LoggerFactory.getLogger(EventFetcherLogicRunner.class);
 
     /**
      * Sleep time after fetch event(s)
@@ -118,7 +135,7 @@ public class EventFetcherLogicDefault implements EventFetcherLogic {
      * TODO Not sure this is good to call, we do not want to release DLLs loaded by the thread... more test are necessary in ShootLogicCameraTest class
      * <p>Default implementation does nothing, {@code Ole32.INSTANCE.CoUninitialize();} is commented.
      * <br>
-     * See {@link EventFetcherLogicDefault#initializeOle32Thread()}
+     * See {@link EventFetcherLogicRunner#initializeOle32Thread()}
      * </p>
      * <br>
      * <p><b>Compatible only with windows!</b></p>

@@ -119,6 +119,11 @@ public class CanonCamera {
         return Optional.ofNullable(defaultTimeout);
     }
 
+    /**
+     * Default timeout set to commands created by this canon camera.
+     *
+     * @param defaultTimeout default timeout, may be null
+     */
     public void setDefaultTimeout(final Duration defaultTimeout) {
         this.defaultTimeout = defaultTimeout;
     }

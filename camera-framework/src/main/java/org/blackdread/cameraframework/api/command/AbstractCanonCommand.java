@@ -245,6 +245,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         this.timeout = timeout;
     }
 
+
     protected Duration getTimeoutInternal() {
         // TODO get the default timeout from global settings
         if (decoratorCommand == null) {

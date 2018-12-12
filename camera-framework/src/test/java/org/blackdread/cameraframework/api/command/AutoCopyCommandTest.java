@@ -69,7 +69,7 @@ public class AutoCopyCommandTest {
 
             final Set<? extends Class<?>> classes = allClasses.asList().stream()
                 .filter(info -> !info.getSimpleName().endsWith("Test"))
-//                .filter(info -> info.getSimpleName().endsWith("Command"))
+//                .filter(info -> info.getSimpleName().endsWith("Command")) do not put as not all commands end with that
                 .map(ClassPath.ClassInfo::load)
                 .filter(CanonCommand.class::isAssignableFrom)
                 .filter(aClass -> !aClass.isInterface())

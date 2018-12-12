@@ -37,7 +37,7 @@ public class CanonFactory {
     // TODO this is not lazy...
     private static final CommandDispatcher commandDispatcher = SingleCommandDispatcher.getInstance();
 
-    private static final EventFetcherLogic eventFetcherLogic = new EventFetcherLogicDefault();
+    private static final EventFetcherLogic eventFetcherLogic = new EventFetcherCommandLogicDefault();
 
     // TODO if factory is changed, we should give protected method to let user modify or set to null those variables
     private static final CanonLibrary canonLibrary = new CanonLibraryImpl();
