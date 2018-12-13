@@ -6,6 +6,7 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.constant.NativeEnum;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
 import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
@@ -49,7 +50,7 @@ public interface PropertySetLogic {
      * @param property the property id
      * @param inParam  designate additional property information. Use additional property information if multiple items of information such as picture styles can be set or retrieved for a property. For descriptions of values that can be designated for each property, see the description of inParam for EdsGetPropertyData
      * @param value    designate the property data to set
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @throws ClassCastException                                           if the object {@code value} does not match the type of the property to set
      */
     void setPropertyDataAdvanced(final EdsBaseRef ref, final EdsPropertyID property,

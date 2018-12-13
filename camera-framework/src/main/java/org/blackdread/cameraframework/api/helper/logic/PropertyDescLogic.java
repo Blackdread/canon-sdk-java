@@ -6,6 +6,7 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.constant.NativeEnum;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,7 +52,7 @@ public interface PropertyDescLogic {
      * @param <T>      T type of return value (allows to not cast at the caller)
      * @return list of available settings for the given property
      * @throws IllegalArgumentException                                     if {@code property} is not supported by this method
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @throws ClassCastException                                           if type of data retrieved is not of what caller expects
      */
     <T extends NativeEnum<Integer>> List<T> getPropertyDesc(final EdsBaseRef camera, final EdsPropertyID property);
@@ -59,7 +60,7 @@ public interface PropertyDescLogic {
     /**
      * @param camera the target object. Designate EdsCameraRef
      * @return list of available settings for {@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_ColorTemperature}
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default List<Integer> getPropertyDescColorTemperature(final EdsBaseRef camera) {
         return getPropertyDescValues(camera, EdsPropertyID.kEdsPropID_ColorTemperature);
@@ -68,7 +69,7 @@ public interface PropertyDescLogic {
     /**
      * @param camera the target object. Designate EdsCameraRef
      * @return list of available settings for {@link org.blackdread.cameraframework.api.constant.EdsPropertyID#kEdsPropID_Evf_ColorTemperature}
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default List<Integer> getPropertyDescEvfColorTemperature(final EdsBaseRef camera) {
         return getPropertyDescValues(camera, EdsPropertyID.kEdsPropID_Evf_ColorTemperature);
@@ -80,7 +81,7 @@ public interface PropertyDescLogic {
      * @param camera   the target object. Designate EdsCameraRef
      * @param property the property ID (see Reference API for possible values)
      * @return list of values contained in the structure {@link EdsPropertyDesc}
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default List<Integer> getPropertyDescValues(final EdsBaseRef camera, final EdsPropertyID property) {
         final EdsPropertyDesc propertyDesc = getPropertyDescStructure(camera, property);
@@ -107,7 +108,7 @@ public interface PropertyDescLogic {
      * @param ref      the target object. Designate EdsCameraRef
      * @param property the property ID (see Reference API for possible values)
      * @return EdsPropertyDesc structure for getting a list of property data that can currently be set in the target object
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default EdsPropertyDesc getPropertyDescStructure(final EdsBaseRef ref, final EdsPropertyID property) {
         final EdsPropertyDesc propertyDesc = new EdsPropertyDesc();

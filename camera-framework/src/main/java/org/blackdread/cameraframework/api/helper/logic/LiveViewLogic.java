@@ -3,6 +3,7 @@ package org.blackdread.cameraframework.api.helper.logic;
 import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 import java.awt.image.BufferedImage;
 
@@ -28,7 +29,7 @@ public interface LiveViewLogic {
      * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "starting" live view.
      *
      * @param camera ref of camera
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void enableLiveView(final EdsCameraRef camera) {
         CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 1L);
@@ -42,7 +43,7 @@ public interface LiveViewLogic {
      * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "stopping" live view.
      *
      * @param camera ref of camera
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void disableLiveView(final EdsCameraRef camera) {
         CanonFactory.propertySetLogic().setPropertyData(camera, EdsPropertyID.kEdsPropID_Evf_Mode, 0L);
@@ -58,7 +59,7 @@ public interface LiveViewLogic {
      * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "starting" live view.
      *
      * @param camera ref of camera
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void beginLiveView(final EdsCameraRef camera) {
         beginLiveView(camera, EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
@@ -75,7 +76,7 @@ public interface LiveViewLogic {
      *
      * @param camera             ref of camera
      * @param edsEvfOutputDevice device that will receive the live view
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void beginLiveView(final EdsCameraRef camera, final EdsEvfOutputDevice edsEvfOutputDevice);
 
@@ -87,7 +88,7 @@ public interface LiveViewLogic {
      * Camera will return <b>BUSY error</b> for about 1-2 seconds, as the camera is "stopping" live view.
      *
      * @param camera ref of camera
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void endLiveView(final EdsCameraRef camera);
 
@@ -96,7 +97,7 @@ public interface LiveViewLogic {
      *
      * @param camera ref of camera
      * @return true if live view is allowed to be <b>enabled</b>
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     boolean isLiveViewEnabled(final EdsCameraRef camera);
 
@@ -115,7 +116,7 @@ public interface LiveViewLogic {
      *
      * @param camera ref of camera
      * @return live view image as a BufferedImage
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     BufferedImage getLiveViewImage(final EdsCameraRef camera);
 
@@ -124,7 +125,7 @@ public interface LiveViewLogic {
      *
      * @param camera ref of camera
      * @return live view image as a byte array
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     byte[] getLiveViewImageBuffer(final EdsCameraRef camera);
 
@@ -135,7 +136,7 @@ public interface LiveViewLogic {
      *
      * @param camera ref of camera
      * @return live view image reference
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     LiveViewReference getLiveViewImageReference(final EdsCameraRef camera);
 

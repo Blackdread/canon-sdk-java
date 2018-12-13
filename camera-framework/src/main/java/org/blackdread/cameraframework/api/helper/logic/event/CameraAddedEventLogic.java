@@ -1,5 +1,7 @@
 package org.blackdread.cameraframework.api.helper.logic.event;
 
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
+
 /**
  * <p>Created on 2018/11/04.</p>
  *
@@ -14,7 +16,7 @@ public interface CameraAddedEventLogic {
      * <br>
      * <p>Due to Canon multi-thread model, it might be preferable to call this method from thread that initialized the SDK</p>
      *
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void registerCameraAddedEvent();
 

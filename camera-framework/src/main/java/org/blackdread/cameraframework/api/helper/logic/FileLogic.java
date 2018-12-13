@@ -2,6 +2,7 @@ package org.blackdread.cameraframework.api.helper.logic;
 
 import org.blackdread.camerabinding.jna.EdsDirectoryItemInfo;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -21,7 +22,7 @@ public interface FileLogic {
      *
      * @param directoryItem item to download
      * @return final destination of the downloaded file on success (may differ from expected result)
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see FileLogic#download(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef, File, String) download(EdsDirectoryItemRef, File, String) for complete documentation
      */
     default File download(final EdsDirectoryItemRef directoryItem) {
@@ -34,7 +35,7 @@ public interface FileLogic {
      * @param directoryItem item to download
      * @param filename      filename of downloaded file, value can be any of "myFileName" or "myFileName.myExtension", if first example is used then extension given by camera is used
      * @return final destination of the downloaded file on success (may differ from expected result)
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see FileLogic#download(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef, File, String) download(EdsDirectoryItemRef, File, String) for complete documentation
      */
     default File download(final EdsDirectoryItemRef directoryItem, final String filename) {
@@ -47,7 +48,7 @@ public interface FileLogic {
      * @param directoryItem     item to download
      * @param folderDestination destination folder where downloaded file should be saved
      * @return final destination of the downloaded file on success (may differ from expected result)
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see FileLogic#download(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef, File, String) download(EdsDirectoryItemRef, File, String) for complete documentation
      */
     default File download(final EdsDirectoryItemRef directoryItem, final File folderDestination) {
@@ -82,7 +83,7 @@ public interface FileLogic {
      * @param folderDestination destination folder where downloaded file should be saved. If null, a default folder will be used (default is system temp directory)
      * @param filename          filename of downloaded file, value can be any of "myFileName" or "myFileName.myExtension", if first example is used then extension given by camera is used. If null, filename will be the one given by the camera
      * @return final destination of the downloaded file on success (may differ from expected result)
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     File download(final EdsDirectoryItemRef directoryItem, @Nullable final File folderDestination, @Nullable final String filename);
 
@@ -94,7 +95,7 @@ public interface FileLogic {
      * This operation need not be executed when using EdsDownloadThumbnail.
      *
      * @param directoryItem designate the file for which to complete the downloading process
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void downloadComplete(final EdsDirectoryItemRef directoryItem);
 
@@ -106,7 +107,7 @@ public interface FileLogic {
      * In case that camera is set to save files on host computer, then on event like {@link org.blackdread.cameraframework.api.constant.EdsObjectEvent#kEdsObjectEvent_DirItemRequestTransfer} or {@link org.blackdread.cameraframework.api.constant.EdsObjectEvent#kEdsObjectEvent_DirItemRequestTransferDT} that are not needed, this method should be called.
      *
      * @param directoryItem designate the file for which to cancel downloading
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void downloadCancel(final EdsDirectoryItemRef directoryItem);
 }

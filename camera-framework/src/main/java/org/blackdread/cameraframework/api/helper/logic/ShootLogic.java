@@ -5,6 +5,7 @@ import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.builder.ShootOptionBuilder;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 import java.io.File;
 import java.util.List;
@@ -36,7 +37,7 @@ public interface ShootLogic {
      * <br>
      *
      * @param camera ref of camera
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void shootV0(final EdsCameraRef camera) {
         cameraLogic().sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
@@ -48,7 +49,7 @@ public interface ShootLogic {
      * If AF is "enabled" then it might fail to do it and camera will return an error {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_TAKE_PICTURE_AF_NG}
      *
      * @param camera ref of camera
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void shootAF(final EdsCameraRef camera) {
         cameraLogic().sendCommand(camera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
@@ -59,7 +60,7 @@ public interface ShootLogic {
      * Execute shoot without AF
      *
      * @param camera ref of camera
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void shootNoAF(final EdsCameraRef camera) {
         cameraLogic().sendCommand(camera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);

@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.api.helper.logic.event;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 /**
  * <p>Created on 2018/11/04.</p>
@@ -17,7 +18,7 @@ public interface CameraObjectEventLogic {
      * <p>Due to Canon multi-thread model, it might be preferable to call this method from thread that initialized the SDK</p>
      *
      * @param cameraRef camera to register a handler with
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void registerCameraObjectEvent(final EdsCameraRef cameraRef);
 
@@ -29,7 +30,7 @@ public interface CameraObjectEventLogic {
      * <p>Due to Canon multi-thread model, it might be preferable to call this method from thread that initialized the SDK</p>
      *
      * @param cameraRef camera to unregister a handler from
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void unregisterCameraObjectEvent(final EdsCameraRef cameraRef);
 

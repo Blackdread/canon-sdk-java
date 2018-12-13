@@ -1,8 +1,20 @@
 package org.blackdread.cameraframework.api.constant;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
-import org.blackdread.cameraframework.exception.EdsdkDeviceBusyErrorException;
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommBufferFullErrorException;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommDeviceIncompatibleErrorException;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommDisconnectedErrorException;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommPortInUseErrorException;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommUsbBusErrorException;
+import org.blackdread.cameraframework.exception.error.device.*;
+import org.blackdread.cameraframework.exception.error.dir.EdsdkDirEntryExistsErrorException;
+import org.blackdread.cameraframework.exception.error.dir.EdsdkDirEntryNotFoundErrorException;
+import org.blackdread.cameraframework.exception.error.dir.EdsdkDirIOErrorException;
+import org.blackdread.cameraframework.exception.error.dir.EdsdkDirNotEmptyErrorException;
+import org.blackdread.cameraframework.exception.error.dir.EdsdkDirNotFoundErrorException;
+import org.blackdread.cameraframework.exception.error.picture.*;
+import org.blackdread.cameraframework.exception.error.stream.*;
 import org.blackdread.cameraframework.util.LibraryFieldUtil;
 
 import static org.blackdread.cameraframework.api.constant.ErrorType.*;
@@ -225,8 +237,260 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
     @SuppressWarnings("unchecked")
     public <T extends EdsdkErrorException> T getException() {
         switch (this) {
+//            case EDS_ERR_UNIMPLEMENTED:
+//                break;
+//            case EDS_ERR_INTERNAL_ERROR:
+//                break;
+//            case EDS_ERR_MEM_ALLOC_FAILED:
+//                break;
+//            case EDS_ERR_MEM_FREE_FAILED:
+//                break;
+//            case EDS_ERR_OPERATION_CANCELLED:
+//                break;
+//            case EDS_ERR_INCOMPATIBLE_VERSION:
+//                break;
+//            case EDS_ERR_NOT_SUPPORTED:
+//                break;
+//            case EDS_ERR_UNEXPECTED_EXCEPTION:
+//                break;
+//            case EDS_ERR_PROTECTION_VIOLATION:
+//                break;
+//            case EDS_ERR_MISSING_SUBCOMPONENT:
+//                break;
+//            case EDS_ERR_SELECTION_UNAVAILABLE:
+//                break;
+//            case EDS_ERR_FILE_IO_ERROR:
+//                break;
+//            case EDS_ERR_FILE_TOO_MANY_OPEN:
+//                break;
+//            case EDS_ERR_FILE_NOT_FOUND:
+//                break;
+//            case EDS_ERR_FILE_OPEN_ERROR:
+//                break;
+//            case EDS_ERR_FILE_CLOSE_ERROR:
+//                break;
+//            case EDS_ERR_FILE_SEEK_ERROR:
+//                break;
+//            case EDS_ERR_FILE_TELL_ERROR:
+//                break;
+//            case EDS_ERR_FILE_READ_ERROR:
+//                break;
+//            case EDS_ERR_FILE_WRITE_ERROR:
+//                break;
+//            case EDS_ERR_FILE_PERMISSION_ERROR:
+//                break;
+//            case EDS_ERR_FILE_DISK_FULL_ERROR:
+//                break;
+//            case EDS_ERR_FILE_ALREADY_EXISTS:
+//                break;
+//            case EDS_ERR_FILE_FORMAT_UNRECOGNIZED:
+//                break;
+//            case EDS_ERR_FILE_DATA_CORRUPT:
+//                break;
+//            case EDS_ERR_FILE_NAMING_NA:
+//                break;
+            case EDS_ERR_DIR_NOT_FOUND:
+                return (T) new EdsdkDirNotFoundErrorException();
+            case EDS_ERR_DIR_IO_ERROR:
+                return (T) new EdsdkDirIOErrorException();
+            case EDS_ERR_DIR_ENTRY_NOT_FOUND:
+                return (T) new EdsdkDirEntryNotFoundErrorException();
+            case EDS_ERR_DIR_ENTRY_EXISTS:
+                return (T) new EdsdkDirEntryExistsErrorException();
+            case EDS_ERR_DIR_NOT_EMPTY:
+                return (T) new EdsdkDirNotEmptyErrorException();
+//            case EDS_ERR_PROPERTIES_UNAVAILABLE:
+//                break;
+//            case EDS_ERR_PROPERTIES_MISMATCH:
+//                break;
+//            case EDS_ERR_PROPERTIES_NOT_LOADED:
+//                break;
+//            case EDS_ERR_INVALID_PARAMETER:
+//                break;
+//            case EDS_ERR_INVALID_HANDLE:
+//                break;
+//            case EDS_ERR_INVALID_POINTER:
+//                break;
+//            case EDS_ERR_INVALID_INDEX:
+//                break;
+//            case EDS_ERR_INVALID_LENGTH:
+//                break;
+//            case EDS_ERR_INVALID_FN_POINTER:
+//                break;
+//            case EDS_ERR_INVALID_SORT_FN:
+//                break;
+            case EDS_ERR_DEVICE_NOT_FOUND:
+                return (T) new EdsdkDeviceNotFoundErrorException();
             case EDS_ERR_DEVICE_BUSY:
                 return (T) new EdsdkDeviceBusyErrorException();
+            case EDS_ERR_DEVICE_INVALID:
+                return (T) new EdsdkDeviceInvalidErrorException();
+            case EDS_ERR_DEVICE_EMERGENCY:
+                return (T) new EdsdkDeviceEmergencyErrorException();
+            case EDS_ERR_DEVICE_MEMORY_FULL:
+                return (T) new EdsdkDeviceMemoryFullErrorException();
+            case EDS_ERR_DEVICE_INTERNAL_ERROR:
+                return (T) new EdsdkDeviceInternalErrorException();
+            case EDS_ERR_DEVICE_INVALID_PARAMETER:
+                return (T) new EdsdkDeviceInvalidParameterErrorException();
+            case EDS_ERR_DEVICE_NO_DISK:
+                return (T) new EdsdkDeviceNoDiskErrorException();
+            case EDS_ERR_DEVICE_DISK_ERROR:
+                return (T) new EdsdkDeviceDiskErrorException();
+            case EDS_ERR_DEVICE_CF_GATE_CHANGED:
+                return (T) new EdsdkDeviceCfGateChangedErrorException();
+            case EDS_ERR_DEVICE_DIAL_CHANGED:
+                return (T) new EdsdkDeviceDialChangedErrorException();
+            case EDS_ERR_DEVICE_NOT_INSTALLED:
+                return (T) new EdsdkDeviceNotInstalledErrorException();
+            case EDS_ERR_DEVICE_STAY_AWAKE:
+                return (T) new EdsdkDeviceStayAwakeErrorException();
+            case EDS_ERR_DEVICE_NOT_RELEASED:
+                return (T) new EdsdkDeviceNotReleasedErrorException();
+            case EDS_ERR_STREAM_IO_ERROR:
+                return (T) new EdsdkStreamIOErrorException();
+            case EDS_ERR_STREAM_NOT_OPEN:
+                return (T) new EdsdkStreamNotOpenErrorException();
+            case EDS_ERR_STREAM_ALREADY_OPEN:
+                return (T) new EdsdkStreamAlreadyOpenErrorException();
+            case EDS_ERR_STREAM_OPEN_ERROR:
+                return (T) new EdsdkStreamOpenErrorException();
+            case EDS_ERR_STREAM_CLOSE_ERROR:
+                return (T) new EdsdkStreamCloseErrorException();
+            case EDS_ERR_STREAM_SEEK_ERROR:
+                return (T) new EdsdkStreamSeekErrorException();
+            case EDS_ERR_STREAM_TELL_ERROR:
+                return (T) new EdsdkStreamTellErrorException();
+            case EDS_ERR_STREAM_READ_ERROR:
+                return (T) new EdsdkStreamReadErrorException();
+            case EDS_ERR_STREAM_WRITE_ERROR:
+                return (T) new EdsdkStreamWriteErrorException();
+            case EDS_ERR_STREAM_PERMISSION_ERROR:
+                return (T) new EdsdkStreamPermissionErrorException();
+            case EDS_ERR_STREAM_COULDNT_BEGIN_THREAD:
+                return (T) new EdsdkStreamBeginThreadErrorException();
+            case EDS_ERR_STREAM_BAD_OPTIONS:
+                return (T) new EdsdkStreamBadOptionsErrorException();
+            case EDS_ERR_STREAM_END_OF_STREAM:
+                return (T) new EdsdkStreamEndStreamErrorException();
+            case EDS_ERR_COMM_PORT_IS_IN_USE:
+                return (T) new EdsdkCommPortInUseErrorException();
+            case EDS_ERR_COMM_DISCONNECTED:
+                return (T) new EdsdkCommDisconnectedErrorException();
+            case EDS_ERR_COMM_DEVICE_INCOMPATIBLE:
+                return (T) new EdsdkCommDeviceIncompatibleErrorException();
+            case EDS_ERR_COMM_BUFFER_FULL:
+                return (T) new EdsdkCommBufferFullErrorException();
+            case EDS_ERR_COMM_USB_BUS_ERR:
+                return (T) new EdsdkCommUsbBusErrorException();
+//            case EDS_ERR_USB_DEVICE_LOCK_ERROR:
+//                break;
+//            case EDS_ERR_USB_DEVICE_UNLOCK_ERROR:
+//                break;
+//            case EDS_ERR_STI_UNKNOWN_ERROR:
+//                break;
+//            case EDS_ERR_STI_INTERNAL_ERROR:
+//                break;
+//            case EDS_ERR_STI_DEVICE_CREATE_ERROR:
+//                break;
+//            case EDS_ERR_STI_DEVICE_RELEASE_ERROR:
+//                break;
+//            case EDS_ERR_DEVICE_NOT_LAUNCHED:
+//                break;
+//            case EDS_ERR_SESSION_NOT_OPEN:
+//                break;
+//            case EDS_ERR_INVALID_TRANSACTIONID:
+//                break;
+//            case EDS_ERR_INCOMPLETE_TRANSFER:
+//                break;
+//            case EDS_ERR_INVALID_STRAGEID:
+//                break;
+//            case EDS_ERR_DEVICEPROP_NOT_SUPPORTED:
+//                break;
+//            case EDS_ERR_INVALID_OBJECTFORMATCODE:
+//                break;
+//            case EDS_ERR_SELF_TEST_FAILED:
+//                break;
+//            case EDS_ERR_PARTIAL_DELETION:
+//                break;
+//            case EDS_ERR_SPECIFICATION_BY_FORMAT_UNSUPPORTED:
+//                break;
+//            case EDS_ERR_NO_VALID_OBJECTINFO:
+//                break;
+//            case EDS_ERR_INVALID_CODE_FORMAT:
+//                break;
+//            case EDS_ERR_UNKNOWN_VENDOR_CODE:
+//                break;
+//            case EDS_ERR_CAPTURE_ALREADY_TERMINATED:
+//                break;
+//            case EDS_ERR_PTP_DEVICE_BUSY:
+//                break;
+//            case EDS_ERR_INVALID_PARENTOBJECT:
+//                break;
+//            case EDS_ERR_INVALID_DEVICEPROP_FORMAT:
+//                break;
+//            case EDS_ERR_INVALID_DEVICEPROP_VALUE:
+//                break;
+//            case EDS_ERR_SESSION_ALREADY_OPEN:
+//                break;
+//            case EDS_ERR_TRANSACTION_CANCELLED:
+//                break;
+//            case EDS_ERR_SPECIFICATION_OF_DESTINATION_UNSUPPORTED:
+//                break;
+//            case EDS_ERR_NOT_CAMERA_SUPPORT_SDK_VERSION:
+//                break;
+//            case EDS_ERR_UNKNOWN_COMMAND:
+//                break;
+//            case EDS_ERR_OPERATION_REFUSED:
+//                break;
+//            case EDS_ERR_LENS_COVER_CLOSE:
+//                break;
+//            case EDS_ERR_LOW_BATTERY:
+//                break;
+//            case EDS_ERR_OBJECT_NOTREADY:
+//                break;
+//            case EDS_ERR_CANNOT_MAKE_OBJECT:
+//                break;
+//            case EDS_ERR_MEMORYSTATUS_NOTREADY:
+//                break;
+            case EDS_ERR_TAKE_PICTURE_AF_NG:
+                return (T) new EdsdkPictureAutoFocusFailedErrorException();
+//            case EDS_ERR_TAKE_PICTURE_RESERVED:
+//                return (T) new EdsdkPicture();
+            case EDS_ERR_TAKE_PICTURE_MIRROR_UP_NG:
+                return (T) new EdsdkPictureMirrorUpErrorException();
+            case EDS_ERR_TAKE_PICTURE_SENSOR_CLEANING_NG:
+                return (T) new EdsdkPictureSensorCleaningErrorException();
+            case EDS_ERR_TAKE_PICTURE_SILENCE_NG:
+                return (T) new EdsdkPictureSilenceErrorException();
+            case EDS_ERR_TAKE_PICTURE_NO_CARD_NG:
+                return (T) new EdsdkPictureNoCardErrorException();
+            case EDS_ERR_TAKE_PICTURE_CARD_NG:
+                return (T) new EdsdkPictureWriteCardErrorException();
+            case EDS_ERR_TAKE_PICTURE_CARD_PROTECT_NG:
+                return (T) new EdsdkPictureCardProtectErrorException();
+            case EDS_ERR_TAKE_PICTURE_MOVIE_CROP_NG:
+                return (T) new EdsdkPictureMovieCropErrorException();
+            case EDS_ERR_TAKE_PICTURE_STROBO_CHARGE_NG:
+                return (T) new EdsdkPictureStroboChargeErrorException();
+            case EDS_ERR_TAKE_PICTURE_NO_LENS_NG:
+                return (T) new EdsdkPictureNoLensErrorException();
+            case EDS_ERR_TAKE_PICTURE_SPECIAL_MOVIE_MODE_NG:
+                return (T) new EdsdkPictureSpecialMovieErrorException();
+            case EDS_ERR_TAKE_PICTURE_LV_REL_PROHIBIT_MODE_NG:
+                return (T) new EdsdkPictureLvProhibitedErrorException();
+//            case EDS_ERR_ENUM_NA:
+//                break;
+//            case EDS_ERR_INVALID_FN_CALL:
+//                break;
+//            case EDS_ERR_HANDLE_NOT_FOUND:
+//                break;
+//            case EDS_ERR_INVALID_ID:
+//                break;
+//            case EDS_ERR_WAIT_TIMEOUT_ERROR:
+//                break;
+//            case EDS_ERR_LAST_GENERIC_ERROR_PLUS_ONE:
+//                break;
             default:
                 return (T) new EdsdkErrorException(this);
         }

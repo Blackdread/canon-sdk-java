@@ -2,7 +2,7 @@ package org.blackdread.cameraframework.util;
 
 import com.sun.jna.NativeLong;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

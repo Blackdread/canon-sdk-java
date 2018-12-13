@@ -7,6 +7,7 @@ import org.blackdread.cameraframework.api.constant.EdsEvfAf;
 import org.blackdread.cameraframework.api.constant.EdsEvfDriveLens;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
@@ -26,7 +27,7 @@ public interface CameraLogic {
      * Should be called before each shooting when destination is set to computer, otherwise shooting may not work as camera will consider destination as full.
      *
      * @param camera the reference of the camera which will receive the command
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #setCapacity(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, int, int)
      */
     default void setCapacity(final EdsCameraRef camera) {
@@ -40,7 +41,7 @@ public interface CameraLogic {
      *
      * @param camera   the reference of the camera which will receive the command
      * @param capacity The remaining capacity of a transmission place
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      * @see #setCapacity(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, int, int)
      */
     default void setCapacity(final EdsCameraRef camera, final int capacity) {
@@ -59,7 +60,7 @@ public interface CameraLogic {
      * @param camera         the reference of the camera which will receive the command
      * @param capacity       the remaining capacity of a transmission place.
      * @param bytesPerSector bytes taken for each sector (smaller means more space)
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     void setCapacity(final EdsCameraRef camera, final int capacity, final int bytesPerSector);
 
@@ -67,7 +68,7 @@ public interface CameraLogic {
     /**
      * @param camera the reference of the camera which will receive the command
      * @return true if mirror lockup is enabled
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     boolean isMirrorLockupEnabled(final EdsCameraRef camera);
 
@@ -78,7 +79,7 @@ public interface CameraLogic {
      * @param camera  the reference of the camera which will receive the command
      * @param command command to send
      * @throws IllegalArgumentException                                     if command is not supported by this method
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void sendCommand(final EdsCameraRef camera, final EdsCameraCommand command) {
         // Fail fast
@@ -100,7 +101,7 @@ public interface CameraLogic {
      *
      * @param camera        the reference of the camera which will receive the command
      * @param shutterButton shutter parameter
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void sendCommand(final EdsCameraRef camera, final EdsShutterButton shutterButton) {
         sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_PressShutterButton, shutterButton.value());
@@ -113,7 +114,7 @@ public interface CameraLogic {
      *
      * @param camera the reference of the camera which will receive the command
      * @param evfAf  AF parameter
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void sendCommand(final EdsCameraRef camera, final EdsEvfAf evfAf) {
         sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_DoEvfAf, evfAf.value());
@@ -126,7 +127,7 @@ public interface CameraLogic {
      *
      * @param camera       the reference of the camera which will receive the command
      * @param evfDriveLens drive lens parameter
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void sendCommand(final EdsCameraRef camera, final EdsEvfDriveLens evfDriveLens) {
         sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_DriveLensEvf, evfDriveLens.value());
@@ -140,7 +141,7 @@ public interface CameraLogic {
      * @param camera  the reference of the camera which will receive the command
      * @param command command to send
      * @param inParam additional property information (see Reference API for possible values)
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void sendCommand(final EdsCameraRef camera, final EdsCameraCommand command, final long inParam) {
         final EdsdkError error = toEdsdkError(edsdkLibrary().EdsSendCommand(camera, new NativeLong(command.value()), new NativeLong(inParam)));
@@ -153,7 +154,7 @@ public interface CameraLogic {
      *
      * @param camera        the reference of the camera which will receive the command
      * @param statusCommand designate the particular mode ID to set the camera to
-     * @throws org.blackdread.cameraframework.exception.EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void sendStatusCommand(final EdsCameraRef camera, final EdsCameraStatusCommand statusCommand) {
         final EdsdkError error = toEdsdkError(edsdkLibrary().EdsSendStatusCommand(camera, new NativeLong(statusCommand.value()), new NativeLong(0)));

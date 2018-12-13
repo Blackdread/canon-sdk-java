@@ -10,7 +10,7 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewLogic;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewReference;
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

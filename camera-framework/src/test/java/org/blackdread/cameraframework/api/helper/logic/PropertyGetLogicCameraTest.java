@@ -6,7 +6,7 @@ import org.blackdread.cameraframework.api.TestShortcutUtil;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
 import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

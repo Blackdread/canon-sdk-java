@@ -1,8 +1,8 @@
 package org.blackdread.cameraframework.api.constant;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
-import org.blackdread.cameraframework.exception.EdsdkDeviceBusyErrorException;
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceBusyErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

@@ -1,6 +1,7 @@
-package org.blackdread.cameraframework.exception;
+package org.blackdread.cameraframework.exception.error;
 
 import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.exception.EdsdkException;
 
 /**
  * Based exception for errors from camera in {@link EdsdkError}

@@ -1,6 +1,6 @@
 package org.blackdread.cameraframework.api.constant;
 
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 /**
  * <p>Created on 2018/10/04.<p>

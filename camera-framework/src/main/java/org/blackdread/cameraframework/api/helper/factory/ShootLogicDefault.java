@@ -9,7 +9,7 @@ import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.helper.logic.ShootLogic;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectListener;
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.util.NameToBeDefined;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

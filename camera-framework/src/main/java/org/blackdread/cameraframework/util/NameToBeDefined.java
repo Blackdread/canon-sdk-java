@@ -1,8 +1,8 @@
 package org.blackdread.cameraframework.util;
 
 import org.blackdread.cameraframework.api.constant.EdsdkError;
-import org.blackdread.cameraframework.exception.EdsdkDeviceBusyErrorException;
-import org.blackdread.cameraframework.exception.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceBusyErrorException;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
 import java.util.Arrays;
 import java.util.Collections;
