@@ -2,15 +2,8 @@ package org.blackdread.cameraframework.api.camera;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.CallableCommand;
-import org.blackdread.cameraframework.api.command.CameraCommand;
-import org.blackdread.cameraframework.api.command.CanonCommand;
-import org.blackdread.cameraframework.api.command.GenericCommand;
+import org.blackdread.cameraframework.api.command.*;
 import org.blackdread.cameraframework.api.command.GetPropertyCommand.ProductName;
-import org.blackdread.cameraframework.api.command.GetPropertyDescCommand;
-import org.blackdread.cameraframework.api.command.LiveViewCommand;
-import org.blackdread.cameraframework.api.command.SetPropertyCommand;
-import org.blackdread.cameraframework.api.command.ShootCommand;
-import org.blackdread.cameraframework.api.command.StatusCommand;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.decorator.builder.CommandBuilderReusable;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
@@ -43,11 +36,17 @@ public class CanonCamera {
      * If null then is not applied.
      */
     private CommandBuilderReusable commandBuilderReusable;
+    /**
+     * Lock for use and change of builder as builder itself is not thread-safe
+     */
+    private final Object lockBuilderUse = new Object();
 
     /**
      * Default timeout set to commands created by this canon camera.
      */
     private Duration defaultTimeout;
+
+    private final Event event = new Event();
 
     private final Shoot shoot = new Shoot();
 
@@ -71,9 +70,12 @@ public class CanonCamera {
 
     @SuppressWarnings("unchecked")
     protected <T extends CanonCommand<R>, R> T applyDefaultCommandDecoration(final T command) {
-        if (commandBuilderReusable != null) {
-            return (T) commandBuilderReusable.setCanonCommand(command)
-                .build();
+        final CommandBuilderReusable builderReusable = this.commandBuilderReusable;
+        if (builderReusable != null) {
+            synchronized (lockBuilderUse) {
+                return (T) builderReusable.setCanonCommand(command)
+                    .build();
+            }
         }
         return command;
     }
@@ -111,6 +113,9 @@ public class CanonCamera {
         return Optional.ofNullable(commandBuilderReusable);
     }
 
+    /**
+     * @param commandBuilderReusable command builder to apply on commands before dispatch, may be null
+     */
     public void setCommandBuilderReusable(final CommandBuilderReusable commandBuilderReusable) {
         this.commandBuilderReusable = commandBuilderReusable;
     }
@@ -126,6 +131,10 @@ public class CanonCamera {
      */
     public void setDefaultTimeout(final Duration defaultTimeout) {
         this.defaultTimeout = defaultTimeout;
+    }
+
+    public Event getEvent() {
+        return event;
     }
 
     public Shoot getShoot() {
@@ -164,6 +173,48 @@ public class CanonCamera {
         return dispatchCommand(new StatusCommand(statusCommand));
     }
 
+    /**
+     * Event related commands
+     */
+    public class Event {
+
+        /**
+         * Added command here as a conveniency but usually it should be called right after initialization of SDK
+         *
+         * @return command
+         */
+        public RegisterCameraAddedEventCommand registerCameraAddedEventCommand() {
+            return dispatchCommand(new RegisterCameraAddedEventCommand());
+        }
+
+        public RegisterObjectEventCommand registerObjectEventCommand() {
+            return dispatchCommand(new RegisterObjectEventCommand(cameraRef));
+        }
+
+        public RegisterPropertyEventCommand registerPropertyEventCommand() {
+            return dispatchCommand(new RegisterPropertyEventCommand(cameraRef));
+        }
+
+        public RegisterStateEventCommand registerStateEventCommand() {
+            return dispatchCommand(new RegisterStateEventCommand(cameraRef));
+        }
+
+        public UnRegisterObjectEventCommand unRegisterObjectEventCommand() {
+            return dispatchCommand(new UnRegisterObjectEventCommand(cameraRef));
+        }
+
+        public UnRegisterPropertyEventCommand unRegisterPropertyEventCommand() {
+            return dispatchCommand(new UnRegisterPropertyEventCommand(cameraRef));
+        }
+
+        public UnRegisterStateEventCommand unRegisterStateEventCommand() {
+            return dispatchCommand(new UnRegisterStateEventCommand(cameraRef));
+        }
+    }
+
+    /**
+     * Shoot related commands
+     */
     public class Shoot {
 
         public List<File> shoot() throws ExecutionException, InterruptedException {
@@ -184,6 +235,9 @@ public class CanonCamera {
 
     }
 
+    /**
+     * LiveView related commands
+     */
     public class LiveView {
 
         public LiveViewCommand.Begin beginLiveViewAsync() {
@@ -212,6 +266,9 @@ public class CanonCamera {
 
     }
 
+    /**
+     * Property related commands
+     */
     public class Property {
 
         public ProductName getProductNameAsync() {

@@ -52,6 +52,10 @@ public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, Timeo
 
     /**
      * If true is returned then {@link #getExecutionEndTime()}, {@link #getExecutionDuration()}, {@link #getExecutionDurationTotal()} and {@link #getExecutionDurationSinceNow()} can be safely called.
+     * <br>
+     * <br>
+     * <p>Completion may be due to normal termination, an exception -- in all
+     * of these cases, this method will return {@code true}.</p>
      *
      * @return true if execution has been ended (run method ended)
      */

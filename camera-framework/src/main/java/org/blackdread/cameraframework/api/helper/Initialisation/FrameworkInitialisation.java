@@ -1,6 +1,7 @@
 package org.blackdread.cameraframework.api.helper.Initialisation;
 
 import org.blackdread.cameraframework.api.CanonLibrary;
+import org.blackdread.cameraframework.api.command.InitializeSdkCommand;
 import org.blackdread.cameraframework.api.command.RegisterCameraAddedEventCommand;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedListener;
@@ -53,6 +54,7 @@ public final class FrameworkInitialisation {
 
     /**
      * Can be called many times for multiple different listeners.
+     * Auto set to true to register camera added event.
      *
      * @param listener listener to add at initialize
      * @return initializer
@@ -69,6 +71,10 @@ public final class FrameworkInitialisation {
             CanonFactory.canonLibrary().setArchLibraryToUse(archLibrary);
         }
 
+        if (shouldInitializeSdk()) {
+            CanonFactory.commandDispatcher().scheduleCommand(new InitializeSdkCommand());
+        }
+
         if (useEventFetcher) {
             CanonFactory.eventFetcherLogic().start();
         }
@@ -83,6 +89,11 @@ public final class FrameworkInitialisation {
 
 
         cameraAddedListeners.clear();
+    }
+
+    protected boolean shouldInitializeSdk() {
+        // In fact we could always return true, because this a class to initialize the framework !
+        return useEventFetcher || registerCameraAddedEvent || !cameraAddedListeners.isEmpty();
     }
 
     private void validateOptions() {
