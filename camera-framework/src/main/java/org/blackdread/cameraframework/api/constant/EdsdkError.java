@@ -21,13 +21,13 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
      * ED-SDK Error Code Masks
      */
 
-    // TODO no reason to put those here...
+    // no reason to put those here...
 
     /*
      * ED-SDK Base Component IDs
      */
 
-    // TODO no reason to put those here...
+    // no reason to put those here...
 
     /*
      * ED-SDK Function Success Code

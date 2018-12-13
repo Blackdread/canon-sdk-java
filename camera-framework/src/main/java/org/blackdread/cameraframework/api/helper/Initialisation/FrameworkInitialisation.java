@@ -1,10 +1,12 @@
 package org.blackdread.cameraframework.api.helper.Initialisation;
 
 import org.blackdread.cameraframework.api.CanonLibrary;
+import org.blackdread.cameraframework.api.command.RegisterCameraAddedEventCommand;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedListener;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -25,6 +27,8 @@ public final class FrameworkInitialisation {
      */
     private CanonLibrary.ArchLibrary archLibrary;
 
+    private boolean registerCameraAddedEvent = false;
+
     private Set<CameraAddedListener> cameraAddedListeners = new LinkedHashSet<>();
 
     public FrameworkInitialisation withoutEventFetcherLogic() {
@@ -38,18 +42,24 @@ public final class FrameworkInitialisation {
     }
 
     public FrameworkInitialisation withArchLibrary(final CanonLibrary.ArchLibrary archLibrary) {
-        this.archLibrary = archLibrary;
+        this.archLibrary = Objects.requireNonNull(archLibrary);
+        return this;
+    }
+
+    public FrameworkInitialisation registerCameraAddedEvent() {
+        this.registerCameraAddedEvent = true;
         return this;
     }
 
     /**
-     * Can be called many times for multiple different listeners
+     * Can be called many times for multiple different listeners.
      *
      * @param listener listener to add at initialize
      * @return initializer
      */
     public FrameworkInitialisation withCameraAddedListener(final CameraAddedListener listener) {
-        cameraAddedListeners.add(listener);
+        cameraAddedListeners.add(Objects.requireNonNull(listener));
+        this.registerCameraAddedEvent = true;
         return this;
     }
 
@@ -63,8 +73,11 @@ public final class FrameworkInitialisation {
             CanonFactory.eventFetcherLogic().start();
         }
 
+        if (registerCameraAddedEvent) {
+            CanonFactory.commandDispatcher().scheduleCommand(new RegisterCameraAddedEventCommand());
+        }
+
         if (!cameraAddedListeners.isEmpty()) {
-            CanonFactory.cameraAddedEventLogic().registerCameraAddedEvent();
             cameraAddedListeners.forEach(CanonFactory.cameraAddedEventLogic()::addCameraAddedListener);
         }
 
