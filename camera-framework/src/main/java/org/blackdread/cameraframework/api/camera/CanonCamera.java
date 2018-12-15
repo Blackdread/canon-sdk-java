@@ -3,7 +3,6 @@ package org.blackdread.cameraframework.api.camera;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.CallableCommand;
 import org.blackdread.cameraframework.api.command.*;
-import org.blackdread.cameraframework.api.command.GetPropertyCommand.ProductName;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOptionBuilder;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
@@ -294,10 +293,201 @@ public class CanonCamera {
      */
     public class Property {
 
-        public ProductName getProductNameAsync() {
-            return dispatchCommand(new ProductName());
+        public GetPropertyCommand.Aperture getApertureAsync() {
+            return dispatchCommand(new GetPropertyCommand.Aperture());
         }
 
+        public GetPropertyCommand.Artist getArtistAsync() {
+            return dispatchCommand(new GetPropertyCommand.Artist());
+        }
+
+        public GetPropertyCommand.AutoFocusMode getAutoFocusModeAsync() {
+            return dispatchCommand(new GetPropertyCommand.AutoFocusMode());
+        }
+
+        public GetPropertyCommand.AvailableShots getAvailableShotsAsync() {
+            return dispatchCommand(new GetPropertyCommand.AvailableShots());
+        }
+
+        public GetPropertyCommand.BatteryLevel getBatteryLevelAsync() {
+            return dispatchCommand(new GetPropertyCommand.BatteryLevel());
+        }
+
+        public GetPropertyCommand.BodyIDEx getBodyIDExAsync() {
+            return dispatchCommand(new GetPropertyCommand.BodyIDEx());
+        }
+
+        public GetPropertyCommand.Bracket getBracketAsync() {
+            return dispatchCommand(new GetPropertyCommand.Bracket());
+        }
+
+        public GetPropertyCommand.ColorSpace getColorSpaceAsync() {
+            return dispatchCommand(new GetPropertyCommand.ColorSpace());
+        }
+
+        public GetPropertyCommand.ColorTemperature getColorTemperatureAsync() {
+            return dispatchCommand(new GetPropertyCommand.ColorTemperature());
+        }
+
+        public GetPropertyCommand.Copyright getCopyrightAsync() {
+            return dispatchCommand(new GetPropertyCommand.Copyright());
+        }
+
+        public GetPropertyCommand.CurrentFolder getCurrentFolderAsync() {
+            return dispatchCommand(new GetPropertyCommand.CurrentFolder());
+        }
+
+        public GetPropertyCommand.CurrentStorage getCurrentStorageAsync() {
+            return dispatchCommand(new GetPropertyCommand.CurrentStorage());
+        }
+
+        public GetPropertyCommand.DateTime getDateTimeAsync() {
+            return dispatchCommand(new GetPropertyCommand.DateTime());
+        }
+
+        public GetPropertyCommand.FirmwareVersion getFirmwareVersionAsync() {
+            return dispatchCommand(new GetPropertyCommand.FirmwareVersion());
+        }
+
+        public GetPropertyCommand.FlashCompensation getFlashCompensationAsync() {
+            return dispatchCommand(new GetPropertyCommand.FlashCompensation());
+        }
+
+        public GetPropertyCommand.FocusInfo getFocusInfoAsync() {
+            return dispatchCommand(new GetPropertyCommand.FocusInfo());
+        }
+
+        public GetPropertyCommand.HardDriveDirectoryStructure getHardDriveDirectoryStructureAsync() {
+            return dispatchCommand(new GetPropertyCommand.HardDriveDirectoryStructure());
+        }
+
+        public GetPropertyCommand.ImageQuality getImageQualityAsync() {
+            return dispatchCommand(new GetPropertyCommand.ImageQuality());
+        }
+
+        public GetPropertyCommand.IsoSpeed getIsoSpeedAsync() {
+            return dispatchCommand(new GetPropertyCommand.IsoSpeed());
+        }
+
+        public GetPropertyCommand.JpegQuality getJpegQualityAsync() {
+            return dispatchCommand(new GetPropertyCommand.JpegQuality());
+        }
+
+        public GetPropertyCommand.LensName getLensNameAsync() {
+            return dispatchCommand(new GetPropertyCommand.LensName());
+        }
+
+        public GetPropertyCommand.LensStatus getLensStatusAsync() {
+            return dispatchCommand(new GetPropertyCommand.LensStatus());
+        }
+
+        public GetPropertyCommand.LensStatusAsBoolean getLensStatusAsBooleanAsync() {
+            return dispatchCommand(new GetPropertyCommand.LensStatusAsBoolean());
+        }
+
+        public GetPropertyCommand.LiveViewAutoFocusMode getLiveViewAutoFocusModeAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewAutoFocusMode());
+        }
+
+        public GetPropertyCommand.LiveViewColorTemperature getLiveViewColorTemperatureAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewColorTemperature());
+        }
+
+        public GetPropertyCommand.LiveViewCoordinateSystem getLiveViewCoordinateSystemAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewCoordinateSystem());
+        }
+
+        public GetPropertyCommand.LiveViewHistogram getLiveViewHistogramAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewHistogram());
+        }
+
+        public GetPropertyCommand.LiveViewHistogramB getLiveViewHistogramBAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewHistogramB());
+        }
+
+        public GetPropertyCommand.LiveViewHistogramG getLiveViewHistogramGAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewHistogramG());
+        }
+
+        public GetPropertyCommand.LiveViewHistogramR getLiveViewHistogramRAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewHistogramR());
+        }
+
+        public GetPropertyCommand.LiveViewHistogramY getLiveViewHistogramYAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewHistogramY());
+        }
+
+        public GetPropertyCommand.LiveViewHistogramStatus getLiveViewHistogramStatusAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewHistogramStatus());
+        }
+
+        public GetPropertyCommand.LiveViewImagePosition getLiveViewImagePositionAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewImagePosition());
+        }
+
+        public GetPropertyCommand.LiveViewOutputDevice getLiveViewOutputDeviceAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewOutputDevice());
+        }
+
+        public GetPropertyCommand.LiveViewWhiteBalance getLiveViewWhiteBalanceAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewWhiteBalance());
+        }
+
+        public GetPropertyCommand.LiveViewZoomPosition getLiveViewZoomPositionAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewZoomPosition());
+        }
+
+        public GetPropertyCommand.LiveViewZoomRectangle getLiveViewZoomRectangleAsync() {
+            return dispatchCommand(new GetPropertyCommand.LiveViewZoomRectangle());
+        }
+
+        public GetPropertyCommand.MeteringMode getMeteringModeAsync() {
+            return dispatchCommand(new GetPropertyCommand.MeteringMode());
+        }
+
+        public GetPropertyCommand.OwnerName getOwnerNameAsync() {
+            return dispatchCommand(new GetPropertyCommand.OwnerName());
+        }
+
+        public GetPropertyCommand.ProductName getProductNameAsync() {
+            return dispatchCommand(new GetPropertyCommand.ProductName());
+        }
+
+        public GetPropertyCommand.PictureStyle getPictureStyleAsync() {
+            return dispatchCommand(new GetPropertyCommand.PictureStyle());
+        }
+
+        public GetPropertyCommand.PictureStyleDescription getPictureStyleDescriptionAsync() {
+            return dispatchCommand(new GetPropertyCommand.PictureStyleDescription());
+        }
+
+        public GetPropertyCommand.SaveTo getSaveToAsync() {
+            return dispatchCommand(new GetPropertyCommand.SaveTo());
+        }
+
+        public GetPropertyCommand.SerialNumber getSerialNumberAsync() {
+            return dispatchCommand(new GetPropertyCommand.SerialNumber());
+        }
+
+        public GetPropertyCommand.ShootingMode getShootingModeAsync() {
+            return dispatchCommand(new GetPropertyCommand.ShootingMode());
+        }
+
+        public GetPropertyCommand.ShutterSpeed getShutterSpeedAsync() {
+            return dispatchCommand(new GetPropertyCommand.ShutterSpeed());
+        }
+
+        public GetPropertyCommand.WhiteBalance getWhiteBalanceAsync() {
+            return dispatchCommand(new GetPropertyCommand.WhiteBalance());
+        }
+
+        public GetPropertyCommand.WhiteBalanceBracket getWhiteBalanceBracketAsync() {
+            return dispatchCommand(new GetPropertyCommand.WhiteBalanceBracket());
+        }
+
+        public GetPropertyCommand.WhiteBalanceShift getWhiteBalanceShiftAsync() {
+            return dispatchCommand(new GetPropertyCommand.WhiteBalanceShift());
+        }
 
         public GetPropertyDescCommand.ApertureDesc getAvailableApertureAsync() {
             return dispatchCommand(new GetPropertyDescCommand.ApertureDesc());
