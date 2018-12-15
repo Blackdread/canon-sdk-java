@@ -4,7 +4,7 @@
 
     <groupId>org.blackdread</groupId>
     <artifactId>canon-sdk-java</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Canon sdk java parent POM</name>
