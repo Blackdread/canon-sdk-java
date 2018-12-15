@@ -2,7 +2,6 @@ package org.blackdread.cameraframework.api.helper.logic;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
-import org.blackdread.cameraframework.api.command.builder.ShootOptionBuilder;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
@@ -19,9 +18,6 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.cam
  * @since 1.0.0
  */
 public interface ShootLogic {
-
-    ShootOption DEFAULT_SHOOT_OPTION = new ShootOptionBuilder()
-        .build();
 
     /**
      * <p>
@@ -76,7 +72,7 @@ public interface ShootLogic {
      * @throws InterruptedException if interrupted while waiting for events of files shot by camera
      */
     default List<File> shoot(final EdsCameraRef camera) throws InterruptedException {
-        return shoot(camera, DEFAULT_SHOOT_OPTION);
+        return shoot(camera, ShootOption.DEFAULT_SHOOT_OPTION);
     }
 
     /**

@@ -1,6 +1,9 @@
 package org.blackdread.cameraframework.api.helper.logic;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.ptr.NativeLongByReference;
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
 import org.blackdread.cameraframework.api.constant.EdsEvfAf;
@@ -8,6 +11,7 @@ import org.blackdread.cameraframework.api.constant.EdsEvfDriveLens;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
+import org.blackdread.cameraframework.util.ReleaseUtil;
 
 import static org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
@@ -78,8 +82,8 @@ public interface CameraLogic {
      *
      * @param camera  the reference of the camera which will receive the command
      * @param command command to send
-     * @throws IllegalArgumentException                                     if command is not supported by this method
-     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     * @throws IllegalArgumentException if command is not supported by this method
+     * @throws EdsdkErrorException      if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     default void sendCommand(final EdsCameraRef camera, final EdsCameraCommand command) {
         // Fail fast
@@ -93,6 +97,45 @@ public interface CameraLogic {
         sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_TakePicture, 0);
     }
 
+    /**
+     * Count of camera connected to pc
+     *
+     * @return count of camera connected to pc
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    default int getCameraConnectedCount() {
+        final EdsdkLibrary.EdsCameraListRef.ByReference listRef = new EdsdkLibrary.EdsCameraListRef.ByReference();
+        try {
+            final EdsdkError cameraListError = toEdsdkError(edsdkLibrary().EdsGetCameraList(listRef));
+            if (cameraListError != EdsdkError.EDS_ERR_OK) {
+                throw cameraListError.getException();
+            }
+
+            final NativeLongByReference outRef = new NativeLongByReference();
+            final EdsdkError childCountError = toEdsdkError(edsdkLibrary().EdsGetChildCount(listRef.getValue(), outRef));
+            if (childCountError != EdsdkError.EDS_ERR_OK) {
+                throw childCountError.getException();
+            }
+            final long numCams = outRef.getValue().longValue();
+            return numCams < 0 ? 0 : (int) numCams;
+        } finally {
+            ReleaseUtil.release(listRef);
+        }
+    }
+
+    /**
+     * @return camera ref with session opened
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    default EdsCameraRef openSession() {
+        return openSession(OpenSessionOption.DEFAULT_OPEN_SESSION_OPTION);
+    }
+
+    /**
+     * @return camera ref with session opened
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    EdsCameraRef openSession(final OpenSessionOption option);
 
     /**
      * Controls shutter button operations.

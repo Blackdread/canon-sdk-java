@@ -4,6 +4,7 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.camera.CanonCamera;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+import org.blackdread.cameraframework.util.ReleaseUtil;
 
 import java.util.Objects;
 
@@ -23,6 +24,9 @@ public class CloseSessionCommand extends AbstractCanonCommand<Void> {
      * May be null
      */
     private final CanonCamera camera;
+    /**
+     * Camera ref to close session
+     */
     private final EdsCameraRef cameraRef;
 
     /**
@@ -54,6 +58,7 @@ public class CloseSessionCommand extends AbstractCanonCommand<Void> {
         if (edsdkError != EdsdkError.EDS_ERR_OK) {
             throw edsdkError.getException();
         }
+        ReleaseUtil.release(cameraRef);
         if (camera != null) {
             camera.setCameraRef(null);
         }

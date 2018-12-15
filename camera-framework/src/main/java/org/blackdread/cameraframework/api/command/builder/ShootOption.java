@@ -20,6 +20,9 @@ import java.util.Optional;
 @Immutable
 public class ShootOption {
 
+    public static final ShootOption DEFAULT_SHOOT_OPTION = new ShootOptionBuilder()
+        .build();
+
     /**
      * Number of times shoot will be retried on error returned by shoot command.
      * That is number of times the complete logic of shooting retried, not each different type of shooting

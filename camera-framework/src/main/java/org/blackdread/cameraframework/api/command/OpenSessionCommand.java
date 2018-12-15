@@ -1,6 +1,8 @@
 package org.blackdread.cameraframework.api.command;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
 /**
  * Open session of a camera
@@ -12,15 +14,27 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
  */
 public class OpenSessionCommand extends AbstractCanonCommand<EdsCameraRef> {
 
-    // no other constructors, we use static methods to construct after
+    private final OpenSessionOption option;
+
+    public OpenSessionCommand() {
+        this.option = null;
+    }
+
+    public OpenSessionCommand(final OpenSessionOption option) {
+        this.option = option;
+    }
 
     public OpenSessionCommand(final OpenSessionCommand toCopy) {
         super(toCopy);
+        this.option = toCopy.option;
     }
 
     @Override
     protected EdsCameraRef runInternal() {
-
-        return null;
+        if (option == null) {
+            return CanonFactory.cameraLogic().openSession();
+        } else {
+            return CanonFactory.cameraLogic().openSession(option);
+        }
     }
 }
