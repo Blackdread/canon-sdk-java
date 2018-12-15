@@ -31,6 +31,7 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.pro
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
     // more fields are necessary to simplify get
@@ -39,31 +40,31 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
     private final Class<? extends NativeEnum> enumClass;
 
-    public GetPropertyCommand() {
+    protected GetPropertyCommand() {
         propertyID = null;
         inParam = 0L;
         enumClass = null;
     }
 
-    public GetPropertyCommand(final EdsPropertyID propertyID, final Class<? extends NativeEnum> enumClass) {
+    protected GetPropertyCommand(final EdsPropertyID propertyID, final Class<? extends NativeEnum> enumClass) {
         this.propertyID = propertyID;
         this.inParam = 0L;
         this.enumClass = enumClass;
     }
 
-    public GetPropertyCommand(final EdsPropertyID propertyID) {
+    protected GetPropertyCommand(final EdsPropertyID propertyID) {
         this.propertyID = propertyID;
         this.inParam = 0L;
         enumClass = null;
     }
 
-    public GetPropertyCommand(final EdsPropertyID propertyID, final long inParam) {
+    protected GetPropertyCommand(final EdsPropertyID propertyID, final long inParam) {
         this.propertyID = propertyID;
         this.inParam = inParam;
         enumClass = null;
     }
 
-    public GetPropertyCommand(final GetPropertyCommand<R> toCopy) {
+    protected GetPropertyCommand(final GetPropertyCommand<R> toCopy) {
         super(toCopy);
         this.propertyID = toCopy.propertyID;
         this.inParam = toCopy.inParam;

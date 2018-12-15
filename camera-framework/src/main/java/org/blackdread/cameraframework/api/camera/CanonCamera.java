@@ -29,6 +29,7 @@ import java.util.concurrent.ExecutionException;
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public class CanonCamera {
 
     private EdsCameraRef cameraRef;
@@ -292,6 +293,23 @@ public class CanonCamera {
      */
     public class Property {
 
+        /*  ***************
+         *      Getters
+         *  ***************
+         */
+
+        public <T extends NativeEnum> GetPropertyCommand.ByProperty<T> getByPropertyAsync(final EdsPropertyID propertyID) {
+            return dispatchCommand(new GetPropertyCommand.ByProperty<>(propertyID));
+        }
+
+        public <T extends NativeEnum> GetPropertyCommand.ByProperty<T> getByPropertyAsync(final EdsPropertyID propertyID, final long inParam) {
+            return dispatchCommand(new GetPropertyCommand.ByProperty<>(propertyID, inParam));
+        }
+
+        public <T extends NativeEnum> GetPropertyCommand.ByEnum<T> getByEnumAsync(final EdsPropertyID propertyID, final Class<T> enumClass) {
+            return dispatchCommand(new GetPropertyCommand.ByEnum<>(propertyID, enumClass));
+        }
+
         public GetPropertyCommand.Aperture getApertureAsync() {
             return dispatchCommand(new GetPropertyCommand.Aperture());
         }
@@ -492,6 +510,11 @@ public class CanonCamera {
             return dispatchCommand(new GetPropertyDescCommand.ApertureDesc());
         }
 
+        /*  ***************
+         *      Properties available
+         *  ***************
+         */
+
         public GetPropertyDescCommand.ColorTemperatureDesc getAvailableColorTemperatureAsync() {
             return dispatchCommand(new GetPropertyDescCommand.ColorTemperatureDesc());
         }
@@ -534,6 +557,19 @@ public class CanonCamera {
 
         public GetPropertyDescCommand.LiveViewWhiteBalanceDesc getAvailableLiveViewWhiteBalanceAsync() {
             return dispatchCommand(new GetPropertyDescCommand.LiveViewWhiteBalanceDesc());
+        }
+
+        /*  ***************
+         *      Setters
+         *  ***************
+         */
+
+        public SetPropertyCommand.ByValue setByValueAsync(final EdsPropertyID propertyID, final Object inParam) {
+            return dispatchCommand(new SetPropertyCommand.ByValue(propertyID, inParam));
+        }
+
+        public SetPropertyCommand.ByEnum setByEnumAsync(final EdsPropertyID propertyID, final NativeEnum<? extends Number> value) {
+            return dispatchCommand(new SetPropertyCommand.ByEnum(propertyID, value));
         }
 
         public SetPropertyCommand.Aperture setApertureAsync(final EdsAv value) {

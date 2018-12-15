@@ -14,10 +14,10 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.liv
  */
 public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
 
-    public LiveViewCommand() {
+    protected LiveViewCommand() {
     }
 
-    public LiveViewCommand(final LiveViewCommand toCopy) {
+    protected LiveViewCommand(final LiveViewCommand toCopy) {
         super(toCopy);
     }
 

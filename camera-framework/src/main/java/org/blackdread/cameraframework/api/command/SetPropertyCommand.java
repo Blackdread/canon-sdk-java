@@ -18,6 +18,7 @@ import java.util.Objects;
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
 
     private final EdsPropertyID propertyID;
@@ -31,21 +32,21 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
      */
     private final Object value;
 
-    public SetPropertyCommand() {
+    protected SetPropertyCommand() {
         this.propertyID = null;
         this.nativeEnum = null;
         this.inParam = 0L;
         this.value = null;
     }
 
-    public SetPropertyCommand(final EdsPropertyID propertyID, final NativeEnum<? extends Number> nativeEnum) {
+    protected SetPropertyCommand(final EdsPropertyID propertyID, final NativeEnum<? extends Number> nativeEnum) {
         this.propertyID = Objects.requireNonNull(propertyID);
         this.nativeEnum = Objects.requireNonNull(nativeEnum);
         this.inParam = 0L;
         this.value = null;
     }
 
-    public SetPropertyCommand(final EdsPropertyID propertyID, final Object value) {
+    protected SetPropertyCommand(final EdsPropertyID propertyID, final Object value) {
         this.propertyID = Objects.requireNonNull(propertyID);
         this.nativeEnum = null;
         this.inParam = 0L;
@@ -61,7 +62,7 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
     }
     //*/
 
-    public SetPropertyCommand(final SetPropertyCommand<R> toCopy) {
+    protected SetPropertyCommand(final SetPropertyCommand<R> toCopy) {
         super(toCopy);
         this.propertyID = toCopy.propertyID;
         this.nativeEnum = toCopy.nativeEnum;

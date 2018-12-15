@@ -17,10 +17,10 @@ import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.pro
 @SuppressWarnings("unused")
 public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> {
 
-    public GetPropertyDescCommand() {
+    protected GetPropertyDescCommand() {
     }
 
-    public GetPropertyDescCommand(final GetPropertyDescCommand<R> toCopy) {
+    protected GetPropertyDescCommand(final GetPropertyDescCommand<R> toCopy) {
         super(toCopy);
     }
 
