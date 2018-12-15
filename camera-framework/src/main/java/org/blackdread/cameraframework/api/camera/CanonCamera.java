@@ -4,6 +4,10 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.CallableCommand;
 import org.blackdread.cameraframework.api.command.*;
 import org.blackdread.cameraframework.api.command.GetPropertyCommand.ProductName;
+import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
+import org.blackdread.cameraframework.api.command.builder.CloseSessionOptionBuilder;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOptionBuilder;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.decorator.builder.CommandBuilderReusable;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
@@ -55,7 +59,7 @@ public class CanonCamera {
     private final Property property = new Property();
 
     protected <T extends CanonCommand<R>, R> T applyTarget(final T command) {
-        if (!command.getTargetRef().isPresent()) {
+        if (cameraRef != null && !command.getTargetRef().isPresent()) {
             command.setTargetRef(cameraRef);
         }
         return command;
@@ -173,13 +177,32 @@ public class CanonCamera {
         return dispatchCommand(new StatusCommand(statusCommand));
     }
 
+    public OpenSessionCommand openSession() {
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setCamera(this)
+            .build();
+        return dispatchCommand(new OpenSessionCommand(option));
+    }
+
+    public OpenSessionCommand openSession(final OpenSessionOption option) {
+        return dispatchCommand(new OpenSessionCommand(option));
+    }
+
+    public CloseSessionCommand closeSession() {
+        return dispatchCommand(new CloseSessionCommand(new CloseSessionOptionBuilder().setCameraRef(cameraRef).build()));
+    }
+
+    public CloseSessionCommand closeSession(final CloseSessionOption option) {
+        return dispatchCommand(new CloseSessionCommand(option));
+    }
+
     /**
      * Event related commands
      */
     public class Event {
 
         /**
-         * Added command here as a conveniency but usually it should be called right after initialization of SDK
+         * Added command here as a convenience but usually it should be called right after initialization of SDK
          *
          * @return command
          */

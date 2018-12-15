@@ -3,6 +3,7 @@ package org.blackdread.cameraframework.api.helper.logic;
 import com.sun.jna.NativeLong;
 import com.sun.jna.ptr.NativeLongByReference;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
@@ -132,10 +133,17 @@ public interface CameraLogic {
     }
 
     /**
+     * @param option option
      * @return camera ref with session opened
      * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
     EdsCameraRef openSession(final OpenSessionOption option);
+
+    /**
+     * @param option option
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    void closeSession(final CloseSessionOption option);
 
     /**
      * Controls shutter button operations.

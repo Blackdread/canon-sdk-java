@@ -5,11 +5,13 @@ import com.sun.jna.ptr.NativeLongByReference;
 import org.blackdread.camerabinding.jna.EdsCapacity;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
 import org.blackdread.cameraframework.api.constant.EdsCustomFunction;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +59,18 @@ public class CameraLogicDefault implements CameraLogic {
 
         final EdsdkLibrary.EdsCameraListRef.ByReference listRef = new EdsdkLibrary.EdsCameraListRef.ByReference();
 
-
         EdsdkError edsdkError;
+
+        if (option.isOpenSessionOnly()) {
+            final EdsCameraRef cameraRef = option.getCameraRef()
+                .orElseThrow(() -> new IllegalStateException("CameraRef is null while trying to only open session"));
+            edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRef));
+            if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                throw edsdkError.getException();
+            }
+            return cameraRef;
+        }
+
         try {
             edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetCameraList(listRef));
             if (edsdkError != EdsdkError.EDS_ERR_OK) {
@@ -92,32 +104,52 @@ public class CameraLogicDefault implements CameraLogic {
                     throw edsdkError.getException();
                 }
 
-                // TODO maybe before open session, could test if session is not already open
-
-                // Session is not automatically closed if the camera does not match, we could auto-close if we test before if it was already open or not
-                edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRef.getValue()));
-                if (edsdkError != EdsdkError.EDS_ERR_OK) {
-                    ReleaseUtil.release(cameraRef);
-                    throw edsdkError.getException();
+                boolean sessionAlreadyOpen = false;
+                String bodyIDEx;
+                try {
+                    bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                    sessionAlreadyOpen = true;
+                } catch (EdsdkErrorException e) {
+                    // From tests, should throw EdsdkCommDisconnectedErrorException if not connected
+                    log.info("Error ignored while testing if camera is connected to open session", e);
                 }
 
-                final String bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                if (!sessionAlreadyOpen) {
+                    edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRef.getValue()));
+                    if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                        ReleaseUtil.release(cameraRef);
+                        throw edsdkError.getException();
+                    }
+                }
+
+                bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
 
                 if (bodyIDEx == null) {
                     log.warn("BodyIDEx returned was null");
+                    if (!sessionAlreadyOpen) {
+                        CanonFactory.edsdkLibrary().EdsCloseSession(cameraRef.getValue());
+                    }
                     ReleaseUtil.release(cameraRef);
                     // TODO we can throw or continue next iteration but no reason for BodyIDEx to be null...
                     throw new IllegalStateException("BodyIDEx is null");
                 } else {
                     if (option.getCameraBySerialNumber().isPresent() && option.getCameraBySerialNumber().get().equalsIgnoreCase(bodyIDEx)) {
+                        // serial number match what we are looking for
+                        setCameraRefToCamera(cameraRef.getValue(), option);
+                        registerEvents(cameraRef.getValue(), option);
                         return cameraRef.getValue();
                     }
                     if (option.getCameraByIndex().isPresent()) {
                         // it means we are looking by index
+                        setCameraRefToCamera(cameraRef.getValue(), option);
+                        registerEvents(cameraRef.getValue(), option);
                         return cameraRef.getValue();
                     }
 
                     // No match then next iteration of loop
+                    if (!sessionAlreadyOpen) {
+                        CanonFactory.edsdkLibrary().EdsCloseSession(cameraRef.getValue());
+                    }
                     ReleaseUtil.release(cameraRef);
                 }
             }
@@ -128,4 +160,33 @@ public class CameraLogicDefault implements CameraLogic {
         }
     }
 
+    protected void setCameraRefToCamera(final EdsCameraRef cameraRef, final OpenSessionOption option) {
+        option.getCamera().ifPresent(camera -> camera.setCameraRef(cameraRef));
+    }
+
+    protected void registerEvents(final EdsCameraRef cameraRef, final OpenSessionOption option) {
+        if (option.isRegisterObjectEvent()) {
+            CanonFactory.cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
+        }
+        if (option.isRegisterPropertyEvent()) {
+            CanonFactory.cameraPropertyEventLogic().registerCameraPropertyEvent(cameraRef);
+        }
+        if (option.isRegisterStateEvent()) {
+            CanonFactory.cameraStateEventLogic().registerCameraStateEvent(cameraRef);
+        }
+    }
+
+    @Override
+    public void closeSession(final CloseSessionOption option) {
+        final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsCloseSession(option.getCameraRef()));
+        if (edsdkError != EdsdkError.EDS_ERR_OK) {
+            throw edsdkError.getException();
+        }
+
+        if (option.isReleaseCameraRef()) {
+            ReleaseUtil.release(option.getCameraRef());
+        }
+
+        option.getCamera().ifPresent(camera -> camera.setCameraRef(null));
+    }
 }

@@ -4,6 +4,7 @@ import com.sun.jna.Native;
 import com.sun.jna.Platform;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.CanonLibrary;
+import org.blackdread.cameraframework.api.command.TerminateSdkCommand;
 import org.blackdread.cameraframework.util.DllUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,8 +138,9 @@ class CanonLibraryImpl implements CanonLibrary {
         final Thread shutdownThread = new Thread(() ->
         {
             log.info("Shutdown hook run");
-            if (edsdk != null)
-                edsdk.EdsTerminateSDK();
+            CanonFactory.commandDispatcher().scheduleCommand(new TerminateSdkCommand());
+//            if (edsdk != null)
+//                edsdk.EdsTerminateSDK();
         });
         if (shutdownHookThread != null) {
             Runtime.getRuntime().removeShutdownHook(shutdownHookThread);

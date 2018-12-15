@@ -1,14 +1,9 @@
 package org.blackdread.cameraframework.api.command;
 
-import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
-import org.blackdread.cameraframework.api.camera.CanonCamera;
-import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
-import org.blackdread.cameraframework.util.ReleaseUtil;
 
 import java.util.Objects;
-
-import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
  * Close session of a camera
@@ -20,48 +15,20 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  */
 public class CloseSessionCommand extends AbstractCanonCommand<Void> {
 
-    /**
-     * May be null
-     */
-    private final CanonCamera camera;
-    /**
-     * Camera ref to close session
-     */
-    private final EdsCameraRef cameraRef;
+    private final CloseSessionOption option;
 
-    /**
-     * @param cameraRef camera ref to close session
-     */
-    public CloseSessionCommand(final EdsCameraRef cameraRef) {
-        this.camera = null;
-        this.cameraRef = Objects.requireNonNull(cameraRef);
-    }
-
-    /**
-     * @param camera    camera to set cameraRef to null on success of close session
-     * @param cameraRef camera ref to close session
-     */
-    public CloseSessionCommand(final CanonCamera camera, final EdsCameraRef cameraRef) {
-        this.camera = camera;
-        this.cameraRef = Objects.requireNonNull(cameraRef);
+    public CloseSessionCommand(final CloseSessionOption option) {
+        this.option = Objects.requireNonNull(option);
     }
 
     public CloseSessionCommand(final CloseSessionCommand toCopy) {
         super(toCopy);
-        this.camera = toCopy.camera;
-        this.cameraRef = toCopy.cameraRef;
+        this.option = toCopy.option;
     }
 
     @Override
     protected Void runInternal() {
-        final EdsdkError edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsCloseSession(cameraRef));
-        if (edsdkError != EdsdkError.EDS_ERR_OK) {
-            throw edsdkError.getException();
-        }
-        ReleaseUtil.release(cameraRef);
-        if (camera != null) {
-            camera.setCameraRef(null);
-        }
+        CanonFactory.cameraLogic().closeSession(option);
         return null;
     }
 }
