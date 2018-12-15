@@ -1,5 +1,7 @@
 package org.blackdread.cameraframework.api.camera;
 
+import org.blackdread.camerabinding.jna.EdsPictureStyleDesc;
+import org.blackdread.camerabinding.jna.EdsPoint;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.CallableCommand;
 import org.blackdread.cameraframework.api.command.*;
@@ -9,10 +11,7 @@ import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOptionBuilder;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.decorator.builder.CommandBuilderReusable;
-import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
-import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
-import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
-import org.blackdread.cameraframework.api.constant.NativeEnum;
+import org.blackdread.cameraframework.api.constant.*;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 
 import java.io.File;
@@ -201,7 +200,7 @@ public class CanonCamera {
     public class Event {
 
         /**
-         * Added command here as a convenience but usually it should be called right after initialization of SDK
+         * Added command here as a convenience but usually it should be called *once* right after initialization of SDK
          *
          * @return command
          */
@@ -537,9 +536,108 @@ public class CanonCamera {
             return dispatchCommand(new GetPropertyDescCommand.LiveViewWhiteBalanceDesc());
         }
 
+        public SetPropertyCommand.Aperture setApertureAsync(final EdsAv value) {
+            return dispatchCommand(new SetPropertyCommand.Aperture(value));
+        }
+
+        public SetPropertyCommand.Artist setArtistAsync(final String value) {
+            return dispatchCommand(new SetPropertyCommand.Artist(value));
+        }
+
+        public SetPropertyCommand.ColorSpace setColorSpaceAsync(final EdsColorSpace value) {
+            return dispatchCommand(new SetPropertyCommand.ColorSpace(value));
+        }
+
+        public SetPropertyCommand.ColorTemperature setColorTemperatureAsync(final long value) {
+            return dispatchCommand(new SetPropertyCommand.ColorTemperature(value));
+        }
+
+        public SetPropertyCommand.Copyright setCopyrightAsync(final String value) {
+            return dispatchCommand(new SetPropertyCommand.Copyright(value));
+        }
+
+        public SetPropertyCommand.DriveMode setDriveModeAsync(final EdsDriveMode value) {
+            return dispatchCommand(new SetPropertyCommand.DriveMode(value));
+        }
+
+        public SetPropertyCommand.ExposureCompensation setExposureCompensationAsync(final EdsExposureCompensation value) {
+            return dispatchCommand(new SetPropertyCommand.ExposureCompensation(value));
+        }
+
+        public SetPropertyCommand.HardDriveDirectoryStructure setHardDriveDirectoryStructureAsync(final String value) {
+            return dispatchCommand(new SetPropertyCommand.HardDriveDirectoryStructure(value));
+        }
 
         public SetPropertyCommand.IsoSpeed setIsoSpeedAsync(final EdsISOSpeed value) {
             return dispatchCommand(new SetPropertyCommand.IsoSpeed(value));
+        }
+
+        public SetPropertyCommand.ImageQuality setImageQualityAsync(final EdsImageQuality value) {
+            return dispatchCommand(new SetPropertyCommand.ImageQuality(value));
+        }
+
+        public SetPropertyCommand.JpegQuality setJpegQualityAsync(final int value) {
+            return dispatchCommand(new SetPropertyCommand.JpegQuality(value));
+        }
+
+        public SetPropertyCommand.LiveViewAutoFocusMode setLiveViewAutoFocusModeAsync(final EdsEvfAFMode value) {
+            return dispatchCommand(new SetPropertyCommand.LiveViewAutoFocusMode(value));
+        }
+
+        public SetPropertyCommand.LiveViewColorTemperature setLiveViewColorTemperatureAsync(final long value) {
+            return dispatchCommand(new SetPropertyCommand.LiveViewColorTemperature(value));
+        }
+
+        public SetPropertyCommand.LiveViewOutputDevice setLiveViewOutputDeviceAsync(final EdsEvfOutputDevice value) {
+            return dispatchCommand(new SetPropertyCommand.LiveViewOutputDevice(value));
+        }
+
+        public SetPropertyCommand.LiveViewWhiteBalance setLiveViewWhiteBalanceAsync(final EdsWhiteBalance value) {
+            return dispatchCommand(new SetPropertyCommand.LiveViewWhiteBalance(value));
+        }
+
+        public SetPropertyCommand.LiveViewZoomPosition setLiveViewZoomPositionAsync(final EdsPoint value) {
+            return dispatchCommand(new SetPropertyCommand.LiveViewZoomPosition(value));
+        }
+
+        public SetPropertyCommand.LiveViewZoomPosition setLiveViewZoomPositionAsync(final long x, final long y) {
+            return dispatchCommand(new SetPropertyCommand.LiveViewZoomPosition(x, y));
+        }
+
+        public SetPropertyCommand.LiveViewZoomRatio setLiveViewZoomRatioAsync(final EdsEvfZoom value) {
+            return dispatchCommand(new SetPropertyCommand.LiveViewZoomRatio(value));
+        }
+
+        public SetPropertyCommand.MeteringMode setMeteringModeAsync(final EdsMeteringMode value) {
+            return dispatchCommand(new SetPropertyCommand.MeteringMode(value));
+        }
+
+        public SetPropertyCommand.OwnerName setOwnerNameAsync(final String value) {
+            return dispatchCommand(new SetPropertyCommand.OwnerName(value));
+        }
+
+        public SetPropertyCommand.PictureStyle setPictureStyleAsync(final EdsPictureStyle value) {
+            return dispatchCommand(new SetPropertyCommand.PictureStyle(value));
+        }
+
+        public SetPropertyCommand.PictureStyleDescription setPictureStyleDescriptionAsync(final EdsPictureStyleDesc value) {
+            return dispatchCommand(new SetPropertyCommand.PictureStyleDescription(value));
+        }
+
+        public SetPropertyCommand.SaveTo setSaveToAsync(final EdsSaveTo value) {
+            return dispatchCommand(new SetPropertyCommand.SaveTo(value));
+        }
+
+        public SetPropertyCommand.ShootingMode setShootingModeAsync(final EdsAEMode value) {
+            return dispatchCommand(new SetPropertyCommand.ShootingMode(value));
+        }
+
+        public SetPropertyCommand.ShutterSpeed setShutterSpeedAsync(final EdsTv value) {
+            return dispatchCommand(new SetPropertyCommand.ShutterSpeed(value));
+        }
+
+        public SetPropertyCommand.WhiteBalance setWhiteBalanceAsync(final EdsWhiteBalance value) {
+            return dispatchCommand(new SetPropertyCommand.WhiteBalance(value));
         }
 
     }

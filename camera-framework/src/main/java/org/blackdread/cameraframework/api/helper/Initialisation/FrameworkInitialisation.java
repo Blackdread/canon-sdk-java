@@ -76,6 +76,7 @@ public final class FrameworkInitialisation {
      * @return list of commands that were created and sent
      */
     public List<CanonCommand> initialize() {
+        validate();
         final ArrayList<CanonCommand> commandSent = new ArrayList<>();
 
         if (archLibrary != null) {
@@ -107,12 +108,12 @@ public final class FrameworkInitialisation {
         return commandSent;
     }
 
-    protected boolean shouldInitializeSdk() {
+    private boolean shouldInitializeSdk() {
         // In fact we could always return true, because this a class to initialize the framework !
         return useEventFetcher || registerCameraAddedEvent || !cameraAddedListeners.isEmpty();
     }
 
-    private void validateOptions() {
+    private void validate() {
 
     }
 }

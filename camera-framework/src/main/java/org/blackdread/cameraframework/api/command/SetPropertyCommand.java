@@ -350,7 +350,7 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
     }
 
     public static class SaveTo extends SetPropertyCommand<Void> {
-        public SaveTo(final EdsTv value) {
+        public SaveTo(final EdsSaveTo value) {
             super(EdsPropertyID.kEdsPropID_SaveTo, value);
         }
 
