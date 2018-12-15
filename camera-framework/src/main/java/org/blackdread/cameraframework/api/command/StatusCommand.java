@@ -12,20 +12,20 @@ import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
  */
 public class StatusCommand extends AbstractCanonCommand<Void> {
 
-    private final EdsCameraStatusCommand statusCommand;
+    private final EdsCameraStatusCommand edsCameraStatusCommand;
 
-    public StatusCommand(final EdsCameraStatusCommand statusCommand) {
-        this.statusCommand = statusCommand;
+    public StatusCommand(final EdsCameraStatusCommand edsCameraStatusCommand) {
+        this.edsCameraStatusCommand = edsCameraStatusCommand;
     }
 
     public StatusCommand(final StatusCommand toCopy) {
         super(toCopy);
-        this.statusCommand = toCopy.statusCommand;
+        this.edsCameraStatusCommand = toCopy.edsCameraStatusCommand;
     }
 
     @Override
     protected Void runInternal() {
-        CanonFactory.cameraLogic().sendStatusCommand((EdsCameraRef) getTargetRefInternal(), statusCommand);
+        CanonFactory.cameraLogic().sendStatusCommand((EdsCameraRef) getTargetRefInternal(), edsCameraStatusCommand);
         return null;
     }
 }

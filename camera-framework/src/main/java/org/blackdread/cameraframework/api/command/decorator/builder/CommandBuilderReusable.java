@@ -91,10 +91,10 @@ public class CommandBuilderReusable<T extends CommandBuilderReusable<T, R>, R> {
         if (canonCommand == null)
             throw new IllegalStateException("Canon command must be set");
         try {
-            final List<Supplier<DecoratorCommand<R>>> decorators = getDecorators();
-            if (decorators.isEmpty())
+            final List<Supplier<DecoratorCommand<R>>> localDecorators = getDecorators();
+            if (localDecorators.isEmpty())
                 return canonCommand;
-            for (final Supplier<DecoratorCommand<R>> decoratorSupplier : decorators) {
+            for (final Supplier<DecoratorCommand<R>> decoratorSupplier : localDecorators) {
                 decoratedCommand = decoratorSupplier.get();
             }
             return decoratedCommand;

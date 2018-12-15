@@ -76,10 +76,10 @@ public class CommandBuilder<T extends CommandBuilder<T, R>, R> {
             throw new IllegalStateException("Build has already been called");
         wasBuilt = true;
         try {
-            final List<Supplier<DecoratorCommand<R>>> decorators = getDecorators();
-            if (decorators.isEmpty())
+            final List<Supplier<DecoratorCommand<R>>> localDecorators = getDecorators();
+            if (localDecorators.isEmpty())
                 return canonCommand;
-            for (final Supplier<DecoratorCommand<R>> decoratorSupplier : decorators) {
+            for (final Supplier<DecoratorCommand<R>> decoratorSupplier : localDecorators) {
                 decoratedCommand = decoratorSupplier.get();
             }
             return decoratedCommand;
