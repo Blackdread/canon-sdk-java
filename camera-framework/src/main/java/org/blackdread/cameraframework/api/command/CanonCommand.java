@@ -122,4 +122,18 @@ public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, Timeo
         return Optional.ofNullable(get());
     }
 
+    /*
+     * Waits if necessary for at most the given time for the command
+     * to complete, and then retrieves its result, if available.
+     *
+     * @param timeout the maximum time to wait
+     * @param unit    the time unit of the timeout argument
+     * @return the computed result
+     * @throws ExecutionException   if this command completed exceptionally
+     * @throws InterruptedException if the current thread was interrupted
+     *                              while waiting
+     * @throws TimeoutException     if the wait timed out
+     */
+//    R get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException;
+
 }
