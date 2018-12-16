@@ -30,7 +30,7 @@ import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.TerminateSdkCommand;
 import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
 import org.blackdread.cameraframework.api.constant.EdsSaveTo;
-import org.blackdread.cameraframework.api.helper.Initialisation.FrameworkInitialisation;
+import org.blackdread.cameraframework.api.helper.initialisation.FrameworkInitialisation;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectListener;

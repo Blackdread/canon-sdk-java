@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.blackdread.cameraframework.api.helper.Initialisation;
+package org.blackdread.cameraframework.api.helper.initialisation;
 
 import org.blackdread.cameraframework.api.CanonLibrary;
 import org.blackdread.cameraframework.api.command.CanonCommand;
