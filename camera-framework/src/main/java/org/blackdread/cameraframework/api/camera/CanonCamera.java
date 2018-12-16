@@ -203,6 +203,7 @@ public class CanonCamera {
      * Open a session with the first camera found and set this CanonCamera the EdsCameraRef
      *
      * @return command
+     * @see org.blackdread.cameraframework.api.helper.logic.CameraLogic#openSession(OpenSessionOption)
      */
     public OpenSessionCommand openSession() {
         final OpenSessionOption option = new OpenSessionOptionBuilder()
@@ -211,6 +212,13 @@ public class CanonCamera {
         return dispatchCommand(new OpenSessionCommand(option));
     }
 
+    /**
+     * Open a session with option provided
+     *
+     * @param option option
+     * @return command
+     * @see org.blackdread.cameraframework.api.helper.logic.CameraLogic#openSession(OpenSessionOption)
+     */
     public OpenSessionCommand openSession(final OpenSessionOption option) {
         return dispatchCommand(new OpenSessionCommand(option));
     }
@@ -219,11 +227,19 @@ public class CanonCamera {
      * Close session and release EdsCameraRef
      *
      * @return command
+     * @see org.blackdread.cameraframework.api.helper.logic.CameraLogic#closeSession(CloseSessionOption)
      */
     public CloseSessionCommand closeSession() {
         return dispatchCommand(new CloseSessionCommand(new CloseSessionOptionBuilder().setCameraRef(cameraRef).build()));
     }
 
+    /**
+     * Close session with option provided
+     *
+     * @param option
+     * @return command
+     * @see org.blackdread.cameraframework.api.helper.logic.CameraLogic#closeSession(CloseSessionOption)
+     */
     public CloseSessionCommand closeSession(final CloseSessionOption option) {
         return dispatchCommand(new CloseSessionCommand(option));
     }
@@ -242,26 +258,62 @@ public class CanonCamera {
             return dispatchCommand(new RegisterCameraAddedEventCommand());
         }
 
+        /**
+         * Register the handler for the camera object event of this camera.
+         *
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic#registerCameraObjectEvent(EdsCameraRef)
+         */
         public RegisterObjectEventCommand registerObjectEventCommand() {
             return dispatchCommand(new RegisterObjectEventCommand(cameraRef));
         }
 
+        /**
+         * Register the handler for the camera property event of this camera.
+         *
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic#registerCameraPropertyEvent(EdsCameraRef)
+         */
         public RegisterPropertyEventCommand registerPropertyEventCommand() {
             return dispatchCommand(new RegisterPropertyEventCommand(cameraRef));
         }
 
+        /**
+         * Register the handler for the camera state event of this camera.
+         *
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.event.CameraStateEventLogic#registerCameraStateEvent(EdsCameraRef)
+         */
         public RegisterStateEventCommand registerStateEventCommand() {
             return dispatchCommand(new RegisterStateEventCommand(cameraRef));
         }
 
+        /**
+         * Unregister the handler for the camera object event of this camera.
+         *
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic#unregisterCameraObjectEvent(EdsCameraRef)
+         */
         public UnRegisterObjectEventCommand unRegisterObjectEventCommand() {
             return dispatchCommand(new UnRegisterObjectEventCommand(cameraRef));
         }
 
+        /**
+         * Unregister the handler for the camera property event of this camera.
+         *
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic#unregisterCameraPropertyEvent(EdsCameraRef)
+         */
         public UnRegisterPropertyEventCommand unRegisterPropertyEventCommand() {
             return dispatchCommand(new UnRegisterPropertyEventCommand(cameraRef));
         }
 
+        /**
+         * Unregister the handler for the camera state event of this camera.
+         *
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.event.CameraStateEventLogic#unregisterCameraStateEvent(EdsCameraRef)
+         */
         public UnRegisterStateEventCommand unRegisterStateEventCommand() {
             return dispatchCommand(new UnRegisterStateEventCommand(cameraRef));
         }
@@ -276,6 +328,12 @@ public class CanonCamera {
             return dispatchCommand(new ShootCommand()).get();
         }
 
+        /**
+         * Shoot
+         *
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.ShootLogic#shoot(EdsCameraRef)
+         */
         public ShootCommand shootAsync() {
             return dispatchCommand(new ShootCommand());
         }
@@ -284,6 +342,13 @@ public class CanonCamera {
             return dispatchCommand(new ShootCommand(shootOption)).get();
         }
 
+        /**
+         * Shoot
+         *
+         * @param shootOption option
+         * @return command
+         * @see org.blackdread.cameraframework.api.helper.logic.ShootLogic#shoot(EdsCameraRef, ShootOption)
+         */
         public ShootCommand shootAsync(final ShootOption shootOption) {
             return dispatchCommand(new ShootCommand(shootOption));
         }
@@ -295,26 +360,56 @@ public class CanonCamera {
      */
     public class LiveView {
 
+        /**
+         * Start the live view
+         *
+         * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#beginLiveView(EdsCameraRef)
+         */
         public LiveViewCommand.Begin beginLiveViewAsync() {
             return dispatchCommand(new LiveViewCommand.Begin());
         }
 
+        /**
+         * Stop the live view
+         *
+         * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#endLiveView(EdsCameraRef)
+         */
         public LiveViewCommand.End endLiveViewAsync() {
             return dispatchCommand(new LiveViewCommand.End());
         }
 
+        /**
+         * Download live view as BufferedImage
+         *
+         * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#getLiveViewImage(EdsCameraRef)
+         */
         public LiveViewCommand.Download downloadLiveViewAsync() {
             return dispatchCommand(new LiveViewCommand.Download());
         }
 
+        /**
+         * Download live view buffer as byte
+         *
+         * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#getLiveViewImageBuffer(EdsCameraRef)
+         */
         public LiveViewCommand.DownloadBuffer downloadBufferLiveViewAsync() {
             return dispatchCommand(new LiveViewCommand.DownloadBuffer());
         }
 
+        /**
+         * Check live view status only
+         *
+         * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#isLiveViewEnabled(EdsCameraRef)
+         */
         public LiveViewCommand.IsLiveViewEnabled isLiveViewEnabledAsync() {
             return dispatchCommand(new LiveViewCommand.IsLiveViewEnabled());
         }
 
+        /**
+         * Check live view status by trying to download one image
+         *
+         * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#isLiveViewEnabledByDownloadingOneImage(EdsCameraRef)
+         */
         public LiveViewCommand.IsLiveViewActive isLiveViewActiveAsync() {
             return dispatchCommand(new LiveViewCommand.IsLiveViewActive());
         }

@@ -34,6 +34,8 @@ import java.util.List;
  * <p>Created on 2018/10/02.<p>
  *
  * @author Yoann CAPLAIN
+ * @see org.blackdread.cameraframework.api.helper.logic.ShootLogic#shoot(EdsCameraRef)
+ * @see org.blackdread.cameraframework.api.helper.logic.ShootLogic#shoot(EdsCameraRef, ShootOption)
  * @since 1.0.0
  */
 public class ShootCommand extends AbstractCanonCommand<List<File>> {

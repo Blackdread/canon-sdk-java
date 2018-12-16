@@ -88,7 +88,7 @@ public interface ShootLogic {
 
 
     /**
-     * In case that events from camera are handled directly in this method, then it should not be called by the thread that fetch events if a single thread design is used
+     * In single thread model, events from camera are handled directly in this method in order to download shot images if saveTo is PC.
      *
      * @param camera ref of camera
      * @return files that were shot (only if PC is saveTo), may be empty if events are skipped
@@ -99,7 +99,7 @@ public interface ShootLogic {
     }
 
     /**
-     * In case that events from camera are handled directly in this method, then it should not be called by the thread that fetch events if a single thread design is used
+     * In single thread model, events from camera are handled directly in this method in order to download shot images if saveTo is PC.
      *
      * @param camera ref of camera
      * @param option options for shoot

@@ -46,6 +46,11 @@ public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
     }
 
 
+    /**
+     * Start the live view
+     *
+     * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#beginLiveView(EdsdkLibrary.EdsCameraRef)
+     */
     public static class Begin extends LiveViewCommand<Void> {
 
         public Begin() {
@@ -62,6 +67,11 @@ public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
         }
     }
 
+    /**
+     * Stop the live view
+     *
+     * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#endLiveView(EdsdkLibrary.EdsCameraRef)
+     */
     public static class End extends LiveViewCommand<Void> {
 
         public End() {
@@ -78,6 +88,11 @@ public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
         }
     }
 
+    /**
+     * Download live view as BufferedImage
+     *
+     * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#getLiveViewImage(EdsdkLibrary.EdsCameraRef)
+     */
     public static class Download extends LiveViewCommand<BufferedImage> {
 
         public Download() {
@@ -93,6 +108,11 @@ public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
         }
     }
 
+    /**
+     * Download live view buffer as byte
+     *
+     * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#getLiveViewImageBuffer(EdsdkLibrary.EdsCameraRef)
+     */
     public static class DownloadBuffer extends LiveViewCommand<byte[]> {
 
         public DownloadBuffer() {
@@ -108,6 +128,11 @@ public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
         }
     }
 
+    /**
+     * Check live view status only
+     *
+     * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#isLiveViewEnabled(EdsdkLibrary.EdsCameraRef)
+     */
     public static class IsLiveViewEnabled extends LiveViewCommand<Boolean> {
 
         public IsLiveViewEnabled() {
@@ -123,6 +148,11 @@ public abstract class LiveViewCommand<R> extends AbstractCanonCommand<R> {
         }
     }
 
+    /**
+     * Check live view status by trying to download one image
+     *
+     * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#isLiveViewEnabledByDownloadingOneImage(EdsdkLibrary.EdsCameraRef)
+     */
     public static class IsLiveViewActive extends LiveViewCommand<Boolean> {
 
         public IsLiveViewActive() {
