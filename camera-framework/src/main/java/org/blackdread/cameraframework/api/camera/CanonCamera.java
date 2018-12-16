@@ -199,6 +199,11 @@ public class CanonCamera {
         return dispatchCommand(new StatusCommand(statusCommand));
     }
 
+    /**
+     * Open a session with the first camera found and set this CanonCamera the EdsCameraRef
+     *
+     * @return command
+     */
     public OpenSessionCommand openSession() {
         final OpenSessionOption option = new OpenSessionOptionBuilder()
             .setCamera(this)
@@ -210,6 +215,11 @@ public class CanonCamera {
         return dispatchCommand(new OpenSessionCommand(option));
     }
 
+    /**
+     * Close session and release EdsCameraRef
+     *
+     * @return command
+     */
     public CloseSessionCommand closeSession() {
         return dispatchCommand(new CloseSessionCommand(new CloseSessionOptionBuilder().setCameraRef(cameraRef).build()));
     }

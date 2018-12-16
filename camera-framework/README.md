@@ -6,6 +6,9 @@ The framework can be customized by inheritance, this logic has been grouped in t
 
 Many commands, class, methods, etc are public (and not final) or protected to leave choice of inheritance and customization.
 
+# Demo of code
+See package "org.blackdread.cameraframework.demo" in test folder ([here](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework/src/test/java/org/blackdread/cameraframework/demo)).
+
 # Events
 Different ways may work to handle events, framework use a default implementation where it uses one unique thread that execute commands.
 
