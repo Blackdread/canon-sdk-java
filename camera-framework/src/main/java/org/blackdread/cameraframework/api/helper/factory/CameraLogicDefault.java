@@ -145,6 +145,7 @@ public class CameraLogicDefault implements CameraLogic {
                     }
                 }
 
+                // TODO it can throw here, release
                 bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
 
                 if (bodyIDEx == null) {

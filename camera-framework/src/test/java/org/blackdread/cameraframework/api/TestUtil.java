@@ -40,6 +40,7 @@ import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
  * <p>Created on 2018/10/20.</p>
  *
  * @author Yoann CAPLAIN
+ * @since 1.0.0
  */
 public final class TestUtil {
 
