@@ -36,6 +36,15 @@ import org.blackdread.cameraframework.exception.error.dir.EdsdkDirEntryNotFoundE
 import org.blackdread.cameraframework.exception.error.dir.EdsdkDirIOErrorException;
 import org.blackdread.cameraframework.exception.error.dir.EdsdkDirNotEmptyErrorException;
 import org.blackdread.cameraframework.exception.error.dir.EdsdkDirNotFoundErrorException;
+import org.blackdread.cameraframework.exception.error.file.*;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidHandleErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidIndexErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidLengthErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidParameterErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidPointerErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidPointerFnErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidSortFnErrorException;
+import org.blackdread.cameraframework.exception.error.general.*;
 import org.blackdread.cameraframework.exception.error.picture.*;
 import org.blackdread.cameraframework.exception.error.stream.*;
 import org.blackdread.cameraframework.util.LibraryFieldUtil;
@@ -262,56 +271,56 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
         switch (this) {
 //            case EDS_ERR_UNIMPLEMENTED:
 //                break;
-//            case EDS_ERR_INTERNAL_ERROR:
-//                break;
-//            case EDS_ERR_MEM_ALLOC_FAILED:
-//                break;
-//            case EDS_ERR_MEM_FREE_FAILED:
-//                break;
-//            case EDS_ERR_OPERATION_CANCELLED:
-//                break;
-//            case EDS_ERR_INCOMPATIBLE_VERSION:
-//                break;
-//            case EDS_ERR_NOT_SUPPORTED:
-//                break;
-//            case EDS_ERR_UNEXPECTED_EXCEPTION:
-//                break;
-//            case EDS_ERR_PROTECTION_VIOLATION:
-//                break;
-//            case EDS_ERR_MISSING_SUBCOMPONENT:
-//                break;
-//            case EDS_ERR_SELECTION_UNAVAILABLE:
-//                break;
-//            case EDS_ERR_FILE_IO_ERROR:
-//                break;
-//            case EDS_ERR_FILE_TOO_MANY_OPEN:
-//                break;
-//            case EDS_ERR_FILE_NOT_FOUND:
-//                break;
-//            case EDS_ERR_FILE_OPEN_ERROR:
-//                break;
-//            case EDS_ERR_FILE_CLOSE_ERROR:
-//                break;
-//            case EDS_ERR_FILE_SEEK_ERROR:
-//                break;
-//            case EDS_ERR_FILE_TELL_ERROR:
-//                break;
-//            case EDS_ERR_FILE_READ_ERROR:
-//                break;
-//            case EDS_ERR_FILE_WRITE_ERROR:
-//                break;
-//            case EDS_ERR_FILE_PERMISSION_ERROR:
-//                break;
-//            case EDS_ERR_FILE_DISK_FULL_ERROR:
-//                break;
-//            case EDS_ERR_FILE_ALREADY_EXISTS:
-//                break;
-//            case EDS_ERR_FILE_FORMAT_UNRECOGNIZED:
-//                break;
-//            case EDS_ERR_FILE_DATA_CORRUPT:
-//                break;
-//            case EDS_ERR_FILE_NAMING_NA:
-//                break;
+            case EDS_ERR_INTERNAL_ERROR:
+                return (T) new EdsdkGeneralInternalErrorException();
+            case EDS_ERR_MEM_ALLOC_FAILED:
+                return (T) new EdsdkGeneralMemAllocErrorException();
+            case EDS_ERR_MEM_FREE_FAILED:
+                return (T) new EdsdkGeneralMemFreeErrorException();
+            case EDS_ERR_OPERATION_CANCELLED:
+                return (T) new EdsdkGeneralOperationCanceledErrorException();
+            case EDS_ERR_INCOMPATIBLE_VERSION:
+                return (T) new EdsdkGeneralIncompatibleVersionErrorException();
+            case EDS_ERR_NOT_SUPPORTED:
+                return (T) new EdsdkGeneralNotSupportedErrorException();
+            case EDS_ERR_UNEXPECTED_EXCEPTION:
+                return (T) new EdsdkGeneralUnexpectedErrorException();
+            case EDS_ERR_PROTECTION_VIOLATION:
+                return (T) new EdsdkGeneralProtectionViolationErrorException();
+            case EDS_ERR_MISSING_SUBCOMPONENT:
+                return (T) new EdsdkGeneralMissingSubComponentErrorException();
+            case EDS_ERR_SELECTION_UNAVAILABLE:
+                return (T) new EdsdkGeneralSelectionUnavailableErrorException();
+            case EDS_ERR_FILE_IO_ERROR:
+                return (T) new EdsdkFileIOErrorException();
+            case EDS_ERR_FILE_TOO_MANY_OPEN:
+                return (T) new EdsdkFileTooManyOpenErrorException();
+            case EDS_ERR_FILE_NOT_FOUND:
+                return (T) new EdsdkFileNotFoundErrorException();
+            case EDS_ERR_FILE_OPEN_ERROR:
+                return (T) new EdsdkFileOpenErrorException();
+            case EDS_ERR_FILE_CLOSE_ERROR:
+                return (T) new EdsdkFileCloseErrorException();
+            case EDS_ERR_FILE_SEEK_ERROR:
+                return (T) new EdsdkFileSeekErrorException();
+            case EDS_ERR_FILE_TELL_ERROR:
+                return (T) new EdsdkFileTellErrorException();
+            case EDS_ERR_FILE_READ_ERROR:
+                return (T) new EdsdkFileReadErrorException();
+            case EDS_ERR_FILE_WRITE_ERROR:
+                return (T) new EdsdkFileWriteErrorException();
+            case EDS_ERR_FILE_PERMISSION_ERROR:
+                return (T) new EdsdkFilePermissionErrorException();
+            case EDS_ERR_FILE_DISK_FULL_ERROR:
+                return (T) new EdsdkFileDiskFullErrorException();
+            case EDS_ERR_FILE_ALREADY_EXISTS:
+                return (T) new EdsdkFileAlreadyExistErrorException();
+            case EDS_ERR_FILE_FORMAT_UNRECOGNIZED:
+                return (T) new EdsdkFileFormatErrorException();
+            case EDS_ERR_FILE_DATA_CORRUPT:
+                return (T) new EdsdkFileDataCorruptErrorException();
+            case EDS_ERR_FILE_NAMING_NA:
+                return (T) new EdsdkFileNamingErrorException();
             case EDS_ERR_DIR_NOT_FOUND:
                 return (T) new EdsdkDirNotFoundErrorException();
             case EDS_ERR_DIR_IO_ERROR:
@@ -328,20 +337,20 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
 //                break;
 //            case EDS_ERR_PROPERTIES_NOT_LOADED:
 //                break;
-//            case EDS_ERR_INVALID_PARAMETER:
-//                break;
-//            case EDS_ERR_INVALID_HANDLE:
-//                break;
-//            case EDS_ERR_INVALID_POINTER:
-//                break;
-//            case EDS_ERR_INVALID_INDEX:
-//                break;
-//            case EDS_ERR_INVALID_LENGTH:
-//                break;
-//            case EDS_ERR_INVALID_FN_POINTER:
-//                break;
-//            case EDS_ERR_INVALID_SORT_FN:
-//                break;
+            case EDS_ERR_INVALID_PARAMETER:
+                return (T) new EdsdkFuncInvalidParameterErrorException();
+            case EDS_ERR_INVALID_HANDLE:
+                return (T) new EdsdkFuncInvalidHandleErrorException();
+            case EDS_ERR_INVALID_POINTER:
+                return (T) new EdsdkFuncInvalidPointerErrorException();
+            case EDS_ERR_INVALID_INDEX:
+                return (T) new EdsdkFuncInvalidIndexErrorException();
+            case EDS_ERR_INVALID_LENGTH:
+                return (T) new EdsdkFuncInvalidLengthErrorException();
+            case EDS_ERR_INVALID_FN_POINTER:
+                return (T) new EdsdkFuncInvalidPointerFnErrorException();
+            case EDS_ERR_INVALID_SORT_FN:
+                return (T) new EdsdkFuncInvalidSortFnErrorException();
             case EDS_ERR_DEVICE_NOT_FOUND:
                 return (T) new EdsdkDeviceNotFoundErrorException();
             case EDS_ERR_DEVICE_BUSY:
@@ -502,16 +511,16 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
                 return (T) new EdsdkPictureSpecialMovieErrorException();
             case EDS_ERR_TAKE_PICTURE_LV_REL_PROHIBIT_MODE_NG:
                 return (T) new EdsdkPictureLvProhibitedErrorException();
-//            case EDS_ERR_ENUM_NA:
-//                break;
-//            case EDS_ERR_INVALID_FN_CALL:
-//                break;
-//            case EDS_ERR_HANDLE_NOT_FOUND:
-//                break;
-//            case EDS_ERR_INVALID_ID:
-//                break;
-//            case EDS_ERR_WAIT_TIMEOUT_ERROR:
-//                break;
+            case EDS_ERR_ENUM_NA:
+                return (T) new EdsdkGeneralEnumNaErrorException();
+            case EDS_ERR_INVALID_FN_CALL:
+                return (T) new EdsdkGeneralInvalidFnCallErrorException();
+            case EDS_ERR_HANDLE_NOT_FOUND:
+                return (T) new EdsdkGeneralHandleNotFoundErrorException();
+            case EDS_ERR_INVALID_ID:
+                return (T) new EdsdkGeneralInvalidIdErrorException();
+            case EDS_ERR_WAIT_TIMEOUT_ERROR:
+                return (T) new EdsdkGeneralWaitTimeoutErrorException();
 //            case EDS_ERR_LAST_GENERIC_ERROR_PLUS_ONE:
 //                break;
             default:

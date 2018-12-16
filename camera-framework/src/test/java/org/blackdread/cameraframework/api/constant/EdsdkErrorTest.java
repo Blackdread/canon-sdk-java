@@ -36,6 +36,15 @@ import org.blackdread.cameraframework.exception.error.dir.EdsdkDirEntryNotFoundE
 import org.blackdread.cameraframework.exception.error.dir.EdsdkDirIOErrorException;
 import org.blackdread.cameraframework.exception.error.dir.EdsdkDirNotEmptyErrorException;
 import org.blackdread.cameraframework.exception.error.dir.EdsdkDirNotFoundErrorException;
+import org.blackdread.cameraframework.exception.error.file.*;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidHandleErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidIndexErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidLengthErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidParameterErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidPointerErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidPointerFnErrorException;
+import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidSortFnErrorException;
+import org.blackdread.cameraframework.exception.error.general.*;
 import org.blackdread.cameraframework.exception.error.picture.*;
 import org.blackdread.cameraframework.exception.error.stream.*;
 import org.junit.jupiter.api.Assertions;
@@ -81,31 +90,31 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
         return Stream.of(
             arguments(EdsdkError.EDS_ERR_OK, EdsdkErrorException.class),
             arguments(EdsdkError.EDS_ERR_UNIMPLEMENTED, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INTERNAL_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_MEM_ALLOC_FAILED, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_MEM_FREE_FAILED, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_OPERATION_CANCELLED, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INCOMPATIBLE_VERSION, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_NOT_SUPPORTED, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_UNEXPECTED_EXCEPTION, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_PROTECTION_VIOLATION, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_MISSING_SUBCOMPONENT, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_SELECTION_UNAVAILABLE, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_IO_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_TOO_MANY_OPEN, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_NOT_FOUND, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_OPEN_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_CLOSE_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_SEEK_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_TELL_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_READ_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_WRITE_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_PERMISSION_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_DISK_FULL_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_ALREADY_EXISTS, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_FORMAT_UNRECOGNIZED, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_DATA_CORRUPT, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_FILE_NAMING_NA, EdsdkErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INTERNAL_ERROR, EdsdkGeneralInternalErrorException.class),
+            arguments(EdsdkError.EDS_ERR_MEM_ALLOC_FAILED, EdsdkGeneralMemAllocErrorException.class),
+            arguments(EdsdkError.EDS_ERR_MEM_FREE_FAILED, EdsdkGeneralMemFreeErrorException.class),
+            arguments(EdsdkError.EDS_ERR_OPERATION_CANCELLED, EdsdkGeneralOperationCanceledErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INCOMPATIBLE_VERSION, EdsdkGeneralIncompatibleVersionErrorException.class),
+            arguments(EdsdkError.EDS_ERR_NOT_SUPPORTED, EdsdkGeneralNotSupportedErrorException.class),
+            arguments(EdsdkError.EDS_ERR_UNEXPECTED_EXCEPTION, EdsdkGeneralUnexpectedErrorException.class),
+            arguments(EdsdkError.EDS_ERR_PROTECTION_VIOLATION, EdsdkGeneralProtectionViolationErrorException.class),
+            arguments(EdsdkError.EDS_ERR_MISSING_SUBCOMPONENT, EdsdkGeneralMissingSubComponentErrorException.class),
+            arguments(EdsdkError.EDS_ERR_SELECTION_UNAVAILABLE, EdsdkGeneralSelectionUnavailableErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_IO_ERROR, EdsdkFileIOErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_TOO_MANY_OPEN, EdsdkFileTooManyOpenErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_NOT_FOUND, EdsdkFileNotFoundErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_OPEN_ERROR, EdsdkFileOpenErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_CLOSE_ERROR, EdsdkFileCloseErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_SEEK_ERROR, EdsdkFileSeekErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_TELL_ERROR, EdsdkFileTellErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_READ_ERROR, EdsdkFileReadErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_WRITE_ERROR, EdsdkFileWriteErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_PERMISSION_ERROR, EdsdkFilePermissionErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_DISK_FULL_ERROR, EdsdkFileDiskFullErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_ALREADY_EXISTS, EdsdkFileAlreadyExistErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_FORMAT_UNRECOGNIZED, EdsdkFileFormatErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_DATA_CORRUPT, EdsdkFileDataCorruptErrorException.class),
+            arguments(EdsdkError.EDS_ERR_FILE_NAMING_NA, EdsdkFileNamingErrorException.class),
             arguments(EdsdkError.EDS_ERR_DIR_NOT_FOUND, EdsdkDirNotFoundErrorException.class),
             arguments(EdsdkError.EDS_ERR_DIR_IO_ERROR, EdsdkDirIOErrorException.class),
             arguments(EdsdkError.EDS_ERR_DIR_ENTRY_NOT_FOUND, EdsdkDirEntryNotFoundErrorException.class),
@@ -114,13 +123,13 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
             arguments(EdsdkError.EDS_ERR_PROPERTIES_UNAVAILABLE, EdsdkErrorException.class),
             arguments(EdsdkError.EDS_ERR_PROPERTIES_MISMATCH, EdsdkErrorException.class),
             arguments(EdsdkError.EDS_ERR_PROPERTIES_NOT_LOADED, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_PARAMETER, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_HANDLE, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_POINTER, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_INDEX, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_LENGTH, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_FN_POINTER, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_SORT_FN, EdsdkErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_PARAMETER, EdsdkFuncInvalidParameterErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_HANDLE, EdsdkFuncInvalidHandleErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_POINTER, EdsdkFuncInvalidPointerErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_INDEX, EdsdkFuncInvalidIndexErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_LENGTH, EdsdkFuncInvalidLengthErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_FN_POINTER, EdsdkFuncInvalidPointerFnErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_SORT_FN, EdsdkFuncInvalidSortFnErrorException.class),
             arguments(EdsdkError.EDS_ERR_DEVICE_NOT_FOUND, EdsdkDeviceNotFoundErrorException.class),
             arguments(EdsdkError.EDS_ERR_DEVICE_BUSY, EdsdkDeviceBusyErrorException.class),
             arguments(EdsdkError.EDS_ERR_DEVICE_INVALID, EdsdkDeviceInvalidErrorException.class),
@@ -201,11 +210,11 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
             arguments(EdsdkError.EDS_ERR_TAKE_PICTURE_NO_LENS_NG, EdsdkPictureNoLensErrorException.class),
             arguments(EdsdkError.EDS_ERR_TAKE_PICTURE_SPECIAL_MOVIE_MODE_NG, EdsdkPictureSpecialMovieErrorException.class),
             arguments(EdsdkError.EDS_ERR_TAKE_PICTURE_LV_REL_PROHIBIT_MODE_NG, EdsdkPictureLvProhibitedErrorException.class),
-            arguments(EdsdkError.EDS_ERR_ENUM_NA, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_FN_CALL, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_HANDLE_NOT_FOUND, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_INVALID_ID, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_WAIT_TIMEOUT_ERROR, EdsdkErrorException.class),
+            arguments(EdsdkError.EDS_ERR_ENUM_NA, EdsdkGeneralEnumNaErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_FN_CALL, EdsdkGeneralInvalidFnCallErrorException.class),
+            arguments(EdsdkError.EDS_ERR_HANDLE_NOT_FOUND, EdsdkGeneralHandleNotFoundErrorException.class),
+            arguments(EdsdkError.EDS_ERR_INVALID_ID, EdsdkGeneralInvalidIdErrorException.class),
+            arguments(EdsdkError.EDS_ERR_WAIT_TIMEOUT_ERROR, EdsdkGeneralWaitTimeoutErrorException.class),
             arguments(EdsdkError.EDS_ERR_LAST_GENERIC_ERROR_PLUS_ONE, EdsdkErrorException.class)
         );
     }
