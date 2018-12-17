@@ -71,10 +71,11 @@ class CloseSessionOptionBuilderTest {
 
     @Test
     void build() {
-        builder
+        final CloseSessionOption option = builder
             .setCameraRef(cameraRef)
             .build();
-        final String l = builder.toString();
+        final String l = option.toString();
+
     }
 
     @Test

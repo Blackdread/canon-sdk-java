@@ -24,6 +24,8 @@
 package org.blackdread.cameraframework.api.constant;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>Created on 2018/10/05.<p>
@@ -45,5 +47,12 @@ class EdsImageQualityTest extends ConstantValueFromLibraryTest<EdsImageQuality> 
     @Override
     Class<?> getLibraryClass() {
         return EdsdkLibrary.EdsImageQuality.class;
+    }
+
+    @Test
+    void expectedFileCountZeroOrMore() {
+        for (final EdsImageQuality value : getAllEnumValues()) {
+            Assertions.assertTrue(() -> value.getExpectedFileCount() >= 0);
+        }
     }
 }

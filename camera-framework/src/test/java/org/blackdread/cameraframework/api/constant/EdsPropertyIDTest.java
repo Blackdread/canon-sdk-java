@@ -24,10 +24,10 @@
 package org.blackdread.cameraframework.api.constant;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * <p>Created on 2018/10/06.<p>
@@ -56,5 +56,20 @@ class EdsPropertyIDTest extends ConstantValueFromLibraryTest<EdsPropertyID> {
         return (int) Arrays.stream(EdsdkLibrary.class.getDeclaredFields())
             .filter(name -> name.getName().startsWith("kEdsPropID_"))
             .count();
+    }
+
+    @Test
+    void type() {
+        for (final EdsPropertyID value : EdsPropertyID.values()) {
+            Assertions.assertNotNull(value.type());
+        }
+    }
+
+    @Test
+    void supportedTargetRefType() {
+        for (final EdsPropertyID value : EdsPropertyID.values()) {
+            Assertions.assertNotNull(value.getSupportedTargetRefType());
+            Assertions.assertNotNull(value.getTargetRefAccessTypes());
+        }
     }
 }

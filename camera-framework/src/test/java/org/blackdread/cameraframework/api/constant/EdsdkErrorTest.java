@@ -48,6 +48,7 @@ import org.blackdread.cameraframework.exception.error.general.*;
 import org.blackdread.cameraframework.exception.error.picture.*;
 import org.blackdread.cameraframework.exception.error.stream.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -224,5 +225,12 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
     void errorTypeMatchItsClass(final EdsdkError error, final Class errorClassExpected) {
         final Class<? extends EdsdkErrorException> classReturned = error.getException().getClass();
         Assertions.assertEquals(errorClassExpected, classReturned);
+    }
+
+    @Test
+    void errorType(){
+        for (final EdsdkError value : EdsdkError.values()) {
+            Assertions.assertNotNull(value.getErrorType());
+        }
     }
 }
