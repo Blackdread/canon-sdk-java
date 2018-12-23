@@ -34,6 +34,7 @@ import org.blackdread.cameraframework.api.constant.EdsEvfAf;
 import org.blackdread.cameraframework.api.constant.EdsEvfDriveLens;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 
@@ -145,6 +146,23 @@ public interface CameraLogic {
         } finally {
             ReleaseUtil.release(listRef);
         }
+    }
+
+    /**
+     * Useful to know if a camera session is open or not
+     * <br>
+     * Catch all EdsdkError exceptions and will return false.
+     *
+     * @param camera the reference of the camera which will receive the command
+     * @return true if camera has its session open, false otherwise
+     */
+    default boolean isConnected(final EdsCameraRef camera) {
+        try {
+            CanonFactory.propertyGetShortcutLogic().getBodyIDEx(camera);
+        } catch (EdsdkErrorException ignored) {
+            return false;
+        }
+        return true;
     }
 
     /**

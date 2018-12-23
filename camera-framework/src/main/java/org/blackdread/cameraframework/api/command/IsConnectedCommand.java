@@ -21,43 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.blackdread.cameraframework.api.helper.logic;
+package org.blackdread.cameraframework.api.command;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
-import org.blackdread.cameraframework.api.command.CanonCommand;
+import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+
+import java.util.Objects;
 
 /**
- * Dispatcher of commands of the framework.
- * <p>Created on 2018/11/03</p>
+ * Test if a camera's session is opened. Does not throw any exception
+ * <p>Created on 2018/12/22.</p>
  *
  * @author Yoann CAPLAIN
- * @since 1.0.0
+ * @since 1.1.0
  */
-public interface CommandDispatcher {
+public class IsConnectedCommand extends AbstractCanonCommand<Boolean> {
 
-    /**
-     * Schedule a command to be executed by dispatcher
-     *
-     * @param command command to execute asynchronously
-     */
-    void scheduleCommand(final CanonCommand<?> command);
+    private final EdsCameraRef cameraRef;
 
-    /**
-     * Schedule a command to be executed by dispatcher
-     *
-     * @param owner   camera owner of this command, the owner is simply from which camera this command was created from or that target of command is that camera, dispatcher implementation may apply some logic with this information
-     * @param command command to execute asynchronously
-     */
-    void scheduleCommand(final EdsCameraRef owner, final CanonCommand<?> command);
+    public IsConnectedCommand(final EdsCameraRef cameraRef) {
+        this.cameraRef = Objects.requireNonNull(cameraRef);
+    }
 
-    /**
-     * Returns true if the calling thread is the Dispatcher Thread.
-     * Use this call to ensure that a given task is being executed
-     * (or not being executed) on the Dispatcher Thread.
-     *
-     * @return true if running on the Dispatcher Thread
-     * @since 1.1.0
-     */
-    boolean isDispatcherThread();
+    public IsConnectedCommand(final IsConnectedCommand toCopy) {
+        super(toCopy);
+        this.cameraRef = toCopy.cameraRef;
+    }
+
+    @Override
+    protected Boolean runInternal() {
+        return CanonFactory.cameraLogic().isConnected(cameraRef);
+    }
 
 }

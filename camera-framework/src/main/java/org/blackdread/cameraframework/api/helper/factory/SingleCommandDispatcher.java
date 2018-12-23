@@ -174,6 +174,11 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
         scheduleCommand(command);
     }
 
+    @Override
+    public boolean isDispatcherThread() {
+        return this.commandDispatcherThread == Thread.currentThread();
+    }
+
     /**
      * Start dispatcher only not already started
      */

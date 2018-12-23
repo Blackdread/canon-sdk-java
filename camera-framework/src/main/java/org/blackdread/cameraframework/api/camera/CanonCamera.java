@@ -40,8 +40,10 @@ import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Give access to commands creation with simple API (only methods) with auto dispatch and options/decorators to be applied.
@@ -55,7 +57,7 @@ import java.util.concurrent.ExecutionException;
 @SuppressWarnings("unused")
 public class CanonCamera {
 
-    private EdsCameraRef cameraRef;
+    private final AtomicReference<EdsCameraRef> cameraRef = new AtomicReference<>();
 
     /**
      * Default decorator builder for all commands created by this canon camera.
@@ -80,9 +82,19 @@ public class CanonCamera {
 
     private final Property property = new Property();
 
+    private String serialNumber;
+
+    public CanonCamera() {
+    }
+
+    public CanonCamera(final String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
     protected <T extends CanonCommand<R>, R> T applyTarget(final T command) {
-        if (cameraRef != null && !command.getTargetRef().isPresent()) {
-            command.setTargetRef(cameraRef);
+        final Optional<EdsCameraRef> cameraRefOpt = getCameraRef();
+        if (cameraRefOpt.isPresent() && !command.getTargetRef().isPresent()) {
+            command.setTargetRef(cameraRefOpt.get());
         }
         return command;
     }
@@ -118,12 +130,23 @@ public class CanonCamera {
         command = applyTarget(command);
         command = applyExtraOptions(command);
         command = applyDefaultCommandDecoration(command);
-        CanonFactory.commandDispatcher().scheduleCommand(cameraRef, command);
+        CanonFactory.commandDispatcher().scheduleCommand(getCameraRefInternal(), command);
         return command;
     }
 
+    /**
+     * The value returned should not be kept as it may change overtime due to cable disconnection or other.
+     * If the camera manager is used then once a camera is connected, it will be automatically changed and reconnected
+     *
+     * @return camera ref
+     */
     public Optional<EdsCameraRef> getCameraRef() {
-        return Optional.ofNullable(cameraRef);
+        return Optional.ofNullable(cameraRef.get());
+    }
+
+    protected EdsCameraRef getCameraRefInternal() {
+        return getCameraRef()
+            .orElseThrow(() -> new IllegalStateException("CameraRef is null"));
     }
 
     /**
@@ -132,7 +155,32 @@ public class CanonCamera {
      * @param cameraRef actual camera to use
      */
     public void setCameraRef(final EdsCameraRef cameraRef) {
-        this.cameraRef = cameraRef;
+        this.cameraRef.set(cameraRef);
+    }
+
+    /**
+     * @return serial number of this CanonCamera
+     * @since 1.1.0
+     */
+    public Optional<String> getSerialNumber() {
+        return Optional.ofNullable(serialNumber);
+    }
+
+    /**
+     * Default implementation forbid to change the serial number once it is set (not null).
+     * Therefore {@code cameraRef} should always contain the camera that matches this serial number and not another.
+     * <br>
+     * Serial number may have been set from this method, the constructor or other.
+     *
+     * @param serialNumber serialNumber of this CanonCamera
+     * @throws IllegalStateException if serial number is already set
+     * @since 1.1.0
+     */
+    public void setSerialNumber(final String serialNumber) {
+        if (this.serialNumber != null) {
+            throw new IllegalStateException("Serial number is already set, it may not be changed");
+        }
+        this.serialNumber = Objects.requireNonNull(serialNumber);
     }
 
     public Optional<CommandBuilderReusable> getCommandBuilderReusable() {
@@ -200,15 +248,37 @@ public class CanonCamera {
     }
 
     /**
-     * Open a session with the first camera found and set this CanonCamera the EdsCameraRef
+     * Useful to know if a camera session is open or not
+     * <br>
+     * Does not throw any exception
+     *
+     * @return command with result as true if camera has its session open, false otherwise
+     * @since 1.1.0
+     */
+    public IsConnectedCommand isConnectedAsync() {
+        return dispatchCommand(new IsConnectedCommand(getCameraRefInternal()));
+    }
+
+    /**
+     * Open a session with the first camera found or if the serial number is set then uses it instead and set this CanonCamera the EdsCameraRef
      *
      * @return command
      * @see org.blackdread.cameraframework.api.helper.logic.CameraLogic#openSession(OpenSessionOption)
      */
     public OpenSessionCommand openSession() {
-        final OpenSessionOption option = new OpenSessionOptionBuilder()
-            .setCamera(this)
-            .build();
+        final Optional<String> serialNumberOpt = getSerialNumber();
+        final OpenSessionOption option;
+        if (serialNumberOpt.isPresent()) {
+            option = new OpenSessionOptionBuilder()
+                .setCamera(this)
+                .setCameraBySerialNumber(serialNumberOpt.get())
+                .build();
+        } else {
+            option = new OpenSessionOptionBuilder()
+                .setCamera(this)
+                .build();
+        }
+
         return dispatchCommand(new OpenSessionCommand(option));
     }
 
@@ -230,7 +300,7 @@ public class CanonCamera {
      * @see org.blackdread.cameraframework.api.helper.logic.CameraLogic#closeSession(CloseSessionOption)
      */
     public CloseSessionCommand closeSession() {
-        return dispatchCommand(new CloseSessionCommand(new CloseSessionOptionBuilder().setCameraRef(cameraRef).build()));
+        return dispatchCommand(new CloseSessionCommand(new CloseSessionOptionBuilder().setCameraRef(getCameraRefInternal()).build()));
     }
 
     /**
@@ -265,7 +335,7 @@ public class CanonCamera {
          * @see org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic#registerCameraObjectEvent(EdsCameraRef)
          */
         public RegisterObjectEventCommand registerObjectEventCommand() {
-            return dispatchCommand(new RegisterObjectEventCommand(cameraRef));
+            return dispatchCommand(new RegisterObjectEventCommand(getCameraRefInternal()));
         }
 
         /**
@@ -275,7 +345,7 @@ public class CanonCamera {
          * @see org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic#registerCameraPropertyEvent(EdsCameraRef)
          */
         public RegisterPropertyEventCommand registerPropertyEventCommand() {
-            return dispatchCommand(new RegisterPropertyEventCommand(cameraRef));
+            return dispatchCommand(new RegisterPropertyEventCommand(getCameraRefInternal()));
         }
 
         /**
@@ -285,7 +355,7 @@ public class CanonCamera {
          * @see org.blackdread.cameraframework.api.helper.logic.event.CameraStateEventLogic#registerCameraStateEvent(EdsCameraRef)
          */
         public RegisterStateEventCommand registerStateEventCommand() {
-            return dispatchCommand(new RegisterStateEventCommand(cameraRef));
+            return dispatchCommand(new RegisterStateEventCommand(getCameraRefInternal()));
         }
 
         /**
@@ -295,7 +365,7 @@ public class CanonCamera {
          * @see org.blackdread.cameraframework.api.helper.logic.event.CameraObjectEventLogic#unregisterCameraObjectEvent(EdsCameraRef)
          */
         public UnRegisterObjectEventCommand unRegisterObjectEventCommand() {
-            return dispatchCommand(new UnRegisterObjectEventCommand(cameraRef));
+            return dispatchCommand(new UnRegisterObjectEventCommand(getCameraRefInternal()));
         }
 
         /**
@@ -305,7 +375,7 @@ public class CanonCamera {
          * @see org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyEventLogic#unregisterCameraPropertyEvent(EdsCameraRef)
          */
         public UnRegisterPropertyEventCommand unRegisterPropertyEventCommand() {
-            return dispatchCommand(new UnRegisterPropertyEventCommand(cameraRef));
+            return dispatchCommand(new UnRegisterPropertyEventCommand(getCameraRefInternal()));
         }
 
         /**
@@ -315,7 +385,7 @@ public class CanonCamera {
          * @see org.blackdread.cameraframework.api.helper.logic.event.CameraStateEventLogic#unregisterCameraStateEvent(EdsCameraRef)
          */
         public UnRegisterStateEventCommand unRegisterStateEventCommand() {
-            return dispatchCommand(new UnRegisterStateEventCommand(cameraRef));
+            return dispatchCommand(new UnRegisterStateEventCommand(getCameraRefInternal()));
         }
     }
 
@@ -804,5 +874,15 @@ public class CanonCamera {
             return dispatchCommand(new SetPropertyCommand.WhiteBalance(value));
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "CanonCamera{" +
+            "cameraRef=" + cameraRef.get() +
+            ", commandBuilderReusable=" + commandBuilderReusable +
+            ", defaultTimeout=" + defaultTimeout +
+            ", serialNumber='" + serialNumber + '\'' +
+            '}';
     }
 }

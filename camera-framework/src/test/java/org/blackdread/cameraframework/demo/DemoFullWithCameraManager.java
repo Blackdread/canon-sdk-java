@@ -25,21 +25,24 @@ package org.blackdread.cameraframework.demo;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.CameraIsConnected;
+import org.blackdread.cameraframework.api.camera.CameraManager;
 import org.blackdread.cameraframework.api.camera.CanonCamera;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.command.TerminateSdkCommand;
 import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
 import org.blackdread.cameraframework.api.constant.EdsSaveTo;
-import org.blackdread.cameraframework.api.helper.initialisation.FrameworkInitialisation;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+import org.blackdread.cameraframework.api.helper.initialisation.FrameworkInitialisation;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraPropertyListener;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraStateListener;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -47,9 +50,9 @@ import java.util.concurrent.ExecutionException;
  *
  * @author Yoann CAPLAIN
  */
-public class DemoFull1 {
+public class DemoFullWithCameraManager {
 
-    private static final Logger log = LoggerFactory.getLogger(DemoFull1.class);
+    private static final Logger log = LoggerFactory.getLogger(DemoFullWithCameraManager.class);
 
     private CameraAddedListener cameraAddedListener;
     private CameraObjectListener cameraObjectListener;
@@ -77,7 +80,11 @@ public class DemoFull1 {
             .withCameraAddedListener(cameraAddedListener)
             .initialize();
 
-        final CanonCamera camera = new CanonCamera();
+        final List<CanonCamera> cameras = CameraManager.getAllCameras();
+
+        Assertions.assertFalse(cameras.isEmpty());
+
+        final CanonCamera camera = cameras.get(0);
 
         final EdsdkLibrary.EdsCameraRef edsCameraRef = get(camera.openSession());
 
