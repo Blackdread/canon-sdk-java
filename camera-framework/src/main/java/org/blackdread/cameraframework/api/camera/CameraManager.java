@@ -284,11 +284,17 @@ public final class CameraManager {
     private static void refreshRunner() {
         log.info("Command refresh thread started");
         try {
+            // if stopped but restarted right after, we might end up with multiple refresh thread :)
             while (!stopRun) {
                 try {
                     refreshCameras();
                 } catch (Exception e) {
                     log.warn("Ignored exception in refresh runner", e);
+                }
+                try {
+                    Thread.sleep(refreshIntervalSeconds * 1000 + 1);
+                } catch (InterruptedException ignored) {
+                    // if interrupted then stopRun should be true
                 }
             }
         } finally {
