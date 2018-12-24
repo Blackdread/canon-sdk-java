@@ -24,6 +24,7 @@
 package org.blackdread.cameraframework.api.camera;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.sun.jna.NativeLong;
 import com.sun.jna.ptr.NativeLongByReference;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -86,10 +88,16 @@ public final class CameraManager {
 
     private static final AtomicReference<CameraSupplier> cameraSupplier = new AtomicReference<>(CanonCamera::new);
 
-//    private static final ThreadFactory threadFactory = new ThreadFactoryBuilder()
-//        .setNameFormat("camera-refresh-%d")
-//        .setDaemon(true)
-//        .build();
+    private static final ThreadFactory threadFactory = new ThreadFactoryBuilder()
+        .setNameFormat("camera-refresh-%d")
+        .setDaemon(true)
+        .build();
+
+    private static volatile Thread refreshThread;
+
+    private static volatile int refreshIntervalSeconds = 30;
+
+    private static volatile boolean stopRun = false;
 
     private static void init() {
         final boolean previousValue = initOnce.getAndSet(true);
@@ -103,6 +111,8 @@ public final class CameraManager {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new IllegalStateException(e);
+            } finally {
+                setRefreshInterval(30);
             }
         }
     }
@@ -127,10 +137,21 @@ public final class CameraManager {
         if (intervalSeconds < 0) {
             throw new IllegalArgumentException("Interval must be >= 0");
         }
-        if (intervalSeconds == 0) {
-
-        } else {
-
+        synchronized (threadFactory) {
+            if (intervalSeconds == 0) {
+                stopRun = true;
+                if (refreshThread != null) {
+                    refreshThread.interrupt();
+                }
+                refreshThread = null;
+            } else {
+                refreshIntervalSeconds = intervalSeconds;
+                if (refreshThread == null) {
+                    stopRun = false;
+                    refreshThread = threadFactory.newThread(CameraManager::refreshRunner);
+                    refreshThread.start();
+                }
+            }
         }
     }
 
@@ -257,6 +278,21 @@ public final class CameraManager {
         } else {
             CanonFactory.commandDispatcher().scheduleCommand(command);
             command.get();
+        }
+    }
+
+    private static void refreshRunner() {
+        log.info("Command refresh thread started");
+        try {
+            while (!stopRun) {
+                try {
+                    refreshCameras();
+                } catch (Exception e) {
+                    log.warn("Ignored exception in refresh runner", e);
+                }
+            }
+        } finally {
+            log.warn("Command refresh thread ended");
         }
     }
 
