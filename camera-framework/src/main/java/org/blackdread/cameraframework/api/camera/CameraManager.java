@@ -292,7 +292,7 @@ public final class CameraManager {
                     log.warn("Ignored exception in refresh runner", e);
                 }
                 try {
-                    Thread.sleep(refreshIntervalSeconds * 1000 + 1);
+                    Thread.sleep(refreshIntervalSeconds * 1000L + 1L);
                 } catch (InterruptedException ignored) {
                     // if interrupted then stopRun should be true
                 }
