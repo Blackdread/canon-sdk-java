@@ -95,7 +95,7 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
     }
 
     @Override
-    protected R runInternal() {
+    protected R runInternal() throws InterruptedException {
         /*
          * Implementation to simplify get values so less duplicate code in runInternal() for get commands
          * but we may get ClassCastException if wrong return type is used (shortcut methods are safer from this part).

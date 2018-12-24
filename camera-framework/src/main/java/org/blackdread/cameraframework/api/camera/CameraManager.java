@@ -24,14 +24,19 @@
 package org.blackdread.cameraframework.api.camera;
 
 import com.google.common.collect.ImmutableList;
+import com.sun.jna.NativeLong;
+import com.sun.jna.ptr.NativeLongByReference;
+import org.apache.commons.lang3.StringUtils;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.command.AbstractCanonCommand;
 import org.blackdread.cameraframework.api.command.IsConnectedCommand;
 import org.blackdread.cameraframework.api.command.OpenSessionCommand;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOptionBuilder;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.api.helper.logic.event.CameraAddedListener;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.util.ReleaseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +44,15 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+
+import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
 
 /**
  * Simple camera manager to simplify camera cable connection and disconnection.
@@ -68,7 +77,14 @@ public final class CameraManager {
 
     private static final AtomicBoolean initOnce = new AtomicBoolean(false);
 
+    /**
+     * Refresh cannot be multi-threaded
+     */
+    private static final Object refreshLock = new Object();
+
     private static final CameraAddedListener cameraAddedListener = event -> handleCameraAddedListener();
+
+    private static final AtomicReference<CameraSupplier> cameraSupplier = new AtomicReference<>(CanonCamera::new);
 
 //    private static final ThreadFactory threadFactory = new ThreadFactoryBuilder()
 //        .setNameFormat("camera-refresh-%d")
@@ -88,6 +104,33 @@ public final class CameraManager {
                 Thread.currentThread().interrupt();
                 throw new IllegalStateException(e);
             }
+        }
+    }
+
+    /**
+     * Useful if want to customize camera instances created by this manager
+     *
+     * @param supplier supplier to use
+     */
+    public static void setCameraSupplier(final CameraSupplier supplier) {
+        CameraManager.cameraSupplier.set(Objects.requireNonNull(supplier));
+    }
+
+    /**
+     * 0 will stop the refresh thread.
+     * <br>
+     * Another value than 0 will restart the refresh thread if was previously stopped, otherwise simply change the interval.
+     *
+     * @param intervalSeconds time between refresh in second
+     */
+    public static void setRefreshInterval(final int intervalSeconds) {
+        if (intervalSeconds < 0) {
+            throw new IllegalArgumentException("Interval must be >= 0");
+        }
+        if (intervalSeconds == 0) {
+
+        } else {
+
         }
     }
 
@@ -223,8 +266,116 @@ public final class CameraManager {
     private static class FindAndConnectCameraCommand extends AbstractCanonCommand<Void> {
 
         @Override
-        protected Void runInternal() throws InterruptedException {
-            return null;
+        protected Void runInternal() {
+            synchronized (refreshLock) {
+                final EdsdkLibrary.EdsCameraListRef.ByReference listRef = new EdsdkLibrary.EdsCameraListRef.ByReference();
+
+                EdsdkError edsdkError;
+                try {
+                    edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetCameraList(listRef));
+                    if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                        throw edsdkError.getException();
+                    }
+
+                    final NativeLongByReference outRef = new NativeLongByReference();
+                    edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetChildCount(listRef.getValue(), outRef));
+                    if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                        throw edsdkError.getException();
+                    }
+
+                    final long numCams = outRef.getValue().longValue();
+                    if (numCams <= 0) {
+                        log.debug("No camera detected");
+                        return null;
+                    }
+
+                    for (int i = 0; i < numCams; i++) {
+                        final EdsdkLibrary.EdsCameraRef.ByReference cameraRef = new EdsdkLibrary.EdsCameraRef.ByReference();
+
+                        edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetChildAtIndex(listRef.getValue(), new NativeLong(i), cameraRef));
+                        if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                            throw edsdkError.getException();
+                        }
+
+                        boolean sessionAlreadyOpen = false;
+                        String bodyIDEx;
+                        try {
+                            bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                            sessionAlreadyOpen = true;
+                        } catch (EdsdkErrorException e) {
+                            // From tests, should throw EdsdkCommDisconnectedErrorException if not connected
+                            log.info("Error ignored while testing if camera is connected to open session", e);
+                            bodyIDEx = "";
+                        }
+
+                        if (sessionAlreadyOpen) {
+                            // It means that the camera may be managed by this class already (or not), that it was already refreshed or opened via another way then the manager will skip as to not impact other logic
+                            log.trace("Camera session already open ({}), we skip", bodyIDEx);
+                            ReleaseUtil.release(cameraRef);
+                            continue;
+                        }
+
+                        edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRef.getValue()));
+                        if (edsdkError != EdsdkError.EDS_ERR_OK) {
+                            ReleaseUtil.release(cameraRef);
+                            log.warn("Failed to open session: {}", edsdkError);
+                            continue;
+                        }
+
+                        try {
+                            bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                        } catch (EdsdkErrorException e) {
+                            ReleaseUtil.release(cameraRef);
+                            log.warn("Failed to get serial number: {}", e);
+                            continue;
+                        }
+
+                        if (StringUtils.isBlank(bodyIDEx)) {
+                            log.error("BodyIDEx returned is blank: {}", bodyIDEx);
+                            CanonFactory.edsdkLibrary().EdsCloseSession(cameraRef.getValue());
+                            ReleaseUtil.release(cameraRef);
+                            // we continue next iteration but no reason for BodyIDEx to be null...
+                            continue;
+                        } else {
+
+                            // Could check EdsCameraRef exist but not really useful
+
+                            final CanonCamera cameraInMap = camerasBySerialNumberMap.get(bodyIDEx);
+                            if (cameraInMap != null) {
+                                // If reach here, it means:
+                                // - camera was previously managed (serial number) and camera
+                                // was disconnected/reconnected with cable
+                                try {
+                                    final Optional<EdsdkLibrary.EdsCameraRef> currentCameraRef = cameraInMap.getCameraRef();
+                                    cameraInMap.setCameraRef(cameraRef.getValue());
+                                    currentCameraRef.ifPresent(ReleaseUtil::release);
+                                } catch (Exception e) {
+                                    log.error("Exception while replacing cameraRef in camera, should not happen", e);
+                                    ReleaseUtil.release(cameraRef);
+                                }
+                            } else {
+                                // If reach here, it means:
+                                // - camera was not connected before
+                                // - no instance of that camera should exist (CanonCamera)
+                                // - no instance of that camera's serial number should exist
+                                try {
+                                    final CanonCamera camera = cameraSupplier.get().createCamera(bodyIDEx);
+                                    camera.setCameraRef(cameraRef.getValue());
+                                    camerasBySerialNumberMap.put(bodyIDEx, camera);
+                                    log.info("New camera created: {}", camera);
+                                } catch (Exception e) {
+                                    log.error("Supplier had exception, should not happen", e);
+                                    ReleaseUtil.release(cameraRef);
+                                }
+                            }
+                        }
+                    }
+                } finally {
+                    ReleaseUtil.release(listRef);
+                }
+
+                return null;
+            }
         }
     }
 }

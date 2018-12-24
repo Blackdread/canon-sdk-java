@@ -94,7 +94,7 @@ public abstract class SetPropertyCommand<R> extends AbstractCanonCommand<R> {
     }
 
     @Override
-    protected R runInternal() {
+    protected R runInternal() throws InterruptedException {
         /*
          * Implementation to simplify set values so less duplicate code in runInternal() for set commands.
          *
