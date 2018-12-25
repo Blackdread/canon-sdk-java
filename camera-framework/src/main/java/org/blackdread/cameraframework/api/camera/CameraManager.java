@@ -390,6 +390,7 @@ public final class CameraManager {
                                 try {
                                     final Optional<EdsdkLibrary.EdsCameraRef> currentCameraRef = cameraInMap.getCameraRef();
                                     cameraInMap.setCameraRef(cameraRef.getValue());
+                                    registerEvents(cameraRef.getValue());
                                     currentCameraRef.ifPresent(ReleaseUtil::release);
                                 } catch (Exception e) {
                                     log.error("Exception while replacing cameraRef in camera, should not happen", e);
@@ -403,6 +404,7 @@ public final class CameraManager {
                                 try {
                                     final CanonCamera camera = cameraSupplier.get().createCamera(bodyIDEx);
                                     camera.setCameraRef(cameraRef.getValue());
+                                    registerEvents(cameraRef.getValue());
                                     camerasBySerialNumberMap.put(bodyIDEx, camera);
                                     log.info("New camera created: {}", camera);
                                 } catch (Exception e) {
@@ -419,5 +421,11 @@ public final class CameraManager {
                 return null;
             }
         }
+    }
+
+    private static void registerEvents(final EdsdkLibrary.EdsCameraRef cameraRef) {
+        CanonFactory.cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
+        CanonFactory.cameraPropertyEventLogic().registerCameraPropertyEvent(cameraRef);
+        CanonFactory.cameraStateEventLogic().registerCameraStateEvent(cameraRef);
     }
 }

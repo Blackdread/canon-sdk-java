@@ -88,6 +88,7 @@ public class DemoFullWithCameraManager {
 
         final EdsdkLibrary.EdsCameraRef edsCameraRef = get(camera.openSession());
 
+        // optional as manager does it
         get(camera.getEvent().registerObjectEventCommand());
         get(camera.getEvent().registerPropertyEventCommand());
         get(camera.getEvent().registerStateEventCommand());
