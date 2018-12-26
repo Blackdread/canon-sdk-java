@@ -52,7 +52,7 @@ public class OpenSessionOption {
     /**
      * EdsCameraRef to be used only with {@code openSessionOnly} to allow to open session if session was previously closed but no release has been done.
      */
-    private EdsCameraRef cameraRef;
+    private final EdsCameraRef cameraRef;
 
     /**
      * If not null then will set the EdsCameraRef that is returned by command.

@@ -52,8 +52,8 @@ class ConstantGetByValueTest {
 
             if (!hasEnumDuplicateValues(nativeEnum)) {
                 Assertions.assertSame(enumFound, nativeEnum);
-                Assertions.assertSame(enumFound.name(), nativeEnum.name());
-                Assertions.assertSame(enumFound.description(), nativeEnum.description());
+                Assertions.assertEquals(enumFound.name(), nativeEnum.name());
+                Assertions.assertEquals(enumFound.description(), nativeEnum.description());
             }
         }
 
@@ -65,8 +65,8 @@ class ConstantGetByValueTest {
 
             if (!hasEnumDuplicateValues(nativeEnum)) {
                 Assertions.assertSame(result, nativeEnum);
-                Assertions.assertSame(result.name(), nativeEnum.name());
-                Assertions.assertSame(result.description(), nativeEnum.description());
+                Assertions.assertEquals(result.name(), nativeEnum.name());
+                Assertions.assertEquals(result.description(), nativeEnum.description());
             }
         }
     }
