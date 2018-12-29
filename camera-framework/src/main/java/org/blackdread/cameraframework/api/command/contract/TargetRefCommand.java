@@ -34,10 +34,11 @@ import java.util.Optional;
  * It removes the need to define constructors with multiple parameters and this parameter can be changed later on by Camera or other manager class.
  * <p>Created on 2018/12/04.</p>
  *
+ * @param <R> Return type of command
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */
-public interface TargetRefCommand {
+public interface TargetRefCommand<R> {
 
     /**
      * This is set by the camera at {@link org.blackdread.cameraframework.api.camera.CanonCamera#dispatchCommand(CanonCommand)} if not already set.
@@ -45,8 +46,9 @@ public interface TargetRefCommand {
      * Implementation of {@link org.blackdread.cameraframework.api.helper.logic.CommandDispatcher} may also set this value but only if provided the target ref which is not in default implementation of framework.
      *
      * @param targetRef targetRef
+     * @return itself
      */
-    void setTargetRef(final EdsBaseRef targetRef);
+    CanonCommand<R> setTargetRef(final EdsBaseRef targetRef);
 
     /**
      * @return target ref of command

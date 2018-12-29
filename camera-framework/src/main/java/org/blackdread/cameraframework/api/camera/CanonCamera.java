@@ -153,9 +153,11 @@ public class CanonCamera {
      * May be used to set the camera but should usually be set automatically by the OpenSession command
      *
      * @param cameraRef actual camera to use
+     * @return itself
      */
-    public void setCameraRef(final EdsCameraRef cameraRef) {
+    public CanonCamera setCameraRef(final EdsCameraRef cameraRef) {
         this.cameraRef.set(cameraRef);
+        return this;
     }
 
     /**
@@ -202,9 +204,11 @@ public class CanonCamera {
      * Default timeout set to commands created by this canon camera.
      *
      * @param defaultTimeout default timeout, may be null
+     * @return itself
      */
-    public void setDefaultTimeout(final Duration defaultTimeout) {
+    public CanonCamera setDefaultTimeout(final Duration defaultTimeout) {
         this.defaultTimeout = defaultTimeout;
+        return this;
     }
 
     public Event getEvent() {
@@ -704,14 +708,18 @@ public class CanonCamera {
             return dispatchCommand(new GetPropertyCommand.WhiteBalanceShift());
         }
 
-        public GetPropertyDescCommand.ApertureDesc getAvailableApertureAsync() {
-            return dispatchCommand(new GetPropertyDescCommand.ApertureDesc());
-        }
-
         /*  ***************
          *      Properties available
          *  ***************
          */
+
+        public GetPropertyDescCommand.AEModeSelectDesc getAvailableAEModeSelectAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.AEModeSelectDesc());
+        }
+
+        public GetPropertyDescCommand.ApertureDesc getAvailableApertureAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.ApertureDesc());
+        }
 
         public GetPropertyDescCommand.ColorTemperatureDesc getAvailableColorTemperatureAsync() {
             return dispatchCommand(new GetPropertyDescCommand.ColorTemperatureDesc());
@@ -733,6 +741,18 @@ public class CanonCamera {
             return dispatchCommand(new GetPropertyDescCommand.IsoSpeedDesc());
         }
 
+        public GetPropertyDescCommand.LiveViewAutoFocusModeDesc getAvailableLiveViewAutoFocusModeAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.LiveViewAutoFocusModeDesc());
+        }
+
+        public GetPropertyDescCommand.LiveViewColorTemperatureDesc getAvailableLiveViewColorTemperatureAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.LiveViewColorTemperatureDesc());
+        }
+
+        public GetPropertyDescCommand.LiveViewWhiteBalanceDesc getAvailableLiveViewWhiteBalanceAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.LiveViewWhiteBalanceDesc());
+        }
+
         public GetPropertyDescCommand.MeteringModeDesc getAvailableMeteringModeAsync() {
             return dispatchCommand(new GetPropertyDescCommand.MeteringModeDesc());
         }
@@ -745,16 +765,8 @@ public class CanonCamera {
             return dispatchCommand(new GetPropertyDescCommand.ShutterSpeedDesc());
         }
 
-        public GetPropertyDescCommand.LiveViewAutoFocusModeDesc getAvailableLiveViewAutoFocusModeAsync() {
-            return dispatchCommand(new GetPropertyDescCommand.LiveViewAutoFocusModeDesc());
-        }
-
-        public GetPropertyDescCommand.LiveViewColorTemperatureDesc getAvailableLiveViewColorTemperatureAsync() {
-            return dispatchCommand(new GetPropertyDescCommand.LiveViewColorTemperatureDesc());
-        }
-
-        public GetPropertyDescCommand.LiveViewWhiteBalanceDesc getAvailableLiveViewWhiteBalanceAsync() {
-            return dispatchCommand(new GetPropertyDescCommand.LiveViewWhiteBalanceDesc());
+        public GetPropertyDescCommand.WhiteBalanceDesc getAvailableWhiteBalanceAsync() {
+            return dispatchCommand(new GetPropertyDescCommand.WhiteBalanceDesc());
         }
 
         /*  ***************

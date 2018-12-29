@@ -40,7 +40,7 @@ import java.util.concurrent.ExecutionException;
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */
-public interface CanonCommand<R> extends TargetRefCommand, CopyCommand<R>, TimeoutCommand/*, RootDecoratorCommand<R>/*, Future<R>*/ {
+public interface CanonCommand<R> extends TargetRefCommand<R>, CopyCommand<R>, TimeoutCommand<R>/*, RootDecoratorCommand<R>/*, Future<R>*/ {
 
     /**
      * Should be called only by command dispatcher thread(s).

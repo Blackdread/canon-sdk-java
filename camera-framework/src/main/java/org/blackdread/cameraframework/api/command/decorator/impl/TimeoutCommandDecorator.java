@@ -55,7 +55,8 @@ public class TimeoutCommandDecorator<R> extends AbstractDecoratorCommand<R> {
     }
 
     @Override
-    public void setTimeout(final Duration timeout) {
+    public CanonCommand<R> setTimeout(final Duration timeout) {
         this.timeout = Objects.requireNonNull(timeout);
+        return this;
     }
 }

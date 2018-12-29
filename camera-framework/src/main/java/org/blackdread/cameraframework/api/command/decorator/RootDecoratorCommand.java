@@ -29,6 +29,7 @@ import org.blackdread.cameraframework.api.command.CanonCommand;
  * Allow to get the abstract root command to call internal methods from the manager class for threads executing commands
  * <p>Created on 2018/10/10.<p>
  *
+ * @param <R> Return type of command
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */

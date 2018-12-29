@@ -183,7 +183,9 @@ public final class CameraManager {
     }
 
     /**
-     * Do not call this too often as it sends commands and timeouts may be long
+     * Do not call this too often as it sends commands and timeouts may be long.
+     * <br>
+     * Cannot be called from dispatcher thread.
      *
      * @return current cameras that are connected to pc
      */

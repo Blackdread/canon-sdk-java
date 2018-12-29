@@ -91,7 +91,7 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
     private void watchDogRunner() {
         // TODO There may be some multi-thread issue between timeout and interrupt, can see later to minimize it more
         try {
-            CanonCommand previousCommand = null;
+            CanonCommand<?> previousCommand = null;
             while (true) {
                 try {
                     if (previousCommand == null) {
@@ -129,7 +129,7 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
                             log.warn("A command has exceeded timeout, interrupt was triggered");
                             sleep(1);
                         } else {
-                            // TODO sleep a bit
+                            sleep(5);
                         }
                     }
                 } catch (Exception e) {
@@ -200,7 +200,7 @@ public final class SingleCommandDispatcher implements CommandDispatcher {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException ignored) {
-            // ignored
+            Thread.currentThread().interrupt();
         }
     }
 

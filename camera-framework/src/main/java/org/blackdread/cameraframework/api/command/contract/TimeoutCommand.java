@@ -23,6 +23,8 @@
  */
 package org.blackdread.cameraframework.api.command.contract;
 
+import org.blackdread.cameraframework.api.command.CanonCommand;
+
 import java.time.Duration;
 import java.util.Optional;
 
@@ -30,10 +32,11 @@ import java.util.Optional;
  * A command should be interrupted if its execution exceeded timeout duration.
  * <p>Created on 2018/10/10.<p>
  *
+ * @param <R> Return type of command
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */
-public interface TimeoutCommand {
+public interface TimeoutCommand<R> {
 
     /**
      * @return timeout of command
@@ -46,7 +49,8 @@ public interface TimeoutCommand {
      * <p>If this method is called after command has started execution, there is no guarantee it will be taken into account (no exception is thrown)</p>
      *
      * @param timeout timeout to set
+     * @return itself
      */
-    void setTimeout(final Duration timeout);
+    CanonCommand<R> setTimeout(final Duration timeout);
 
 }

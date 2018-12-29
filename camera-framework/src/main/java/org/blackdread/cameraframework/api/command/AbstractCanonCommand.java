@@ -50,9 +50,9 @@ import static org.blackdread.cameraframework.util.TimeUtil.currentInstant;
  * @author Yoann CAPLAIN
  * @since 1.0.0
  */
-public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, TargetRefCommand {
+public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, TargetRefCommand<R> {
 
-    protected static final Logger log = LoggerFactory.getLogger(AbstractCanonCommand.class);
+    protected final Logger log = LoggerFactory.getLogger(AbstractCanonCommand.class);
 
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(60);
 
@@ -153,7 +153,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     }
 
     @Override
-    public void setTargetRef(final EdsBaseRef targetRef) {
+    public CanonCommand<R> setTargetRef(final EdsBaseRef targetRef) {
         throwIfRunAlreadyCalled();
         this.targetRef = Objects.requireNonNull(targetRef);
 
@@ -170,6 +170,7 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
         } else {
             throw new IllegalArgumentException("Target ref not supported");
         }
+        return this;
     }
 
     public final Optional<EdsBaseRef> getTargetRef() {
@@ -264,8 +265,9 @@ public abstract class AbstractCanonCommand<R> implements CanonCommand<R>, Target
     }
 
     @Override
-    public void setTimeout(final Duration timeout) {
+    public CanonCommand<R> setTimeout(final Duration timeout) {
         this.timeout = timeout;
+        return this;
     }
 
 

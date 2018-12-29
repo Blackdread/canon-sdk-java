@@ -150,8 +150,9 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
     }
 
     @Override
-    public void setTimeout(final Duration timeout) {
+    public CanonCommand<R> setTimeout(final Duration timeout) {
         getDelegate().setTimeout(timeout);
+        return this;
     }
 
     @Override
@@ -165,8 +166,9 @@ public abstract class AbstractDecoratorCommand<R> implements DecoratorCommand<R>
     }
 
     @Override
-    public void setTargetRef(final EdsdkLibrary.EdsBaseRef targetRef) {
+    public CanonCommand<R> setTargetRef(final EdsdkLibrary.EdsBaseRef targetRef) {
         getDelegate().setTargetRef(targetRef);
+        return this;
     }
 
     @Override
