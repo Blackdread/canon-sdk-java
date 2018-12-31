@@ -50,7 +50,7 @@ class CanonLibraryImpl implements CanonLibrary {
 
     private static final Logger log = LoggerFactory.getLogger(CanonLibraryImpl.class);
 
-    private static final String JNA_PATH_PROPERTY = "jna.library.path";
+    private static final String LIBRARY_PATH_PROPERTY = "blackdread.cameraframework.library.path";
 
     // fields are static but will change to instance fields
 
@@ -108,7 +108,7 @@ class CanonLibraryImpl implements CanonLibrary {
      * @return path to lib to load
      */
     protected Optional<String> getLibPath() {
-        final String jnaPath = System.getProperty(JNA_PATH_PROPERTY);
+        final String jnaPath = System.getProperty(LIBRARY_PATH_PROPERTY);
         if (jnaPath != null) {
             // user has specified himself the path, we follow what he gave
             return Optional.of(jnaPath);
