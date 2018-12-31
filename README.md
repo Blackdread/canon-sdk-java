@@ -31,8 +31,19 @@ First release will support java 8.
 
 Two branches will be maintained as to support java 8 and 11 (and maven respectively).
 
+# Maven dependency
+To control camera, use the framework:
+
+    <dependency>
+        <groupId>org.blackdread</groupId>
+        <artifactId>camera-framework</artifactId>
+        <version>put version her</version>
+    </dependency>
+    
+If you only want bindings then just change artifact to "camera-binding" but framework should be what you should use as it gives commands, etc.
+    
 # Usage
-To write
+See package "org.blackdread.cameraframework.demo" in test folder ([here](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework/src/test/java/org/blackdread/cameraframework/demo)).
 
 # Design note
 Any collection/map return type should be considered as immutable, even if implementation does not use ImmutableList/Set/etc. If collection/map is mutable, it will be clearly specified in javadoc, otherwise implementation is free to change to immutable collections anytime. 
