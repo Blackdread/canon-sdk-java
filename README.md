@@ -37,7 +37,7 @@ To control camera, use the framework:
     <dependency>
         <groupId>org.blackdread</groupId>
         <artifactId>camera-framework</artifactId>
-        <version>put version her</version>
+        <version>put version here</version>
     </dependency>
     
 If you only want bindings then just change artifact to "camera-binding" but framework should be what you should use as it gives commands, etc.
