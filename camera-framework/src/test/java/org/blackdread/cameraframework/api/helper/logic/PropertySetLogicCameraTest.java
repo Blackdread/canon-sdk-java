@@ -53,11 +53,14 @@ public class PropertySetLogicCameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     @BeforeAll
     static void setUpClass() {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -80,17 +83,17 @@ public class PropertySetLogicCameraTest {
 
     @Test
     void setPropertyIsoSpeed() throws InterruptedException {
-        final List<EdsISOSpeed> isoSpeeds = CanonFactory.propertyDescLogic().getPropertyDesc(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
+        final List<EdsISOSpeed> isoSpeeds = CanonFactory.propertyDescLogic().getPropertyDesc(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed);
 
-        CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(0));
+        CanonFactory.propertySetLogic().setPropertyData(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(0));
 
-        final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(CanonFactory.propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed).intValue());
+        final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(CanonFactory.propertyGetLogic().getPropertyDataLong(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed).intValue());
 
         Assertions.assertSame(isoSpeeds.get(0), isoSpeed);
 
-        CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(1));
+        CanonFactory.propertySetLogic().setPropertyData(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(1));
 
-        final EdsISOSpeed isoSpeed2 = EdsISOSpeed.ofValue(CanonFactory.propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed).intValue());
+        final EdsISOSpeed isoSpeed2 = EdsISOSpeed.ofValue(CanonFactory.propertyGetLogic().getPropertyDataLong(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed).intValue());
 
         Assertions.assertSame(isoSpeeds.get(1), isoSpeed2);
     }

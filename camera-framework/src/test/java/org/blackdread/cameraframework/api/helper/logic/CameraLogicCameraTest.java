@@ -50,11 +50,14 @@ class CameraLogicCameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     @BeforeAll
     static void setUpClass() {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -77,25 +80,25 @@ class CameraLogicCameraTest {
 
     @Test
     void setCapacity() {
-        cameraLogic().setCapacity(camera.getValue());
+        cameraLogic().setCapacity(cameraRef);
     }
 
     @Test
     void setCapacityWithCapacity() {
-        cameraLogic().setCapacity(camera.getValue(), 10000);
-        cameraLogic().setCapacity(camera.getValue(), 1000);
+        cameraLogic().setCapacity(cameraRef, 10000);
+        cameraLogic().setCapacity(cameraRef, 1000);
     }
 
     @Test
     void setCapacityWithBytesPerSector() {
-        cameraLogic().setCapacity(camera.getValue(), 10000, 256);
-        cameraLogic().setCapacity(camera.getValue(), 10000, 4096);
+        cameraLogic().setCapacity(cameraRef, 10000, 256);
+        cameraLogic().setCapacity(cameraRef, 10000, 4096);
     }
 
     @Test
     void isMirrorLockupEnabled() {
         try {
-            final boolean mirrorLockupEnabled = cameraLogic().isMirrorLockupEnabled(camera.getValue());
+            final boolean mirrorLockupEnabled = cameraLogic().isMirrorLockupEnabled(cameraRef);
             log.info("mirrorLockupEnabled was {}", mirrorLockupEnabled);
         } catch (EdsdkErrorException e) {
             log.warn("Might not be supported", e);

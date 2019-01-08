@@ -64,11 +64,14 @@ class PropertyGetLogicCameraTest {
 
     private static EdsCameraRef.ByReference camera;
 
+    private static EdsCameraRef cameraRef;
+
     @BeforeAll
     static void setUpClass() {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -216,7 +219,7 @@ class PropertyGetLogicCameraTest {
             log.warn("Skip test of {} as it is unknown", propertyID);
             return;
         }
-        final PropertyInfo propertyInfo = propertyLogic().getPropertyTypeAndSize(camera.getValue(), propertyID);
+        final PropertyInfo propertyInfo = propertyLogic().getPropertyTypeAndSize(cameraRef, propertyID);
 
         Assertions.assertNotNull(propertyInfo);
         Assertions.assertEquals(expectedType, propertyInfo.getDataType());
@@ -233,7 +236,7 @@ class PropertyGetLogicCameraTest {
             log.warn("Skip test of {} as it is unknown", propertyID);
             return;
         }
-        final PropertyInfo propertyInfo = propertyLogic().getPropertyTypeAndSize(camera.getValue(), propertyID, 0);
+        final PropertyInfo propertyInfo = propertyLogic().getPropertyTypeAndSize(cameraRef, propertyID, 0);
 
         Assertions.assertNotNull(propertyInfo);
         Assertions.assertEquals(expectedType, propertyInfo.getDataType());
@@ -249,14 +252,14 @@ class PropertyGetLogicCameraTest {
         final EdsDataType propertyType;
         if (EdsDataType.kEdsDataType_Unknown.equals(expectedType)) {
             try {
-                propertyType = propertyLogic().getPropertyType(camera.getValue(), propertyID);
+                propertyType = propertyLogic().getPropertyType(cameraRef, propertyID);
                 Assertions.fail("Property " + propertyID + "works but was not supported with my camera");
             } catch (EdsdkErrorException e) {
                 log.warn("Skip test of {} as it is unknown", propertyID);
                 return;
             }
         } else
-            propertyType = propertyLogic().getPropertyType(camera.getValue(), propertyID);
+            propertyType = propertyLogic().getPropertyType(cameraRef, propertyID);
 
         Assertions.assertNotNull(propertyType);
         Assertions.assertEquals(expectedType, propertyType);
@@ -269,7 +272,7 @@ class PropertyGetLogicCameraTest {
             log.warn("Skip test of {} as it is unknown", propertyID);
             return;
         }
-        final EdsDataType propertyType = propertyLogic().getPropertyType(camera.getValue(), propertyID, 0);
+        final EdsDataType propertyType = propertyLogic().getPropertyType(cameraRef, propertyID, 0);
 
         Assertions.assertNotNull(propertyType);
         Assertions.assertEquals(expectedType, propertyType);
@@ -282,7 +285,7 @@ class PropertyGetLogicCameraTest {
             log.warn("Skip test of {} as it is unknown", propertyID);
             return;
         }
-        final long propertySize = propertyLogic().getPropertySize(camera.getValue(), propertyID);
+        final long propertySize = propertyLogic().getPropertySize(cameraRef, propertyID);
 
         if (expectedType == EdsDataType.kEdsDataType_String)
             Assertions.assertTrue(propertySize > sizeExpected);
@@ -297,7 +300,7 @@ class PropertyGetLogicCameraTest {
             log.warn("Skip test of {} as it is unknown", propertyID);
             return;
         }
-        final long propertySize = propertyLogic().getPropertySize(camera.getValue(), propertyID);
+        final long propertySize = propertyLogic().getPropertySize(cameraRef, propertyID);
 
         if (expectedType == EdsDataType.kEdsDataType_String)
             Assertions.assertTrue(propertySize > sizeExpected);
@@ -307,7 +310,7 @@ class PropertyGetLogicCameraTest {
 
     @Test
     void getPropertyDataLong() {
-        final Long value = propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
+        final Long value = propertyGetLogic().getPropertyDataLong(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed);
         Assertions.assertNotNull(value);
         final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
         Assertions.assertNotNull(isoSpeed);
@@ -315,7 +318,7 @@ class PropertyGetLogicCameraTest {
 
     @Test
     void getPropertyDataLongWithInParam() {
-        final Long value = propertyGetLogic().getPropertyDataLong(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, 0);
+        final Long value = propertyGetLogic().getPropertyDataLong(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed, 0);
         Assertions.assertNotNull(value);
         final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
         Assertions.assertNotNull(isoSpeed);
@@ -323,7 +326,7 @@ class PropertyGetLogicCameraTest {
 
     @Test
     void getPropertyData() {
-        final Long value = propertyGetLogic().getPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
+        final Long value = propertyGetLogic().getPropertyData(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed);
         Assertions.assertNotNull(value);
         final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
         Assertions.assertNotNull(isoSpeed);
@@ -331,7 +334,7 @@ class PropertyGetLogicCameraTest {
 
     @Test
     void getPropertyDataWithInParam() {
-        final Long value = propertyGetLogic().getPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, 0);
+        final Long value = propertyGetLogic().getPropertyData(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed, 0);
         Assertions.assertNotNull(value);
         final EdsISOSpeed isoSpeed = EdsISOSpeed.ofValue(value.intValue());
         Assertions.assertNotNull(isoSpeed);
@@ -342,7 +345,7 @@ class PropertyGetLogicCameraTest {
     void getPropertyDataShortcut(EdsPropertyID propertyID) {
         final long propertySize;
         try {
-            propertySize = propertyLogic().getPropertySize(camera.getValue(), propertyID, 0);
+            propertySize = propertyLogic().getPropertySize(cameraRef, propertyID, 0);
         } catch (EdsdkErrorException e) {
             switch (e.getEdsdkError()) {
                 case EDS_ERR_NOT_SUPPORTED:
@@ -358,7 +361,7 @@ class PropertyGetLogicCameraTest {
 
         final Memory memory = new Memory(propertySize == 0 ? 1 : propertySize);
 
-        assertNoError(propertyGetLogic().getPropertyData(camera.getValue(), propertyID, 0, propertySize, memory));
+        assertNoError(propertyGetLogic().getPropertyData(cameraRef, propertyID, 0, propertySize, memory));
 
 
     }

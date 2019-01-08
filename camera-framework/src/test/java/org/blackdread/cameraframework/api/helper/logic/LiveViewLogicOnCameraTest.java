@@ -54,19 +54,22 @@ class LiveViewLogicOnCameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     @BeforeAll
     static void setUpClass() throws InterruptedException {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
 
-        liveViewLogic().beginLiveView(camera.getValue(), EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
+        liveViewLogic().beginLiveView(cameraRef, EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
         Thread.sleep(4000);
     }
 
     @AfterAll
     static void tearDownClass() {
-        liveViewLogic().endLiveView(camera.getValue());
+        liveViewLogic().endLiveView(cameraRef);
         try {
             TestShortcutUtil.closeSession(camera);
         } finally {
@@ -86,31 +89,31 @@ class LiveViewLogicOnCameraTest {
 
     @Test
     void liveViewEnabledAfterBeginLiveView() {
-        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(camera.getValue());
+        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(cameraRef);
         Assertions.assertTrue(liveViewEnabled, "Live view mode should be enabled");
     }
 
     @Test
     void isLiveViewEnabledByDownloadingOneImage() throws InterruptedException {
-        final boolean isOn = liveViewLogic().isLiveViewEnabledByDownloadingOneImage(camera.getValue());
+        final boolean isOn = liveViewLogic().isLiveViewEnabledByDownloadingOneImage(cameraRef);
         Assertions.assertTrue(isOn, "Expected lived view ON");
     }
 
     @Test
     void getLiveViewImage() throws InterruptedException {
-        final BufferedImage liveViewImage = liveViewLogic().getLiveViewImage(camera.getValue());
+        final BufferedImage liveViewImage = liveViewLogic().getLiveViewImage(cameraRef);
         Assertions.assertNotNull(liveViewImage);
     }
 
     @Test
     void getLiveViewImageBuffer() throws InterruptedException {
-        final byte[] liveViewImageBuffer = liveViewLogic().getLiveViewImageBuffer(camera.getValue());
+        final byte[] liveViewImageBuffer = liveViewLogic().getLiveViewImageBuffer(cameraRef);
         Assertions.assertNotNull(liveViewImageBuffer);
     }
 
     @Test
     void getLiveViewImageReference() throws InterruptedException {
-        final LiveViewReference liveViewImageReference = liveViewLogic().getLiveViewImageReference(camera.getValue());
+        final LiveViewReference liveViewImageReference = liveViewLogic().getLiveViewImageReference(cameraRef);
         Assertions.assertNotNull(liveViewImageReference);
     }
 }

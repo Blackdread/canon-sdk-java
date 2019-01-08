@@ -58,11 +58,14 @@ public class PropertyDescCameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     @BeforeAll
     static void setUpClass() {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -109,7 +112,7 @@ public class PropertyDescCameraTest {
     @ParameterizedTest()
     @MethodSource("allEdsPropertyIDCompatibleWithGetPropertyDesc")
     void getPropertyDesc(EdsPropertyID propertyID) {
-        final List<NativeEnum<Integer>> nativeEnums = propertyDescLogic().getPropertyDesc(camera.getValue(), propertyID);
+        final List<NativeEnum<Integer>> nativeEnums = propertyDescLogic().getPropertyDesc(cameraRef, propertyID);
 
         Assertions.assertNotNull(nativeEnums);
         if (nativeEnums.isEmpty()) {
@@ -120,24 +123,24 @@ public class PropertyDescCameraTest {
 
     @Test
     void getPropertyDescThrowsForColorTemperature() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> propertyDescLogic().getPropertyDesc(camera.getValue(), EdsPropertyID.kEdsPropID_ColorTemperature));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> propertyDescLogic().getPropertyDesc(cameraRef, EdsPropertyID.kEdsPropID_ColorTemperature));
     }
 
     @Test
     void getPropertyDescThrowsForEvfColorTemperature() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> propertyDescLogic().getPropertyDesc(camera.getValue(), EdsPropertyID.kEdsPropID_Evf_ColorTemperature));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> propertyDescLogic().getPropertyDesc(cameraRef, EdsPropertyID.kEdsPropID_Evf_ColorTemperature));
     }
 
     @Test
     void getPropertyDescColorTemperature() {
-        final List<Integer> colorTemperatures = propertyDescLogic().getPropertyDescColorTemperature(camera.getValue());
+        final List<Integer> colorTemperatures = propertyDescLogic().getPropertyDescColorTemperature(cameraRef);
         Assertions.assertNotNull(colorTemperatures);
         log.info("Available values for {}: {}", EdsPropertyID.kEdsPropID_ColorTemperature, colorTemperatures);
     }
 
     @Test
     void getPropertyDescEvfColorTemperature() {
-        final List<Integer> evfColorTemperatures = propertyDescLogic().getPropertyDescEvfColorTemperature(camera.getValue());
+        final List<Integer> evfColorTemperatures = propertyDescLogic().getPropertyDescEvfColorTemperature(cameraRef);
         Assertions.assertNotNull(evfColorTemperatures);
         log.info("Available values for {}: {}", EdsPropertyID.kEdsPropID_Evf_ColorTemperature, evfColorTemperatures);
     }

@@ -53,11 +53,14 @@ class LiveViewLogicCameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     @BeforeAll
     static void setUpClass() {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -81,14 +84,14 @@ class LiveViewLogicCameraTest {
 
     @Test
     void endLiveView() {
-        liveViewLogic().enableLiveView(camera.getValue());
-        liveViewLogic().endLiveView(camera.getValue());
+        liveViewLogic().enableLiveView(cameraRef);
+        liveViewLogic().endLiveView(cameraRef);
     }
 
     @Test
     void endLiveViewFailsIfNotEnabledFirst() {
         try {
-            liveViewLogic().endLiveView(camera.getValue());
+            liveViewLogic().endLiveView(cameraRef);
         } catch (EdsdkErrorException e) {
             Assertions.assertEquals(EdsdkError.EDS_ERR_DEVICE_BUSY, e.getEdsdkError());
             return;
@@ -98,44 +101,44 @@ class LiveViewLogicCameraTest {
 
     @Test
     void liveViewDisabledAfterBeginAndEndLiveView() {
-        liveViewLogic().beginLiveView(camera.getValue());
-        liveViewLogic().endLiveView(camera.getValue());
-        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(camera.getValue());
+        liveViewLogic().beginLiveView(cameraRef);
+        liveViewLogic().endLiveView(cameraRef);
+        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(cameraRef);
         Assertions.assertFalse(liveViewEnabled, "Live view mode should be disabled");
     }
 
     @Test
     void isLiveViewEnabledTrueWhenEnabled() {
-        liveViewLogic().enableLiveView(camera.getValue());
-        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(camera.getValue());
+        liveViewLogic().enableLiveView(cameraRef);
+        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(cameraRef);
         Assertions.assertTrue(liveViewEnabled, "Live view mode should be enabled");
     }
 
     @Test
     void isLiveViewEnabledFalseWhenDisabled() {
-        liveViewLogic().disableLiveView(camera.getValue());
-        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(camera.getValue());
+        liveViewLogic().disableLiveView(cameraRef);
+        final boolean liveViewEnabled = liveViewLogic().isLiveViewEnabled(cameraRef);
         Assertions.assertFalse(liveViewEnabled, "Live view mode should be disabled");
     }
 
     @Test
     void isLiveViewEnabledByDownloadingOneImageDoesNotThrow() {
-        final boolean isOn = liveViewLogic().isLiveViewEnabledByDownloadingOneImage(camera.getValue());
+        final boolean isOn = liveViewLogic().isLiveViewEnabledByDownloadingOneImage(cameraRef);
         Assertions.assertFalse(isOn, "Expected lived view off");
     }
 
     @Test
     void getLiveViewImageThrowsIfNotRunning() {
-        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImage(camera.getValue()));
+        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImage(cameraRef));
     }
 
     @Test
     void getLiveViewImageBufferThrowsIfNotRunning() {
-        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImageBuffer(camera.getValue()));
+        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImageBuffer(cameraRef));
     }
 
     @Test
     void getLiveViewImageReferenceThrowsIfNotRunning() {
-        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImageReference(camera.getValue()));
+        Assertions.assertThrows(EdsdkErrorException.class, () -> liveViewLogic().getLiveViewImageReference(cameraRef));
     }
 }

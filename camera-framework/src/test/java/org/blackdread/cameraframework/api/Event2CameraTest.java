@@ -56,6 +56,8 @@ public class Event2CameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     private final AtomicInteger cameraEventCalledCount = new AtomicInteger(0);
     private final AtomicInteger propertyEventCalledCount = new AtomicInteger(0);
     private final AtomicInteger objectEventCalledCount = new AtomicInteger(0);
@@ -66,6 +68,7 @@ public class Event2CameraTest {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -86,19 +89,19 @@ public class Event2CameraTest {
             return new NativeLong(0);
         });
 
-        TestShortcutUtil.registerPropertyEventHandler(camera.getValue(), (inEvent, inPropertyID, inParam, inContext) -> {
+        TestShortcutUtil.registerPropertyEventHandler(cameraRef, (inEvent, inPropertyID, inParam, inContext) -> {
             log.warn("Camera property called {}, {}, {}", EdsPropertyEvent.ofValue(inEvent.intValue()), EdsPropertyID.ofValue(inPropertyID.intValue()), inContext);
             propertyEventCalledCount.incrementAndGet();
             return new NativeLong(0);
         });
 
-        TestShortcutUtil.registerObjectEventHandler(camera.getValue(), (inEvent, inRef, inContext) -> {
+        TestShortcutUtil.registerObjectEventHandler(cameraRef, (inEvent, inRef, inContext) -> {
             log.warn("Camera object called {}, {}, {}", inEvent, inRef, inContext);
             objectEventCalledCount.incrementAndGet();
             return new NativeLong(0);
         });
 
-        TestShortcutUtil.registerStateEventHandler(camera.getValue(), (inEvent, inEventData, inContext) -> {
+        TestShortcutUtil.registerStateEventHandler(cameraRef, (inEvent, inEventData, inContext) -> {
             log.warn("Camera state called {}, {}, {}", inEvent, inEventData, inContext);
             stateEventCalledCount.incrementAndGet();
             return new NativeLong(0);
@@ -121,7 +124,7 @@ public class Event2CameraTest {
     @Test
     @Disabled("Only run manually")
     void startLiveViewSendEvent() throws InterruptedException {
-        CanonFactory.liveViewLogic().beginLiveView(camera.getValue());
+        CanonFactory.liveViewLogic().beginLiveView(cameraRef);
 
         for (int i = 0; i < 100; i++) {
             Thread.sleep(50);
@@ -131,7 +134,7 @@ public class Event2CameraTest {
         final int count1 = propertyEventCalledCount.get();
         Assertions.assertTrue(count1 > 0);
 
-        CanonFactory.liveViewLogic().endLiveView(camera.getValue());
+        CanonFactory.liveViewLogic().endLiveView(cameraRef);
 
         for (int i = 0; i < 100; i++) {
             Thread.sleep(50);
@@ -144,7 +147,7 @@ public class Event2CameraTest {
     @Test
     @Disabled("Only run manually")
     void changePropertyEvent() throws InterruptedException {
-        final List<EdsISOSpeed> isoSpeeds = CanonFactory.propertyDescLogic().getPropertyDesc(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed);
+        final List<EdsISOSpeed> isoSpeeds = CanonFactory.propertyDescLogic().getPropertyDesc(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed);
 
         for (int i = 0; i < 10; i++) {
             Thread.sleep(50);
@@ -153,8 +156,8 @@ public class Event2CameraTest {
 
         resetCounts();
 
-        CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(0));
-        CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(1));
+        CanonFactory.propertySetLogic().setPropertyData(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(0));
+        CanonFactory.propertySetLogic().setPropertyData(cameraRef, EdsPropertyID.kEdsPropID_ISOSpeed, isoSpeeds.get(1));
 
         for (int i = 0; i < 10; i++) {
             Thread.sleep(50);

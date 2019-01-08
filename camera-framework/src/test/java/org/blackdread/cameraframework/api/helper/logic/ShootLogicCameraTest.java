@@ -74,12 +74,15 @@ class ShootLogicCameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     @BeforeAll
     static void setUpClass() throws InterruptedException {
         Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -104,21 +107,21 @@ class ShootLogicCameraTest {
     @Disabled("Only run manually")
     @Test
     void testShoot() throws InterruptedException {
-        log.warn("Camera: {} , {}, {}, {}", camera, camera.getPointer(), camera.getValue(), camera.getValue().getPointer());
+        log.warn("Camera: {} , {}, {}, {}", camera, camera.getPointer(), cameraRef, cameraRef.getPointer());
         final EdsdkLibrary.EdsObjectEventHandler eventHandler = (inEvent, inRef, inContext) -> {
             log.warn("event {}, {}, {}", EdsObjectEvent.ofValue(inEvent.intValue()), inRef, inRef.getPointer());
             CanonFactory.edsdkLibrary().EdsDownloadCancel(new EdsDirectoryItemRef(inRef.getPointer()));
             return new NativeLong(0);
         };
-        TestShortcutUtil.registerObjectEventHandler(camera.getValue(), eventHandler);
+        TestShortcutUtil.registerObjectEventHandler(cameraRef, eventHandler);
 
-        CanonFactory.propertySetLogic().setPropertyData(camera.getValue(), EdsPropertyID.kEdsPropID_SaveTo, EdsSaveTo.kEdsSaveTo_Host);
+        CanonFactory.propertySetLogic().setPropertyData(cameraRef, EdsPropertyID.kEdsPropID_SaveTo, EdsSaveTo.kEdsSaveTo_Host);
 
         final AtomicBoolean init = new AtomicBoolean(false);
         for (int i = 0; i < 2; i++) {
-            CanonFactory.cameraLogic().setCapacity(camera.getValue());
+            CanonFactory.cameraLogic().setCapacity(cameraRef);
 
-            final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_TakePicture.value()), new NativeLong(0)));
+            final EdsdkError error = toEdsdkError(CanonFactory.edsdkLibrary().EdsSendCommand(cameraRef, new NativeLong(EdsCameraCommand.kEdsCameraCommand_TakePicture.value()), new NativeLong(0)));
 
             log.warn("Error: {}", error);
 
@@ -128,16 +131,16 @@ class ShootLogicCameraTest {
         }
 
         for (int i = 0; i < 50; i++) {
-            CanonFactory.cameraLogic().setCapacity(camera.getValue());
+            CanonFactory.cameraLogic().setCapacity(cameraRef);
             final Thread run_in = new Thread(() -> {
                 if (!init.get()) {
                     init.set(true);
                     Ole32.INSTANCE.CoInitializeEx(Pointer.NULL, Ole32.COINIT_MULTITHREADED);
                 }
                 log.warn("Run in");
-                CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely));
+                CanonFactory.edsdkLibrary().EdsSendCommand(cameraRef, new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely));
                 log.warn("Middle Run in");
-                CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF));
+                CanonFactory.edsdkLibrary().EdsSendCommand(cameraRef, new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF));
                 Ole32.INSTANCE.CoUninitialize();
                 log.warn("End Run in");
             });
@@ -164,13 +167,13 @@ class ShootLogicCameraTest {
 
             Thread.sleep(1000);
 
-            CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF));
-            CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF));
+            CanonFactory.edsdkLibrary().EdsSendCommand(cameraRef, new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF));
+            CanonFactory.edsdkLibrary().EdsSendCommand(cameraRef, new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value()), new NativeLong(EdsdkLibrary.EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF));
 
             getEvents();
             Thread.sleep(1000);
 
-            CanonFactory.edsdkLibrary().EdsSendCommand(camera.getValue(), new NativeLong(EdsCameraCommand.kEdsCameraCommand_TakePicture.value()), new NativeLong(0));
+            CanonFactory.edsdkLibrary().EdsSendCommand(cameraRef, new NativeLong(EdsCameraCommand.kEdsCameraCommand_TakePicture.value()), new NativeLong(0));
 
             getEvents();
             Thread.sleep(2000);
@@ -181,7 +184,6 @@ class ShootLogicCameraTest {
     @Disabled("Only run manually")
     @Test
     void testShootWithShortcut() throws InterruptedException, ExecutionException {
-        final EdsdkLibrary.EdsCameraRef cameraRef = camera.getValue();
         cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
 
         final CameraObjectListener cameraObjectListener = event -> {
@@ -212,7 +214,6 @@ class ShootLogicCameraTest {
     @Disabled("Only run manually")
     @Test
     void testShootWithSelfFetched() throws InterruptedException {
-        final EdsdkLibrary.EdsCameraRef cameraRef = camera.getValue();
         cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
 
         final CameraObjectListener cameraObjectListener = event -> {
@@ -245,7 +246,6 @@ class ShootLogicCameraTest {
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
 
-        final EdsdkLibrary.EdsCameraRef cameraRef = camera.getValue();
         cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
 
         final CameraObjectListener cameraObjectListener = event -> {

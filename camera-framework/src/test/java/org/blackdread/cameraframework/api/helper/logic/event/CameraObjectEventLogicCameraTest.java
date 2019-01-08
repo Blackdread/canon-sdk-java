@@ -48,6 +48,8 @@ class CameraObjectEventLogicCameraTest {
 
     private static EdsdkLibrary.EdsCameraRef.ByReference camera;
 
+    private static EdsdkLibrary.EdsCameraRef cameraRef;
+
     private CameraObjectListener cameraObjectListener;
 
     private final AtomicInteger countEvent = new AtomicInteger(0);
@@ -57,6 +59,7 @@ class CameraObjectEventLogicCameraTest {
         TestShortcutUtil.initLibrary();
         camera = TestShortcutUtil.getFirstCamera();
         TestShortcutUtil.openSession(camera);
+        cameraRef = camera.getValue();
     }
 
     @AfterAll
@@ -71,13 +74,13 @@ class CameraObjectEventLogicCameraTest {
 
     @BeforeEach
     void setUp() {
-        cameraObjectEventLogic().registerCameraObjectEvent(camera.getValue());
+        cameraObjectEventLogic().registerCameraObjectEvent(cameraRef);
         cameraObjectListener = (event) -> countEvent.incrementAndGet();
     }
 
     @AfterEach
     void tearDown() {
-        cameraObjectEventLogic().unregisterCameraObjectEvent(camera.getValue());
+        cameraObjectEventLogic().unregisterCameraObjectEvent(cameraRef);
         countEvent.set(0);
         cameraObjectEventLogic().clearCameraObjectListeners();
     }
@@ -93,7 +96,7 @@ class CameraObjectEventLogicCameraTest {
 
     @Test
     void getNotifiedWhileRegisteringForSpecificCamera() {
-        cameraObjectEventLogic().addCameraObjectListener(camera.getValue(), cameraObjectListener);
+        cameraObjectEventLogic().addCameraObjectListener(cameraRef, cameraObjectListener);
 
         // TODO
 
