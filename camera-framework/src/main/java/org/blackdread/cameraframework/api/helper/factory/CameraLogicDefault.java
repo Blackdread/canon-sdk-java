@@ -129,8 +129,11 @@ public class CameraLogicDefault implements CameraLogic {
 
                 boolean sessionAlreadyOpen = false;
                 String bodyIDEx;
+
+                final EdsCameraRef cameraRefValue = cameraRef.getValue();
+
                 try {
-                    bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                    bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRefValue);
                     sessionAlreadyOpen = true;
                 } catch (EdsdkErrorException e) {
                     // From tests, should throw EdsdkCommDisconnectedErrorException if not connected
@@ -138,7 +141,7 @@ public class CameraLogicDefault implements CameraLogic {
                 }
 
                 if (!sessionAlreadyOpen) {
-                    edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRef.getValue()));
+                    edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRefValue));
                     if (edsdkError != EdsdkError.EDS_ERR_OK) {
                         ReleaseUtil.release(cameraRef);
                         throw edsdkError.getException();
@@ -146,7 +149,7 @@ public class CameraLogicDefault implements CameraLogic {
                 }
 
                 try {
-                    bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                    bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRefValue);
                 } catch (EdsdkErrorException e) {
                     ReleaseUtil.release(cameraRef);
                     throw e;
@@ -155,7 +158,7 @@ public class CameraLogicDefault implements CameraLogic {
                 if (bodyIDEx == null) {
                     log.warn("BodyIDEx returned was null");
                     if (!sessionAlreadyOpen) {
-                        CanonFactory.edsdkLibrary().EdsCloseSession(cameraRef.getValue());
+                        CanonFactory.edsdkLibrary().EdsCloseSession(cameraRefValue);
                     }
                     ReleaseUtil.release(cameraRef);
                     // TODO we can throw or continue next iteration but no reason for BodyIDEx to be null...
@@ -163,20 +166,20 @@ public class CameraLogicDefault implements CameraLogic {
                 } else {
                     if (option.getCameraBySerialNumber().isPresent() && option.getCameraBySerialNumber().get().equalsIgnoreCase(bodyIDEx)) {
                         // serial number match what we are looking for
-                        setCameraRefToCamera(cameraRef.getValue(), option);
-                        registerEvents(cameraRef.getValue(), option);
-                        return cameraRef.getValue();
+                        setCameraRefToCamera(cameraRefValue, option);
+                        registerEvents(cameraRefValue, option);
+                        return cameraRefValue;
                     }
                     if (option.getCameraByIndex().isPresent()) {
                         // it means we are looking by index
-                        setCameraRefToCamera(cameraRef.getValue(), option);
-                        registerEvents(cameraRef.getValue(), option);
-                        return cameraRef.getValue();
+                        setCameraRefToCamera(cameraRefValue, option);
+                        registerEvents(cameraRefValue, option);
+                        return cameraRefValue;
                     }
 
                     // No match then next iteration of loop
                     if (!sessionAlreadyOpen) {
-                        CanonFactory.edsdkLibrary().EdsCloseSession(cameraRef.getValue());
+                        CanonFactory.edsdkLibrary().EdsCloseSession(cameraRefValue);
                     }
                     ReleaseUtil.release(cameraRef);
                 }

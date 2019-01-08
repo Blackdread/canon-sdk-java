@@ -343,8 +343,11 @@ public final class CameraManager {
 
                         boolean sessionAlreadyOpen = false;
                         String bodyIDEx;
+
+                        final EdsdkLibrary.EdsCameraRef cameraRefValue = cameraRef.getValue();
+
                         try {
-                            bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                            bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRefValue);
                             sessionAlreadyOpen = true;
                         } catch (EdsdkErrorException e) {
                             // From tests, should throw EdsdkCommDisconnectedErrorException if not connected
@@ -359,7 +362,7 @@ public final class CameraManager {
                             continue;
                         }
 
-                        edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRef.getValue()));
+                        edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsOpenSession(cameraRefValue));
                         if (edsdkError != EdsdkError.EDS_ERR_OK) {
                             ReleaseUtil.release(cameraRef);
                             log.warn("Failed to open session: {}", edsdkError);
@@ -367,7 +370,7 @@ public final class CameraManager {
                         }
 
                         try {
-                            bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRef.getValue());
+                            bodyIDEx = CanonFactory.propertyGetShortcutLogic().getBodyIDEx(cameraRefValue);
                         } catch (EdsdkErrorException e) {
                             ReleaseUtil.release(cameraRef);
                             log.warn("Failed to get serial number: {}", e);
@@ -376,14 +379,13 @@ public final class CameraManager {
 
                         if (StringUtils.isBlank(bodyIDEx)) {
                             log.error("BodyIDEx returned is blank: {}", bodyIDEx);
-                            CanonFactory.edsdkLibrary().EdsCloseSession(cameraRef.getValue());
+                            CanonFactory.edsdkLibrary().EdsCloseSession(cameraRefValue);
                             ReleaseUtil.release(cameraRef);
                             // we continue next iteration but no reason for BodyIDEx to be null...
                             continue;
                         } else {
 
                             // Could check EdsCameraRef exist but not really useful
-
                             final CanonCamera cameraInMap = camerasBySerialNumberMap.get(bodyIDEx);
                             if (cameraInMap != null) {
                                 // If reach here, it means:
@@ -391,8 +393,8 @@ public final class CameraManager {
                                 // was disconnected/reconnected with cable
                                 try {
                                     final Optional<EdsdkLibrary.EdsCameraRef> currentCameraRef = cameraInMap.getCameraRef();
-                                    cameraInMap.setCameraRef(cameraRef.getValue());
-                                    registerEvents(cameraRef.getValue());
+                                    cameraInMap.setCameraRef(cameraRefValue);
+                                    registerEvents(cameraRefValue);
                                     currentCameraRef.ifPresent(ReleaseUtil::release);
                                 } catch (Exception e) {
                                     log.error("Exception while replacing cameraRef in camera, should not happen", e);
@@ -405,8 +407,8 @@ public final class CameraManager {
                                 // - no instance of that camera's serial number should exist
                                 try {
                                     final CanonCamera camera = cameraSupplier.get().createCamera(bodyIDEx);
-                                    camera.setCameraRef(cameraRef.getValue());
-                                    registerEvents(cameraRef.getValue());
+                                    camera.setCameraRef(cameraRefValue);
+                                    registerEvents(cameraRefValue);
                                     camerasBySerialNumberMap.put(bodyIDEx, camera);
                                     log.info("New camera created: {}", camera);
                                 } catch (Exception e) {
