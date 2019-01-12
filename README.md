@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Blackdread/canon-sdk-java/badge.svg?branch=master)](https://coveralls.io/github/Blackdread/canon-sdk-java?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.blackdread/canon-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.blackdread/canon-sdk-java)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/Blackdread/canon-sdk-java)
+[![](https://img.shields.io/gitter/room/canon-sdk-java/Framework.svg)](https://gitter.im/canon-sdk-java/Framework)
 
 # Canon EOS SDK (EDSDK)
 Canon EOS SDK in java (EDSDK).
@@ -11,6 +12,18 @@ Latest headers used to create bindings are with EDSDK 3.9.0 (version released on
 See [Bindings README](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-binding) for more detailed information of that module
 
 See [Framework README](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework) for more detailed information of that module, important design is explained about Threads and events.
+
+# Support project
+To help me to maintain and add more features, you can donate:
+
+[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
+[![Liberapay](http://img.shields.io/liberapay/patrons/Yoann_CAPLAIN.svg?logo=liberapay)](https://liberapay.com/Yoann_CAPLAIN/)
+
+# Company support and sponsor
+
+For companies that desire support, help, or even sponsor, etc feel to contact me. 
+
+Commercial technical support and services are possible.
 
 # Project motives
 Project intend to give access to Canon EOS Digital Software Development Kit EDSDK in Java.

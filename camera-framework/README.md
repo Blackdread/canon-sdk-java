@@ -1,6 +1,9 @@
 # Camera framework java
 Canon (EDSDK) EOS SDK in java. Module to use library of EDSDK and send commands to camera.
 
+# Support project
+[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
+
 # Customization
 The framework can be customized by inheritance, this logic has been grouped in the CanonFactory class.
 
