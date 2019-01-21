@@ -66,7 +66,7 @@ Do a pull request. Explain your changes, reasons, write tests.
 
 # Get EDSDK library from Canon
 
-- [Canon Europe](https://developers.canon-europe.com/developers/s/login/SelfRegister) [old](https://www.didp.canon-europa.com/)
+- [Canon Europe](https://developers.canon-europe.com/developers/s/login/SelfRegister) ([old](https://www.didp.canon-europa.com/))
 - [Canon Asia](https://asia.canon/en/consumer/web/developerresource-digital-imaging)
 - [Canon USA](https://www.developersupport.canon.com/)
 
