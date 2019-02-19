@@ -35,9 +35,9 @@ Features are:
 - Control multiple cameras
 - Simple extendable recorder implementation
 
-Support for MAC OSX is not intended for now, but only few changes in implementation should be required to make it work.
+Support for MAC OSX is not intended for now, but only few changes in implementation should be required to make it work. Only changes in library loader class should be needed.
 
-As stated by EDSDK, 64 bit version is given as is but might not work properly. In any case, prefer to use 32 bit version by running on a java of x86.
+Both 64 bit and 32 bit versions are supported.
 
 # Java versions
 First release will support java 8.
