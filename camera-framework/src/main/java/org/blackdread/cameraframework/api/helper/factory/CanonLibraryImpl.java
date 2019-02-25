@@ -33,9 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.io.File;
-import java.net.URISyntaxException;
-import java.security.CodeSource;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -54,25 +51,30 @@ class CanonLibraryImpl implements CanonLibrary {
 
     // fields are static but will change to instance fields
 
+    /*
     static {
         final CodeSource codeSource = CanonLibraryImpl.class.getProtectionDomain().getCodeSource();
-        try {
-            final File tmp = new File(codeSource.getLocation().toURI().getPath());
-            jarFile = tmp;
-            log.info("Jar file is in {}, folder {}", tmp.getPath(), tmp.getParentFile().getPath());
-        } catch (URISyntaxException e) {
-            throw new IllegalStateException("Failed to build jar file path");
+        final URL sourceLocation = codeSource.getLocation();
+        if (sourceLocation != null) {
+            try {
+                final File tmp = new File(sourceLocation.toURI().getPath());
+                jarFile = tmp;
+                log.info("Jar file is in {}, folder {}", tmp.getPath(), tmp.getParentFile().getPath());
+            } catch (URISyntaxException e) {
+                throw new IllegalStateException("Failed to build jar file path");
+            }
         }
     }
+    //*/
 
-    /**
+    /*
      * no used yet, might be necessary in getLibPath()
      */
-    private static final File jarFile;
-    /**
+//    private static final File jarFile;
+    /*
      * no used yet, might be necessary in getLibPath()
      */
-    private static final File jarDir = jarFile.getParentFile();
+//    private static final File jarDir = jarFile.getParentFile();
 
     private final Object initLibraryLock = new Object();
 
