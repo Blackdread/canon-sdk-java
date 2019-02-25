@@ -35,9 +35,9 @@ Features are:
 - Control multiple cameras
 - Simple extendable recorder implementation
 
-Support for MAC OSX is not intended for now, but only few changes in implementation should be required to make it work.
+Support for MAC OSX is not intended for now, but only few changes in implementation should be required to make it work. Only changes in library loader class should be needed.
 
-As stated by EDSDK, 64 bit version is given as is but might not work properly. In any case, prefer to use 32 bit version by running on a java of x86.
+Both 64 bit and 32 bit versions are supported.
 
 # Java versions
 First release will support java 8.
@@ -66,7 +66,7 @@ Do a pull request. Explain your changes, reasons, write tests.
 
 # Get EDSDK library from Canon
 
-- [Canon Europe](https://www.didp.canon-europa.com/)
+- [Canon Europe](https://developers.canon-europe.com/developers/s/login/SelfRegister) ([old](https://www.didp.canon-europa.com/))
 - [Canon Asia](https://asia.canon/en/consumer/web/developerresource-digital-imaging)
 - [Canon USA](https://www.developersupport.canon.com/)
 
