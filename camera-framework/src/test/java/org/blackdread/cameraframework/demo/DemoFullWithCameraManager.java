@@ -87,6 +87,7 @@ public class DemoFullWithCameraManager {
         final CanonCamera camera = cameras.get(0);
 
         final EdsdkLibrary.EdsCameraRef edsCameraRef = get(camera.openSession());
+//        camera.setCameraRef(edsCameraRef); // not necessary as by default on success the ref is set by the openSession command
 
         // optional as manager does it
         get(camera.getEvent().registerObjectEventCommand());

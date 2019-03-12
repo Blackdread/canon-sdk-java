@@ -87,6 +87,7 @@ public class DemoFullLiveView {
         final CanonCamera camera = new CanonCamera();
 
         final EdsdkLibrary.EdsCameraRef edsCameraRef = get(camera.openSession());
+//        camera.setCameraRef(edsCameraRef); // not necessary as by default on success the ref is set by the openSession command
 
         get(camera.getEvent().registerObjectEventCommand());
         get(camera.getEvent().registerPropertyEventCommand());

@@ -87,9 +87,10 @@ public class OpenSessionOptionBuilder {
     }
 
     public OpenSessionOption build() {
-        if (camera != null && cameraRef == null) {
-            camera.getCameraRef().ifPresent(this::setCameraRef);
-        }
+// This should be set explicitly by user
+//        if (camera != null && cameraRef == null) {
+//            camera.getCameraRef().ifPresent(this::setCameraRef);
+//        }
         validate();
         return new OpenSessionOption(openSessionOnly, cameraRef, camera, cameraByIndex, cameraBySerialNumber, registerObjectEvent, registerPropertyEvent, registerStateEvent);
     }

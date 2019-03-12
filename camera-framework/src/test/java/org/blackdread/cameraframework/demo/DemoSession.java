@@ -76,7 +76,7 @@ public class DemoSession {
         final CanonCamera camera = new CanonCamera();
         final OpenSessionCommand command = camera.openSession();
         final EdsCameraRef cameraRef = command.get();
-        camera.setCameraRef(cameraRef); // not necessary is option is set
+        camera.setCameraRef(cameraRef); // not necessary if OpenSessionOption is set the value on success
 
         final GetPropertyCommand.ProductName productNameAsync = camera.getProperty().getProductNameAsync();
         final String productName = productNameAsync.get();

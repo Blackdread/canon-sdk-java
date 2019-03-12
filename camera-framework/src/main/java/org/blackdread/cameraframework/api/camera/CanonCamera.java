@@ -130,7 +130,12 @@ public class CanonCamera {
         command = applyTarget(command);
         command = applyExtraOptions(command);
         command = applyDefaultCommandDecoration(command);
-        CanonFactory.commandDispatcher().scheduleCommand(getCameraRefInternal(), command);
+        final Optional<EdsCameraRef> cameraRefOpt = getCameraRef();
+        if (cameraRefOpt.isPresent()) {
+            CanonFactory.commandDispatcher().scheduleCommand(cameraRefOpt.get(), command);
+        } else {
+            CanonFactory.commandDispatcher().scheduleCommand(command);
+        }
         return command;
     }
 
