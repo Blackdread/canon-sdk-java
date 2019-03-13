@@ -13,18 +13,6 @@ See [Bindings README](https://github.com/Blackdread/canon-sdk-java/tree/master/c
 
 See [Framework README](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework) for more detailed information of that module, important design is explained about Threads and events.
 
-# Support project
-To help me to maintain and add more features, you can donate:
-
-[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
-[![Liberapay](http://img.shields.io/liberapay/patrons/Yoann_CAPLAIN.svg?logo=liberapay)](https://liberapay.com/Yoann_CAPLAIN/)
-
-# Company support and sponsor
-
-For companies that desire support, help, or even sponsor, etc feel to contact me. 
-
-Commercial technical support and services are possible.
-
 # Project motives
 Project intend to give access to Canon EOS Digital Software Development Kit EDSDK in Java.
 
@@ -57,6 +45,18 @@ If you only want bindings then just change artifact to "camera-binding" but fram
     
 # Usage
 See package "org.blackdread.cameraframework.demo" in test folder ([here](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework/src/test/java/org/blackdread/cameraframework/demo)).
+
+# Support project
+To help me to maintain and add more features, you can donate:
+
+[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
+[![Liberapay](http://img.shields.io/liberapay/patrons/Yoann_CAPLAIN.svg?logo=liberapay)](https://liberapay.com/Yoann_CAPLAIN/)
+
+# Company support and sponsor
+
+For companies that desire support, help, or even sponsor, etc feel to contact me. 
+
+Commercial technical support and services are possible.
 
 # Design note
 Any collection/map return type should be considered as immutable, even if implementation does not use ImmutableList/Set/etc. If collection/map is mutable, it will be clearly specified in javadoc, otherwise implementation is free to change to immutable collections anytime. 
