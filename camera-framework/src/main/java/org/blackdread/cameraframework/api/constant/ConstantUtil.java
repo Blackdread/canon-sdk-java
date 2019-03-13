@@ -73,7 +73,6 @@ final class ConstantUtil {
             throw new NullPointerException("Value cannot be null");
         }
         final Map<Integer, NativeEnum<Integer>> nativeEnumMap = enumsByValue.get(klass);
-        log.error("nativeEnumMap: {}", nativeEnumMap);
         final NativeEnum<Integer> nativeEnum = nativeEnumMap.get(value);
         if (nativeEnum == null) {
             log.error("No native enum found for value {} for enum {}", value, klass.getSimpleName());
