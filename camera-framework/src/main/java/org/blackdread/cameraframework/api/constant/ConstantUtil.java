@@ -57,22 +57,6 @@ final class ConstantUtil {
 
 //    private static final SetMultimap<Class<? extends NativeEnum<Integer>>, NativeEnum<Integer>> enums = MultimapBuilder.SetMultimapBuilder.hashKeys().hashSetValues().build();
 
-    static {
-        @SuppressWarnings("unchecked") final Set<? extends Class<? extends NativeEnum<Integer>>> nativeEnumClasses = (Set<? extends Class<? extends NativeEnum<Integer>>>) getNativeEnumClasses();
-//        for (final Class<? extends NativeEnum<Integer>> nativeEnumClass : nativeEnumClasses) {
-//            enums.putAll(nativeEnumClass, Arrays.asList(nativeEnumClass.getEnumConstants()));
-//        }
-
-        for (final Class<? extends NativeEnum<Integer>> nativeEnumClass : nativeEnumClasses) {
-            final HashMap<Integer, NativeEnum<Integer>> valueAndEnum = new HashMap<>();
-            for (final NativeEnum<Integer> enumConstant : nativeEnumClass.getEnumConstants()) {
-                // Few native enum have duplicate values, will see later what can do for that
-                valueAndEnum.put(enumConstant.value(), enumConstant);
-            }
-            enumsByValue.put(nativeEnumClass, valueAndEnum);
-        }
-    }
-
     /**
      * @param klass class in which to search
      * @param value value to search
@@ -88,7 +72,9 @@ final class ConstantUtil {
         if (value == null) {
             throw new NullPointerException("Value cannot be null");
         }
-        final NativeEnum<Integer> nativeEnum = enumsByValue.get(klass).get(value);
+        final Map<Integer, NativeEnum<Integer>> nativeEnumMap = enumsByValue.get(klass);
+        log.error("nativeEnumMap: {}", nativeEnumMap);
+        final NativeEnum<Integer> nativeEnum = nativeEnumMap.get(value);
         if (nativeEnum == null) {
             log.error("No native enum found for value {} for enum {}", value, klass.getSimpleName());
             throw new IllegalArgumentException("No native enum found for value " + value + " for enum " + klass.getSimpleName());
@@ -98,7 +84,8 @@ final class ConstantUtil {
 
     // return a list to make sure that classes that overload equals/hashcode will not use name or other
     static List<NativeEnum> getNativeEnums() throws IllegalStateException {
-        final Set<? extends Class<? extends NativeEnum>> classes = getNativeEnumClasses();
+//        final Set<? extends Class<? extends NativeEnum>> classes = getNativeEnumClasses();
+        final Set<? extends Class<? extends NativeEnum>> classes = getNativeEnumClassesManually();
 
         final List<NativeEnum> nativeEnumList = classes.stream()
             // this suppose that NativeEnum are always enums but if not then will change this code to work with anything
@@ -119,7 +106,17 @@ final class ConstantUtil {
         return nativeEnumList;
     }
 
+    /**
+     * Kept for test purposes (might move it to test package).
+     * <br>
+     * ClassPath class does not support jar in jar -> spring boot jar layout does not work for example
+     *
+     * @return native enum classes that contains native constant values
+     * @throws IllegalStateException On IO error
+     * @deprecated better to use the manual alternative as this method does not support Spring boot jar packaging
+     */
     @SuppressWarnings("unchecked")
+    @Deprecated
     static Set<? extends Class<? extends NativeEnum>> getNativeEnumClasses() throws IllegalStateException {
         try {
             final ImmutableSet<ClassPath.ClassInfo> allClasses = ClassPath.from(EdsAccess.class.getClassLoader()).getTopLevelClasses(NATIVE_ENUM_PACKAGE);
@@ -133,6 +130,91 @@ final class ConstantUtil {
             return (Set<? extends Class<? extends NativeEnum>>) classes;
         } catch (IOException e) {
             throw new IllegalStateException("Failed to read native enum classes", e);
+        }
+    }
+
+    /**
+     * Manual way in opposite to {@link #getNativeEnumClasses()} which does not support all possibilities of packaging.
+     * See <a href="https://github.com/Blackdread/canon-sdk-java/issues/4">Issue 4</a>
+     * See <a href="https://github.com/spring-projects/spring-boot/issues/16218">Spring boot issue 16218</a>
+     *
+     * @return native enum classes that contains native constant values
+     */
+    static Set<? extends Class<? extends NativeEnum>> getNativeEnumClassesManually() {
+        return NATIVE_ENUM_CLASSES;
+    }
+
+    private static final Set<? extends Class<? extends NativeEnum>> NATIVE_ENUM_CLASSES = ImmutableSet.of(
+        EdsPropertyEvent.class,
+        EdsSeekOrigin.class,
+        EdsBracket.class,
+        EdsDataType.class,
+        EdsTv.class,
+        EdsBatteryQuality.class,
+        EdsStateEvent.class,
+        EdsColorSpace.class,
+        EdsStroboMode.class,
+        EdsEvfDriveLens.class,
+        EdsTargetImageType.class,
+        EdsStorageType.class,
+        EdsSaveTo.class,
+        EdsWhiteBalance.class,
+        EdsImageSource.class,
+        EdsObjectEvent.class,
+        EdsBatteryLevel2.class,
+        EdsTonigEffect.class,
+        EdsAFMode.class,
+        EdsISOSpeed.class,
+        EdsCustomFunction.class,
+        EdsEvfHistogramStatus.class,
+        EdsCameraStatusCommand.class,
+        EdsImageQualityForLegacy.class,
+        EdsMeteringMode.class,
+        EdsAEMode.class,
+        EdsEvfAFMode.class,
+        EdsAEModeSelect.class,
+        EdsFileAttributes.class,
+        EdsShutterButton.class,
+        EdsETTL2Mode.class,
+        EdsFileCreateDisposition.class,
+        EdsPhotoEffect.class,
+        EdsImageSize.class,
+        EdsdkError.class,
+        EdsConstant.class,
+        EdsExposureCompensation.class,
+        EdsColorMatrix.class,
+        EdsTransferOption.class,
+        EdsEvfDepthOfFieldPreview.class,
+        EdsImageType.class,
+        EdsAccess.class,
+        EdsPropertyID.class,
+        EdsDriveMode.class,
+        EdsEvfZoom.class,
+        EdsProgressOption.class,
+        EdsPictureStyle.class,
+        EdsFilterEffect.class,
+        EdsCompressQuality.class,
+        EdsEvfAf.class,
+        EdsAv.class,
+        EdsEvfOutputDevice.class,
+        EdsImageQuality.class,
+        EdsCameraCommand.class
+    );
+
+    static {
+//        @SuppressWarnings("unchecked") final Set<? extends Class<? extends NativeEnum<Integer>>> nativeEnumClasses = (Set<? extends Class<? extends NativeEnum<Integer>>>) getNativeEnumClasses();
+        @SuppressWarnings("unchecked") final Set<? extends Class<? extends NativeEnum<Integer>>> nativeEnumClasses = (Set<? extends Class<? extends NativeEnum<Integer>>>) getNativeEnumClassesManually();
+//        for (final Class<? extends NativeEnum<Integer>> nativeEnumClass : nativeEnumClasses) {
+//            enums.putAll(nativeEnumClass, Arrays.asList(nativeEnumClass.getEnumConstants()));
+//        }
+
+        for (final Class<? extends NativeEnum<Integer>> nativeEnumClass : nativeEnumClasses) {
+            final HashMap<Integer, NativeEnum<Integer>> valueAndEnum = new HashMap<>();
+            for (final NativeEnum<Integer> enumConstant : nativeEnumClass.getEnumConstants()) {
+                // Few native enum have duplicate values, will see later what can do for that
+                valueAndEnum.put(enumConstant.value(), enumConstant);
+            }
+            enumsByValue.put(nativeEnumClass, valueAndEnum);
         }
     }
 
