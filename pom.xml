@@ -92,7 +92,7 @@
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 
 
-        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
         <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
 
         <!-- Deploy versions -->
