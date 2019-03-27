@@ -52,10 +52,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import static org.blackdread.cameraframework.api.constant.EdsdkError.EDS_ERR_OK;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
@@ -65,9 +70,11 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
 
+    private static final Logger log = LoggerFactory.getLogger(EdsdkErrorTest.class);
+
     @Override
     EdsdkError getOneEnumValue() {
-        return EdsdkError.EDS_ERR_OK;
+        return EDS_ERR_OK;
     }
 
     @Override
@@ -89,7 +96,7 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
 
     static Stream<Arguments> errorAndExceptionClass() {
         return Stream.of(
-            arguments(EdsdkError.EDS_ERR_OK, EdsdkErrorException.class),
+            arguments(EDS_ERR_OK, EdsdkErrorException.class),
             arguments(EdsdkError.EDS_ERR_UNIMPLEMENTED, EdsdkErrorException.class),
             arguments(EdsdkError.EDS_ERR_INTERNAL_ERROR, EdsdkGeneralInternalErrorException.class),
             arguments(EdsdkError.EDS_ERR_MEM_ALLOC_FAILED, EdsdkGeneralMemAllocErrorException.class),
@@ -228,9 +235,30 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
     }
 
     @Test
-    void errorType(){
+    void errorType() {
         for (final EdsdkError value : EdsdkError.values()) {
             Assertions.assertNotNull(value.getErrorType());
+        }
+    }
+
+    @Test
+    void messageCanBeCustomized() throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        for (final EdsdkError value : EdsdkError.values()) {
+            final Class<? extends EdsdkErrorException> aClass = value.getException().getClass();
+
+            if (aClass.equals(EdsdkErrorException.class)) {
+                continue;
+            }
+
+            final Constructor<? extends EdsdkErrorException> constructor;
+            try {
+                constructor = aClass.getConstructor(String.class);
+            } catch (NoSuchMethodException e) {
+                log.error("Missing constructor with string (message) for {}", value);
+                throw e;
+            }
+            final EdsdkErrorException exception = constructor.newInstance("AnyMessage");
+            Assertions.assertEquals("AnyMessage", exception.getMessage());
         }
     }
 }
