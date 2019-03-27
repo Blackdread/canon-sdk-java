@@ -31,6 +31,21 @@ class OpenSessionOptionBuilderTest {
         builder.build();
     }
 
+
+    @Test
+    void defaultValuesAreUnChanged() {
+        final OpenSessionOption option = builder.build();
+
+        Assertions.assertFalse(option.isOpenSessionOnly());
+        Assertions.assertTrue(option.isRegisterStateEvent());
+        Assertions.assertTrue(option.isRegisterPropertyEvent());
+        Assertions.assertTrue(option.isRegisterObjectEvent());
+        Assertions.assertFalse(option.getCamera().isPresent());
+        Assertions.assertFalse(option.getCameraRef().isPresent());
+        Assertions.assertTrue(option.getCameraByIndex().isPresent());
+        Assertions.assertFalse(option.getCameraBySerialNumber().isPresent());
+    }
+
     @Test
     void setOpenSessionOnly() {
         final OpenSessionOption option = builder
@@ -42,6 +57,10 @@ class OpenSessionOptionBuilderTest {
             .build();
         Assertions.assertTrue(option.isOpenSessionOnly());
         Assertions.assertTrue(option.getCameraRef().isPresent());
+        Assertions.assertFalse(option.getCamera().isPresent());
+        Assertions.assertFalse(option.isRegisterObjectEvent());
+        Assertions.assertFalse(option.isRegisterPropertyEvent());
+        Assertions.assertFalse(option.isRegisterStateEvent());
     }
 
     @Test
@@ -146,5 +165,34 @@ class OpenSessionOptionBuilderTest {
             .setCameraBySerialNumber("adawda")
             .setRegisterStateEvent(true)
             .build();
+    }
+
+    @Test
+    void equalsAndHashcodeDefined() {
+        final OpenSessionOption option = this.builder
+            .setOpenSessionOnly(true)
+            .setRegisterObjectEvent(false)
+            .setRegisterPropertyEvent(false)
+            .setRegisterStateEvent(false)
+            .setCameraRef(cameraRef)
+            .build();
+
+        final OpenSessionOption optionEquals = builder
+            .build();
+
+        final OpenSessionOptionBuilder optionDifferent = builder.setRegisterObjectEvent(true);
+
+        Assertions.assertEquals(option, optionEquals);
+        Assertions.assertNotEquals(optionDifferent, option);
+
+        Assertions.assertEquals(option.hashCode(), optionEquals.hashCode());
+        Assertions.assertNotEquals(optionDifferent.hashCode(), option.hashCode());
+    }
+
+
+    @Test
+    void toStringOk() {
+        final OpenSessionOption option = OpenSessionOption.DEFAULT_OPEN_SESSION_OPTION;
+        Assertions.assertNotNull(option.toString());
     }
 }

@@ -152,6 +152,31 @@ class ShootOptionBuilderTest {
         Assertions.assertThrows(IllegalStateException.class, () -> builder.build());
     }
 
+    @Test
+    void setOptions() {
+        builder
+            .setCheckLiveViewState(true)
+            .setSaveTo(EdsSaveTo.kEdsSaveTo_Camera)
+            .setFilename("aaa")
+            .setShootWithV0(false);
+
+        Assertions.assertNotNull(builder.build());
+    }
+
+    @Test
+    void destinationCanBeNull() {
+        builder.setFolderDestination(null);
+        builder.setFilename(null);
+
+        Assertions.assertNotNull(builder.build());
+    }
+
+    @Test
+    void toStringOk() {
+        final ShootOption option = builder.build();
+        Assertions.assertNotNull(option.toString());
+    }
+
     static Stream<Arguments> differentBuilder() {
         return Stream.of(
             arguments(new ShootOptionBuilder()),
