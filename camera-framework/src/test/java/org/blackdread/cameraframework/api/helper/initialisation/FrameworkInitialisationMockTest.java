@@ -1,5 +1,6 @@
 package org.blackdread.cameraframework.api.helper.initialisation;
 
+import org.blackdread.cameraframework.MockFactory;
 import org.blackdread.cameraframework.api.CanonLibrary;
 import org.blackdread.cameraframework.api.command.CanonCommand;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
@@ -26,9 +27,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Yoann CAPLAIN
  */
-class FrameworkInitialisationMockTest {
-
-    private static final CanonFactory initialCanonFactory = CanonFactory.getCanonFactory();
+class FrameworkInitialisationMockTest implements MockFactory {
 
     private final AtomicInteger eventCount = new AtomicInteger(0);
 
@@ -46,7 +45,7 @@ class FrameworkInitialisationMockTest {
 
     @AfterAll
     static void tearDownClass() {
-        CanonFactory.setCanonFactory(initialCanonFactory);
+        MockFactory.onTearDownClass();
     }
 
     @BeforeEach
