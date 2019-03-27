@@ -50,7 +50,7 @@ class CommandDispatcherTest {
 
     private static final Logger log = LoggerFactory.getLogger(LiveViewLogicCameraTest.class);
 
-    private static final Duration TIMEOUT = Duration.ofSeconds(5);
+    private static final Duration TIMEOUT = Duration.ofSeconds(2);
 
     private CanonCommand timeoutCommand;
 
