@@ -23,6 +23,7 @@
  */
 package org.blackdread.cameraframework;
 
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.CanonLibrary;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
 import org.blackdread.cameraframework.api.helper.logic.*;
@@ -101,5 +102,12 @@ public interface MockFactory {
         when(canonFactory.getPropertyGetShortcutLogic()).thenReturn(Mockito.mock(PropertyGetShortcutLogic.class));
         when(canonFactory.getPropertyDescShortcutLogic()).thenReturn(Mockito.mock(PropertyDescShortcutLogic.class));
 
+    }
+
+    /**
+     * {@link CanonFactory} must be mocked before calling this method
+     */
+    default void mockEdsdkLibrary() {
+        when(CanonFactory.getCanonFactory().edsdkLibrary()).thenReturn(Mockito.mock(EdsdkLibrary.class));
     }
 }
