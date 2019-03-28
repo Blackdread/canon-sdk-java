@@ -104,7 +104,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForString() {
+    void setPropertyDataForString() {
         final PropertyInfo propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_String, 4);
 
         when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -122,7 +122,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForInt8() {
+    void setPropertyDataForInt8() {
         final ArrayList<PropertyInfo> infos = Lists.newArrayList(new PropertyInfo(EdsDataType.kEdsDataType_Int8, 1), new PropertyInfo(EdsDataType.kEdsDataType_UInt8, 1));
         for (PropertyInfo propertyInfo : infos) {
             when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -141,7 +141,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForInt16() {
+    void setPropertyDataForInt16() {
         final ArrayList<PropertyInfo> infos = Lists.newArrayList(new PropertyInfo(EdsDataType.kEdsDataType_Int16, 2), new PropertyInfo(EdsDataType.kEdsDataType_UInt16, 2));
         for (PropertyInfo propertyInfo : infos) {
             when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -161,7 +161,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForInt32() {
+    void setPropertyDataForInt32() {
         final ArrayList<PropertyInfo> infos = Lists.newArrayList(new PropertyInfo(EdsDataType.kEdsDataType_Int32, 4), new PropertyInfo(EdsDataType.kEdsDataType_UInt32, 4));
         for (PropertyInfo propertyInfo : infos) {
             when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -180,7 +180,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForInt64() {
+    void setPropertyDataForInt64() {
         final ArrayList<PropertyInfo> infos = Lists.newArrayList(new PropertyInfo(EdsDataType.kEdsDataType_Int64, 8), new PropertyInfo(EdsDataType.kEdsDataType_UInt64, 8));
         for (PropertyInfo propertyInfo : infos) {
             when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -199,7 +199,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForFloat() {
+    void setPropertyDataForFloat() {
         final PropertyInfo propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Float, 8);
 
         when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -217,7 +217,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForDouble() {
+    void setPropertyDataForDouble() {
         final PropertyInfo propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Double, 8);
 
         when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -235,7 +235,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForByteBlock() {
+    void setPropertyDataForByteBlock() {
         final PropertyInfo propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_ByteBlock, 4);
 
         when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -253,7 +253,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForInt8Array() {
+    void setPropertyDataForInt8Array() {
         final ArrayList<PropertyInfo> infos = Lists.newArrayList(new PropertyInfo(EdsDataType.kEdsDataType_Int8_Array, 1), new PropertyInfo(EdsDataType.kEdsDataType_UInt8_Array, 1));
         for (PropertyInfo propertyInfo : infos) {
             when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -272,7 +272,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForInt16Array() {
+    void setPropertyDataForInt16Array() {
         final ArrayList<PropertyInfo> infos = Lists.newArrayList(new PropertyInfo(EdsDataType.kEdsDataType_Int16_Array, 2), new PropertyInfo(EdsDataType.kEdsDataType_UInt16_Array, 2));
         for (PropertyInfo propertyInfo : infos) {
             when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -291,7 +291,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForInt32Array() {
+    void setPropertyDataForInt32Array() {
         final ArrayList<PropertyInfo> infos = Lists.newArrayList(new PropertyInfo(EdsDataType.kEdsDataType_Int32_Array, 4), new PropertyInfo(EdsDataType.kEdsDataType_UInt32_Array, 4));
         for (PropertyInfo propertyInfo : infos) {
             when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
@@ -310,7 +310,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void setPropertyDataThrowsForRationalArray() {
+    void setPropertyDataForRationalArray() {
         final PropertyInfo propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Rational_Array, 4);
 
         when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
