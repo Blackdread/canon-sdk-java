@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * <p>Created on 2019/03/29.</p>
@@ -108,6 +108,8 @@ class CameraAddedEventLogicDefaultMockTest extends AbstractMockTest {
         when(edsdkLibrary().EdsSetCameraAddedHandler(any(), (Pointer) isNull())).thenReturn(new NativeLong(0));
 
         spyCameraAddedEventLogic.registerCameraAddedEvent();
+
+        verify(edsdkLibrary(), times(1)).EdsSetCameraAddedHandler(any(), (Pointer) isNull());
     }
 
     @Test
@@ -115,6 +117,8 @@ class CameraAddedEventLogicDefaultMockTest extends AbstractMockTest {
         when(edsdkLibrary().EdsSetCameraAddedHandler(any(), (Pointer) isNull())).thenReturn(new NativeLong(EdsdkError.EDS_ERR_DEVICE_INVALID.value()));
 
         Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraAddedEventLogic.registerCameraAddedEvent());
+
+        verify(edsdkLibrary(), times(1)).EdsSetCameraAddedHandler(any(), (Pointer) isNull());
     }
 
     @Test
