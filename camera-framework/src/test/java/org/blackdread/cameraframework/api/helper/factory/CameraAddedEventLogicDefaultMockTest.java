@@ -36,6 +36,7 @@ import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidE
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -180,6 +181,36 @@ class CameraAddedEventLogicDefaultMockTest extends AbstractMockTest {
 
         final List<WeakReference<CameraAddedListener>> listeners = getListeners();
         Assertions.assertEquals(0, listeners.size());
+    }
+
+    // TODO check why issue
+    @Disabled("Fails for now...")
+    @Test
+    void addListenerUseWeakReference() throws InterruptedException {
+        spyCameraAddedEventLogic.addCameraAddedListener(cameraAddedListener);
+        spyCameraAddedEventLogic.addCameraAddedListener(cameraAddedListenerThrows);
+
+        Assertions.assertEquals(2, getListeners().size());
+
+        cameraAddedListener = null;
+        cameraAddedListenerThrows = null;
+
+        for (int i = 0; i < 50; i++) {
+            System.gc();
+            Thread.sleep(50);
+            System.gc();
+
+            // need to call either add or remove to clean impl
+            final CameraAddedListener tmp = event -> {
+            };
+//            spyCameraAddedEventLogic.addCameraAddedListener(tmp);
+            spyCameraAddedEventLogic.removeCameraAddedListener(tmp);
+        }
+
+        // Let's hope gc actually happened...
+
+        final List<WeakReference<CameraAddedListener>> listeners = getListeners();
+        Assertions.assertEquals(0, listeners.stream().filter(e -> !e.isEnqueued() && e.get() != null).count());
     }
 
     private List<WeakReference<CameraAddedListener>> getListeners() {
