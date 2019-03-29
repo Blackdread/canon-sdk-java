@@ -91,6 +91,33 @@ class CameraObjectEventLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
+    void buildHandlerUseWeakReference() throws InterruptedException {
+        final EdsdkLibrary.EdsObjectEventHandler handler;
+        try {
+            final Method buildHandler = MockFactory.initialCanonFactory.getCameraObjectEventLogic().getClass().getDeclaredMethod("buildHandler", EdsdkLibrary.EdsCameraRef.class);
+            buildHandler.setAccessible(true);
+            handler = (EdsdkLibrary.EdsObjectEventHandler) buildHandler.invoke(MockFactory.initialCanonFactory.getCameraObjectEventLogic(), fakeCamera);
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            Assertions.fail("Failed reflection", e);
+            throw new IllegalStateException("can not reach");
+        }
+
+        final NativeLong apply = handler.apply(new NativeLong(EdsObjectEvent.kEdsObjectEvent_DirItemCreated.value()), new EdsdkLibrary.EdsBaseRef(), new Pointer(0));
+
+        fakeCamera = null;
+
+        for (int i = 0; i < 50; i++) {
+            System.gc();
+            Thread.sleep(50);
+            System.gc();
+        }
+
+        // Let's hope gc actually happened...
+
+        Assertions.assertThrows(IllegalStateException.class, () -> handler.apply(new NativeLong(EdsObjectEvent.kEdsObjectEvent_DirItemCreated.value()), new EdsdkLibrary.EdsBaseRef(), new Pointer(0)));
+    }
+
+    @Test
     void handleEvent() {
         spyCameraObjectEventLogic.addCameraObjectListener(cameraObjectListener);
         createEvent(fakeCamera);
