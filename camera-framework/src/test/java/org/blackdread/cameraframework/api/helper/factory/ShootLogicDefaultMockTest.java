@@ -1,15 +1,19 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
 import com.sun.jna.NativeLong;
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.MockFactory;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.builder.ShootOptionBuilder;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
+import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.ShootLogic;
+import org.blackdread.cameraframework.api.helper.logic.event.CameraObjectListener;
+import org.blackdread.cameraframework.api.helper.logic.event.CanonObjectEventImpl;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidErrorException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -17,8 +21,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
 import static org.mockito.Mockito.*;
@@ -80,9 +89,63 @@ class ShootLogicDefaultMockTest extends AbstractMockTest {
 //    void shoot() {
 //    }
 
-//    @Test
-//    void handleObjectEvent() {
-//    }
+    @Test
+    void handleObjectEvent() throws InvocationTargetException, IllegalAccessException {
+        final File fileJpg = new File("fake.jpg");
+        final File fileRaw = new File("fake.cr2");
+
+        final ShootOption option = new ShootOptionBuilder()
+            .build();
+
+        final int expectedFileCount = 0;
+
+        final List<File> filesSavedOnPc = new ArrayList<>();
+
+        final AtomicReference<RuntimeException> cameraObjectListenerException = new AtomicReference<>();
+
+        final Method handleObjectEvent = Arrays.stream(MockFactory.initialCanonFactory.getShootLogic().getClass().getDeclaredMethods())
+            .filter(e -> e.getName().equals("handleObjectEvent"))
+            .findFirst()
+            .orElseThrow(() -> new IllegalStateException("not found"));
+        handleObjectEvent.setAccessible(true);
+        final CameraObjectListener cameraObjectListener = (CameraObjectListener) handleObjectEvent.invoke(MockFactory.initialCanonFactory.getShootLogic(), option, expectedFileCount, filesSavedOnPc, cameraObjectListenerException);
+
+        final CanonObjectEventImpl canonObjectEvent = new CanonObjectEventImpl(fakeCamera, EdsObjectEvent.kEdsObjectEvent_DirItemCreated, new EdsdkLibrary.EdsBaseRef());
+        final CanonObjectEventImpl canonObjectEvent2 = new CanonObjectEventImpl(fakeCamera, EdsObjectEvent.kEdsObjectEvent_DirItemRequestTransfer, new EdsdkLibrary.EdsBaseRef());
+
+        // ==========================
+        // First event
+
+        when(fileLogic.download(any(), isNull(), isNull())).thenReturn(fileJpg);
+
+        cameraObjectListener.handleCameraObjectEvent(canonObjectEvent);
+
+        Assertions.assertNull(cameraObjectListenerException.get());
+        verify(fileLogic, times(0)).downloadCancel(any());
+
+        // ==========================
+        // Second event
+
+        when(fileLogic.download(any(), isNull(), isNull())).thenReturn(fileRaw);
+
+        cameraObjectListener.handleCameraObjectEvent(canonObjectEvent2);
+
+        Assertions.assertNull(cameraObjectListenerException.get());
+
+        Assertions.assertEquals(fileJpg, filesSavedOnPc.get(0));
+        Assertions.assertEquals(fileRaw, filesSavedOnPc.get(1));
+        verify(fileLogic, times(0)).downloadCancel(any());
+
+        // ==========================
+        // Test with exception
+
+        when(fileLogic.download(any(), isNull(), isNull())).thenThrow(RuntimeException.class);
+
+        Assertions.assertThrows(RuntimeException.class, () -> cameraObjectListener.handleCameraObjectEvent(canonObjectEvent));
+
+        Assertions.assertEquals(RuntimeException.class, cameraObjectListenerException.get().getClass());
+        verify(fileLogic).downloadCancel(any());
+    }
 
     @Test
     void shootLoopLogicV0() {
