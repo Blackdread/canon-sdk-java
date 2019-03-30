@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Yoann CAPLAIN
  */
-class ShootLogicDefaultTest extends AbstractMockTest {
+class ShootLogicDefaultMockTest extends AbstractMockTest {
 
     private EdsCameraRef fakeCamera;
 
@@ -147,10 +147,11 @@ class ShootLogicDefaultTest extends AbstractMockTest {
 
         Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> callMethod("shootLoopLogic", new Class[]{EdsCameraRef.class, ShootOption.class}, fakeCamera, option));
 
-        verify(cameraLogic, times(shootAttempts)).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
-        verify(cameraLogic, times(shootAttempts)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
-        verify(cameraLogic, times(shootAttempts)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
-        verify(cameraLogic, times(2 * shootAttempts)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF);
+        verify(cameraLogic, times(shootAttempts)).sendCommand(eq(fakeCamera), eq(EdsCameraCommand.kEdsCameraCommand_TakePicture));
+        verify(cameraLogic, times(shootAttempts)).sendCommand(eq(fakeCamera), eq(EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely));
+        verify(cameraLogic, times(shootAttempts)).sendCommand(eq(fakeCamera), eq(EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF));
+        // 0 because the first call with EdsShutterButton throws
+        verify(cameraLogic, times(0)).sendCommand(eq(fakeCamera), eq(EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF));
     }
 
     @Test
