@@ -26,6 +26,8 @@ package org.blackdread.cameraframework.exception.error;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.exception.EdsdkException;
 
+import java.util.Objects;
+
 /**
  * Based exception for errors from camera in {@link EdsdkError}
  *
@@ -42,12 +44,12 @@ public class EdsdkErrorException extends EdsdkException {
 
     public EdsdkErrorException(final EdsdkError edsdkError) {
         super(edsdkError.description());
-        this.edsdkError = edsdkError;
+        this.edsdkError = Objects.requireNonNull(edsdkError);
     }
 
     public EdsdkErrorException(final String message, final EdsdkError edsdkError) {
         super(message);
-        this.edsdkError = edsdkError;
+        this.edsdkError = Objects.requireNonNull(edsdkError);
     }
 
     public final EdsdkError getEdsdkError() {
