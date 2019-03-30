@@ -6,14 +6,18 @@ import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.MockFactory;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOptionBuilder;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOptionBuilder;
 import org.blackdread.cameraframework.api.constant.EdsCustomFunction;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommBufferFullErrorException;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidErrorException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -86,7 +90,105 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void openSession() {
+    void openSessionOpenSessionOnly() {
+        when(edsdkLibrary().EdsOpenSession(fakeCamera)).thenReturn(new NativeLong(0));
+
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setOpenSessionOnly(true)
+            .setRegisterObjectEvent(false)
+            .setRegisterPropertyEvent(false)
+            .setRegisterStateEvent(false)
+            .setCameraRef(fakeCamera)
+            .build();
+
+        final EdsCameraRef edsCameraRef = spyCameraLogic.openSession(option);
+
+        Assertions.assertEquals(fakeCamera, edsCameraRef);
+
+        verify(edsdkLibrary()).EdsOpenSession(fakeCamera);
+    }
+
+    @Test
+    void openSessionOpenSessionOnlyThrowsOnError() {
+        when(edsdkLibrary().EdsOpenSession(fakeCamera)).thenReturn(new NativeLong(EdsdkError.EDS_ERR_DEVICE_INVALID.value()));
+
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setOpenSessionOnly(true)
+            .setRegisterObjectEvent(false)
+            .setRegisterPropertyEvent(false)
+            .setRegisterStateEvent(false)
+            .setCameraRef(fakeCamera)
+            .build();
+
+        Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.openSession(option));
+
+        verify(edsdkLibrary()).EdsOpenSession(fakeCamera);
+    }
+
+
+    @Test
+    void openSessionThrows() {
+        final String serial = "serial999";
+
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setRegisterObjectEvent(true)
+            .setRegisterPropertyEvent(true)
+            .setRegisterStateEvent(true)
+            .setCameraBySerialNumber(serial)
+            .build();
+
+        when(edsdkLibrary().EdsGetCameraList(any())).thenReturn(new NativeLong(EdsdkError.EDS_ERR_DEVICE_INVALID.value()));
+
+        Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.openSession(option));
+
+        // Second test
+
+        when(edsdkLibrary().EdsGetCameraList(any())).thenReturn(new NativeLong(0));
+
+        when(edsdkLibrary().EdsGetChildCount(any(), any())).thenReturn(new NativeLong(EdsdkError.EDS_ERR_COMM_BUFFER_FULL.value()));
+
+        Assertions.assertThrows(EdsdkCommBufferFullErrorException.class, () -> spyCameraLogic.openSession(option));
+
+    }
+
+    @Disabled("Cannot test")
+    @Test
+    void openSessionDefault() {
+        when(edsdkLibrary().EdsGetCameraList(any())).thenReturn(new NativeLong(0));
+
+        when(edsdkLibrary().EdsGetChildCount(any(), any())).thenReturn(new NativeLong(0));
+
+        // Extra mocks
+
+        spyCameraLogic.openSession();
+
+        verify(cameraObjectEventLogic).registerCameraObjectEvent(fakeCamera);
+        verify(cameraPropertyEventLogic).registerCameraPropertyEvent(fakeCamera);
+        verify(cameraStateEventLogic).registerCameraStateEvent(fakeCamera);
+
+    }
+
+    @Disabled("Cannot test")
+    @Test
+    void openSessionByBodyIDEx() {
+        when(edsdkLibrary().EdsGetCameraList(any())).thenReturn(new NativeLong(0));
+
+        when(edsdkLibrary().EdsGetChildCount(any(), any())).thenReturn(new NativeLong(0));
+
+        // Extra mocks
+
+        final String serial = "serial999";
+
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setRegisterObjectEvent(true)
+            .setRegisterPropertyEvent(true)
+            .setRegisterStateEvent(true)
+            .setCameraBySerialNumber(serial)
+            .build();
+
+        final EdsCameraRef edsCameraRef = spyCameraLogic.openSession(option);
+
+        Assertions.assertEquals(fakeCamera, edsCameraRef);
 
         verify(cameraObjectEventLogic).registerCameraObjectEvent(fakeCamera);
         verify(cameraPropertyEventLogic).registerCameraPropertyEvent(fakeCamera);

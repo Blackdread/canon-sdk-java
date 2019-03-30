@@ -80,8 +80,6 @@ public class CameraLogicDefault implements CameraLogic {
     @Override
     public EdsCameraRef openSession(final OpenSessionOption option) {
 
-        final EdsdkLibrary.EdsCameraListRef.ByReference listRef = new EdsdkLibrary.EdsCameraListRef.ByReference();
-
         EdsdkError edsdkError;
 
         if (option.isOpenSessionOnly()) {
@@ -93,6 +91,8 @@ public class CameraLogicDefault implements CameraLogic {
             }
             return cameraRef;
         }
+
+        final EdsdkLibrary.EdsCameraListRef.ByReference listRef = new EdsdkLibrary.EdsCameraListRef.ByReference();
 
         try {
             edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetCameraList(listRef));
