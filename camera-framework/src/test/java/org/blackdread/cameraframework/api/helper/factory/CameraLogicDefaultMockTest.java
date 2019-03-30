@@ -8,8 +8,13 @@ import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOptionBuilder;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOptionBuilder;
+import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
+import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
 import org.blackdread.cameraframework.api.constant.EdsCustomFunction;
+import org.blackdread.cameraframework.api.constant.EdsEvfAf;
+import org.blackdread.cameraframework.api.constant.EdsEvfDriveLens;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
+import org.blackdread.cameraframework.api.constant.EdsShutterButton;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 import org.blackdread.cameraframework.exception.error.communication.EdsdkCommBufferFullErrorException;
@@ -87,6 +92,76 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         when(propertyGetLogic.getPropertyData(fakeCamera, EdsPropertyID.kEdsPropID_CFn, EdsCustomFunction.kEdsCustomFunction_MirrorLockup.value())).thenThrow(IllegalArgumentException.class);
 
         Assertions.assertFalse(spyCameraLogic.isMirrorLockupEnabled(fakeCamera));
+    }
+
+    @Test
+    void sendCommand() {
+        when(edsdkLibrary().EdsSendCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(0));
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_DoEvfAf));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_DriveLensEvf));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_DoClickWBEvf));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_PressShutterButton));
+
+        spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
+        spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_BulbStart);
+        spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_BulbEnd);
+
+        verify(edsdkLibrary(), times(3)).EdsSendCommand(eq(fakeCamera), any(), any());
+    }
+
+    @Test
+    void sendCommandEdsShutterButton() {
+        when(edsdkLibrary().EdsSendCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(0));
+
+        spyCameraLogic.sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
+
+        verify(edsdkLibrary()).EdsSendCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value())), eq(new NativeLong(EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely.value())));
+    }
+
+    @Test
+    void sendCommandEdsEvfAf() {
+        when(edsdkLibrary().EdsSendCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(0));
+
+        spyCameraLogic.sendCommand(fakeCamera, EdsEvfAf.kEdsCameraCommand_EvfAf_ON);
+
+        verify(edsdkLibrary()).EdsSendCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraCommand.kEdsCameraCommand_DoEvfAf.value())), eq(new NativeLong(EdsEvfAf.kEdsCameraCommand_EvfAf_ON.value())));
+    }
+
+    @Test
+    void sendCommandEdsEvfDriveLens() {
+        when(edsdkLibrary().EdsSendCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(0));
+
+        spyCameraLogic.sendCommand(fakeCamera, EdsEvfDriveLens.kEdsEvfDriveLens_Far1);
+
+        verify(edsdkLibrary()).EdsSendCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraCommand.kEdsCameraCommand_DriveLensEvf.value())), eq(new NativeLong(EdsEvfDriveLens.kEdsEvfDriveLens_Far1.value())));
+    }
+
+    @Test
+    void sendCommandThrowsOnError() {
+        when(edsdkLibrary().EdsSendCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(EdsdkError.EDS_ERR_DEVICE_INVALID.value()));
+
+        Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture));
+
+        verify(edsdkLibrary()).EdsSendCommand(eq(fakeCamera), any(), any());
+    }
+
+    @Test
+    void sendStatusCommand() {
+        when(edsdkLibrary().EdsSendStatusCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(0));
+
+        spyCameraLogic.sendStatusCommand(fakeCamera, EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock);
+
+        verify(edsdkLibrary()).EdsSendStatusCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock.value())), eq(new NativeLong(0)));
+    }
+
+    @Test
+    void sendStatusCommandThrowsOnError() {
+        when(edsdkLibrary().EdsSendStatusCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(EdsdkError.EDS_ERR_DEVICE_INVALID.value()));
+
+        Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.sendStatusCommand(fakeCamera, EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock));
+
+        verify(edsdkLibrary()).EdsSendStatusCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock.value())), eq(new NativeLong(0)));
     }
 
     @Test

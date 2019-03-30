@@ -119,7 +119,7 @@ public interface CameraLogic {
             case kEdsCameraCommand_PressShutterButton:
                 throw new IllegalArgumentException("Command requires extra parameters");
         }
-        sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_TakePicture, 0);
+        sendCommand(camera, command, 0);
     }
 
     /**
