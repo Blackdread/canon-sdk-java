@@ -40,6 +40,7 @@ import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.exception.error.communication.EdsdkCommBufferFullErrorException;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidErrorException;
 import org.junit.jupiter.api.AfterEach;
@@ -185,6 +186,27 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.sendStatusCommand(fakeCamera, EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock));
 
         verify(edsdkLibrary()).EdsSendStatusCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock.value())), eq(new NativeLong(0)));
+    }
+
+    @Test
+    void isConnectedTrue() {
+        when(propertyGetShortcutLogic.getBodyIDEx(fakeCamera)).thenReturn("any");
+
+        Assertions.assertTrue(spyCameraLogic.isConnected(fakeCamera));
+    }
+
+    @Test
+    void isConnectedFalse() {
+        when(propertyGetShortcutLogic.getBodyIDEx(fakeCamera)).thenThrow(EdsdkErrorException.class);
+
+        Assertions.assertFalse(spyCameraLogic.isConnected(fakeCamera));
+    }
+
+    @Test
+    void isConnectedCatchOnlyEdsdkErrors() {
+        when(propertyGetShortcutLogic.getBodyIDEx(fakeCamera)).thenThrow(IllegalStateException.class);
+
+        Assertions.assertThrows(IllegalStateException.class, () -> spyCameraLogic.isConnected(fakeCamera));
     }
 
     @Test
