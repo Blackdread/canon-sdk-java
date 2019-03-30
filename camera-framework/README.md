@@ -1,8 +1,18 @@
 # Camera framework java
 Canon (EDSDK) EOS SDK in java. Module to use library of EDSDK and send commands to camera.
 
-# Support project
-[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
+# Library path during development
+To launch and test code with actual camera connected, need to have library provided by Canon.
+Put both folder in root folder of camera framework.
+
+Path can be customized in [CanonLibraryImpl](https://github.com/Blackdread/canon-sdk-java/blob/master/camera-framework/src/main/java/org/blackdread/cameraframework/api/helper/factory/CanonLibraryImpl.java)
+
+/camera-framework/EDSDK
+
+/camera-framework/EDSDK_64
+
+
+[![folder](../doc/dll_path.png)](../doc/dll_path.png)
 
 # Customization
 The framework can be customized by inheritance, this logic has been grouped in the CanonFactory class.
@@ -11,6 +21,9 @@ Many commands, class, methods, etc are public (and not final) or protected to le
 
 # Demo of code
 See package "org.blackdread.cameraframework.demo" in test folder ([here](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework/src/test/java/org/blackdread/cameraframework/demo)).
+
+# Support project
+[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
 
 # Events
 Different ways may work to handle events, framework use a default implementation where it uses one unique thread that execute commands.
