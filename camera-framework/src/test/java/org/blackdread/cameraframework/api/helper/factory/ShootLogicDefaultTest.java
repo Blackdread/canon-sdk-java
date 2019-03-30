@@ -51,6 +51,8 @@ class ShootLogicDefaultTest extends AbstractMockTest {
     void shootV0() {
         spyShootLogic.shootV0(fakeCamera);
 
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
         verify(cameraLogic).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
     }
 
@@ -58,6 +60,8 @@ class ShootLogicDefaultTest extends AbstractMockTest {
     void shootAF() {
         spyShootLogic.shootAF(fakeCamera);
 
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
         verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
         verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF);
     }
@@ -66,6 +70,8 @@ class ShootLogicDefaultTest extends AbstractMockTest {
     void shootNoAF() {
         spyShootLogic.shootNoAF(fakeCamera);
 
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
         verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
         verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF);
     }
@@ -78,9 +84,74 @@ class ShootLogicDefaultTest extends AbstractMockTest {
 //    void handleObjectEvent() {
 //    }
 
-//    @Test
-//    void shootLoopLogic() {
-//    }
+    @Test
+    void shootLoopLogicV0() {
+        final ShootOption option = new ShootOptionBuilder()
+            .setShootWithV0(true)
+            .setShootWithAF(false)
+            .setShootWithNoAF(false)
+            .build();
+
+        callMethod("shootLoopLogic", new Class[]{EdsCameraRef.class, ShootOption.class}, fakeCamera, option);
+
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
+        verify(cameraLogic).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
+    }
+
+    @Test
+    void shootLoopLogicAF() {
+        final ShootOption option = new ShootOptionBuilder()
+            .setShootWithV0(false)
+            .setShootWithAF(true)
+            .setShootWithNoAF(false)
+            .build();
+
+        callMethod("shootLoopLogic", new Class[]{EdsCameraRef.class, ShootOption.class}, fakeCamera, option);
+
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
+        verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
+        verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF);
+    }
+
+    @Test
+    void shootLoopLogicNoAF() {
+        final ShootOption option = new ShootOptionBuilder()
+            .setShootWithV0(false)
+            .setShootWithAF(false)
+            .setShootWithNoAF(true)
+            .build();
+
+        callMethod("shootLoopLogic", new Class[]{EdsCameraRef.class, ShootOption.class}, fakeCamera, option);
+
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
+        verify(cameraLogic, times(0)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
+        verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
+        verify(cameraLogic).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF);
+    }
+
+    @Test
+    void shootLoopLogicThrowsAfterAllFails() {
+        doThrow(new EdsdkDeviceInvalidErrorException()).when(cameraLogic).sendCommand(eq(fakeCamera), (EdsCameraCommand) any());
+        doThrow(new EdsdkDeviceInvalidErrorException()).when(cameraLogic).sendCommand(eq(fakeCamera), (EdsShutterButton) any());
+
+        final int shootAttempts = 4;
+
+        final ShootOption option = new ShootOptionBuilder()
+            .setShootWithV0(true)
+            .setShootWithAF(true)
+            .setShootWithNoAF(true)
+            .setShootAttemptCount(shootAttempts)
+            .build();
+
+        Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> callMethod("shootLoopLogic", new Class[]{EdsCameraRef.class, ShootOption.class}, fakeCamera, option));
+
+        verify(cameraLogic, times(shootAttempts)).sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
+        verify(cameraLogic, times(shootAttempts)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
+        verify(cameraLogic, times(shootAttempts)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely_NonAF);
+        verify(cameraLogic, times(2 * shootAttempts)).sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_OFF);
+    }
 
     @Test
     void checkLiveViewState() {
@@ -214,8 +285,11 @@ class ShootLogicDefaultTest extends AbstractMockTest {
             final Method handleMethod = MockFactory.initialCanonFactory.getShootLogic().getClass().getDeclaredMethod(methodName, parameterTypes);
             handleMethod.setAccessible(true);
             handleMethod.invoke(MockFactory.initialCanonFactory.getShootLogic(), args);
-        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (IllegalAccessException | NoSuchMethodException e) {
             Assertions.fail("Failed reflection", e);
+        } catch (InvocationTargetException e) {
+            throwUnchecked(e.getCause());
+            throw new IllegalStateException("do not reach");
         }
     }
 
@@ -224,9 +298,17 @@ class ShootLogicDefaultTest extends AbstractMockTest {
             final Method handleMethod = MockFactory.initialCanonFactory.getShootLogic().getClass().getDeclaredMethod(methodName, parameterTypes);
             handleMethod.setAccessible(true);
             return (T) handleMethod.invoke(MockFactory.initialCanonFactory.getShootLogic(), args);
-        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        } catch (IllegalAccessException | NoSuchMethodException e) {
             Assertions.fail("Failed reflection", e);
-            throw new IllegalStateException("do no reach");
+            throw new IllegalStateException("do not reach");
+        } catch (InvocationTargetException e) {
+            throwUnchecked(e.getCause());
+            throw new IllegalStateException("do not reach");
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Throwable> void throwUnchecked(Throwable t) throws T {
+        throw (T) t;
     }
 }

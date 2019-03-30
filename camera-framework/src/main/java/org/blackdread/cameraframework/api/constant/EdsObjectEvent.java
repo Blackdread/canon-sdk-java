@@ -87,7 +87,7 @@ public enum EdsObjectEvent implements NativeEnum<Integer> {
 
     /**
      * Notifies that header information has been updated, as for rotation
-     * information  of image files on the camera.
+     * information of image files on the camera.
      * <br>
      * If this event is received, get the file header information again, as
      * needed.
