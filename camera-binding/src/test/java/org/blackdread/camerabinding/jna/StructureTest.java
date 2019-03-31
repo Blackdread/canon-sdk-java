@@ -24,6 +24,9 @@ class StructureTest {
         final EdsCapacity eds2 = new EdsCapacity(new Pointer(0));
 
         final EdsCapacity eds3 = new EdsCapacity(new NativeLong(0), new NativeLong(0), 0);
+
+        new EdsCapacity.ByReference();
+        new EdsCapacity.ByValue();
     }
 
     @Test
@@ -36,6 +39,13 @@ class StructureTest {
         final EdsDeviceInfo eds2 = new EdsDeviceInfo(new Pointer(0));
 
         final EdsDeviceInfo eds3 = new EdsDeviceInfo(new byte[256], new byte[256], new NativeLong(0), new NativeLong(0));
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsDeviceInfo(new byte[1], new byte[256], new NativeLong(0), new NativeLong(0)));
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsDeviceInfo(new byte[256], new byte[1], new NativeLong(0), new NativeLong(0)));
+
+        new EdsDeviceInfo.ByReference();
+        new EdsDeviceInfo.ByValue();
     }
 
     @Test
@@ -48,6 +58,11 @@ class StructureTest {
         final EdsDirectoryItemInfo eds2 = new EdsDirectoryItemInfo(new Pointer(0));
 
         final EdsDirectoryItemInfo eds3 = new EdsDirectoryItemInfo(0L, 1, new NativeLong(0), new NativeLong(0), new byte[256], new NativeLong(0), new NativeLong(0));
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsDirectoryItemInfo(0L, 1, new NativeLong(0), new NativeLong(0), new byte[1], new NativeLong(0), new NativeLong(0)));
+
+        new EdsDirectoryItemInfo.ByReference();
+        new EdsDirectoryItemInfo.ByValue();
     }
 
     @Test
@@ -60,6 +75,11 @@ class StructureTest {
         final EdsFocusInfo eds2 = new EdsFocusInfo(new Pointer(0));
 
         final EdsFocusInfo eds3 = new EdsFocusInfo(new EdsRect(), new NativeLong(0), new EdsFrameDesc[600], new NativeLong(0));
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsFocusInfo(new EdsRect(), new NativeLong(0), new EdsFrameDesc[1], new NativeLong(0)));
+
+        new EdsFocusInfo.ByReference();
+        new EdsFocusInfo.ByValue();
     }
 
     @Test
@@ -73,6 +93,9 @@ class StructureTest {
 
         final EdsFrameDesc eds3 = new EdsFrameDesc(new NativeLong(0), new NativeLong(0),
             new NativeLong(0), new EdsRect(), new NativeLong(0));
+
+        new EdsFrameDesc.ByReference();
+        new EdsFrameDesc.ByValue();
     }
 
     @Test
@@ -85,6 +108,9 @@ class StructureTest {
         final EdsFramePoint eds2 = new EdsFramePoint(new Pointer(0));
 
         final EdsFramePoint eds3 = new EdsFramePoint(new NativeLong(0), new NativeLong(0));
+
+        new EdsFramePoint.ByReference();
+        new EdsFramePoint.ByValue();
     }
 
     @Test
@@ -95,6 +121,11 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsImageInfo eds2 = new EdsImageInfo(new Pointer(0));
+
+        final EdsImageInfo eds3 = new EdsImageInfo(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new EdsRect(), new NativeLong(0), new NativeLong(0));
+
+        new EdsImageInfo.ByReference();
+        new EdsImageInfo.ByValue();
     }
 
     @Test
@@ -107,6 +138,9 @@ class StructureTest {
         final EdsIStream eds2 = new EdsIStream(new Pointer(0));
 
         final EdsIStream eds3 = new EdsIStream(new Pointer(0), null, null, null, null, null);
+
+        new EdsIStream.ByReference();
+        new EdsIStream.ByValue();
     }
 
     @Test
@@ -119,6 +153,9 @@ class StructureTest {
         final EdsPictureStyleDesc eds2 = new EdsPictureStyleDesc(new Pointer(0));
 
         final EdsPictureStyleDesc eds3 = new EdsPictureStyleDesc(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0));
+
+        new EdsPictureStyleDesc.ByReference();
+        new EdsPictureStyleDesc.ByValue();
     }
 
     @Test
@@ -131,6 +168,9 @@ class StructureTest {
         final EdsPoint eds2 = new EdsPoint(new Pointer(0));
 
         final EdsPoint eds3 = new EdsPoint(new NativeLong(0), new NativeLong(0));
+
+        new EdsPoint.ByReference();
+        new EdsPoint.ByValue();
     }
 
     @Test
@@ -143,6 +183,11 @@ class StructureTest {
         final EdsPropertyDesc eds2 = new EdsPropertyDesc(new Pointer(0));
 
         final EdsPropertyDesc eds3 = new EdsPropertyDesc(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong[128]);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsPropertyDesc(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong[1]));
+
+        new EdsPropertyDesc.ByReference();
+        new EdsPropertyDesc.ByValue();
     }
 
     @Test
@@ -155,6 +200,9 @@ class StructureTest {
         final EdsRational eds2 = new EdsRational(new Pointer(0));
 
         final EdsRational eds3 = new EdsRational(new NativeLong(0), new NativeLong(0));
+
+        new EdsRational.ByReference();
+        new EdsRational.ByValue();
     }
 
     @Test
@@ -167,6 +215,9 @@ class StructureTest {
         final EdsRect eds2 = new EdsRect(new Pointer(0));
 
         final EdsRect eds3 = new EdsRect(new EdsPoint(), new EdsSize());
+
+        new EdsRect.ByReference();
+        new EdsRect.ByValue();
     }
 
     @Test
@@ -179,6 +230,9 @@ class StructureTest {
         final EdsSaveImageSetting eds2 = new EdsSaveImageSetting(new Pointer(0));
 
         final EdsSaveImageSetting eds3 = new EdsSaveImageSetting(new NativeLong(0), null, new NativeLong(0));
+
+        new EdsSaveImageSetting.ByReference();
+        new EdsSaveImageSetting.ByValue();
     }
 
     @Test
@@ -191,6 +245,9 @@ class StructureTest {
         final EdsSize eds2 = new EdsSize(new Pointer(0));
 
         final EdsSize eds3 = new EdsSize(new NativeLong(0), new NativeLong(0));
+
+        new EdsSize.ByReference();
+        new EdsSize.ByValue();
     }
 
     @Test
@@ -203,6 +260,9 @@ class StructureTest {
         final EdsTime eds2 = new EdsTime(new Pointer(0));
 
         final EdsTime eds3 = new EdsTime(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0));
+
+        new EdsTime.ByReference();
+        new EdsTime.ByValue();
     }
 
     @Test
@@ -215,6 +275,13 @@ class StructureTest {
         final EdsUsersetData eds2 = new EdsUsersetData(new Pointer(0));
 
         final EdsUsersetData eds3 = new EdsUsersetData(new NativeLong(0), new NativeLong(0), new byte[32], new byte[1]);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsUsersetData(new NativeLong(0), new NativeLong(0), new byte[1], new byte[1]));
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsUsersetData(new NativeLong(0), new NativeLong(0), new byte[32], new byte[0]));
+
+        new EdsUsersetData.ByReference();
+        new EdsUsersetData.ByValue();
     }
 
     @Test
@@ -227,6 +294,11 @@ class StructureTest {
         final EdsVolumeInfo eds2 = new EdsVolumeInfo(new Pointer(0));
 
         final EdsVolumeInfo eds3 = new EdsVolumeInfo(new NativeLong(0), 1, 0L, 0L, new byte[256]);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsVolumeInfo(new NativeLong(0), 1, 0L, 0L, new byte[1]));
+
+        new EdsVolumeInfo.ByReference();
+        new EdsVolumeInfo.ByValue();
     }
 
 }
