@@ -47,7 +47,8 @@ public final class ReleaseUtil {
     public static void release(final EdsdkLibrary.EdsBaseRef.ByReference... refs) {
         if (refs != null)
             for (final EdsdkLibrary.EdsBaseRef.ByReference byReference : refs) {
-                release(byReference.getValue());
+                if (byReference != null)
+                    release(byReference.getValue());
             }
     }
 
