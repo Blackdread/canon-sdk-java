@@ -46,6 +46,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsDirectoryItemInfo eds2 = new EdsDirectoryItemInfo(new Pointer(0));
+
+        final EdsDirectoryItemInfo eds3 = new EdsDirectoryItemInfo(0L, 1, new NativeLong(0), new NativeLong(0), new byte[256], new NativeLong(0), new NativeLong(0));
     }
 
     @Test
@@ -56,6 +58,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsFocusInfo eds2 = new EdsFocusInfo(new Pointer(0));
+
+        final EdsFocusInfo eds3 = new EdsFocusInfo(new EdsRect(), new NativeLong(0), new EdsFrameDesc[600], new NativeLong(0));
     }
 
     @Test
@@ -66,6 +70,9 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsFrameDesc eds2 = new EdsFrameDesc(new Pointer(0));
+
+        final EdsFrameDesc eds3 = new EdsFrameDesc(new NativeLong(0), new NativeLong(0),
+            new NativeLong(0), new EdsRect(), new NativeLong(0));
     }
 
     @Test
@@ -76,6 +83,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsFramePoint eds2 = new EdsFramePoint(new Pointer(0));
+
+        final EdsFramePoint eds3 = new EdsFramePoint(new NativeLong(0), new NativeLong(0));
     }
 
     @Test
@@ -96,6 +105,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsIStream eds2 = new EdsIStream(new Pointer(0));
+
+        final EdsIStream eds3 = new EdsIStream(new Pointer(0), null, null, null, null, null);
     }
 
     @Test
@@ -106,6 +117,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsPictureStyleDesc eds2 = new EdsPictureStyleDesc(new Pointer(0));
+
+        final EdsPictureStyleDesc eds3 = new EdsPictureStyleDesc(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0));
     }
 
     @Test
@@ -116,6 +129,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsPoint eds2 = new EdsPoint(new Pointer(0));
+
+        final EdsPoint eds3 = new EdsPoint(new NativeLong(0), new NativeLong(0));
     }
 
     @Test
@@ -126,6 +141,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsPropertyDesc eds2 = new EdsPropertyDesc(new Pointer(0));
+
+        final EdsPropertyDesc eds3 = new EdsPropertyDesc(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong[128]);
     }
 
     @Test
@@ -136,6 +153,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsRational eds2 = new EdsRational(new Pointer(0));
+
+        final EdsRational eds3 = new EdsRational(new NativeLong(0), new NativeLong(0));
     }
 
     @Test
@@ -146,6 +165,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsRect eds2 = new EdsRect(new Pointer(0));
+
+        final EdsRect eds3 = new EdsRect(new EdsPoint(), new EdsSize());
     }
 
     @Test
@@ -156,6 +177,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsSaveImageSetting eds2 = new EdsSaveImageSetting(new Pointer(0));
+
+        final EdsSaveImageSetting eds3 = new EdsSaveImageSetting(new NativeLong(0), null, new NativeLong(0));
     }
 
     @Test
@@ -166,6 +189,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsSize eds2 = new EdsSize(new Pointer(0));
+
+        final EdsSize eds3 = new EdsSize(new NativeLong(0), new NativeLong(0));
     }
 
     @Test
@@ -176,6 +201,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsTime eds2 = new EdsTime(new Pointer(0));
+
+        final EdsTime eds3 = new EdsTime(new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0), new NativeLong(0));
     }
 
     @Test
@@ -186,6 +213,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsUsersetData eds2 = new EdsUsersetData(new Pointer(0));
+
+        final EdsUsersetData eds3 = new EdsUsersetData(new NativeLong(0), new NativeLong(0), new byte[32], new byte[1]);
     }
 
     @Test
@@ -196,6 +225,8 @@ class StructureTest {
         Assertions.assertFalse(fieldOrder.isEmpty());
 
         final EdsVolumeInfo eds2 = new EdsVolumeInfo(new Pointer(0));
+
+        final EdsVolumeInfo eds3 = new EdsVolumeInfo(new NativeLong(0), 1, 0L, 0L, new byte[256]);
     }
 
 }
