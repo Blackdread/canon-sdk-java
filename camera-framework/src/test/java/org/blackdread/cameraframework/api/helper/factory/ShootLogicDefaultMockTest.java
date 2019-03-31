@@ -5,6 +5,7 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.MockFactory;
+import org.blackdread.cameraframework.api.TestUtil;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.builder.ShootOptionBuilder;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
@@ -345,34 +346,10 @@ class ShootLogicDefaultMockTest extends AbstractMockTest {
     }
 
     private void callMethod(final String methodName, @Nullable Class<?>[] parameterTypes, Object... args) {
-        try {
-            final Method handleMethod = MockFactory.initialCanonFactory.getShootLogic().getClass().getDeclaredMethod(methodName, parameterTypes);
-            handleMethod.setAccessible(true);
-            handleMethod.invoke(MockFactory.initialCanonFactory.getShootLogic(), args);
-        } catch (IllegalAccessException | NoSuchMethodException e) {
-            Assertions.fail("Failed reflection", e);
-        } catch (InvocationTargetException e) {
-            throwUnchecked(e.getCause());
-            throw new IllegalStateException("do not reach");
-        }
+        TestUtil.callMethod(MockFactory.initialCanonFactory.getShootLogic(), methodName, parameterTypes, args);
     }
 
     private <T> T callReturnMethod(final String methodName, @Nullable Class<?>[] parameterTypes, Object... args) {
-        try {
-            final Method handleMethod = MockFactory.initialCanonFactory.getShootLogic().getClass().getDeclaredMethod(methodName, parameterTypes);
-            handleMethod.setAccessible(true);
-            return (T) handleMethod.invoke(MockFactory.initialCanonFactory.getShootLogic(), args);
-        } catch (IllegalAccessException | NoSuchMethodException e) {
-            Assertions.fail("Failed reflection", e);
-            throw new IllegalStateException("do not reach");
-        } catch (InvocationTargetException e) {
-            throwUnchecked(e.getCause());
-            throw new IllegalStateException("do not reach");
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <T extends Throwable> void throwUnchecked(Throwable t) throws T {
-        throw (T) t;
+        return TestUtil.callReturnMethod(MockFactory.initialCanonFactory.getShootLogic(), methodName, parameterTypes, args);
     }
 }

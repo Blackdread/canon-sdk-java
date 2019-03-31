@@ -32,6 +32,9 @@ import org.opentest4j.AssertionFailedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.concurrent.ExecutionException;
 
 import static org.blackdread.cameraframework.util.ErrorUtil.toEdsdkError;
@@ -81,6 +84,38 @@ public final class TestUtil {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
             Assertions.fail("Sleep interrupted");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Throwable> void throwUnchecked(Throwable t) throws T {
+        throw (T) t;
+    }
+
+    public static void callMethod(final Object objectClassToReflect, final String methodName, @Nullable Class<?>[] parameterTypes, Object... args) {
+        try {
+            final Method handleMethod = objectClassToReflect.getClass().getDeclaredMethod(methodName, parameterTypes);
+            handleMethod.setAccessible(true);
+            handleMethod.invoke(objectClassToReflect, args);
+        } catch (IllegalAccessException | NoSuchMethodException e) {
+            Assertions.fail("Failed reflection", e);
+        } catch (InvocationTargetException e) {
+            throwUnchecked(e.getCause());
+            throw new IllegalStateException("do not reach");
+        }
+    }
+
+    public static <T> T callReturnMethod(final Object objectClassToReflect,final String methodName, @Nullable Class<?>[] parameterTypes, Object... args) {
+        try {
+            final Method handleMethod = objectClassToReflect.getClass().getDeclaredMethod(methodName, parameterTypes);
+            handleMethod.setAccessible(true);
+            return (T) handleMethod.invoke(objectClassToReflect, args);
+        } catch (IllegalAccessException | NoSuchMethodException e) {
+            Assertions.fail("Failed reflection", e);
+            throw new IllegalStateException("do not reach");
+        } catch (InvocationTargetException e) {
+            throwUnchecked(e.getCause());
+            throw new IllegalStateException("do not reach");
         }
     }
 
