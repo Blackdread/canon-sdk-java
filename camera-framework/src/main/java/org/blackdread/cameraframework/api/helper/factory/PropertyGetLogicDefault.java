@@ -53,6 +53,19 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
     protected PropertyGetLogicDefault() {
     }
 
+    /**
+     * <b>Provided to allow test mocking</b>
+     *
+     * @param size size of memory heap
+     * @return memory pointer
+     */
+    protected Memory getMemoryForHoldingData(final long size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Memory size must > 0");
+        }
+        return new Memory(size);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getPropertyData(final EdsBaseRef ref, final EdsPropertyID property, final long inParam) {
@@ -60,7 +73,7 @@ public class PropertyGetLogicDefault implements PropertyGetLogic {
         final EdsDataType propertyType = propertyInfo.getDataType();
         final long propertySize = propertyInfo.getSize();
 
-        final Memory propertyData = new Memory(propertySize > 0 ? propertySize : 1);
+        final Memory propertyData = getMemoryForHoldingData(propertySize > 0 ? propertySize : 1);
 
         final EdsdkError error = getPropertyData(ref, property, inParam, propertySize, propertyData);
 
