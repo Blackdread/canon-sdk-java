@@ -74,9 +74,55 @@ class PropertyGetLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
-    void getPropertyData() {
+    void getPropertyDataForInt32() {
+        final Long expectedResult = 5L;
 
-        propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, EdsPropertyID.kEdsPropID_ISOSpeed);
+        final EdsPropertyID propertyID = EdsPropertyID.kEdsPropID_ISOSpeed;
+        final long inParam = 0L;
+        final int inPropertySize = 4;
+
+        propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Int32, inPropertySize);
+
+        // mocks
+
+        when(CanonFactory.propertyLogic().getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam)).thenReturn(propertyInfo);
+
+        retunNoErrorForEdsGetPropertyData(EdsPropertyID.kEdsPropID_ISOSpeed, inParam, inPropertySize);
+
+        // mock actual result
+        when(mockMemory.getNativeLong(0)).thenReturn(new NativeLong(expectedResult));
+
+        final Long result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
+
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getPropertyDataForUInt32() {
+        final Long expectedResult = 5L;
+
+        final EdsPropertyID propertyID = EdsPropertyID.kEdsPropID_ISOSpeed;
+        final long inParam = 0L;
+        final int inPropertySize = 4;
+
+        propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_UInt32, inPropertySize);
+
+        // mocks
+
+        when(CanonFactory.propertyLogic().getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam)).thenReturn(propertyInfo);
+
+        retunNoErrorForEdsGetPropertyData(EdsPropertyID.kEdsPropID_ISOSpeed, inParam, inPropertySize);
+
+        // mock actual result
+        when(mockMemory.getNativeLong(0)).thenReturn(new NativeLong(expectedResult));
+
+        final Long result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
+
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    private void retunNoErrorForEdsGetPropertyData(final EdsPropertyID propertyID, final long inParam, final int inPropertySize) {
+        when(CanonFactory.edsdkLibrary().EdsGetPropertyData(eq(fakeBaseRef), eq(new NativeLong(propertyID.value())), eq(new NativeLong(inParam)), eq(new NativeLong(inPropertySize)), eq(mockMemory))).thenReturn(new NativeLong(0));
     }
 
     @Test
