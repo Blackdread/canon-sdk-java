@@ -24,8 +24,8 @@
 package org.blackdread.cameraframework.util;
 
 import org.blackdread.cameraframework.api.constant.EdsdkError;
-import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceBusyErrorException;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
+import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceBusyErrorException;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -103,6 +103,8 @@ public class NameToBeDefined2<V> implements Callable<V> {
     }
 
     public NameToBeDefined2<V> retryOnError(final long delayMillis, final EdsdkError... errors) {
+        if (errors == null)
+            return this;
         return retryOnError(delayMillis, 0, Arrays.asList(errors));
     }
 
@@ -111,6 +113,8 @@ public class NameToBeDefined2<V> implements Callable<V> {
     }
 
     public NameToBeDefined2<V> retryOnError(final long delayMillis, final int retryTimes, final EdsdkError... errors) {
+        if (errors == null)
+            return this;
         return retryOnError(delayMillis, retryTimes, Arrays.asList(errors));
     }
 
@@ -119,6 +123,10 @@ public class NameToBeDefined2<V> implements Callable<V> {
             throw new IllegalArgumentException("Delay must be higher than 0");
         if (retryTimes < 0)
             throw new IllegalArgumentException("Retry times must be higher than 0");
+        errors.forEach(edsdkError -> {
+            if (edsdkError == null)
+                throw new IllegalArgumentException("Error cannot be null");
+        });
         return new NameToBeDefined2<V>(() -> {
             int retry = -1;
             EdsdkErrorException lastException;
@@ -146,11 +154,19 @@ public class NameToBeDefined2<V> implements Callable<V> {
     }
 
     public NameToBeDefined2<V> runOnError(final Callable<V> runOnError, final EdsdkError... errors) {
+        if (errors == null)
+            return this;
         return runOnError(runOnError, Arrays.asList(errors));
     }
 
     public NameToBeDefined2<V> runOnError(final Callable<V> runOnError, final List<EdsdkError> errors) {
         // can be called many times to add different handlers
+        if (runOnError == null)
+            throw new IllegalArgumentException("runOnError cannot be null");
+        errors.forEach(edsdkError -> {
+            if (edsdkError == null)
+                throw new IllegalArgumentException("Error cannot be null");
+        });
         return new NameToBeDefined2<V>(() -> {
             try {
                 return this.callable.call();
