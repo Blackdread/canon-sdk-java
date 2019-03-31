@@ -240,6 +240,7 @@ class PropertyGetLogicCameraTest {
 
         Assertions.assertNotNull(propertyInfo);
         Assertions.assertEquals(expectedType, propertyInfo.getDataType());
+        Assertions.assertNotNull(propertyInfo.toString());
         if (expectedType == EdsDataType.kEdsDataType_String)
             Assertions.assertTrue(propertyInfo.getSize() > sizeExpected);
         else

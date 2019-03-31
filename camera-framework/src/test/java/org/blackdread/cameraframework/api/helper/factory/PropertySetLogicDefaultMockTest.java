@@ -103,6 +103,7 @@ class PropertySetLogicDefaultMockTest extends AbstractMockTest {
     @Test
     void setPropertyDataThrowsForUnknown() {
         final PropertyInfo propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Unknown, 4);
+        Assertions.assertNotNull(propertyInfo.toString());
 
         when(propertyLogic.getPropertyTypeAndSize(cameraRef, propertyID)).thenReturn(propertyInfo);
 

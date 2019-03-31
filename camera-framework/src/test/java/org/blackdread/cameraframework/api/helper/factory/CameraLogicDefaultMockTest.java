@@ -24,6 +24,8 @@
 package org.blackdread.cameraframework.api.helper.factory;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.ptr.NativeLongByReference;
+import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.MockFactory;
@@ -42,6 +44,7 @@ import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.exception.error.communication.EdsdkCommBufferFullErrorException;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommUsbBusErrorException;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidErrorException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -186,6 +189,33 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.sendStatusCommand(fakeCamera, EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock));
 
         verify(edsdkLibrary()).EdsSendStatusCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock.value())), eq(new NativeLong(0)));
+    }
+
+    @Test
+    void getCameraConnectedCount() {
+        when(edsdkLibrary().EdsGetCameraList(any(EdsdkLibrary.EdsCameraListRef.ByReference.class))).thenReturn(new NativeLong(0));
+        when(edsdkLibrary().EdsGetChildCount(any(), any(NativeLongByReference.class))).thenReturn(new NativeLong(0));
+
+        final int cameraConnectedCount = spyCameraLogic.getCameraConnectedCount();
+
+        Assertions.assertEquals(0, cameraConnectedCount);
+    }
+
+    @Test
+    void getCameraConnectedCountThrowsOnError() {
+        when(edsdkLibrary().EdsGetCameraList(any(EdsdkLibrary.EdsCameraListRef.ByReference.class))).thenReturn(new NativeLong(EdsdkError.EDS_ERR_DEVICE_INVALID.value()));
+
+        Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.getCameraConnectedCount());
+
+        // Second test
+
+        when(edsdkLibrary().EdsGetCameraList(any(EdsdkLibrary.EdsCameraListRef.ByReference.class))).thenReturn(new NativeLong(0));
+        when(edsdkLibrary().EdsGetChildCount(any(), any(NativeLongByReference.class))).thenReturn(new NativeLong(EdsdkError.EDS_ERR_COMM_USB_BUS_ERR.value()));
+
+        Assertions.assertThrows(EdsdkCommUsbBusErrorException.class, () -> spyCameraLogic.getCameraConnectedCount());
+
+        verify(edsdkLibrary(), times(2)).EdsGetCameraList(any(EdsdkLibrary.EdsCameraListRef.ByReference.class));
+        verify(edsdkLibrary(), times(1)).EdsGetChildCount(any(), any(NativeLongByReference.class));
     }
 
     @Test

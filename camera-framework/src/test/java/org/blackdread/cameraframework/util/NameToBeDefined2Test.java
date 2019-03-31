@@ -77,6 +77,10 @@ class NameToBeDefined2Test {
         countOnly.retryOnBusy(20)
             .call();
         assertCounts(1, 0);
+
+        countOnly.retryOnBusy(5, 5, 5)
+            .call();
+        assertCounts(2, 0);
     }
 
     @Test
