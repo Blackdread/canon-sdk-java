@@ -346,6 +346,12 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getOrientationAsInt() {
+        final ImageOrientation expectedResult = ImageOrientation.NORMAL;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_Orientation, expectedResult.value());
+
+        final int result = spyPropertyGetShortcutLogic.getOrientationAsInt(fakeImage);
+
+        Assertions.assertEquals(expectedResult.value(), result);
     }
 
     @Test
@@ -361,6 +367,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getAEMode1() {
+        final EdsAEMode expectedResult = EdsAEMode.kEdsAEMode_Av;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_AEMode, (long) expectedResult.value());
+
+        final EdsAEMode result = spyPropertyGetShortcutLogic.getAEMode(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -387,6 +400,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getDriveMode1() {
+        final EdsDriveMode expectedResult = EdsDriveMode.kEdsDriveMode_10SecSelfTimer;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_DriveMode, (long) expectedResult.value());
+
+        final EdsDriveMode result = spyPropertyGetShortcutLogic.getDriveMode(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -402,6 +422,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getISOSpeed1() {
+        final EdsISOSpeed expectedResult = EdsISOSpeed.kEdsISOSpeed_50;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ISOSpeed, (long) expectedResult.value());
+
+        final EdsISOSpeed result = spyPropertyGetShortcutLogic.getISOSpeed(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -417,6 +444,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getMeteringMode1() {
+        final EdsMeteringMode expectedResult = EdsMeteringMode.kEdsMeteringMode_CenterWeightedAvg;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_MeteringMode, (long) expectedResult.value());
+
+        final EdsMeteringMode result = spyPropertyGetShortcutLogic.getMeteringMode(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -432,6 +466,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getAFMode1() {
+        final EdsAFMode expectedResult = EdsAFMode.kEdsAFMode_AIFocus;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_AFMode, (long) expectedResult.value());
+
+        final EdsAFMode result = spyPropertyGetShortcutLogic.getAFMode(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -447,6 +488,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getAv1() {
+        final EdsRational expectedResult = new EdsRational();
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_Av, expectedResult);
+
+        final EdsRational result = spyPropertyGetShortcutLogic.getAv(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -462,6 +510,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getTv1() {
+        final EdsRational expectedResult = new EdsRational();
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_Tv, expectedResult);
+
+        final EdsRational result = spyPropertyGetShortcutLogic.getTv(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -477,6 +532,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getExposureCompensation1() {
+        final EdsRational expectedResult = new EdsRational();
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ExposureCompensation, expectedResult);
+
+        final EdsRational result = spyPropertyGetShortcutLogic.getExposureCompensation(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -579,6 +641,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getWhiteBalanceBracket1() {
+        final int[] expectedResult = new int[0];
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_WhiteBalanceBracket, expectedResult);
+
+        final int[] result = spyPropertyGetShortcutLogic.getWhiteBalanceBracket(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -605,6 +674,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getWhiteBalance1() {
+        final EdsWhiteBalance expectedResult = EdsWhiteBalance.kEdsWhiteBalance_Daylight;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_WhiteBalance, (long) expectedResult.value());
+
+        final EdsWhiteBalance result = spyPropertyGetShortcutLogic.getWhiteBalance(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -619,6 +695,12 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getColorTemperature1() {
+        final long expectedResult = 5L;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ColorTemperature, expectedResult);
+
+        final long result = spyPropertyGetShortcutLogic.getColorTemperature(fakeImage);
+
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -634,6 +716,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getWhiteBalanceShift1() {
+        final int[] expectedResult = new int[0];
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_WhiteBalanceShift, expectedResult);
+
+        final int[] result = spyPropertyGetShortcutLogic.getWhiteBalanceShift(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -659,24 +748,42 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getColorSpace() {
+        final EdsColorSpace expectedResult = EdsColorSpace.kEdsColorSpace_sRGB;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ColorSpace, (long) expectedResult.value());
+
+        final EdsColorSpace result = spyPropertyGetShortcutLogic.getColorSpace(fakeCamera);
+
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getColorSpace1() {
+        final EdsColorSpace expectedResult = EdsColorSpace.kEdsColorSpace_sRGB;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ColorSpace, (long) expectedResult.value());
+
+        final EdsColorSpace result = spyPropertyGetShortcutLogic.getColorSpace(fakeImage);
+
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getToneCurve() {
         final long expectedResult = 5L;
-        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ToneCurve, expectedResult);
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_ToneCurve, expectedResult);
 
-        final long result = spyPropertyGetShortcutLogic.getToneCurve(fakeImage);
+        final long result = spyPropertyGetShortcutLogic.getToneCurve(fakeCamera, 0);
 
         Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getToneCurve1() {
+        final long expectedResult = 5L;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ToneCurve, expectedResult);
+
+        final long result = spyPropertyGetShortcutLogic.getToneCurve(fakeImage);
+
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
@@ -692,6 +799,13 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getPictureStyle1() {
+        final EdsPictureStyle expectedResult = EdsPictureStyle.kEdsPictureStyle_Faithful;
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_PictureStyle, (long) expectedResult.value());
+
+        final EdsPictureStyle result = spyPropertyGetShortcutLogic.getPictureStyle(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test

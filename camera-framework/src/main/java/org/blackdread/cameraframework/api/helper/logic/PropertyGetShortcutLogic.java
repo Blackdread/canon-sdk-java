@@ -417,9 +417,9 @@ public interface PropertyGetShortcutLogic {
      * @return drive mode of the camera
      * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
      */
-    default EdsISOSpeed getDriveMode(final EdsImageRef image) {
+    default EdsDriveMode getDriveMode(final EdsImageRef image) {
         final Long value = propertyGetLogic().getPropertyData(image, EdsPropertyID.kEdsPropID_DriveMode);
-        return EdsISOSpeed.ofValue(value.intValue());
+        return EdsDriveMode.ofValue(value.intValue());
     }
 
     /**
