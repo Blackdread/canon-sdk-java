@@ -19,6 +19,8 @@ public class PropertyDescLogicDefaultExtended extends PropertyDescLogicDefault {
 
     @Override
     public EdsPropertyDesc getPropertyDescStructure(final EdsdkLibrary.EdsBaseRef ref, final EdsPropertyID property) {
+        if (edsPropertyDesc == null)
+            return super.getPropertyDescStructure(ref, property);
         return edsPropertyDesc;
     }
 
