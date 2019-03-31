@@ -23,11 +23,16 @@
  */
 package org.blackdread.cameraframework.api.helper.factory;
 
+import org.apache.commons.lang3.NotImplementedException;
+import org.blackdread.camerabinding.jna.EdsFocusInfo;
+import org.blackdread.camerabinding.jna.EdsTime;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.MockFactory;
+import org.blackdread.cameraframework.api.constant.EdsBatteryLevel2;
+import org.blackdread.cameraframework.api.constant.EdsBatteryQuality;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.helper.logic.PropertyGetShortcutLogic;
 import org.junit.jupiter.api.AfterEach;
@@ -115,62 +120,167 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getOwnerName() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_OwnerName, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getBodyIDEx(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getOwnerName1() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_OwnerName, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getBodyIDEx(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getArtist() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_Artist, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getBodyIDEx(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getArtist1() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_Artist, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getBodyIDEx(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getCopyright() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_Copyright, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getBodyIDEx(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getCopyright1() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_Copyright, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getBodyIDEx(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getMakerName() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_MakerName, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getBodyIDEx(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getDateTime() {
+        final EdsTime expectedResult = new EdsTime();
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_DateTime, expectedResult);
+
+        final EdsTime result = spyPropertyGetShortcutLogic.getDateTime(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getDateTime1() {
+        final EdsTime expectedResult = new EdsTime();
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_DateTime, expectedResult);
+
+        final EdsTime result = spyPropertyGetShortcutLogic.getDateTime(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getFirmwareVersion() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_FirmwareVersion, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getFirmwareVersion(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getFirmwareVersion1() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_FirmwareVersion, expectedResult);
+
+        final String result = spyPropertyGetShortcutLogic.getFirmwareVersion(fakeImage);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getBatteryLevel() {
+        final EdsBatteryLevel2 expectedResult = EdsBatteryLevel2.kEdsBatteryLevel2_Hi;
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_BatteryLevel, expectedResult);
+
+        final EdsBatteryLevel2 result = spyPropertyGetShortcutLogic.getBatteryLevel(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getBatteryQuality() {
+        final EdsBatteryQuality expectedResult = EdsBatteryQuality.kEdsBatteryQuality_HI;
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_BatteryQuality, expectedResult);
+
+        final EdsBatteryQuality result = spyPropertyGetShortcutLogic.getBatteryQuality(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getICCProfile() {
+        final String expectedResult = "value";
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_ICCProfile, expectedResult);
+
+        Assertions.assertThrows(NotImplementedException.class, () -> spyPropertyGetShortcutLogic.getICCProfile(fakeImage));
+
+//        Assertions.assertNotNull(result);
+//        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
     void getFocusInfo() {
+        final EdsFocusInfo expectedResult = new EdsFocusInfo();
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_FocusInfo, expectedResult);
+
+        final EdsFocusInfo result = spyPropertyGetShortcutLogic.getFocusInfo(fakeCamera);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
     }
 
     @Test
