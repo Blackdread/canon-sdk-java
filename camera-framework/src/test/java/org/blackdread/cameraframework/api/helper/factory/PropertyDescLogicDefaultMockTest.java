@@ -17,7 +17,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -116,6 +118,41 @@ class PropertyDescLogicDefaultMockTest extends AbstractMockTest {
         Assertions.assertEquals(4, nativeEnums.size());
         Assertions.assertEquals(EdsISOSpeed.kEdsISOSpeed_50, nativeEnums.get(0));
         Assertions.assertEquals(EdsISOSpeed.kEdsISOSpeed_200, nativeEnums.get(3));
+    }
+
+    @Test
+    void getPropertyDescThrows() {
+        final List<EdsPropertyID> incompatible = Arrays.stream(EdsPropertyID.values()).collect(Collectors.toList());
+        incompatible.remove(EdsPropertyID.kEdsPropID_AEMode);
+        incompatible.remove(EdsPropertyID.kEdsPropID_AEModeSelect);
+        incompatible.remove(EdsPropertyID.kEdsPropID_ISOSpeed);
+        incompatible.remove(EdsPropertyID.kEdsPropID_MeteringMode);
+        incompatible.remove(EdsPropertyID.kEdsPropID_Av);
+        incompatible.remove(EdsPropertyID.kEdsPropID_Tv);
+        incompatible.remove(EdsPropertyID.kEdsPropID_ExposureCompensation);
+        incompatible.remove(EdsPropertyID.kEdsPropID_ImageQuality);
+        incompatible.remove(EdsPropertyID.kEdsPropID_WhiteBalance);
+        incompatible.remove(EdsPropertyID.kEdsPropID_PictureStyle);
+        incompatible.remove(EdsPropertyID.kEdsPropID_DriveMode);
+        incompatible.remove(EdsPropertyID.kEdsPropID_Evf_WhiteBalance);
+        incompatible.remove(EdsPropertyID.kEdsPropID_Evf_AFMode);
+
+        for (final EdsPropertyID propertyID : incompatible) {
+            final NativeLong[] desc = new NativeLong[128];
+            desc[0] = new NativeLong(0);
+
+            final EdsPropertyDesc propertyDesc = new EdsPropertyDesc(
+                new NativeLong(0),
+                new NativeLong(0),
+                new NativeLong(1),
+                desc
+            );
+
+            propertyDescLogicDefaultExtended.setPropertyDescStructure(propertyDesc);
+
+            Assertions.assertThrows(IllegalArgumentException.class, () -> propertyDescLogicDefaultExtended.getPropertyDesc(fakeCamera, propertyID));
+        }
+
     }
 
     @Test
