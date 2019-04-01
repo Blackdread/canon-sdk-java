@@ -116,4 +116,10 @@ class CanonCameraTest {
         Assertions.assertNotNull(cameraDefaultConstructor.getProperty());
         Assertions.assertNotNull(cameraWithSerialNumber.getProperty());
     }
+
+    @Test
+    void toStringOk() {
+        Assertions.assertNotNull(cameraDefaultConstructor.toString());
+        Assertions.assertNotNull(cameraWithSerialNumber.toString());
+    }
 }
