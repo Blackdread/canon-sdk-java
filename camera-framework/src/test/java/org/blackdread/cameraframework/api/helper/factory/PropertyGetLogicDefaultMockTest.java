@@ -3,7 +3,12 @@ package org.blackdread.cameraframework.api.helper.factory;
 import com.sun.jna.Memory;
 import com.sun.jna.NativeLong;
 import org.apache.commons.lang3.NotImplementedException;
+import org.blackdread.camerabinding.jna.EdsFocusInfo;
+import org.blackdread.camerabinding.jna.EdsPictureStyleDesc;
+import org.blackdread.camerabinding.jna.EdsPoint;
 import org.blackdread.camerabinding.jna.EdsRational;
+import org.blackdread.camerabinding.jna.EdsRect;
+import org.blackdread.camerabinding.jna.EdsTime;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.api.constant.EdsDataType;
@@ -14,7 +19,6 @@ import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidE
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -382,7 +386,6 @@ class PropertyGetLogicDefaultMockTest extends AbstractMockTest {
         verify(CanonFactory.edsdkLibrary()).EdsGetPropertyData(eq(fakeBaseRef), eq(new NativeLong(propertyID.value())), eq(new NativeLong(inParam)), eq(new NativeLong(inPropertySize)), eq(mockMemory));
     }
 
-    @Disabled("Need fix")
     @Test
     void getPropertyDataForRational() {
         final EdsRational expectedResult = new EdsRational(mockMemory);
@@ -404,7 +407,102 @@ class PropertyGetLogicDefaultMockTest extends AbstractMockTest {
 
         final EdsRational result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
 
-        Assertions.assertEquals(expectedResult, result);
+//        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult.numerator, result.numerator);
+        Assertions.assertEquals(expectedResult.denominator, result.denominator);
+
+        verify(CanonFactory.propertyLogic()).getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam);
+
+        verify(CanonFactory.edsdkLibrary()).EdsGetPropertyData(eq(fakeBaseRef), eq(new NativeLong(propertyID.value())), eq(new NativeLong(inParam)), eq(new NativeLong(inPropertySize)), eq(mockMemory));
+    }
+
+    @Test
+    void getPropertyDataForPoint() {
+        final EdsPoint expectedResult = new EdsPoint(mockMemory);
+
+        final EdsPropertyID propertyID = EdsPropertyID.kEdsPropID_ISOSpeed;
+        final long inParam = 0L;
+        final int inPropertySize = 4;
+
+        propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Point, inPropertySize);
+
+        // mocks
+
+        when(CanonFactory.propertyLogic().getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam)).thenReturn(propertyInfo);
+
+        returnNoErrorForEdsGetPropertyData(propertyID, inParam, inPropertySize);
+
+        // mock actual result
+//        when(mockMemory.getDouble(0)).thenReturn(expectedResult);
+
+        final EdsPoint result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
+
+//        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult.x, result.x);
+        Assertions.assertEquals(expectedResult.y, result.y);
+
+
+        verify(CanonFactory.propertyLogic()).getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam);
+
+        verify(CanonFactory.edsdkLibrary()).EdsGetPropertyData(eq(fakeBaseRef), eq(new NativeLong(propertyID.value())), eq(new NativeLong(inParam)), eq(new NativeLong(inPropertySize)), eq(mockMemory));
+    }
+
+    @Test
+    void getPropertyDataForRect() {
+        final EdsRect expectedResult = new EdsRect(mockMemory);
+
+        final EdsPropertyID propertyID = EdsPropertyID.kEdsPropID_ISOSpeed;
+        final long inParam = 0L;
+        final int inPropertySize = 4;
+
+        propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Rect, inPropertySize);
+
+        // mocks
+
+        when(CanonFactory.propertyLogic().getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam)).thenReturn(propertyInfo);
+
+        returnNoErrorForEdsGetPropertyData(propertyID, inParam, inPropertySize);
+
+        // mock actual result
+//        when(mockMemory.getDouble(0)).thenReturn(expectedResult);
+
+        final EdsRect result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
+
+//        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult.point, result.point);
+        Assertions.assertEquals(expectedResult.size, result.size);
+
+        verify(CanonFactory.propertyLogic()).getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam);
+
+        verify(CanonFactory.edsdkLibrary()).EdsGetPropertyData(eq(fakeBaseRef), eq(new NativeLong(propertyID.value())), eq(new NativeLong(inParam)), eq(new NativeLong(inPropertySize)), eq(mockMemory));
+    }
+
+    @Test
+    void getPropertyDataForTime() {
+        final EdsTime expectedResult = new EdsTime(mockMemory);
+
+        final EdsPropertyID propertyID = EdsPropertyID.kEdsPropID_ISOSpeed;
+        final long inParam = 0L;
+        final int inPropertySize = 4;
+
+        propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_Time, inPropertySize);
+
+        // mocks
+
+        when(CanonFactory.propertyLogic().getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam)).thenReturn(propertyInfo);
+
+        returnNoErrorForEdsGetPropertyData(propertyID, inParam, inPropertySize);
+
+        // mock actual result
+//        when(mockMemory.getDouble(0)).thenReturn(expectedResult);
+
+        final EdsTime result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
+
+//        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult.year, result.year);
+        Assertions.assertEquals(expectedResult.month, result.month);
+        Assertions.assertEquals(expectedResult.day, result.day);
+        Assertions.assertEquals(expectedResult.hour, result.hour);
 
         verify(CanonFactory.propertyLogic()).getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam);
 
@@ -547,6 +645,69 @@ class PropertyGetLogicDefaultMockTest extends AbstractMockTest {
         Assertions.assertThrows(NotImplementedException.class, () -> propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID));
 
 //        Assertions.assertEquals(expectedResult, result);
+
+        verify(CanonFactory.propertyLogic()).getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam);
+
+        verify(CanonFactory.edsdkLibrary()).EdsGetPropertyData(eq(fakeBaseRef), eq(new NativeLong(propertyID.value())), eq(new NativeLong(inParam)), eq(new NativeLong(inPropertySize)), eq(mockMemory));
+    }
+
+    @Test
+    void getPropertyDataForFocusInfo() {
+        final EdsFocusInfo expectedResult = new EdsFocusInfo(mockMemory);
+
+        final EdsPropertyID propertyID = EdsPropertyID.kEdsPropID_ISOSpeed;
+        final long inParam = 0L;
+        final int inPropertySize = 4;
+
+        propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_FocusInfo, inPropertySize);
+
+        // mocks
+
+        when(CanonFactory.propertyLogic().getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam)).thenReturn(propertyInfo);
+
+        returnNoErrorForEdsGetPropertyData(propertyID, inParam, inPropertySize);
+
+        // mock actual result
+//        when(mockMemory.getDouble(0)).thenReturn(expectedResult);
+
+        final EdsFocusInfo result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
+
+//        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult.pointNumber, result.pointNumber);
+        Assertions.assertEquals(expectedResult.imageRect, result.imageRect);
+
+        verify(CanonFactory.propertyLogic()).getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam);
+
+        verify(CanonFactory.edsdkLibrary()).EdsGetPropertyData(eq(fakeBaseRef), eq(new NativeLong(propertyID.value())), eq(new NativeLong(inParam)), eq(new NativeLong(inPropertySize)), eq(mockMemory));
+    }
+
+    @Test
+    void getPropertyDataForPictureStyleDesc() {
+        final EdsPictureStyleDesc expectedResult = new EdsPictureStyleDesc(mockMemory);
+
+        final EdsPropertyID propertyID = EdsPropertyID.kEdsPropID_ISOSpeed;
+        final long inParam = 0L;
+        final int inPropertySize = 4;
+
+        propertyInfo = new PropertyInfo(EdsDataType.kEdsDataType_PictureStyleDesc, inPropertySize);
+
+        // mocks
+
+        when(CanonFactory.propertyLogic().getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam)).thenReturn(propertyInfo);
+
+        returnNoErrorForEdsGetPropertyData(propertyID, inParam, inPropertySize);
+
+        // mock actual result
+//        when(mockMemory.getDouble(0)).thenReturn(expectedResult);
+
+        final EdsPictureStyleDesc result = propertyGetLogicDefaultExtended.getPropertyData(fakeBaseRef, propertyID);
+
+//        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult.colorTone, result.colorTone);
+        Assertions.assertEquals(expectedResult.contrast, result.contrast);
+        Assertions.assertEquals(expectedResult.filterEffect, result.filterEffect);
+        Assertions.assertEquals(expectedResult.sharpness, result.sharpness);
+        Assertions.assertEquals(expectedResult.sharpFineness, result.sharpFineness);
 
         verify(CanonFactory.propertyLogic()).getPropertyTypeAndSize(fakeBaseRef, propertyID, inParam);
 
