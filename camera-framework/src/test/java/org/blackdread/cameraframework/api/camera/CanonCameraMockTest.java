@@ -141,6 +141,18 @@ class CanonCameraMockTest extends AbstractMockTest {
 
     @Test
     void isConnectedAsync() {
+        cameraWithSerialNumber.setCameraRef(fakeCamera);
+
+        final IsConnectedCommand command = cameraWithSerialNumber.isConnectedAsync();
+
+        verify(commandDispatcher).scheduleCommand(fakeCamera, command);
+    }
+
+    @Test
+    void isConnectedAsyncRequireCameraRefNotNull() {
+        Assertions.assertThrows(IllegalStateException.class, () -> cameraWithSerialNumber.isConnectedAsync());
+
+        verify(commandDispatcher, times(0)).scheduleCommand(any());
     }
 
     @Test
@@ -153,6 +165,18 @@ class CanonCameraMockTest extends AbstractMockTest {
 
     @Test
     void closeSession() {
+        cameraWithSerialNumber.setCameraRef(fakeCamera);
+
+        final CloseSessionCommand command = cameraWithSerialNumber.closeSession();
+
+        verify(commandDispatcher).scheduleCommand(fakeCamera, command);
+    }
+
+    @Test
+    void closeSessionRequireCameraRefNotNull() {
+        Assertions.assertThrows(IllegalStateException.class, () -> cameraWithSerialNumber.closeSession());
+
+        verify(commandDispatcher, times(0)).scheduleCommand(any());
     }
 
     @Test
@@ -168,6 +192,8 @@ class CanonCameraMockTest extends AbstractMockTest {
         Assertions.assertThrows(IllegalStateException.class, () -> cameraWithSerialNumber.getEvent().unRegisterObjectEventCommand());
         Assertions.assertThrows(IllegalStateException.class, () -> cameraWithSerialNumber.getEvent().unRegisterPropertyEventCommand());
         Assertions.assertThrows(IllegalStateException.class, () -> cameraWithSerialNumber.getEvent().unRegisterStateEventCommand());
+
+        verify(commandDispatcher, times(0)).scheduleCommand(any());
     }
 
     @Test
