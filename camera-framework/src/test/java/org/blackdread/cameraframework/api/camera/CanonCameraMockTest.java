@@ -3,8 +3,16 @@ package org.blackdread.cameraframework.api.camera;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.api.command.*;
+import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
+import org.blackdread.cameraframework.api.command.builder.CloseSessionOptionBuilder;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
+import org.blackdread.cameraframework.api.command.builder.OpenSessionOptionBuilder;
 import org.blackdread.cameraframework.api.command.builder.ShootOption;
 import org.blackdread.cameraframework.api.command.builder.ShootOptionBuilder;
+import org.blackdread.cameraframework.api.command.decorator.builder.CommandBuilderReusable;
+import org.blackdread.cameraframework.api.command.decorator.impl.TimeoutCommandDecorator;
+import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
+import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
 import org.blackdread.cameraframework.api.constant.EdsISOSpeed;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.NativeEnum;
@@ -17,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Duration;
 
 import static org.blackdread.cameraframework.api.TestUtil.throwUnchecked;
 import static org.mockito.Mockito.*;
@@ -49,14 +58,47 @@ class CanonCameraMockTest extends AbstractMockTest {
 
     @Test
     void applyTarget() {
+        CanonCommand<String> command = new GenericCommand<>(() -> "value");
+        command = cameraDefaultConstructor.applyTarget(command);
+        Assertions.assertFalse(command.getTargetRef().isPresent());
+
+        cameraDefaultConstructor.setCameraRef(fakeCamera);
+        command = cameraDefaultConstructor.applyTarget(command);
+        Assertions.assertTrue(command.getTargetRef().isPresent());
     }
 
     @Test
     void applyExtraOptions() {
+        CanonCommand<String> command = new GenericCommand<>(() -> "value");
+        command = cameraDefaultConstructor.applyExtraOptions(command);
+        Assertions.assertTrue(command.getTimeout().isPresent()); // Commands have default timeouts
+
+        final Duration defaultTimeout = Duration.ofSeconds(5);
+        cameraDefaultConstructor.setDefaultTimeout(defaultTimeout);
+        command = cameraDefaultConstructor.applyExtraOptions(command);
+        Assertions.assertTrue(command.getTimeout().isPresent());
+        Assertions.assertEquals(defaultTimeout, command.getTimeout().get());
     }
 
     @Test
     void applyDefaultCommandDecoration() {
+        final CanonCommand<String> baseCommand = new GenericCommand<>(() -> "value");
+        CanonCommand<String> commandDecoration = cameraDefaultConstructor.applyDefaultCommandDecoration(baseCommand);
+
+        Assertions.assertEquals(baseCommand, commandDecoration);
+
+
+        final Duration defaultTimeout = Duration.ofSeconds(5);
+        final CommandBuilderReusable.ReusableBuilder<String> builder = new CommandBuilderReusable.ReusableBuilder<String>()
+            .setCanonCommand(baseCommand)
+            .timeout(defaultTimeout);
+
+        cameraDefaultConstructor.setCommandBuilderReusable(builder);
+
+        commandDecoration = cameraDefaultConstructor.applyDefaultCommandDecoration(baseCommand);
+        Assertions.assertNotEquals(baseCommand, commandDecoration);
+
+        Assertions.assertTrue(commandDecoration instanceof TimeoutCommandDecorator);
     }
 
     @Test
@@ -65,78 +107,122 @@ class CanonCameraMockTest extends AbstractMockTest {
 
     @Test
     void getCameraRef() {
+        Assertions.assertFalse(cameraDefaultConstructor.getCameraRef().isPresent());
+        cameraDefaultConstructor.setCameraRef(fakeCamera);
+        Assertions.assertTrue(cameraDefaultConstructor.getCameraRef().isPresent());
     }
 
     @Test
     void getCameraRefInternal() {
+        Assertions.assertThrows(IllegalStateException.class, () -> cameraDefaultConstructor.getCameraRefInternal());
+        cameraDefaultConstructor.setCameraRef(fakeCamera);
+        Assertions.assertNotNull(cameraDefaultConstructor.getCameraRefInternal());
+        cameraDefaultConstructor.setCameraRef(null);
+        Assertions.assertThrows(IllegalStateException.class, () -> cameraDefaultConstructor.getCameraRefInternal());
     }
 
     @Test
     void setCameraRef() {
+        Assertions.assertFalse(cameraDefaultConstructor.getCameraRef().isPresent());
+        cameraDefaultConstructor.setCameraRef(fakeCamera);
+        Assertions.assertTrue(cameraDefaultConstructor.getCameraRef().isPresent());
+        cameraDefaultConstructor.setCameraRef(null);
+        Assertions.assertFalse(cameraDefaultConstructor.getCameraRef().isPresent());
     }
 
     @Test
     void getSerialNumber() {
+        Assertions.assertFalse(cameraDefaultConstructor.getSerialNumber().isPresent());
+        Assertions.assertTrue(cameraWithSerialNumber.getSerialNumber().isPresent());
     }
 
     @Test
     void setSerialNumber() {
+        cameraDefaultConstructor.setSerialNumber("any");
+        Assertions.assertEquals("any", cameraDefaultConstructor.getSerialNumber().get());
     }
 
     @Test
-    void getCommandBuilderReusable() {
+    void setSerialNumberCannotBeChanged() {
+        cameraDefaultConstructor.setSerialNumber("any");
+        Assertions.assertThrows(IllegalStateException.class, () -> cameraDefaultConstructor.setSerialNumber("any"));
+
+        Assertions.assertThrows(IllegalStateException.class, () -> cameraWithSerialNumber.setSerialNumber("any"));
     }
 
     @Test
-    void setCommandBuilderReusable() {
+    void setSerialNumberThrowsNull() {
+        Assertions.assertThrows(NullPointerException.class, () -> cameraDefaultConstructor.setSerialNumber(null));
     }
 
     @Test
-    void getDefaultTimeout() {
+    void getAndSetCommandBuilderReusable() {
+        Assertions.assertFalse(cameraDefaultConstructor.getCommandBuilderReusable().isPresent());
+        cameraDefaultConstructor.setCommandBuilderReusable(new CommandBuilderReusable.ReusableBuilder());
+        Assertions.assertTrue(cameraDefaultConstructor.getCommandBuilderReusable().isPresent());
     }
 
     @Test
-    void setDefaultTimeout() {
-    }
-
-    @Test
-    void getEvent() {
-    }
-
-    @Test
-    void getShoot() {
-    }
-
-    @Test
-    void getLiveView() {
-    }
-
-    @Test
-    void getProperty() {
+    void getAndSetDefaultTimeout() {
+        Assertions.assertFalse(cameraDefaultConstructor.getDefaultTimeout().isPresent());
+        cameraDefaultConstructor.setDefaultTimeout(Duration.ofSeconds(5));
+        Assertions.assertTrue(cameraDefaultConstructor.getDefaultTimeout().isPresent());
     }
 
     @Test
     void sendGenericCommandAsync() {
+        final GenericCommand<Boolean> command = cameraWithSerialNumber.sendGenericCommandAsync(new GenericCommand<>(() -> true));
+
+        Assertions.assertNotNull(command);
+
+        verify(commandDispatcher).scheduleCommand(command);
     }
 
     @Test
-    void sendGenericCommandAsync1() {
+    void sendGenericCommandAsyncCallable() {
+        final GenericCommand<Boolean> command = cameraWithSerialNumber.sendGenericCommandAsync(() -> {
+            throw new InterruptedException("");
+        });
+
+        Assertions.assertNotNull(command);
+
+        verify(commandDispatcher).scheduleCommand(command);
     }
 
     @Test
     void sendCameraCommandAsync() {
+        final CameraCommand command = cameraWithSerialNumber.sendCameraCommandAsync(EdsCameraCommand.kEdsCameraCommand_TakePicture);
+
+        Assertions.assertNotNull(command);
+
+        verify(commandDispatcher).scheduleCommand(command);
     }
 
     @Test
     void sendCameraCommandAsync1() {
+        final CameraCommand command = cameraWithSerialNumber.sendCameraCommandAsync(EdsCameraCommand.kEdsCameraCommand_TakePicture, 0L);
+
+        Assertions.assertNotNull(command);
+
+        verify(commandDispatcher).scheduleCommand(command);
     }
 
     @Test
     void sendCameraCommandAsync2() {
+        final CameraCommand command = cameraWithSerialNumber.sendCameraCommandAsync(EdsCameraCommand.kEdsCameraCommand_TakePicture, EdsISOSpeed.kEdsISOSpeed_100);
+
+        Assertions.assertNotNull(command);
+
+        verify(commandDispatcher).scheduleCommand(command);
     }
 
     @Test
     void sendStatusCommandAsync() {
+        final StatusCommand command = cameraWithSerialNumber.sendStatusCommandAsync(EdsCameraStatusCommand.kEdsCameraStatusCommand_UILock);
+
+        Assertions.assertNotNull(command);
+
+        verify(commandDispatcher).scheduleCommand(command);
     }
 
     @Test
@@ -144,6 +230,8 @@ class CanonCameraMockTest extends AbstractMockTest {
         cameraWithSerialNumber.setCameraRef(fakeCamera);
 
         final IsConnectedCommand command = cameraWithSerialNumber.isConnectedAsync();
+
+        Assertions.assertNotNull(command);
 
         verify(commandDispatcher).scheduleCommand(fakeCamera, command);
     }
@@ -157,10 +245,22 @@ class CanonCameraMockTest extends AbstractMockTest {
 
     @Test
     void openSession() {
+        final OpenSessionCommand command1 = cameraDefaultConstructor.openSession();
+        final OpenSessionCommand command2 = cameraWithSerialNumber.openSession();
+
+        verify(commandDispatcher).scheduleCommand(command1);
+        verify(commandDispatcher).scheduleCommand(command2);
     }
 
     @Test
     void openSession1() {
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setCameraBySerialNumber("any")
+            .build();
+
+        final OpenSessionCommand command = cameraWithSerialNumber.openSession(option);
+
+        verify(commandDispatcher).scheduleCommand(command);
     }
 
     @Test
@@ -168,6 +268,8 @@ class CanonCameraMockTest extends AbstractMockTest {
         cameraWithSerialNumber.setCameraRef(fakeCamera);
 
         final CloseSessionCommand command = cameraWithSerialNumber.closeSession();
+
+        Assertions.assertNotNull(command);
 
         verify(commandDispatcher).scheduleCommand(fakeCamera, command);
     }
@@ -181,6 +283,18 @@ class CanonCameraMockTest extends AbstractMockTest {
 
     @Test
     void closeSession1() {
+        cameraWithSerialNumber.setCameraRef(fakeCamera);
+
+        final CloseSessionOption option = new CloseSessionOptionBuilder()
+            .setCamera(cameraWithSerialNumber)
+            .setCameraRef(fakeCamera)
+            .build();
+
+        final CloseSessionCommand command = cameraWithSerialNumber.closeSession(option);
+
+        Assertions.assertNotNull(command);
+
+        verify(commandDispatcher).scheduleCommand(fakeCamera, command);
     }
 
     @Test
