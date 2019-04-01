@@ -227,4 +227,18 @@ class NameToBeDefined2Test {
 
         Assertions.assertEquals(this.count.get() - 1, count);
     }
+
+
+    @Test
+    void handleWithBiFunction() {
+        final Boolean handle = (Boolean) countOnly
+            .handle((value, throwable) -> false);
+
+        Assertions.assertFalse(handle);
+
+        final Boolean handle2 = (Boolean) throwRuntime
+            .handle((value, throwable) -> true);
+
+        Assertions.assertTrue(handle2);
+    }
 }
