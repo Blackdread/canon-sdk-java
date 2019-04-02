@@ -28,9 +28,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -432,6 +434,92 @@ class CommandExecutionMockTest extends AbstractMockTest {
         runAndAssertCommand(command, (canonCommand, o) -> {
             Assertions.assertNull(o);
             verify(CanonFactory.propertySetLogic()).setPropertyDataAdvanced(fakeCamera, EdsPropertyID.kEdsPropID_JpegQuality, 5);
+        });
+    }
+
+    @Test
+    void testBegin() {
+        final CanonCommand command = new LiveViewCommand.Begin();
+
+        command.setTargetRef(fakeCamera);
+
+        runAndAssertCommand(command, (canonCommand, o) -> {
+            Assertions.assertNull(o);
+            verify(CanonFactory.liveViewLogic()).beginLiveView(fakeCamera);
+        });
+    }
+
+    @Test
+    void testEnd() {
+        final CanonCommand command = new LiveViewCommand.End();
+
+        command.setTargetRef(fakeCamera);
+
+        runAndAssertCommand(command, (canonCommand, o) -> {
+            Assertions.assertNull(o);
+            verify(CanonFactory.liveViewLogic()).endLiveView(fakeCamera);
+        });
+    }
+
+    @Test
+    void testDownload() {
+        when(CanonFactory.liveViewLogic().getLiveViewImage(fakeCamera))
+            .thenReturn(Mockito.mock(BufferedImage.class));
+
+        final CanonCommand command = new LiveViewCommand.Download();
+
+        command.setTargetRef(fakeCamera);
+
+        runAndAssertCommand(command, (canonCommand, o) -> {
+            Assertions.assertNotNull(o);
+            verify(CanonFactory.liveViewLogic()).getLiveViewImage(fakeCamera);
+        });
+    }
+
+    @Test
+    void testDownloadBuffer() {
+        when(CanonFactory.liveViewLogic().getLiveViewImageBuffer(fakeCamera))
+            .thenReturn(new byte[0]);
+
+        final CanonCommand command = new LiveViewCommand.DownloadBuffer();
+
+        command.setTargetRef(fakeCamera);
+
+        runAndAssertCommand(command, (canonCommand, o) -> {
+            Assertions.assertNotNull(o);
+            verify(CanonFactory.liveViewLogic()).getLiveViewImageBuffer(fakeCamera);
+        });
+    }
+
+    @Test
+    void testIsLiveViewEnabled() {
+        when(CanonFactory.liveViewLogic().isLiveViewEnabled(fakeCamera))
+            .thenReturn(true);
+
+        final CanonCommand command = new LiveViewCommand.IsLiveViewEnabled();
+
+        command.setTargetRef(fakeCamera);
+
+        runAndAssertCommand(command, (canonCommand, o) -> {
+            Assertions.assertNotNull(o);
+            Assertions.assertTrue((Boolean) o);
+            verify(CanonFactory.liveViewLogic()).isLiveViewEnabled(fakeCamera);
+        });
+    }
+
+    @Test
+    void testIsLiveViewActive() {
+        when(CanonFactory.liveViewLogic().isLiveViewEnabledByDownloadingOneImage(fakeCamera))
+            .thenReturn(true);
+
+        final CanonCommand command = new LiveViewCommand.IsLiveViewActive();
+
+        command.setTargetRef(fakeCamera);
+
+        runAndAssertCommand(command, (canonCommand, o) -> {
+            Assertions.assertNotNull(o);
+            Assertions.assertTrue((Boolean) o);
+            verify(CanonFactory.liveViewLogic()).isLiveViewEnabledByDownloadingOneImage(fakeCamera);
         });
     }
 
