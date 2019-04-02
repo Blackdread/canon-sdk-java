@@ -5,8 +5,12 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsEvfImageRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsStreamRef;
 import org.blackdread.cameraframework.AbstractMockTest;
+import org.blackdread.cameraframework.MockFactory;
+import org.blackdread.cameraframework.api.constant.EdsEvfOutputDevice;
+import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.LiveViewReference;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.exception.error.communication.EdsdkCommUsbBusErrorException;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidErrorException;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceNotFoundErrorException;
@@ -18,7 +22,7 @@ import org.mockito.Mockito;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * <p>Created on 2019/04/02.</p>
@@ -59,19 +63,82 @@ class LiveViewLogicDefaultMockTest extends AbstractMockTest {
     }
 
     @Test
+    void enableLiveView() {
+        MockFactory.initialCanonFactory.getLiveViewLogic().enableLiveView(fakeCamera);
+
+        verify(CanonFactory.propertySetLogic()).setPropertyData(fakeCamera, EdsPropertyID.kEdsPropID_Evf_Mode, 1L);
+    }
+
+    @Test
+    void disableLiveView() {
+        MockFactory.initialCanonFactory.getLiveViewLogic().disableLiveView(fakeCamera);
+
+        verify(CanonFactory.propertySetLogic()).setPropertyData(fakeCamera, EdsPropertyID.kEdsPropID_Evf_Mode, 0L);
+    }
+
+    @Test
     void beginLiveView() {
+        MockFactory.initialCanonFactory.getLiveViewLogic().beginLiveView(fakeCamera);
+
+        verify(CanonFactory.propertySetLogic()).setPropertyData(fakeCamera, EdsPropertyID.kEdsPropID_Evf_OutputDevice, EdsEvfOutputDevice.kEdsEvfOutputDevice_PC);
+    }
+
+    @Test
+    void beginLiveView1() {
+        MockFactory.initialCanonFactory.getLiveViewLogic().beginLiveView(fakeCamera, EdsEvfOutputDevice.kEdsEvfOutputDevice_MOBILE);
+
+        verify(CanonFactory.propertySetLogic()).setPropertyData(fakeCamera, EdsPropertyID.kEdsPropID_Evf_OutputDevice, EdsEvfOutputDevice.kEdsEvfOutputDevice_MOBILE);
+
     }
 
     @Test
     void endLiveView() {
+        MockFactory.initialCanonFactory.getLiveViewLogic().endLiveView(fakeCamera);
+
+        verify(CanonFactory.propertySetLogic()).setPropertyData(fakeCamera, EdsPropertyID.kEdsPropID_Evf_OutputDevice, EdsEvfOutputDevice.kEdsEvfOutputDevice_TFT);
     }
 
     @Test
     void isLiveViewEnabled() {
+        when(CanonFactory.propertyGetLogic().getPropertyData(fakeCamera, EdsPropertyID.kEdsPropID_Evf_Mode))
+            .thenReturn(0L)
+            .thenReturn(2L)
+            .thenReturn(-1L)
+            .thenReturn(1L);
+
+        Assertions.assertFalse(MockFactory.initialCanonFactory.getLiveViewLogic().isLiveViewEnabled(fakeCamera));
+        Assertions.assertFalse(MockFactory.initialCanonFactory.getLiveViewLogic().isLiveViewEnabled(fakeCamera));
+        Assertions.assertFalse(MockFactory.initialCanonFactory.getLiveViewLogic().isLiveViewEnabled(fakeCamera));
+        Assertions.assertTrue(MockFactory.initialCanonFactory.getLiveViewLogic().isLiveViewEnabled(fakeCamera));
     }
 
     @Test
     void isLiveViewEnabledByDownloadingOneImage() {
+        final boolean result = liveViewLogicDefaultExtended.isLiveViewEnabledByDownloadingOneImage(fakeCamera);
+
+        Assertions.assertFalse(result);
+
+        verify(CanonFactory.edsdkLibrary(), times(2)).EdsRelease(any());
+    }
+
+    @Test
+    void isLiveViewEnabledByDownloadingOneImageCatchEdsdkError() {
+        liveViewLogicDefaultExtended.setThrowOnGetLiveViewImageReference(new EdsdkErrorException(EdsdkError.EDS_ERR_OK));
+
+        final boolean result = liveViewLogicDefaultExtended.isLiveViewEnabledByDownloadingOneImage(fakeCamera);
+
+        Assertions.assertFalse(result);
+
+        verify(CanonFactory.edsdkLibrary(), times(0)).EdsRelease(any());
+    }
+
+    @Test
+    void isLiveViewEnabledByDownloadingOneImageDoesNotCatchOtherThanEdsdkError() {
+        liveViewLogicDefaultExtended.setThrowOnGetLiveViewImageReference(new RuntimeException());
+
+        Assertions.assertThrows(RuntimeException.class, () -> liveViewLogicDefaultExtended.isLiveViewEnabledByDownloadingOneImage(fakeCamera));
+
+        verify(CanonFactory.edsdkLibrary(), times(0)).EdsRelease(any());
     }
 
     @Test
