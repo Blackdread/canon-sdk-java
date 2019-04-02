@@ -1,8 +1,12 @@
 package org.blackdread.cameraframework.api.command;
 
+import com.google.common.collect.ImmutableSet;
 import com.sun.jna.NativeLong;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsEvfImageRef;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef;
+import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsVolumeRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.api.TestUtil;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
@@ -16,6 +20,7 @@ import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
 import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.factory.CanonFactory;
+import org.blackdread.cameraframework.exception.UnsupportedTargetTypeException;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInternalErrorException;
 import org.junit.jupiter.api.AfterEach;
@@ -25,8 +30,10 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -39,13 +46,22 @@ import static org.mockito.Mockito.*;
  *
  * @author Yoann CAPLAIN
  */
+@SuppressWarnings("unchecked")
 class CommandExecutionMockTest extends AbstractMockTest {
 
     private static final Logger log = LoggerFactory.getLogger(CommandExecutionMockTest.class);
 
+    private static final Set<TargetRefType> ALL_TARGET_REF_TYPES = ImmutableSet.copyOf(TargetRefType.values());
+
     private EdsCameraRef fakeCamera;
 
     private EdsImageRef fakeImage;
+
+    private EdsEvfImageRef fakeEvfImage;
+
+    private EdsVolumeRef fakeVolume;
+
+    private EdsDirectoryItemRef fakeDirItem;
 
     private final NativeLong noErrorLong = new NativeLong(0);
 
@@ -60,8 +76,10 @@ class CommandExecutionMockTest extends AbstractMockTest {
         mockEdsdkLibrary();
 
         fakeCamera = new EdsCameraRef();
-
         fakeImage = new EdsImageRef();
+        fakeEvfImage = new EdsEvfImageRef();
+        fakeVolume = new EdsVolumeRef();
+        fakeDirItem = new EdsDirectoryItemRef();
 
         expectedErrorLong = new NativeLong(EdsdkError.EDS_ERR_DEVICE_INTERNAL_ERROR.value());
         expectedError = EdsdkError.EDS_ERR_DEVICE_INTERNAL_ERROR;
@@ -626,6 +644,424 @@ class CommandExecutionMockTest extends AbstractMockTest {
         });
     }
 
+    @Test
+    void testAperture() {
+        final CanonCommand command = new GetPropertyCommand.Aperture();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getAv(fakeCamera);
+        });
+    }
+
+    @Test
+    void testApertureImage() {
+        final CanonCommand command = new GetPropertyCommand.ApertureImage();
+
+        runAndAssertCommand(TargetRefType.IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getAv(fakeImage);
+        });
+    }
+
+    @Test
+    void testArtist() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    @Test
+    void testAutoFocusMode() {
+        final CanonCommand command = new GetPropertyCommand.AutoFocusMode();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getAFMode(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getAFMode(fakeImage);
+        });
+    }
+
+    @Test
+    void testAvailableShots() {
+        final CanonCommand command = new GetPropertyCommand.AvailableShots();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getAvailableShots(fakeCamera);
+        });
+    }
+
+    @Test
+    void testBatteryLevel() {
+        final CanonCommand command = new GetPropertyCommand.BatteryLevel();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getBatteryLevel(fakeCamera);
+        });
+    }
+
+    @Test
+    void testBodyIDEx() {
+        final CanonCommand command = new GetPropertyCommand.BodyIDEx();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getBodyIDEx(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getBodyIDEx(fakeImage);
+        });
+    }
+
+    @Test
+    void testBracket() {
+        final CanonCommand command = new GetPropertyCommand.Bracket();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getBracket(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getBracket(fakeImage);
+        });
+    }
+
+    @Test
+    void testColorSpace() {
+        final CanonCommand command = new GetPropertyCommand.ColorSpace();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getColorSpace(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getColorSpace(fakeImage);
+        });
+    }
+
+    @Test
+    void testColorTemperature() {
+        final CanonCommand command = new GetPropertyCommand.ColorTemperature();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getColorTemperature(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getColorTemperature(fakeImage);
+        });
+    }
+
+    @Test
+    void testCopyright() {
+        final CanonCommand command = new GetPropertyCommand.Copyright();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getCopyright(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getCopyright(fakeImage);
+        });
+    }
+
+    @Test
+    void testCurrentFolder() {
+        final CanonCommand command = new GetPropertyCommand.CurrentFolder();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getCurrentFolder(fakeCamera);
+        });
+    }
+
+    @Test
+    void testCurrentStorage() {
+        final CanonCommand command = new GetPropertyCommand.CurrentStorage();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getCurrentStorage(fakeCamera);
+        });
+    }
+
+    @Test
+    void testDateTime() {
+        final CanonCommand command = new GetPropertyCommand.DateTime();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getDateTime(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getDateTime(fakeImage);
+        });
+    }
+
+    @Test
+    void testFlashCompensation() {
+        final CanonCommand command = new GetPropertyCommand.FlashCompensation();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getFlashCompensation(fakeCamera);
+        });
+    }
+
+    @Test
+    void testFirmwareVersion() {
+        final CanonCommand command = new GetPropertyCommand.FirmwareVersion();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getFirmwareVersion(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getFirmwareVersion(fakeImage);
+        });
+    }
+
+    @Test
+    void testFocusInfo() {
+        final CanonCommand command = new GetPropertyCommand.FocusInfo();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getFocusInfo(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getFocusInfo(fakeImage);
+        });
+    }
+
+    @Test
+    void testHardDriveDirectoryStructure() {
+        final CanonCommand command = new GetPropertyCommand.HardDriveDirectoryStructure();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getHDDirectoryStructure(fakeCamera);
+        });
+    }
+
+    @Test
+    void testImageQuality() {
+        final CanonCommand command = new GetPropertyCommand.ImageQuality();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getImageQuality(fakeCamera);
+        });
+    }
+
+    @Test
+    void testIsoSpeed() {
+        final CanonCommand command = new GetPropertyCommand.IsoSpeed();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getISOSpeed(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getISOSpeed(fakeImage);
+        });
+    }
+
+    @Test
+    void testJpegQuality() {
+        final CanonCommand command = new GetPropertyCommand.JpegQuality();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getJpegQuality(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getJpegQuality(fakeImage);
+        });
+    }
+
+    @Test
+    void testLensName() {
+        final CanonCommand command = new GetPropertyCommand.LensName();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getLensName(fakeImage);
+        });
+    }
+
+    @Test
+    void testLensStatus() {
+        final CanonCommand command = new GetPropertyCommand.LensStatus();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getLensStatus(fakeCamera);
+        });
+    }
+
+    @Test
+    void testLensStatusAsBoolean() {
+        final CanonCommand command = new GetPropertyCommand.LensStatusAsBoolean();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getLensStatus(fakeCamera);
+        });
+    }
+
+    @Test
+    void testLiveViewAutoFocusMode() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewAutoFocusMode();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfAFMode(fakeCamera);
+        });
+    }
+
+    @Test
+    void testLiveViewColorTemperature() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewColorTemperature();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfColorTemperature(fakeCamera);
+        });
+    }
+
+    @Test
+    void testLiveViewCoordinateSystem() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewCoordinateSystem();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfCoordinateSystem(fakeEvfImage);
+        });
+    }
+
+    @Test
+    void testLiveViewImagePosition() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewImagePosition();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfImagePosition(fakeEvfImage);
+        });
+    }
+
+    @Test
+    void testLiveViewHistogram() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewHistogram();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetLogic()).getPropertyData(fakeEvfImage, EdsPropertyID.kEdsPropID_Evf_Histogram);
+        });
+    }
+
+    @Test
+    void testLiveViewHistogramB() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewHistogramB();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfHistogramB(fakeEvfImage);
+        });
+    }
+
+    @Test
+    void testLiveViewHistogramG() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewHistogramG();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfHistogramG(fakeEvfImage);
+        });
+    }
+
+    @Test
+    void testLiveViewHistogramR() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewHistogramR();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfHistogramR(fakeEvfImage);
+        });
+    }
+
+    @Test
+    void testLiveViewHistogramY() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewHistogramY();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfHistogramY(fakeEvfImage);
+        });
+    }
+
+    @Test
+    void testLiveViewHistogramStatus() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewHistogramStatus();
+
+        runAndAssertCommand(TargetRefType.EVF_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfHistogramStatus(fakeEvfImage);
+        });
+    }
+
+    @Test
+    void testLiveViewOutputDevice() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewOutputDevice();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfOutputDevice(fakeCamera);
+        });
+    }
+
+    @Test
+    void testLiveViewWhiteBalance() {
+        final CanonCommand command = new GetPropertyCommand.LiveViewWhiteBalance();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getEvfWhiteBalance(fakeCamera);
+        });
+    }
+
+    @Test
+    void test() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    @Test
+    void test() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    @Test
+    void test() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    @Test
+    void test() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    @Test
+    void test() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    @Test
+    void test() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    @Test
+    void test() {
+        final CanonCommand command = new GetPropertyCommand.Artist();
+
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeImage);
+        });
+    }
+
+    /*
+    @Test
+    void test() {
+        final CanonCommand command = new RegisterObjectEventCommand(fakeCamera);
+
+        runAndAssertCommand(command, (canonCommand, o) -> {
+            Assertions.assertNull(o);
+            verify(CanonFactory.cameraObjectEventLogic()).registerCameraObjectEvent(fakeCamera);
+        });
+    }
+    //*/
+
     private static <T extends CanonCommand<R>, R> void runAndAssertCommand(final T command, final Consumer<T> assertConsumer) {
         command.run();
 
@@ -640,6 +1076,58 @@ class CommandExecutionMockTest extends AbstractMockTest {
         final R result = getResult(command);
 
         assertConsumer.accept(command, result);
+    }
+
+    private <T extends CanonCommand<R>, R> void runAndAssertCommand(final Set<TargetRefType> supportedType, final T command, final BiConsumer<List<T>, List<R>> assertConsumer) {
+        final ArrayList<T> commands = new ArrayList<>(supportedType.size());
+        final ArrayList<R> results = new ArrayList<>(supportedType.size());
+        for (final TargetRefType targetRefType : supportedType) {
+            final T copy = (T) command.copy();
+            setTargetRef(copy, targetRefType);
+
+            copy.run();
+
+            final R result = getResult(copy);
+
+            commands.add(copy);
+            results.add(result);
+        }
+
+        assertConsumer.accept(commands, results);
+
+        // test not supported types
+        for (final TargetRefType targetRefType : ALL_TARGET_REF_TYPES) {
+            if (supportedType.contains(targetRefType))
+                continue;
+            final T copy = (T) command.copy();
+            setTargetRef(copy, targetRefType);
+
+            runAndAssertThrows(copy, UnsupportedTargetTypeException.class, (t, throwable) -> {
+                // do nothing
+            });
+        }
+    }
+
+    private void setTargetRef(final CanonCommand command, final TargetRefType targetRefType) {
+        switch (targetRefType) {
+            case CAMERA:
+                command.setTargetRef(fakeCamera);
+                break;
+            case IMAGE:
+                command.setTargetRef(fakeImage);
+                break;
+            case EVF_IMAGE:
+                command.setTargetRef(fakeEvfImage);
+                break;
+            case VOLUME:
+                command.setTargetRef(fakeVolume);
+                break;
+            case DIRECTORY_ITEM:
+                command.setTargetRef(fakeDirItem);
+                break;
+            default:
+                throw new IllegalStateException("Missing switch");
+        }
     }
 
     private static <T extends CanonCommand<R>, R> void runAndAssertThrows(final T command, final Class<? extends Throwable> expectedType, final BiConsumer<T, Throwable> assertConsumer) {
