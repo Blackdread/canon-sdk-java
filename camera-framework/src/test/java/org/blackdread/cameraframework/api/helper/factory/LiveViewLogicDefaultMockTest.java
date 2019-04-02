@@ -116,7 +116,7 @@ class LiveViewLogicDefaultMockTest extends AbstractMockTest {
     void isLiveViewEnabledByDownloadingOneImage() {
         final boolean result = liveViewLogicDefaultExtended.isLiveViewEnabledByDownloadingOneImage(fakeCamera);
 
-        Assertions.assertFalse(result);
+        Assertions.assertTrue(result);
 
         verify(CanonFactory.edsdkLibrary(), times(2)).EdsRelease(any());
     }
