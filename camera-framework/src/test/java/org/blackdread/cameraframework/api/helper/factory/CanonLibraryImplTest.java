@@ -36,5 +36,7 @@ class CanonLibraryImplTest {
         canonLibrary.setArchLibraryToUse(CanonLibrary.ArchLibrary.FORCE_64);
         Assertions.assertEquals(DllUtil.DEFAULT_LIB_64_PATH, canonLibrary.getLibPath().get());
 
+        System.setProperty("blackdread.cameraframework.library.path", "test");
+        Assertions.assertEquals("test", canonLibrary.getLibPath().get());
     }
 }
