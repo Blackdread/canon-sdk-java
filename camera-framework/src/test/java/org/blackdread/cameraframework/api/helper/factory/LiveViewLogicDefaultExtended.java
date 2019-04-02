@@ -14,6 +14,15 @@ class LiveViewLogicDefaultExtended extends LiveViewLogicDefault {
 
     private RuntimeException throwOnGetLiveViewImageReference;
 
+    private byte[] liveViewBuffer;
+
+    @Override
+    public byte[] getLiveViewImageBuffer(final EdsdkLibrary.EdsCameraRef camera) {
+        if (liveViewBuffer != null)
+            return liveViewBuffer;
+        return super.getLiveViewImageBuffer(camera);
+    }
+
     @Override
     public LiveViewReference getLiveViewImageReference(final EdsdkLibrary.EdsCameraRef camera) {
         if (throwOnGetLiveViewImageReference != null)
@@ -29,5 +38,9 @@ class LiveViewLogicDefaultExtended extends LiveViewLogicDefault {
 
     public void setThrowOnGetLiveViewImageReference(final RuntimeException throwOnGetLiveViewImageReference) {
         this.throwOnGetLiveViewImageReference = throwOnGetLiveViewImageReference;
+    }
+
+    public void setLiveViewBuffer(final byte[] liveViewBuffer) {
+        this.liveViewBuffer = liveViewBuffer;
     }
 }

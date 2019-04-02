@@ -119,7 +119,7 @@ public class LiveViewLogicDefault implements LiveViewLogic {
             final PointerByReference dataRef = new PointerByReference();
             final EdsdkError dataError = toEdsdkError(edsdkLibrary().EdsGetPointer(liveViewImageReference.getStreamRef().getValue(), dataRef));
             if (dataError != EdsdkError.EDS_ERR_OK) {
-                throw error.getException();
+                throw dataError.getException();
             }
             return dataRef.getValue().getByteArray(0, (int) length.getValue());
         }

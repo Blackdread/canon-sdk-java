@@ -20,6 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.awt.image.BufferedImage;
+
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -143,10 +145,28 @@ class LiveViewLogicDefaultMockTest extends AbstractMockTest {
 
     @Test
     void getLiveViewImage() {
+        final byte[] buffer = new byte[0];
+        liveViewLogicDefaultExtended.setLiveViewBuffer(buffer);
+
+        final BufferedImage liveViewImage = liveViewLogicDefaultExtended.getLiveViewImage(fakeCamera);
+
+        Assertions.assertNull(liveViewImage);
     }
 
     @Test
     void getLiveViewImageBuffer() {
+        when(edsdkLibrary().EdsGetLength(any(), any()))
+            .thenReturn(new NativeLong(EdsdkError.EDS_ERR_DEVICE_INVALID.value()))
+            .thenReturn(new NativeLong(0));
+        when(edsdkLibrary().EdsGetPointer(any(), any()))
+            .thenReturn(new NativeLong(EdsdkError.EDS_ERR_COMM_USB_BUS_ERR.value()))
+            .thenReturn(new NativeLong(0));
+
+        Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> liveViewLogicDefaultExtended.getLiveViewImageBuffer(fakeCamera));
+        Assertions.assertThrows(EdsdkCommUsbBusErrorException.class, () -> liveViewLogicDefaultExtended.getLiveViewImageBuffer(fakeCamera));
+
+        // NPE because cannot mock pointer without adding a protected method to instantiate the pointer
+        Assertions.assertThrows(NullPointerException.class, () -> liveViewLogicDefaultExtended.getLiveViewImageBuffer(fakeCamera));
     }
 
     @Test
