@@ -25,6 +25,7 @@ package org.blackdread.cameraframework.api.command;
 
 import com.google.common.collect.Sets;
 import com.sun.jna.NativeLong;
+import org.blackdread.camerabinding.jna.EdsPictureStyleDesc;
 import org.blackdread.camerabinding.jna.EdsPoint;
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOptionBuilder;
@@ -134,9 +135,10 @@ class CanonCommandCopyTest {
             new SetPropertyCommand.LiveViewOutputDevice(EdsEvfOutputDevice.kEdsEvfOutputDevice_PC),
             new SetPropertyCommand.LiveViewColorTemperature(1000),
             new SetPropertyCommand.LiveViewAutoFocusMode(EdsEvfAFMode.Evf_AFMode_Live),
+            new SetPropertyCommand.MeteringMode(EdsMeteringMode.kEdsMeteringMode_Evaluative),
             new SetPropertyCommand.OwnerName("OwnerName"),
             new SetPropertyCommand.PictureStyle(EdsPictureStyle.kEdsPictureStyle_Neutral),
-//            new SetPropertyCommand.PictureStyleDescription(),
+            new SetPropertyCommand.PictureStyleDescription(new EdsPictureStyleDesc()),
             new SetPropertyCommand.ShutterSpeed(EdsTv.kEdsTv_1),
             new SetPropertyCommand.ShootingMode(EdsAEMode.kEdsAEMode_Av),
             new SetPropertyCommand.SaveTo(EdsSaveTo.kEdsSaveTo_Both),
