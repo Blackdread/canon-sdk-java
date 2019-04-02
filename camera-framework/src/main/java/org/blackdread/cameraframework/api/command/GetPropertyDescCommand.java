@@ -25,6 +25,7 @@ package org.blackdread.cameraframework.api.command;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.*;
+import org.blackdread.cameraframework.exception.UnsupportedTargetTypeException;
 
 import java.util.List;
 
@@ -205,9 +206,9 @@ public abstract class GetPropertyDescCommand<R> extends AbstractCanonCommand<R> 
                 case CAMERA:
                     return propertyDescShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
                 case IMAGE:
-                    return propertyDescShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
+                    return propertyDescShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsImageRef) getTargetRefInternal());
                 default:
-                    throw new IllegalStateException("Unsupported type");
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
             }
         }
     }

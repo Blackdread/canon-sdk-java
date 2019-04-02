@@ -607,13 +607,14 @@ class CommandExecutionMockTest extends AbstractMockTest {
     void testPictureStyleDesc() {
         final CanonCommand command = new GetPropertyDescCommand.PictureStyleDesc();
 
-        command.setTargetRef(fakeCamera);
-
-        runAndAssertCommand(command, (canonCommand, o) -> {
-            Assertions.assertNotNull(o);
-            final List o1 = (List) o;
-            Assertions.assertTrue(o1.isEmpty());
+        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (canonCommand, o) -> {
+            for (final Object result : o) {
+                Assertions.assertNotNull(result);
+                final List o1 = (List) result;
+                Assertions.assertTrue(o1.isEmpty());
+            }
             verify(CanonFactory.propertyDescShortcutLogic()).getPictureStyleDesc(fakeCamera);
+            verify(CanonFactory.propertyDescShortcutLogic()).getPictureStyleDesc(fakeImage);
         });
     }
 
@@ -1032,12 +1033,14 @@ class CommandExecutionMockTest extends AbstractMockTest {
         });
     }
 
+// TODO test later, not sure if correct
 //    @Test
 //    void testPictureStyleDescription() {
 //        final CanonCommand command = new GetPropertyCommand.PictureStyleDescription();
 //
-//        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
-//            verify(CanonFactory.propertyGetShortcutLogic()).getArtist(fakeCamera);
+//        runAndAssertCommand(TargetRefType.CAMERA_IMAGE_ONLY, command, (commands, results) -> {
+//            verify(CanonFactory.propertyGetShortcutLogic()).getPictureStyleDesc(fakeCamera);
+//            verify(CanonFactory.propertyGetShortcutLogic()).getPictureStyleDesc(fakeImage);
 //        });
 //    }
 

@@ -38,8 +38,7 @@ import org.blackdread.cameraframework.exception.UnsupportedTargetTypeException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetLogic;
-import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetShortcutLogic;
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.*;
 
 /**
  * Gets a property from the camera.
@@ -977,6 +976,19 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
         public PictureStyleDescription(final PictureStyleDescription toCopy) {
             super(toCopy);
         }
+
+        // TODO Check if this actually correct thing to do, there is already propertyDescShortcutLogic().getPictureStyleDesc
+//        @Override
+//        protected EdsPictureStyleDesc runInternal() {
+//            switch (getTargetRefType()) {
+//                case CAMERA:
+//                    return propertyGetShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
+//                case IMAGE:
+//                    return propertyGetShortcutLogic().getPictureStyleDesc((EdsdkLibrary.EdsImageRef) getTargetRefInternal());
+//                default:
+//                    throw new UnsupportedTargetTypeException(getTargetRefType());
+//            }
+//        }
     }
 
     /**
