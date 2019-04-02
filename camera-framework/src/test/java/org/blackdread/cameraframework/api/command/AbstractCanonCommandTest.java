@@ -1,6 +1,9 @@
 package org.blackdread.cameraframework.api.command;
 
 import org.blackdread.camerabinding.jna.EdsdkLibrary;
+import org.blackdread.cameraframework.api.command.decorator.impl.AbstractDecoratorCommand;
+import org.blackdread.cameraframework.api.constant.EdsdkError;
+import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +11,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
@@ -280,5 +284,126 @@ class AbstractCanonCommandTest {
     @Test
     void getTimeoutInternal() {
         Assertions.assertNotNull(doNothingCommand.getTimeoutInternal());
+    }
+
+    @Test
+    void allMethodActuallyDelegate() {
+        final ThrowAllCommand baseCommand = new ThrowAllCommand();
+        final DelegateDecoratorCommand decoratorCommand = new DelegateDecoratorCommand(baseCommand);
+
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::run);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::getCreateTime);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::getExecutionStartTime);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::hasExecutionStarted);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::getExecutionEndTime);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::hasExecutionEnded);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::get);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::getOpt);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::getTimeout);
+        Assertions.assertThrows(EdsdkErrorException.class, () -> decoratorCommand.setTimeout(null));
+        Assertions.assertEquals(baseCommand, decoratorCommand.getRoot());
+        Assertions.assertThrows(EdsdkErrorException.class, () -> decoratorCommand.setTargetRef(null));
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::getTargetRef);
+        Assertions.assertThrows(EdsdkErrorException.class, decoratorCommand::getTargetRefType);
+    }
+
+    private static class DelegateDecoratorCommand extends AbstractDecoratorCommand {
+
+        protected DelegateDecoratorCommand(final CanonCommand delegate) {
+            super(delegate);
+        }
+    }
+
+    private static class ThrowAllCommand implements CanonCommand {
+
+        @Override
+        public void run() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Instant getCreateTime() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Instant getExecutionStartTime() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public boolean hasExecutionStarted() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Instant getExecutionEndTime() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public boolean hasExecutionEnded() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Duration getCreatedDurationSinceNow() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Duration getExecutionDurationSinceNow() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Duration getExecutionDuration() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Duration getExecutionDurationTotal() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Object get() throws InterruptedException, ExecutionException {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Optional getOpt() throws InterruptedException, ExecutionException {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public CanonCommand copy() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public CanonCommand setTargetRef(final EdsdkLibrary.EdsBaseRef targetRef) {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Optional<EdsdkLibrary.EdsBaseRef> getTargetRef() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public TargetRefType getTargetRefType() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public Optional<Duration> getTimeout() {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
+
+        @Override
+        public CanonCommand setTimeout(final Duration timeout) {
+            throw new EdsdkErrorException(EdsdkError.EDS_ERR_OK);
+        }
     }
 }
