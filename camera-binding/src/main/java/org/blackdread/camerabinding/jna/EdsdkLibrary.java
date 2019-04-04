@@ -1232,7 +1232,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsWhiteBalance_Pasted = -2;
         /**
-         * @deprecated  got it from my camera... do not use. Put it here for now to let tests pass
+         * @deprecated got it from my camera... do not use. Put it here for now to let tests pass
          */
         public static final int kEdsWhiteBalance_UnknownSelf = 32768;
     }
@@ -4448,6 +4448,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * @param inSaveSetting Designate saving options, such as JPEG image quality
      * @param outStreamRef  Specifies the output file stream. The memory stream cannot be specified here
      * @return any of the sdk errors
+     * @deprecated edsdk removed in 13.9.10 (API not functional since 3.5)
      */
     NativeLong EdsSaveImage(EdsImageRef inImageRef, int inImageType, EdsSaveImageSetting.ByValue inSaveSetting, EdsStreamRef outStreamRef);
 
@@ -4477,6 +4478,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * @param inImageRef The reference of the image
      * @param inUseCache If cache image data or not. If set to FALSE, the cached image data will released
      * @return any of the sdk errors
+     * @deprecated edsdk removed in 13.9.10 (API not functional since 3.5)
      */
     NativeLong EdsCacheImage(EdsImageRef inImageRef, int inUseCache);
 
@@ -4499,6 +4501,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
      *
      * @param inImageRef The reference of the image
      * @return any of the sdk errors
+     * @deprecated edsdk removed in 13.9.10 (API not functional since 3.5)
      */
     NativeLong EdsReflectImageProperty(EdsImageRef inImageRef);
 
