@@ -77,6 +77,33 @@ public class CameraLogicDefault implements CameraLogic {
         return false;
     }
 
+    /**
+     * Provided only to be able to test methods
+     *
+     * @return camera list by ref
+     */
+    protected EdsdkLibrary.EdsCameraListRef.ByReference buildCameraListRefByRef() {
+        return new EdsdkLibrary.EdsCameraListRef.ByReference();
+    }
+
+    /**
+     * Provided only to be able to test methods
+     *
+     * @return native long by ref
+     */
+    protected NativeLongByReference buildNativeLongByReference() {
+        return new NativeLongByReference();
+    }
+
+    /**
+     * Provided only to be able to test methods
+     *
+     * @return camera ref
+     */
+    protected EdsdkLibrary.EdsCameraRef.ByReference buildCameraRefByRef() {
+        return new EdsdkLibrary.EdsCameraRef.ByReference();
+    }
+
     @Override
     public EdsCameraRef openSession(final OpenSessionOption option) {
 
@@ -92,7 +119,7 @@ public class CameraLogicDefault implements CameraLogic {
             return cameraRef;
         }
 
-        final EdsdkLibrary.EdsCameraListRef.ByReference listRef = new EdsdkLibrary.EdsCameraListRef.ByReference();
+        final EdsdkLibrary.EdsCameraListRef.ByReference listRef = buildCameraListRefByRef();
 
         try {
             edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetCameraList(listRef));
@@ -100,7 +127,7 @@ public class CameraLogicDefault implements CameraLogic {
                 throw edsdkError.getException();
             }
 
-            final NativeLongByReference outRef = new NativeLongByReference();
+            final NativeLongByReference outRef = buildNativeLongByReference();
             edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetChildCount(listRef.getValue(), outRef));
             if (edsdkError != EdsdkError.EDS_ERR_OK) {
                 throw edsdkError.getException();
@@ -120,7 +147,7 @@ public class CameraLogicDefault implements CameraLogic {
                     continue;
                 }
 
-                final EdsdkLibrary.EdsCameraRef.ByReference cameraRef = new EdsdkLibrary.EdsCameraRef.ByReference();
+                final EdsdkLibrary.EdsCameraRef.ByReference cameraRef = buildCameraRefByRef();
 
                 edsdkError = toEdsdkError(CanonFactory.edsdkLibrary().EdsGetChildAtIndex(listRef.getValue(), new NativeLong(i), cameraRef));
                 if (edsdkError != EdsdkError.EDS_ERR_OK) {
