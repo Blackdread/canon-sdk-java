@@ -95,6 +95,10 @@ public class PropertyDescLogicDefault implements PropertyDescLogic {
                 case kEdsPropID_Evf_AFMode:
                     nativeEnums.add(EdsEvfAFMode.ofValue(propertyDescValue));
                     break;
+                case kEdsPropID_DC_Strobe:
+                    nativeEnums.add(EdsDcStrobe.ofValue(propertyDescValue));
+                    break;
+                case kEdsPropID_DC_Zoom:
                 case kEdsPropID_ColorTemperature:
                 case kEdsPropID_Evf_ColorTemperature:
                     log.error("Cannot get desc values of {} as those are not defined in an enum. Need to use other methods", property);

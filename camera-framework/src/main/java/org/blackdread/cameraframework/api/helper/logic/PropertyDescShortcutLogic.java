@@ -230,4 +230,7 @@ public interface PropertyDescShortcutLogic {
         return propertyDescLogic().getPropertyDesc(camera, EdsPropertyID.kEdsPropID_Evf_WhiteBalance);
     }
 
+    // TODO add support for kEdsPropID_DC_Strobe
+    // TODO add support for kEdsPropID_DC_Zoom
+
 }
