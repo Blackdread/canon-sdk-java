@@ -51,7 +51,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.edsdkLibrary;
 import static org.mockito.ArgumentMatchers.any;
@@ -69,13 +68,25 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
 
     private CameraLogic spyCameraLogic;
 
+    private CameraLogicDefaultExtended cameraLogicDefaultExtended;
+
+    private EdsdkLibrary.EdsCameraListRef.ByReference mockCameraListRefByRef;
+    private NativeLongByReference mockNativeLongByReference;
+    private EdsdkLibrary.EdsCameraRef.ByReference mockCameraRefByRef;
+
     @BeforeEach
     void setUp() {
         mockEdsdkLibrary();
 
         fakeCamera = new EdsCameraRef();
 
-        spyCameraLogic = Mockito.spy(MockFactory.initialCanonFactory.getCameraLogic());
+        spyCameraLogic = spy(MockFactory.initialCanonFactory.getCameraLogic());
+
+        cameraLogicDefaultExtended = new CameraLogicDefaultExtended();
+
+        mockCameraListRefByRef = mock(EdsdkLibrary.EdsCameraListRef.ByReference.class);
+        mockNativeLongByReference = mock(NativeLongByReference.class);
+        mockCameraRefByRef = mock(EdsdkLibrary.EdsCameraRef.ByReference.class);
     }
 
     @AfterEach
@@ -304,18 +315,34 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
     @Disabled("Cannot test")
     @Test
     void openSessionDefault() {
-        when(edsdkLibrary().EdsGetCameraList(any())).thenReturn(new NativeLong(0));
+        cameraLogicDefaultExtended.setCameraListRefByRef(mockCameraListRefByRef);
+        cameraLogicDefaultExtended.setNativeLongByReference(mockNativeLongByReference);
+        cameraLogicDefaultExtended.setCameraRefByRef(mockCameraRefByRef);
 
-        when(edsdkLibrary().EdsGetChildCount(any(), any())).thenReturn(new NativeLong(0));
+        when(edsdkLibrary().EdsRelease(any())).thenReturn(new NativeLong(0));
 
-        // Extra mocks
+        when(edsdkLibrary().EdsGetCameraList(eq(mockCameraListRefByRef))).thenReturn(new NativeLong(0));
 
-        spyCameraLogic.openSession();
+        when(edsdkLibrary().EdsGetChildCount(any(), eq(mockNativeLongByReference))).thenReturn(new NativeLong(0));
+
+        final EdsdkLibrary.EdsCameraListRef cameraListRef = new EdsdkLibrary.EdsCameraListRef();
+        when(mockCameraListRefByRef.getValue()).thenReturn(cameraListRef);
+
+        when(mockNativeLongByReference.getValue()).thenReturn(new NativeLong(1));
+
+        final EdsCameraRef cameraRef = new EdsCameraRef();
+        when(mockCameraRefByRef.getValue()).thenReturn(cameraRef);
+
+        when(edsdkLibrary().EdsGetChildAtIndex(eq(cameraListRef), any(NativeLong.class), eq(mockCameraRefByRef))).thenReturn(new NativeLong(0));
+
+
+        cameraLogicDefaultExtended.openSession();
 
         verify(cameraObjectEventLogic).registerCameraObjectEvent(fakeCamera);
         verify(cameraPropertyEventLogic).registerCameraPropertyEvent(fakeCamera);
         verify(cameraStateEventLogic).registerCameraStateEvent(fakeCamera);
 
+        verify(edsdkLibrary()).EdsRelease(any());
     }
 
     @Disabled("Cannot test")
@@ -343,6 +370,11 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         verify(cameraObjectEventLogic).registerCameraObjectEvent(fakeCamera);
         verify(cameraPropertyEventLogic).registerCameraPropertyEvent(fakeCamera);
         verify(cameraStateEventLogic).registerCameraStateEvent(fakeCamera);
+    }
+
+    @Test
+    void openSessionThrowsIfCameraCountIsZero() {
+
     }
 
 //    @Test

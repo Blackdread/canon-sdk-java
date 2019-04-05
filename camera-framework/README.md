@@ -7,10 +7,15 @@ Put both folder in root folder of camera framework.
 
 Path can be customized in [CanonLibraryImpl](https://github.com/Blackdread/canon-sdk-java/blob/master/camera-framework/src/main/java/org/blackdread/cameraframework/api/helper/factory/CanonLibraryImpl.java)
 
-/camera-framework/EDSDK
+- /camera-framework/EDSDK
+- /camera-framework/EDSDK_64
 
-/camera-framework/EDSDK_64
+Paths above may work but it will depend on classpath used by runtime, you might need to have library in:
 
+- /camera-framework/target/classes
+- /camera-framework/target/test-classes
+- or even your "resources" folder so it is automatically copied in target during compile time and should be found by runtime classpath
+- last solution is to use `System.getProperty()` from CanonLibraryImpl by specifying absolute path to your library
 
 [![folder](../doc/dll_path.png)](../doc/dll_path.png)
 
