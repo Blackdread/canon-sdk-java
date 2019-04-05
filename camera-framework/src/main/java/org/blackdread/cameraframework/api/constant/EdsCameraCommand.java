@@ -47,12 +47,16 @@ public enum EdsCameraCommand implements NativeEnum<Integer> {
 
     /**
      * Controls auto focus in live view mode.
+     * <br>
+     * Value inParam from {@link EdsEvfAf}
      */
     kEdsCameraCommand_DoEvfAf("Change Live View AF. Controls auto focus in live view mode"),
     /**
      * Drives the lens and adjusts focus
      * <br>
      * This command is supported only in live view mode
+     * <br>
+     * Value inParam from {@link EdsEvfDriveLens}
      */
     kEdsCameraCommand_DriveLensEvf("Change Live View Focus. Drives the lens and adjusts focus"),
     /**
@@ -64,8 +68,19 @@ public enum EdsCameraCommand implements NativeEnum<Integer> {
 
     /**
      * Controls shutter button operations
+     * <br>
+     * Value inParam from {@link EdsShutterButton}
      */
-    kEdsCameraCommand_PressShutterButton("Change Shutter Button");
+    kEdsCameraCommand_PressShutterButton("Change Shutter Button"),
+    /**
+     * This command is supported only for model of PowerShot Series
+     * <br>
+     * Value inParam from {@link EdsDcRemoteShootingMode}
+     *
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsCameraCommand_SetRemoteShootingMode("Controls remote shooting mode");
 
     private final int value;
     private final String description;

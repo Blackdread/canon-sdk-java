@@ -1130,6 +1130,49 @@ public interface PropertyGetShortcutLogic {
     }
 
     /**
+     * Indicates the zoom step.
+     * <br>
+     * Depends on the model of the camera. See the value of EdsGetPropertyDesc.
+     * <br>
+     * This property is supported only for model of PowerShot Series.
+     *
+     * @param camera ref of camera
+     * @return the zoom step
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    default long getDcZoom(final EdsCameraRef camera) {
+        return propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_DC_Zoom);
+    }
+
+    /**
+     * Indicates the strobe mode type for PowerShot Series.
+     * <br>
+     * This property is supported only for model of PowerShot Series.
+     *
+     * @param camera ref of camera
+     * @return the zoom step
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    default EdsDcStrobe getDcStrobe(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_DC_Strobe);
+        return EdsDcStrobe.ofValue(value.intValue());
+    }
+
+    /**
+     * Indicates the lens barrel status.
+     * <br>
+     * This property is supported only for model of PowerShot Series.
+     *
+     * @param camera ref of camera
+     * @return the zoom step
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    default EdsDcLensBarrelState getDcLensBarrelStatus(final EdsCameraRef camera) {
+        final Long value = propertyGetLogic().getPropertyData(camera, EdsPropertyID.kEdsPropID_LensBarrelStatus);
+        return EdsDcLensBarrelState.ofValue(value.intValue());
+    }
+
+    /**
      * Gets the current storage media for the camera.
      * <br>
      * Current media name（“CF”,”SD”,”HDD”）

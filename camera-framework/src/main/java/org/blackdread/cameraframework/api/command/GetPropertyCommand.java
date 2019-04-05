@@ -38,7 +38,8 @@ import org.blackdread.cameraframework.exception.UnsupportedTargetTypeException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.*;
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetLogic;
+import static org.blackdread.cameraframework.api.helper.factory.CanonFactory.propertyGetShortcutLogic;
 
 /**
  * Gets a property from the camera.
@@ -444,6 +445,63 @@ public abstract class GetPropertyCommand<R> extends AbstractCanonCommand<R> {
                     return propertyGetShortcutLogic().getDateTime((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
                 case IMAGE:
                     return propertyGetShortcutLogic().getDateTime((EdsdkLibrary.EdsImageRef) getTargetRefInternal());
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
+    public static class DcLensBarrelState extends GetPropertyCommand<EdsDcLensBarrelState> {
+        public DcLensBarrelState() {
+        }
+
+        public DcLensBarrelState(final DcLensBarrelState toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected EdsDcLensBarrelState runInternal() {
+            switch (getTargetRefType()) {
+                case CAMERA:
+                    return propertyGetShortcutLogic().getDcLensBarrelStatus((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
+    public static class DcStrobe extends GetPropertyCommand<EdsDcStrobe> {
+        public DcStrobe() {
+        }
+
+        public DcStrobe(final DcStrobe toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected EdsDcStrobe runInternal() {
+            switch (getTargetRefType()) {
+                case CAMERA:
+                    return propertyGetShortcutLogic().getDcStrobe((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
+                default:
+                    throw new UnsupportedTargetTypeException(getTargetRefType());
+            }
+        }
+    }
+
+    public static class DcZoom extends GetPropertyCommand<Long> {
+        public DcZoom() {
+        }
+
+        public DcZoom(final DcZoom toCopy) {
+            super(toCopy);
+        }
+
+        @Override
+        protected Long runInternal() {
+            switch (getTargetRefType()) {
+                case CAMERA:
+                    return propertyGetShortcutLogic().getDcZoom((EdsdkLibrary.EdsCameraRef) getTargetRefInternal());
                 default:
                     throw new UnsupportedTargetTypeException(getTargetRefType());
             }

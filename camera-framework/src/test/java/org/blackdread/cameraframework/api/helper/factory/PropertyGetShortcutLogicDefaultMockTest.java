@@ -884,11 +884,41 @@ class PropertyGetShortcutLogicDefaultMockTest extends AbstractMockTest {
     @Test
     void getLensName() {
         final String expectedResult = "value";
-        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_LensName, expectedResult);
+        mockGetProperty(fakeImage, EdsPropertyID.kEdsPropID_LensName, expectedResult);
 
         final String result = spyPropertyGetShortcutLogic.getLensName(fakeImage);
 
         Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDcLensBarrelStatus() {
+        final EdsDcLensBarrelState expectedResult = EdsDcLensBarrelState.kDcLensBarrelStateOuter;
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_LensBarrelStatus, (long) expectedResult.value());
+
+        final EdsDcLensBarrelState result = spyPropertyGetShortcutLogic.getDcLensBarrelStatus(fakeCamera);
+
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDcStrobe() {
+        final EdsDcStrobe expectedResult = EdsDcStrobe.kEdsDcStrobeOn;
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_DC_Strobe, (long) expectedResult.value());
+
+        final EdsDcStrobe result = spyPropertyGetShortcutLogic.getDcStrobe(fakeCamera);
+
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDcZoom() {
+        final Long expectedResult = 1L;
+        mockGetProperty(fakeCamera, EdsPropertyID.kEdsPropID_DC_Zoom, expectedResult);
+
+        final long result = spyPropertyGetShortcutLogic.getDcZoom(fakeCamera);
+
         Assertions.assertEquals(expectedResult, result);
     }
 

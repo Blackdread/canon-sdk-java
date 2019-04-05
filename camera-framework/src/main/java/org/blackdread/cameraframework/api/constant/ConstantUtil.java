@@ -197,7 +197,10 @@ final class ConstantUtil {
         EdsAv.class,
         EdsEvfOutputDevice.class,
         EdsImageQuality.class,
-        EdsCameraCommand.class
+        EdsCameraCommand.class,
+        EdsDcStrobe.class,
+        EdsDcLensBarrelState.class,
+        EdsDcRemoteShootingMode.class
     );
 
     static {

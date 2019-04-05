@@ -36,6 +36,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  *
  * @author Yoann CAPLAIN
  * @since 1.0.0
+ * @deprecated removed from edsdk 13.9.10
  */
 public enum EdsPhotoEffect implements NativeEnum<Integer> {
     kEdsPhotoEffect_Off("Off (Color Effect deactivated. Normal shooting)"),

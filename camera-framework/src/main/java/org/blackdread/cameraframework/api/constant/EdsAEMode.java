@@ -91,11 +91,36 @@ public enum EdsAEMode implements NativeEnum<Integer> {
     kEdsAEMode_Movie_Memory("Memory"),
     kEdsAEMode_Movie_DirectMono("Dramatic B&W"),
     kEdsAEMode_Movie_Mini("Miniature effect movie"),
-    kEdsAEMode_PanningAssist("Pannin"),
+    kEdsAEMode_PanningAssist("Panning assist"),
     kEdsAEMode_GroupPhoto("Group Photo"),
     kEdsAEMode_Myself("Myself"),
+    /**
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsAEMode_PlusMovieAuto("Plus Movie Auto"),
     kEdsAEMode_SmoothSkin("SmoothSkin"),
+    /**
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsAEMode_Panorama("Panorama"),
+    /**
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsAEMode_Silent("Silent"),
     kEdsAEMode_Flexible("Flexible-priority AE"),
+    /**
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsAEMode_OilPainting("Oil Painting"),
+    /**
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsAEMode_Fireworks("Fireworks"),
 
     kEdsAEMode_Unknown("Unknown");
 

@@ -59,6 +59,8 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
     kEdsPropID_CurrentFolder("Gets the current folder for the camera", EdsDataType.kEdsDataType_String, TargetRefAccessType.GROUP_CAMERA_READ),
     /**
      * Not specified in API Reference
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_MyMenu("My Menu", EdsDataType.kEdsDataType_UInt32_Array, TargetRefAccessType.GROUP_NONE),
 
@@ -71,6 +73,9 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
     Image Properties
     ----------------------------------*/
     kEdsPropID_ImageQuality("Indicates the image quality", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @deprecated removed from edsdk 13.9.10
+     */
     kEdsPropID_JpegQuality("Indicates the JPEG compression", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE_IMAGE_READ),
     kEdsPropID_Orientation("Indicates image rotation information", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_IMAGE_READ_WRITE),
     /**
@@ -78,17 +83,27 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
      */
     kEdsPropID_ICCProfile("Indicates the ICC profile data embedded in an image.", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_IMAGE_READ),
     kEdsPropID_FocusInfo("Indicates focus information for image data at the time of shooting", EdsDataType.kEdsDataType_FocusInfo, TargetRefAccessType.GROUP_CAMERA_READ_IMAGE_READ),
+    /**
+     * @deprecated removed from edsdk 13.9.10
+     */
     kEdsPropID_DigitalExposure("Indicates the digital exposure compensation", EdsDataType.kEdsDataType_Rational, TargetRefAccessType.GROUP_IMAGE_READ_WRITE),
     kEdsPropID_WhiteBalance("Indicates the white balance type", EdsDataType.kEdsDataType_Int32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE_IMAGE_READ_WRITE),
     kEdsPropID_ColorTemperature("Indicates the color temperature setting value (Units: Kelvin)", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_NONE),
     kEdsPropID_WhiteBalanceShift("Indicates the white balance compensation", EdsDataType.kEdsDataType_Int32_Array, TargetRefAccessType.GROUP_CAMERA_READ_WRITE_IMAGE_READ_WRITE),
+    /**
+     * @deprecated removed from edsdk 13.9.10
+     */
     kEdsPropID_Contrast("Indicates the contrast", EdsDataType.kEdsDataType_Int32, TargetRefAccessType.GROUP_NONE),
     /**
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_ColorSaturation("Indicates the color saturation", EdsDataType.kEdsDataType_Int32, TargetRefAccessType.GROUP_NONE),
     /**
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_ColorTone("Indicates the color tone", EdsDataType.kEdsDataType_Int32, TargetRefAccessType.GROUP_NONE),
     /**
@@ -97,28 +112,43 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
      * EdsImageRef (1D/1Ds) kEdsDataType_Int32_Array EdsInt32[]
      * <br>
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_Sharpness("Indicates the sharpness setting", EdsDataType.kEdsDataType_Int32, TargetRefAccessType.GROUP_NONE),
     kEdsPropID_ColorSpace("Indicates the color space", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE_IMAGE_READ_WRITE),
+    /**
+     * @deprecated removed from edsdk 13.9.10
+     */
     kEdsPropID_ToneCurve("Indicates the tone curve", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_IMAGE_READ),
     /**
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_PhotoEffect("Indicates the photo effect", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_NONE),
     /**
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_FilterEffect("Indicates the monochrome filter effect", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_NONE),
     /**
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_ToningEffect("Indicates the monochrome tone", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_NONE),
     /**
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_ParameterSet("Indicates the current processing parameter set on a camera", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_NONE),
     /**
      * Deleted on 9/25/2018
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_ColorMatrix("Indicates the color matrix", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_NONE),
     kEdsPropID_PictureStyle("Indicates the picture style", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE_IMAGE_READ_WRITE),
@@ -128,10 +158,18 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
     /*----------------------------------
     Image Processing Properties
     ----------------------------------*/
+    /**
+     * @deprecated removed from edsdk 13.9.10
+     */
     kEdsPropID_Linear("Indicates if linear processing is activated or not", EdsDataType.kEdsDataType_Bool, TargetRefAccessType.GROUP_IMAGE_READ_WRITE),
+    /**
+     * @deprecated removed from edsdk 13.9.10
+     */
     kEdsPropID_ClickWBPoint("Indicates the coordinates when an image is clicked to set the white balance", EdsDataType.kEdsDataType_Point, TargetRefAccessType.GROUP_IMAGE_WRITE),
     /**
      * API Reference 3.8 says kEdsDataType_ByteBlock EdsInt8[], old project used EdsDataType.kEdsDataType_ByteBlock
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_WBCoeffs("Indicates the white balance value", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_IMAGE_READ_WRITE),
 
@@ -154,6 +192,9 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
     /*----------------------------------
     Property Mask
     ----------------------------------*/
+    /**
+     * @deprecated removed from edsdk 13.9.10
+     */
     kEdsPropID_AtCapture_Flag("Get Properties at Time of Shooting, only a mask. This property ID cannot be used by itself", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_IMAGE_READ),
 
     /*----------------------------------
@@ -199,6 +240,8 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
     kEdsPropID_ExposureCompensation("Indicates the exposure compensation", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE_IMAGE_READ),
     /**
      * Flash Compensation
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_FlashCompensation("Indicates the flash compensation", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ),
     /**
@@ -265,12 +308,16 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
      * Depth of Field
      * <br>
      * Not specified in API Reference
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_DepthOfField("Depth of Field", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_NONE),
     /**
      * EF Compensation
      * <br>
      * Not specified in API Reference
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_EFCompensation("EF Compensation", EdsDataType.kEdsDataType_Unknown, TargetRefAccessType.GROUP_NONE),
     /**
@@ -298,6 +345,8 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
      * Live View Focus Aid
      * <br>
      * Not specified in API Reference
+     *
+     * @deprecated removed from edsdk 13.9.10
      */
     kEdsPropID_Evf_FocusAid("Live View Focus Aid", EdsDataType.kEdsDataType_Unknown, TargetRefAccessType.GROUP_NONE),
     /**
@@ -365,7 +414,34 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
      * <br>
      * Not specified in API Reference
      */
-    kEdsPropID_Evf_ImageClipRect("Live View Crop Rectangle", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_NONE);
+    kEdsPropID_Evf_ImageClipRect("Live View Crop Rectangle", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_NONE),
+    /**
+     * Indicates the zoom step
+     * <br>
+     * This property is supported only for model of PowerShot Series
+     *
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsPropID_DC_Zoom("Zoom step for model of PowerShot Series", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * Indicates the strobe mode type for PowerShot Series
+     * <br>
+     * This property is supported only for model of PowerShot Series
+     *
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsPropID_DC_Strobe("Strobe mode for model of PowerShot Series", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * Indicates the lens barrel status
+     * <br>
+     * This property is supported only for model of PowerShot Series
+     *
+     * @since edsdk 13.9.10
+     * @since 1.2.0
+     */
+    kEdsPropID_LensBarrelStatus("Indicates the lens barrel status", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE);
 
     private final int value;
     private final String description;

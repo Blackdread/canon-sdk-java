@@ -32,6 +32,7 @@ import org.blackdread.cameraframework.util.LibraryFieldUtil;
  *
  * @author Yoann CAPLAIN
  * @since 1.0.0
+ * @deprecated removed from edsdk 13.9.10
  */
 public enum EdsImageQualityForLegacy implements NativeEnum<Integer> {
     kEdsImageQualityForLegacy_LJ("JPEG large"),

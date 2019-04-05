@@ -27,41 +27,26 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.util.LibraryFieldUtil;
 
 /**
- * Set/Get the AF mode for the live view.<br>
- * This property can set/get from the EOS 50D or EOS 5D Mark II or later
+ * DC Strobe
  * <br>
- * See API Reference - 5.2.80 kEdsPropID_Evf_AFMode
- * <p>Created on 2018/10/05.<p>
+ * See API Reference - 5.2.48 kEdsPropID_DC_Strobe
+ * <p>Created on 2019/04/04.<p>
  *
  * @author Yoann CAPLAIN
- * @since 1.0.0
+ * @since edsdk 13.9.10
+ * @since 1.2.0
  */
-public enum EdsEvfAFMode implements NativeEnum<Integer> {
-    Evf_AFMode_Quick("Quick Mode"),
-    Evf_AFMode_Live("Live Mode - 1-point AF"),
-    Evf_AFMode_LiveFace("Live Face Mode - Face + Tracking"),
-    Evf_AFMode_LiveMulti("FlexiZone - Multi"),
-    Evf_AFMode_LiveZone("Zone AF"),
-    Evf_AFMode_LiveSingleExpandCross("Expand AF area"),
-    Evf_AFMode_LiveSingleExpandSurround("Expand AF area:Around"),
-    Evf_AFMode_LiveZoneLargeH("Large Zone AF: Horizontal"),
-    Evf_AFMode_LiveZoneLargeV("Large Zone AF: Vertical"),
-    /**
-     * @since edsdk 13.9.10
-     * @since 1.2.0
-     */
-    Evf_AFMode_LiveCatchAF("Live Catch AF"),
-    /**
-     * @since edsdk 13.9.10
-     * @since 1.2.0
-     */
-    Evf_AFMode_LiveSpotAF("Live Spot AF");
+public enum EdsDcStrobe implements NativeEnum<Integer> {
+    kEdsDcStrobeAuto("DC Strobe Auto"),
+    kEdsDcStrobeOn("DC Strobe On"),
+    kEdsDcStrobeSlowsynchro("DC Strobe Slow Synchro"),
+    kEdsDcStrobeOff("DC Strobe Off");
 
     private final int value;
     private final String description;
 
-    EdsEvfAFMode(final String description) {
-        value = LibraryFieldUtil.getNativeIntValue(EdsdkLibrary.EdsEvfAFMode.class, name());
+    EdsDcStrobe(final String description) {
+        value = LibraryFieldUtil.getNativeIntValue(EdsdkLibrary.EdsDcStrobe.class, name());
         this.description = description;
     }
 
@@ -80,7 +65,8 @@ public enum EdsEvfAFMode implements NativeEnum<Integer> {
      * @return enum having same value as passed
      * @throws IllegalArgumentException if value was not found
      */
-    public static EdsEvfAFMode ofValue(final Integer value) {
-        return ConstantUtil.ofValue(EdsEvfAFMode.class, value);
+    public static EdsDcStrobe ofValue(final Integer value) {
+        return ConstantUtil.ofValue(EdsDcStrobe.class, value);
     }
+
 }

@@ -823,6 +823,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
+     * @deprecated removed from edsdk
      */
     public static interface EdsImageQualityForLegacy {
         /**
@@ -1240,6 +1241,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
+     * @deprecated removed from edsdk
      */
     public static interface EdsPhotoEffect {
         /**
@@ -1255,6 +1257,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
+     * @deprecated removed from edsdk
      */
     public static interface EdsColorMatrix {
         /**
@@ -1294,6 +1297,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
+     * @deprecated removed from edsdk
      */
     public static interface EdsFilterEffect {
         /**
@@ -1321,6 +1325,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
      * enum values
+     * @deprecated removed from edsdk
      */
     public static interface EdsTonigEffect {
         /**
@@ -1632,13 +1637,38 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int kEdsAEMode_Myself = 50;
         /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int kEdsAEMode_PlusMovieAuto = 51;
+        /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1045</i>
          */
         public static final int kEdsAEMode_SmoothSkin = 52;
         /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int kEdsAEMode_Panorama = 53;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int kEdsAEMode_Silent = 54;
+        /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1046</i>
          */
         public static final int kEdsAEMode_Flexible = 55;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int kEdsAEMode_OilPainting = 56;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int kEdsAEMode_Fireworks = 57;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1047</i>
          */
@@ -1755,6 +1785,16 @@ public interface EdsdkLibrary extends StdCallLibrary {
          * <i>native declaration : sdk-header\EDSDKTypes.h:1098</i>
          */
         public static final int Evf_AFMode_LiveZoneLargeV = 8;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int Evf_AFMode_LiveCatchAF = 9;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int Evf_AFMode_LiveSpotAF = 10;
     }
 
     /**
@@ -1805,6 +1845,62 @@ public interface EdsdkLibrary extends StdCallLibrary {
          * <i>native declaration : sdk-header\EDSDKTypes.h:1115</i>
          */
         public static final int kEdsETTL2ModeAverage = 1;
+    }
+
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
+     * enum values
+     * @since edsdk 13.9.10
+     */
+    public static interface EdsDcStrobe {
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kEdsDcStrobeAuto = 0;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kEdsDcStrobeOn = 1;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kEdsDcStrobeSlowsynchro = 2;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kEdsDcStrobeOff = 3;
+    }
+
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
+     * enum values
+     * @since edsdk 13.9.10
+     */
+    public static interface EdsDcLensBarrelState {
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kDcLensBarrelStateInner = 0;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kDcLensBarrelStateOuter = 1;
+    }
+
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i><br>
+     * enum values
+     * @since edsdk 13.9.10
+     */
+    public static interface EdsDcRemoteShootingMode {
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kDcRemoteShootingModeStop = 0;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         */
+        public static final int kDcRemoteShootingModeStart = 1;
     }
 
     /**
@@ -2413,6 +2509,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_CurrentFolder = 0x0000000d;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_MyMenu = 0x0000000e;
     /**
@@ -2433,6 +2530,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_ImageQuality = 0x00000100;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_JpegQuality = 0x00000101;
     /**
@@ -2449,6 +2547,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_FocusInfo = 0x00000104;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_DigitalExposure = 0x00000105;
     /**
@@ -2465,18 +2564,22 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_WhiteBalanceShift = 0x00000108;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_Contrast = 0x00000109;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_ColorSaturation = 0x0000010a;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_ColorTone = 0x0000010b;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_Sharpness = 0x0000010c;
     /**
@@ -2485,26 +2588,32 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_ColorSpace = 0x0000010d;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_ToneCurve = 0x0000010e;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_PhotoEffect = 0x0000010f;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_FilterEffect = 0x00000110;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_ToningEffect = 0x00000111;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_ParameterSet = 0x00000112;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_ColorMatrix = 0x00000113;
     /**
@@ -2521,14 +2630,17 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_PictureStyleCaption = 0x00000200;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_Linear = 0x00000300;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_ClickWBPoint = 0x00000301;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_WBCoeffs = 0x00000302;
     /**
@@ -2581,6 +2693,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_GPSDateStamp = 0x0000081D;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_AtCapture_Flag = 0x80000000;
     /**
@@ -2617,6 +2730,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_ExposureCompensation = 0x00000407;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_FlashCompensation = 0x00000408;
     /**
@@ -2681,10 +2795,12 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_Copyright = 0x00000419;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_DepthOfField = 0x0000041b;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_EFCompensation = 0x0000041e;
     /**
@@ -2721,6 +2837,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_Evf_ZoomPosition = 0x00000508;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @deprecated removed from edsdk
      */
     public static final int kEdsPropID_Evf_FocusAid = 0x00000509;
     /**
@@ -2773,6 +2890,21 @@ public interface EdsdkLibrary extends StdCallLibrary {
     public static final int kEdsPropID_Evf_ImageClipRect = 0x00000545;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.9.10
+     */
+    public static final int kEdsPropID_DC_Zoom = 0x00000600;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.9.10
+     */
+    public static final int kEdsPropID_DC_Strobe = 0x00000601;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.9.10
+     */
+    public static final int kEdsPropID_LensBarrelStatus = 0x00000605;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
     public static final int kEdsCameraCommand_TakePicture = 0x00000000;
     /**
@@ -2803,6 +2935,11 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
     public static final int kEdsCameraCommand_PressShutterButton = 0x00000004;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.9.10
+     */
+    public static final int kEdsCameraCommand_SetRemoteShootingMode = 0x0000010f;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
