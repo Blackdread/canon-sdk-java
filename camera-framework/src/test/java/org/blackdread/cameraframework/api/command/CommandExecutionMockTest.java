@@ -869,6 +869,33 @@ class CommandExecutionMockTest extends AbstractMockTest {
     }
 
     @Test
+    void testDcLensBarrelState() {
+        final CanonCommand command = new GetPropertyCommand.DcLensBarrelState();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getDcLensBarrelStatus(fakeCamera);
+        });
+    }
+
+    @Test
+    void testDcStrobe() {
+        final CanonCommand command = new GetPropertyCommand.DcStrobe();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getDcStrobe(fakeCamera);
+        });
+    }
+
+    @Test
+    void testDcZoom() {
+        final CanonCommand command = new GetPropertyCommand.DcZoom();
+
+        runAndAssertCommand(TargetRefType.CAMERA_ONLY, command, (commands, results) -> {
+            verify(CanonFactory.propertyGetShortcutLogic()).getDcZoom(fakeCamera);
+        });
+    }
+
+    @Test
     void testFlashCompensation() {
         final CanonCommand command = new GetPropertyCommand.FlashCompensation();
 
