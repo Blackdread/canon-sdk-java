@@ -36,6 +36,7 @@ import org.blackdread.cameraframework.api.command.builder.OpenSessionOptionBuild
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
 import org.blackdread.cameraframework.api.constant.EdsCustomFunction;
+import org.blackdread.cameraframework.api.constant.EdsDcRemoteShootingMode;
 import org.blackdread.cameraframework.api.constant.EdsEvfAf;
 import org.blackdread.cameraframework.api.constant.EdsEvfDriveLens;
 import org.blackdread.cameraframework.api.constant.EdsPropertyID;
@@ -140,6 +141,7 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_DriveLensEvf));
         Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_DoClickWBEvf));
         Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_PressShutterButton));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_SetRemoteShootingMode));
 
         spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_TakePicture);
         spyCameraLogic.sendCommand(fakeCamera, EdsCameraCommand.kEdsCameraCommand_BulbStart);
@@ -155,6 +157,15 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         spyCameraLogic.sendCommand(fakeCamera, EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely);
 
         verify(edsdkLibrary()).EdsSendCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraCommand.kEdsCameraCommand_PressShutterButton.value())), eq(new NativeLong(EdsShutterButton.kEdsCameraCommand_ShutterButton_Completely.value())));
+    }
+
+    @Test
+    void sendCommandEdsDcRemoteShootingMode() {
+        when(edsdkLibrary().EdsSendCommand(eq(fakeCamera), any(), any())).thenReturn(new NativeLong(0));
+
+        spyCameraLogic.sendCommand(fakeCamera, EdsDcRemoteShootingMode.kDcRemoteShootingModeStart);
+
+        verify(edsdkLibrary()).EdsSendCommand(eq(fakeCamera), eq(new NativeLong(EdsCameraCommand.kEdsCameraCommand_SetRemoteShootingMode.value())), eq(new NativeLong(EdsDcRemoteShootingMode.kDcRemoteShootingModeStart.value())));
     }
 
     @Test

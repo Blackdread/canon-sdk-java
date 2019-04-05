@@ -30,6 +30,7 @@ import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
 import org.blackdread.cameraframework.api.constant.EdsCameraCommand;
 import org.blackdread.cameraframework.api.constant.EdsCameraStatusCommand;
+import org.blackdread.cameraframework.api.constant.EdsDcRemoteShootingMode;
 import org.blackdread.cameraframework.api.constant.EdsEvfAf;
 import org.blackdread.cameraframework.api.constant.EdsEvfDriveLens;
 import org.blackdread.cameraframework.api.constant.EdsShutterButton;
@@ -117,6 +118,7 @@ public interface CameraLogic {
             case kEdsCameraCommand_DriveLensEvf:
             case kEdsCameraCommand_DoClickWBEvf:
             case kEdsCameraCommand_PressShutterButton:
+            case kEdsCameraCommand_SetRemoteShootingMode:
                 throw new IllegalArgumentException("Command requires extra parameters");
         }
         sendCommand(camera, command, 0);
@@ -197,6 +199,19 @@ public interface CameraLogic {
      */
     default void sendCommand(final EdsCameraRef camera, final EdsShutterButton shutterButton) {
         sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_PressShutterButton, shutterButton.value());
+    }
+
+    /**
+     * Controls remote shooting mode.
+     * <br>
+     * This command is supported only for model of PowerShot Series
+     *
+     * @param camera             the reference of the camera which will receive the command
+     * @param remoteShootingMode remoteShootingMode parameter
+     * @throws EdsdkErrorException if a command to the library result with a return value different than {@link org.blackdread.cameraframework.api.constant.EdsdkError#EDS_ERR_OK}
+     */
+    default void sendCommand(final EdsCameraRef camera, final EdsDcRemoteShootingMode remoteShootingMode) {
+        sendCommand(camera, EdsCameraCommand.kEdsCameraCommand_SetRemoteShootingMode, remoteShootingMode.value());
     }
 
     /**
