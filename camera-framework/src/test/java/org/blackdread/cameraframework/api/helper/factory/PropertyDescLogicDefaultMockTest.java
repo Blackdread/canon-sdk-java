@@ -70,7 +70,9 @@ class PropertyDescLogicDefaultMockTest extends AbstractMockTest {
             of(EdsPropertyID.kEdsPropID_PictureStyle, EdsPictureStyle.kEdsPictureStyle_Monochrome, EdsPictureStyle.kEdsPictureStyle_User1),
             of(EdsPropertyID.kEdsPropID_DriveMode, EdsDriveMode.kEdsDriveMode_14FpsSuperHighSpeed, EdsDriveMode.kEdsDriveMode_SilentSingleShooting),
             of(EdsPropertyID.kEdsPropID_Evf_WhiteBalance, EdsWhiteBalance.kEdsWhiteBalance_AwbWhite, EdsWhiteBalance.kEdsWhiteBalance_PCSet2),
-            of(EdsPropertyID.kEdsPropID_Evf_AFMode, EdsEvfAFMode.Evf_AFMode_LiveFace, EdsEvfAFMode.Evf_AFMode_LiveZone)
+            of(EdsPropertyID.kEdsPropID_Evf_AFMode, EdsEvfAFMode.Evf_AFMode_LiveFace, EdsEvfAFMode.Evf_AFMode_LiveZone),
+            of(EdsPropertyID.kEdsPropID_DC_Strobe, EdsDcStrobe.kEdsDcStrobeOn, EdsDcStrobe.kEdsDcStrobeSlowsynchro)
+//            of(EdsPropertyID.kEdsPropID_DC_Zoom, // TODO is not an enum but a uint32)
         );
     }
 
@@ -136,6 +138,8 @@ class PropertyDescLogicDefaultMockTest extends AbstractMockTest {
         incompatible.remove(EdsPropertyID.kEdsPropID_DriveMode);
         incompatible.remove(EdsPropertyID.kEdsPropID_Evf_WhiteBalance);
         incompatible.remove(EdsPropertyID.kEdsPropID_Evf_AFMode);
+        incompatible.remove(EdsPropertyID.kEdsPropID_DC_Strobe);
+        incompatible.remove(EdsPropertyID.kEdsPropID_DC_Zoom);
 
         for (final EdsPropertyID propertyID : incompatible) {
             final NativeLong[] desc = new NativeLong[128];
