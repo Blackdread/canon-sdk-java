@@ -45,6 +45,7 @@ import org.blackdread.cameraframework.api.constant.EdsdkError;
 import org.blackdread.cameraframework.api.helper.logic.CameraLogic;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 import org.blackdread.cameraframework.exception.error.communication.EdsdkCommBufferFullErrorException;
+import org.blackdread.cameraframework.exception.error.communication.EdsdkCommDisconnectedErrorException;
 import org.blackdread.cameraframework.exception.error.communication.EdsdkCommUsbBusErrorException;
 import org.blackdread.cameraframework.exception.error.device.EdsdkDeviceInvalidErrorException;
 import org.junit.jupiter.api.AfterEach;
@@ -277,7 +278,7 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
 
         Assertions.assertEquals(fakeCamera, edsCameraRef);
 
-        verify(edsdkLibrary()).EdsOpenSession(fakeCamera);
+        verify(edsdkLibrary()).EdsOpenSession(same(fakeCamera));
     }
 
     @Test
@@ -323,9 +324,8 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
 
     }
 
-    @Disabled("Cannot test")
     @Test
-    void openSessionDefault() {
+    void openSessionDefaultGetsFirstCamera() {
         cameraLogicDefaultExtended.setCameraListRefByRef(mockCameraListRefByRef);
         cameraLogicDefaultExtended.setNativeLongByReference(mockNativeLongByReference);
         cameraLogicDefaultExtended.setCameraRefByRef(mockCameraRefByRef);
@@ -339,21 +339,33 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         final EdsdkLibrary.EdsCameraListRef cameraListRef = new EdsdkLibrary.EdsCameraListRef();
         when(mockCameraListRefByRef.getValue()).thenReturn(cameraListRef);
 
-        when(mockNativeLongByReference.getValue()).thenReturn(new NativeLong(1));
+        when(mockNativeLongByReference.getValue()).thenReturn(new NativeLong(3));
 
-        final EdsCameraRef cameraRef = new EdsCameraRef();
-        when(mockCameraRefByRef.getValue()).thenReturn(cameraRef);
+        when(mockCameraRefByRef.getValue()).thenReturn(fakeCamera);
 
         when(edsdkLibrary().EdsGetChildAtIndex(eq(cameraListRef), any(NativeLong.class), eq(mockCameraRefByRef))).thenReturn(new NativeLong(0));
 
+        when(CanonFactory.propertyGetShortcutLogic().getBodyIDEx(fakeCamera))
+            .thenThrow(EdsdkCommDisconnectedErrorException.class)
+            .thenReturn("any");
+
+        when(edsdkLibrary().EdsOpenSession(same(fakeCamera))).thenReturn(new NativeLong(0));
 
         cameraLogicDefaultExtended.openSession();
 
-        verify(cameraObjectEventLogic).registerCameraObjectEvent(fakeCamera);
-        verify(cameraPropertyEventLogic).registerCameraPropertyEvent(fakeCamera);
-        verify(cameraStateEventLogic).registerCameraStateEvent(fakeCamera);
-
         verify(edsdkLibrary()).EdsRelease(any());
+        verify(edsdkLibrary()).EdsRelease(same(cameraListRef));
+        verify(CanonFactory.propertyGetShortcutLogic(), times(2)).getBodyIDEx(same(fakeCamera));
+        verify(edsdkLibrary()).EdsOpenSession(same(fakeCamera));
+        verify(cameraObjectEventLogic).registerCameraObjectEvent(same(fakeCamera));
+        verify(cameraPropertyEventLogic).registerCameraPropertyEvent(same(fakeCamera));
+        verify(cameraStateEventLogic).registerCameraStateEvent(same(fakeCamera));
+    }
+
+
+    @Test
+    void openSessionThrowsIfBodyIDExIsNull() {
+
     }
 
     @Disabled("Cannot test")
@@ -378,9 +390,9 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
 
         Assertions.assertEquals(fakeCamera, edsCameraRef);
 
-        verify(cameraObjectEventLogic).registerCameraObjectEvent(fakeCamera);
-        verify(cameraPropertyEventLogic).registerCameraPropertyEvent(fakeCamera);
-        verify(cameraStateEventLogic).registerCameraStateEvent(fakeCamera);
+        verify(cameraObjectEventLogic).registerCameraObjectEvent(same(fakeCamera));
+        verify(cameraPropertyEventLogic).registerCameraPropertyEvent(same(fakeCamera));
+        verify(cameraStateEventLogic).registerCameraStateEvent(same(fakeCamera));
     }
 
     @Test
@@ -408,7 +420,7 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
 
         spyCameraLogic.closeSession(option);
 
-        verify(edsdkLibrary()).EdsRelease(fakeCamera);
+        verify(edsdkLibrary()).EdsRelease(same(fakeCamera));
     }
 
     @Test
@@ -423,6 +435,6 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
 
         Assertions.assertThrows(EdsdkDeviceInvalidErrorException.class, () -> spyCameraLogic.closeSession(option));
 
-        verify(edsdkLibrary(), times(0)).EdsRelease(fakeCamera);
+        verify(edsdkLibrary(), times(0)).EdsRelease(same(fakeCamera));
     }
 }
