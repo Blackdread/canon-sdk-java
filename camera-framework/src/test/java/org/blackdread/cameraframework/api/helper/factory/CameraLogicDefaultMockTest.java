@@ -29,6 +29,8 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.AbstractMockTest;
 import org.blackdread.cameraframework.MockFactory;
+import org.blackdread.cameraframework.api.TestUtil;
+import org.blackdread.cameraframework.api.camera.CanonCamera;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOption;
 import org.blackdread.cameraframework.api.command.builder.CloseSessionOptionBuilder;
 import org.blackdread.cameraframework.api.command.builder.OpenSessionOption;
@@ -652,14 +654,59 @@ class CameraLogicDefaultMockTest extends AbstractMockTest {
         verify(cameraStateEventLogic, times(0)).registerCameraStateEvent(same(fakeCamera));
     }
 
+    @Test
+    void setCameraRefToCamera() {
+        final CanonCamera canonCamera = new CanonCamera();
 
-//    @Test
-//    void setCameraRefToCamera() {
-//    }
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setCamera(canonCamera)
+            .build();
 
-//    @Test
-//    void registerEvents() {
-//    }
+        Assertions.assertFalse(canonCamera.getCameraRef().isPresent());
+
+        TestUtil.callMethod(MockFactory.initialCanonFactory.getCameraLogic(), "setCameraRefToCamera", new Class[]{EdsCameraRef.class, OpenSessionOption.class}, fakeCamera, option);
+
+        Assertions.assertTrue(canonCamera.getCameraRef().isPresent());
+        Assertions.assertEquals(fakeCamera, canonCamera.getCameraRef().get());
+    }
+
+    @Test
+    void setCameraRefToCameraIgnoresOnCameraNotSet() {
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .build();
+
+        TestUtil.callMethod(MockFactory.initialCanonFactory.getCameraLogic(), "setCameraRefToCamera", new Class[]{EdsCameraRef.class, OpenSessionOption.class}, fakeCamera, option);
+    }
+
+    @Test
+    void registerEvents() {
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setRegisterObjectEvent(false)
+            .setRegisterPropertyEvent(false)
+            .setRegisterStateEvent(false)
+            .build();
+
+        TestUtil.callMethod(MockFactory.initialCanonFactory.getCameraLogic(), "registerEvents", new Class[]{EdsCameraRef.class, OpenSessionOption.class}, fakeCamera, option);
+
+        verify(cameraObjectEventLogic, times(0)).registerCameraObjectEvent(same(fakeCamera));
+        verify(cameraPropertyEventLogic, times(0)).registerCameraPropertyEvent(same(fakeCamera));
+        verify(cameraStateEventLogic, times(0)).registerCameraStateEvent(same(fakeCamera));
+    }
+
+    @Test
+    void registerEventsFew() {
+        final OpenSessionOption option = new OpenSessionOptionBuilder()
+            .setRegisterObjectEvent(false)
+            .setRegisterPropertyEvent(true)
+            .setRegisterStateEvent(true)
+            .build();
+
+        TestUtil.callMethod(MockFactory.initialCanonFactory.getCameraLogic(), "registerEvents", new Class[]{EdsCameraRef.class, OpenSessionOption.class}, fakeCamera, option);
+
+        verify(cameraObjectEventLogic, times(0)).registerCameraObjectEvent(same(fakeCamera));
+        verify(cameraPropertyEventLogic, times(1)).registerCameraPropertyEvent(same(fakeCamera));
+        verify(cameraStateEventLogic, times(1)).registerCameraStateEvent(same(fakeCamera));
+    }
 
     @Test
     void closeSession() {
