@@ -81,6 +81,8 @@ It starts from scratch due to [older project](https://github.com/kritzikratzi/ed
 
 [Previous project that allowed to communicate with Canon EDSDK with java](https://github.com/kritzikratzi/edsdk4j)
 
+# Software example using this Framework/SDK
+[![Example 1](https://i.imgur.com/UBHExoH.png?1)](https://i.imgur.com/UBHExoH.png?1)
 
 [sonar-url]: https://sonarcloud.io/dashboard?id=org.blackdread%3Acanon-sdk-java
 [sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=org.blackdread%3Acanon-sdk-java&metric=alert_status
