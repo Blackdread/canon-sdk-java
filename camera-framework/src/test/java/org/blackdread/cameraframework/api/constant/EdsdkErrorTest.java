@@ -47,6 +47,11 @@ import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidS
 import org.blackdread.cameraframework.exception.error.general.*;
 import org.blackdread.cameraframework.exception.error.picture.*;
 import org.blackdread.cameraframework.exception.error.ptp.*;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiDeviceCreateErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiDeviceNotLaunchedErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiDeviceReleaseErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiInternalErrorErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiUnknownErrorErrorException;
 import org.blackdread.cameraframework.exception.error.stream.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -173,11 +178,11 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
             arguments(EdsdkError.EDS_ERR_COMM_USB_BUS_ERR, EdsdkCommUsbBusErrorException.class),
             arguments(EdsdkError.EDS_ERR_USB_DEVICE_LOCK_ERROR, EdsdkErrorException.class),
             arguments(EdsdkError.EDS_ERR_USB_DEVICE_UNLOCK_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_STI_UNKNOWN_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_STI_INTERNAL_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_STI_DEVICE_CREATE_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_STI_DEVICE_RELEASE_ERROR, EdsdkErrorException.class),
-            arguments(EdsdkError.EDS_ERR_DEVICE_NOT_LAUNCHED, EdsdkErrorException.class),
+            arguments(EdsdkError.EDS_ERR_STI_UNKNOWN_ERROR, EdsdkStiUnknownErrorErrorException.class),
+            arguments(EdsdkError.EDS_ERR_STI_INTERNAL_ERROR, EdsdkStiInternalErrorErrorException.class),
+            arguments(EdsdkError.EDS_ERR_STI_DEVICE_CREATE_ERROR, EdsdkStiDeviceCreateErrorException.class),
+            arguments(EdsdkError.EDS_ERR_STI_DEVICE_RELEASE_ERROR, EdsdkStiDeviceReleaseErrorException.class),
+            arguments(EdsdkError.EDS_ERR_DEVICE_NOT_LAUNCHED, EdsdkStiDeviceNotLaunchedErrorException.class),
             arguments(EdsdkError.EDS_ERR_SESSION_NOT_OPEN, EdsdkPtpSessionNotOpenErrorException.class),
             arguments(EdsdkError.EDS_ERR_INVALID_TRANSACTIONID, EdsdkPtpInvalidTransactionIdErrorException.class),
             arguments(EdsdkError.EDS_ERR_INCOMPLETE_TRANSFER, EdsdkPtpIncompleteTransferErrorException.class),
@@ -230,9 +235,16 @@ class EdsdkErrorTest extends ConstantValueFromLibraryTest<EdsdkError> {
 
     @ParameterizedTest
     @MethodSource("errorAndExceptionClass")
-    void errorTypeMatchItsClass(final EdsdkError error, final Class errorClassExpected) {
+    void errorTypeMatchItsClass(final EdsdkError error, final Class errorClassExpected) throws IllegalAccessException, InstantiationException {
         final Class<? extends EdsdkErrorException> classReturned = error.getException().getClass();
         Assertions.assertEquals(errorClassExpected, classReturned);
+
+        if (EdsdkErrorException.class.equals(errorClassExpected)) {
+            return;
+        }
+
+        final EdsdkErrorException exception = classReturned.newInstance();
+        Assertions.assertEquals(error, exception.getEdsdkError());
     }
 
     @Test

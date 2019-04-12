@@ -47,6 +47,11 @@ import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidS
 import org.blackdread.cameraframework.exception.error.general.*;
 import org.blackdread.cameraframework.exception.error.picture.*;
 import org.blackdread.cameraframework.exception.error.ptp.*;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiDeviceCreateErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiDeviceNotLaunchedErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiDeviceReleaseErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiInternalErrorErrorException;
+import org.blackdread.cameraframework.exception.error.sti.EdsdkStiUnknownErrorErrorException;
 import org.blackdread.cameraframework.exception.error.stream.*;
 import org.blackdread.cameraframework.util.LibraryFieldUtil;
 
@@ -420,16 +425,16 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
 //                break;
 //            case EDS_ERR_USB_DEVICE_UNLOCK_ERROR:
 //                break;
-//            case EDS_ERR_STI_UNKNOWN_ERROR:
-//                break;
-//            case EDS_ERR_STI_INTERNAL_ERROR:
-//                break;
-//            case EDS_ERR_STI_DEVICE_CREATE_ERROR:
-//                break;
-//            case EDS_ERR_STI_DEVICE_RELEASE_ERROR:
-//                break;
-//            case EDS_ERR_DEVICE_NOT_LAUNCHED:
-//                break;
+            case EDS_ERR_STI_UNKNOWN_ERROR:
+                return (T) new EdsdkStiUnknownErrorErrorException();
+            case EDS_ERR_STI_INTERNAL_ERROR:
+                return (T) new EdsdkStiInternalErrorErrorException();
+            case EDS_ERR_STI_DEVICE_CREATE_ERROR:
+                return (T) new EdsdkStiDeviceCreateErrorException();
+            case EDS_ERR_STI_DEVICE_RELEASE_ERROR:
+                return (T) new EdsdkStiDeviceReleaseErrorException();
+            case EDS_ERR_DEVICE_NOT_LAUNCHED:
+                return (T) new EdsdkStiDeviceNotLaunchedErrorException();
             case EDS_ERR_SESSION_NOT_OPEN:
                 return (T) new EdsdkPtpSessionNotOpenErrorException();
             case EDS_ERR_INVALID_TRANSACTIONID:
