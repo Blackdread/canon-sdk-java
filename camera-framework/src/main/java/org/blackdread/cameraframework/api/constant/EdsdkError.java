@@ -46,6 +46,7 @@ import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidP
 import org.blackdread.cameraframework.exception.error.function.EdsdkFuncInvalidSortFnErrorException;
 import org.blackdread.cameraframework.exception.error.general.*;
 import org.blackdread.cameraframework.exception.error.picture.*;
+import org.blackdread.cameraframework.exception.error.ptp.*;
 import org.blackdread.cameraframework.exception.error.stream.*;
 import org.blackdread.cameraframework.util.LibraryFieldUtil;
 
@@ -429,62 +430,62 @@ public enum EdsdkError implements NativeEnum<Integer>, NativeErrorEnum<Integer> 
 //                break;
 //            case EDS_ERR_DEVICE_NOT_LAUNCHED:
 //                break;
-//            case EDS_ERR_SESSION_NOT_OPEN:
-//                break;
-//            case EDS_ERR_INVALID_TRANSACTIONID:
-//                break;
-//            case EDS_ERR_INCOMPLETE_TRANSFER:
-//                break;
-//            case EDS_ERR_INVALID_STRAGEID:
-//                break;
-//            case EDS_ERR_DEVICEPROP_NOT_SUPPORTED:
-//                break;
-//            case EDS_ERR_INVALID_OBJECTFORMATCODE:
-//                break;
-//            case EDS_ERR_SELF_TEST_FAILED:
-//                break;
-//            case EDS_ERR_PARTIAL_DELETION:
-//                break;
-//            case EDS_ERR_SPECIFICATION_BY_FORMAT_UNSUPPORTED:
-//                break;
-//            case EDS_ERR_NO_VALID_OBJECTINFO:
-//                break;
-//            case EDS_ERR_INVALID_CODE_FORMAT:
-//                break;
-//            case EDS_ERR_UNKNOWN_VENDOR_CODE:
-//                break;
-//            case EDS_ERR_CAPTURE_ALREADY_TERMINATED:
-//                break;
-//            case EDS_ERR_PTP_DEVICE_BUSY:
-//                break;
-//            case EDS_ERR_INVALID_PARENTOBJECT:
-//                break;
-//            case EDS_ERR_INVALID_DEVICEPROP_FORMAT:
-//                break;
-//            case EDS_ERR_INVALID_DEVICEPROP_VALUE:
-//                break;
-//            case EDS_ERR_SESSION_ALREADY_OPEN:
-//                break;
-//            case EDS_ERR_TRANSACTION_CANCELLED:
-//                break;
-//            case EDS_ERR_SPECIFICATION_OF_DESTINATION_UNSUPPORTED:
-//                break;
-//            case EDS_ERR_NOT_CAMERA_SUPPORT_SDK_VERSION:
-//                break;
-//            case EDS_ERR_UNKNOWN_COMMAND:
-//                break;
-//            case EDS_ERR_OPERATION_REFUSED:
-//                break;
-//            case EDS_ERR_LENS_COVER_CLOSE:
-//                break;
-//            case EDS_ERR_LOW_BATTERY:
-//                break;
-//            case EDS_ERR_OBJECT_NOTREADY:
-//                break;
-//            case EDS_ERR_CANNOT_MAKE_OBJECT:
-//                break;
-//            case EDS_ERR_MEMORYSTATUS_NOTREADY:
-//                break;
+            case EDS_ERR_SESSION_NOT_OPEN:
+                return (T) new EdsdkPtpSessionNotOpenErrorException();
+            case EDS_ERR_INVALID_TRANSACTIONID:
+                return (T) new EdsdkPtpInvalidTransactionIdErrorException();
+            case EDS_ERR_INCOMPLETE_TRANSFER:
+                return (T) new EdsdkPtpIncompleteTransferErrorException();
+            case EDS_ERR_INVALID_STRAGEID:
+                return (T) new EdsdkPtpInvalidStorageIdErrorException();
+            case EDS_ERR_DEVICEPROP_NOT_SUPPORTED:
+                return (T) new EdsdkPtpUnsupportedDevicePropertyErrorException();
+            case EDS_ERR_INVALID_OBJECTFORMATCODE:
+                return (T) new EdsdkPtpInvalidObjectFormatCodeErrorException();
+            case EDS_ERR_SELF_TEST_FAILED:
+                return (T) new EdsdkPtpSelfTestErrorException();
+            case EDS_ERR_PARTIAL_DELETION:
+                return (T) new EdsdkPtpPartialDeletionErrorException();
+            case EDS_ERR_SPECIFICATION_BY_FORMAT_UNSUPPORTED:
+                return (T) new EdsdkPtpUnsupportedFormatSpecErrorException();
+            case EDS_ERR_NO_VALID_OBJECTINFO:
+                return (T) new EdsdkPtpInvalidObjectInformationErrorException();
+            case EDS_ERR_INVALID_CODE_FORMAT:
+                return (T) new EdsdkPtpInvalidCodeFormatErrorException();
+            case EDS_ERR_UNKNOWN_VENDOR_CODE:
+                return (T) new EdsdkPtpUnknownVendorCodeErrorException();
+            case EDS_ERR_CAPTURE_ALREADY_TERMINATED:
+                return (T) new EdsdkPtpCaptureTerminatedErrorException();
+            case EDS_ERR_PTP_DEVICE_BUSY:
+                return (T) new EdsdkPtpDeviceBusyErrorException();
+            case EDS_ERR_INVALID_PARENTOBJECT:
+                return (T) new EdsdkPtpInvalidParentObjectErrorException();
+            case EDS_ERR_INVALID_DEVICEPROP_FORMAT:
+                return (T) new EdsdkPtpInvalidPropertyFormatErrorException();
+            case EDS_ERR_INVALID_DEVICEPROP_VALUE:
+                return (T) new EdsdkPtpInvalidPropertyValueErrorException();
+            case EDS_ERR_SESSION_ALREADY_OPEN:
+                return (T) new EdsdkPtpSessionAlreadyOpenErrorException();
+            case EDS_ERR_TRANSACTION_CANCELLED:
+                return (T) new EdsdkPtpTransactionCancelledErrorException18();
+            case EDS_ERR_SPECIFICATION_OF_DESTINATION_UNSUPPORTED:
+                return (T) new EdsdkPtpUnsupportedDestinationSpecErrorException();
+            case EDS_ERR_NOT_CAMERA_SUPPORT_SDK_VERSION:
+                return (T) new EdsdkPtpSdkVersionNotSupportedErrorException();
+            case EDS_ERR_UNKNOWN_COMMAND:
+                return (T) new EdsdkPtpUnknownCommandErrorException();
+            case EDS_ERR_OPERATION_REFUSED:
+                return (T) new EdsdkPtpOperationRefusedErrorException();
+            case EDS_ERR_LENS_COVER_CLOSE:
+                return (T) new EdsdkPtpLensCoverClosedErrorException();
+            case EDS_ERR_LOW_BATTERY:
+                return (T) new EdsdkPtpLowBatteryErrorException();
+            case EDS_ERR_OBJECT_NOTREADY:
+                return (T) new EdsdkPtpDataSetNotReadyErrorException();
+            case EDS_ERR_CANNOT_MAKE_OBJECT:
+                return (T) new EdsdkPtpCannotMakeObjectErrorException();
+            case EDS_ERR_MEMORYSTATUS_NOTREADY:
+                return (T) new EdsdkPtpMemoryNotReadyErrorException();
             case EDS_ERR_TAKE_PICTURE_AF_NG:
                 return (T) new EdsdkPictureAutoFocusFailedErrorException();
 //            case EDS_ERR_TAKE_PICTURE_RESERVED:
