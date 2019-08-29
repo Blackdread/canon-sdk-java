@@ -60,7 +60,7 @@
         <jna.version>5.4.0</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
-        <guava.version>28.0-jre</guava.version>
+        <guava.version>28.1-jre</guava.version>
 
         <commons-lang3.version>3.9</commons-lang3.version>
 
