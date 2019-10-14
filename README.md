@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/Blackdread/canon-sdk-java.svg?branch=master)](https://travis-ci.org/Blackdread/canon-sdk-java)
 [![Coverage Status](https://coveralls.io/repos/github/Blackdread/canon-sdk-java/badge.svg?branch=master)](https://coveralls.io/github/Blackdread/canon-sdk-java?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.blackdread/canon-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.blackdread/canon-sdk-java)
+[![Github Workflow](https://github.com/Blackdread/canon-sdk-java/workflows/Java%20CI/badge.svg)](https://github.com/Blackdread/canon-sdk-java/actions?workflow=Java+CI)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/Blackdread/canon-sdk-java)
 [![](https://img.shields.io/gitter/room/canon-sdk-java/Framework.svg)](https://gitter.im/canon-sdk-java/Framework)
 
