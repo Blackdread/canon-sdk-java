@@ -315,7 +315,7 @@ public class CanonCamera {
     /**
      * Close session with option provided
      *
-     * @param option
+     * @param option option
      * @return command
      * @see org.blackdread.cameraframework.api.helper.logic.CameraLogic#closeSession(CloseSessionOption)
      */
@@ -442,6 +442,7 @@ public class CanonCamera {
         /**
          * Start the live view
          *
+         * @return command
          * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#beginLiveView(EdsCameraRef)
          */
         public LiveViewCommand.Begin beginLiveViewAsync() {
@@ -451,6 +452,7 @@ public class CanonCamera {
         /**
          * Stop the live view
          *
+         * @return command
          * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#endLiveView(EdsCameraRef)
          */
         public LiveViewCommand.End endLiveViewAsync() {
@@ -460,6 +462,7 @@ public class CanonCamera {
         /**
          * Download live view as BufferedImage
          *
+         * @return command
          * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#getLiveViewImage(EdsCameraRef)
          */
         public LiveViewCommand.Download downloadLiveViewAsync() {
@@ -469,6 +472,7 @@ public class CanonCamera {
         /**
          * Download live view buffer as byte
          *
+         * @return command
          * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#getLiveViewImageBuffer(EdsCameraRef)
          */
         public LiveViewCommand.DownloadBuffer downloadBufferLiveViewAsync() {
@@ -478,6 +482,7 @@ public class CanonCamera {
         /**
          * Check live view status only
          *
+         * @return command
          * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#isLiveViewEnabled(EdsCameraRef)
          */
         public LiveViewCommand.IsLiveViewEnabled isLiveViewEnabledAsync() {
@@ -487,6 +492,7 @@ public class CanonCamera {
         /**
          * Check live view status by trying to download one image
          *
+         * @return command
          * @see org.blackdread.cameraframework.api.helper.logic.LiveViewLogic#isLiveViewEnabledByDownloadingOneImage(EdsCameraRef)
          */
         public LiveViewCommand.IsLiveViewActive isLiveViewActiveAsync() {

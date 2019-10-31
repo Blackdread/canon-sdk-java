@@ -61,7 +61,7 @@ public interface CommandContextHolderStrategy {
 
     /**
      * Creates a new, empty context implementation, for use by
-     * <tt>CommandContextHolder</tt> implementations, when creating a new context for
+     * CommandContextHolder implementations, when creating a new context for
      * the first time.
      *
      * @return the empty context.
