@@ -8,10 +8,10 @@ addons:
 #            secure: ""
 
 jdk:
-  - oraclejdk8
-  - oraclejdk11
+#  - oraclejdk8
+#  - oraclejdk11
 #  - openjdk8
-#  - openjdk11
+  - openjdk11
 
 before_install:
 - chmod +x mvnw
