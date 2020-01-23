@@ -29,9 +29,8 @@ Support for MAC OSX is not intended for now, but only few changes in implementat
 Both 64 bit and 32 bit versions are supported.
 
 # Java versions
-First release will support java 8.
-
-Two branches will be maintained as to support java 8 and 11 (and maven respectively).
+Minimum Java 8 is required.
+Works with JDK 8/11/14+
 
 # Maven dependency
 To control camera, use the framework:
