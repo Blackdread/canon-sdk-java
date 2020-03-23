@@ -23,7 +23,7 @@
  */
 package org.blackdread.cameraframework;
 
-import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -40,7 +40,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnabledIf("systemProperty.get('canonCameraConnected') == 'true'")
+@EnabledIfSystemProperty(named = "canonCameraConnected", matches = "true")
+//@EnabledIf("systemProperty.get('canonCameraConnected') == 'true'")
 public @interface CameraIsConnected {
     // works but is not repeatable so not very useful when need to test many things
     // if camera is connected then we suppose that DLL are present

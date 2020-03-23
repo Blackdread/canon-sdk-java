@@ -23,7 +23,7 @@
  */
 package org.blackdread.cameraframework;
 
-import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -40,7 +40,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnabledIf("systemProperty.get('canonCameraConnected') == 'true' || systemProperty.get('canonLibIsOnPath') == 'true'")
+@EnabledIfSystemProperty(named = "canonCameraConnected", matches = "true")
+@EnabledIfSystemProperty(named = "canonLibIsOnPath", matches = "true")
+//@EnabledIf("systemProperty.get('canonCameraConnected') == 'true' || systemProperty.get('canonLibIsOnPath') == 'true'")
 public @interface DllOnPath {
     // works but is not repeatable so not very useful when need to test many things
     // if camera is connected then we suppose that DLL are present

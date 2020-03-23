@@ -23,7 +23,8 @@
  */
 package org.blackdread.cameraframework;
 
-import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -41,7 +42,10 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnabledIf("systemProperty.get('mockLibrary') == 'true' && systemProperty.get('canonCameraConnected') == 'false' && systemProperty.get('canonLibIsOnPath') == 'false'")
+@EnabledIfSystemProperty(named = "mockLibrary", matches = "true")
+@DisabledIfSystemProperty(named = "canonCameraConnected", matches = "true")
+@DisabledIfSystemProperty(named = "canonLibIsOnPath", matches = "true")
+//@EnabledIf("systemProperty.get('mockLibrary') == 'true' && systemProperty.get('canonCameraConnected') == 'false' && systemProperty.get('canonLibIsOnPath') == 'false'")
 public @interface MockLibrary {
     // works but is not repeatable so not very useful when need to test many things
     // if camera is connected then we suppose that DLL are present
