@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018-2019 Yoann CAPLAIN
+ * Copyright (c) 2018-2020 Yoann CAPLAIN
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,7 @@ public class EdsVolumeInfo extends Structure {
 		this.access = access;
 		this.maxCapacity = maxCapacity;
 		this.freeSpaceInBytes = freeSpaceInBytes;
-		if ((szVolumeLabel.length != this.szVolumeLabel.length)) 
+		if ((szVolumeLabel.length != this.szVolumeLabel.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.szVolumeLabel = szVolumeLabel;
 	}
@@ -75,9 +75,9 @@ public class EdsVolumeInfo extends Structure {
 		super(peer);
 	}
 	public static class ByReference extends EdsVolumeInfo implements Structure.ByReference {
-		
+
 	}
 	public static class ByValue extends EdsVolumeInfo implements Structure.ByValue {
-		
+
 	}
 }

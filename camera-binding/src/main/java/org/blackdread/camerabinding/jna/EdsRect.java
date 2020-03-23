@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018-2019 Yoann CAPLAIN
+ * Copyright (c) 2018-2020 Yoann CAPLAIN
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,9 +60,9 @@ public class EdsRect extends Structure {
 		super(peer);
 	}
 	public static class ByReference extends EdsRect implements Structure.ByReference {
-		
+
 	}
 	public static class ByValue extends EdsRect implements Structure.ByValue {
-		
+
 	}
 }

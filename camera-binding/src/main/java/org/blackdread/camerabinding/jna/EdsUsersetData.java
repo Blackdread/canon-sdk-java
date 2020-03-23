@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018-2019 Yoann CAPLAIN
+ * Copyright (c) 2018-2020 Yoann CAPLAIN
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,10 +62,10 @@ public class EdsUsersetData extends Structure {
 		super();
 		this.valid = valid;
 		this.dataSize = dataSize;
-		if ((szCaption.length != this.szCaption.length)) 
+		if ((szCaption.length != this.szCaption.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.szCaption = szCaption;
-		if ((data.length != this.data.length)) 
+		if ((data.length != this.data.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.data = data;
 	}
@@ -73,9 +73,9 @@ public class EdsUsersetData extends Structure {
 		super(peer);
 	}
 	public static class ByReference extends EdsUsersetData implements Structure.ByReference {
-		
+
 	}
 	public static class ByValue extends EdsUsersetData implements Structure.ByValue {
-		
+
 	}
 }

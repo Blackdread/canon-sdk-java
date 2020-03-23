@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018-2019 Yoann CAPLAIN
+ * Copyright (c) 2018-2020 Yoann CAPLAIN
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -60,10 +60,10 @@ public class EdsDeviceInfo extends Structure {
 	 */
 	public EdsDeviceInfo(byte szPortName[], byte szDeviceDescription[], NativeLong deviceSubType, NativeLong reserved) {
 		super();
-		if ((szPortName.length != this.szPortName.length)) 
+		if ((szPortName.length != this.szPortName.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.szPortName = szPortName;
-		if ((szDeviceDescription.length != this.szDeviceDescription.length)) 
+		if ((szDeviceDescription.length != this.szDeviceDescription.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.szDeviceDescription = szDeviceDescription;
 		this.deviceSubType = deviceSubType;
@@ -73,9 +73,9 @@ public class EdsDeviceInfo extends Structure {
 		super(peer);
 	}
 	public static class ByReference extends EdsDeviceInfo implements Structure.ByReference {
-		
+
 	}
 	public static class ByValue extends EdsDeviceInfo implements Structure.ByValue {
-		
+
 	}
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018-2019 Yoann CAPLAIN
+ * Copyright (c) 2018-2020 Yoann CAPLAIN
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +63,7 @@ public class EdsPropertyDesc extends Structure {
 		this.form = form;
 		this.access = access;
 		this.numElements = numElements;
-		if ((propDesc.length != this.propDesc.length)) 
+		if ((propDesc.length != this.propDesc.length))
 			throw new IllegalArgumentException("Wrong array size !");
 		this.propDesc = propDesc;
 	}
@@ -71,9 +71,9 @@ public class EdsPropertyDesc extends Structure {
 		super(peer);
 	}
 	public static class ByReference extends EdsPropertyDesc implements Structure.ByReference {
-		
+
 	}
 	public static class ByValue extends EdsPropertyDesc implements Structure.ByValue {
-		
+
 	}
 }
