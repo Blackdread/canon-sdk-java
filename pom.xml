@@ -62,7 +62,7 @@
 
         <guava.version>28.2-jre</guava.version>
 
-        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-lang3.version>3.10</commons-lang3.version>
 
         <!-- Logging versions -->
         <slf4j.version>1.7.30</slf4j.version>
