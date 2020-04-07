@@ -47,10 +47,7 @@ If you only want bindings then just change artifact to "camera-binding" but fram
 See package "org.blackdread.cameraframework.demo" in test folder ([here](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework/src/test/java/org/blackdread/cameraframework/demo)).
 
 # Support project
-To help me to maintain and add more features, you can donate:
-
-[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
-[![Liberapay](http://img.shields.io/liberapay/patrons/Yoann_CAPLAIN.svg?logo=liberapay)](https://liberapay.com/Yoann_CAPLAIN/)
+To help me to maintain and add more features, you can be a sponsor.
 
 # Company support and sponsor
 

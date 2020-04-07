@@ -27,9 +27,6 @@ Many commands, class, methods, etc are public (and not final) or protected to le
 # Demo of code
 See package "org.blackdread.cameraframework.demo" in test folder ([here](https://github.com/Blackdread/canon-sdk-java/tree/master/camera-framework/src/test/java/org/blackdread/cameraframework/demo)).
 
-# Support project
-[![Beerpay](https://beerpay.io/Blackdread/canon-sdk-java/badge.svg)](https://beerpay.io/Blackdread/canon-sdk-java)
-
 # Events
 Different ways may work to handle events, framework use a default implementation where it uses one unique thread that execute commands.
 
