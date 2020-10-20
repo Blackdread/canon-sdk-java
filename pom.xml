@@ -71,7 +71,7 @@
 
         <!-- Test versions -->
         <junit.jupiter.version>5.7.0</junit.jupiter.version>
-        <mockito.version>3.5.13</mockito.version>
+        <mockito.version>3.5.15</mockito.version>
 
         <!-- Test System Properties -->
         <!-- Value are changed by profiles -->
