@@ -70,7 +70,7 @@
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
-        <junit.jupiter.version>5.7.0</junit.jupiter.version>
+        <junit.jupiter.version>5.7.1</junit.jupiter.version>
         <mockito.version>3.7.7</mockito.version>
 
         <!-- Test System Properties -->
