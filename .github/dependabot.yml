@@ -1,0 +1,17 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: maven
+  directory: "/camera-framework"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: maven
+  directory: "/camera-binding"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
