@@ -26,3 +26,7 @@ after_success:
 #notifications:
 #  email:
 #    - yoann.caplain@blackdread.org
+
+cache:
+  directories:
+  - $HOME/.m2
