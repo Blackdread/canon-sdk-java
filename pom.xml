@@ -57,7 +57,7 @@
         <!-- Cannot use separate version so instead ${project.version} and binding module is deployed every time with new version even if no changes -->
         <!--<camera-binding.version>0.0.1</camera-binding.version>-->
 
-        <jna.version>5.10.0</jna.version>
+        <jna.version>5.11.0</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
         <guava.version>31.1-jre</guava.version>
