@@ -51,7 +51,7 @@ To help me to maintain and add more features, you can be a sponsor.
 
 # Company support and sponsor
 
-For companies that desire support, help, or even sponsor, etc feel to contact me ([Follow this link](https://www.emailmeform.com/builder/form/46HAMcc300chL56f4a6uJo8e)). 
+For companies that desire support, help, or even sponsor, etc feel free to contact me on LinkedIn https://www.linkedin.com/in/yoanncaplain/ (**preferred way**) or via an [email form](https://www.emailmeform.com/builder/form/46HAMcc300chL56f4a6uJo8e)). 
 
 Commercial technical support and services are possible.
 
