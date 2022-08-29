@@ -66,7 +66,7 @@
 
         <!-- Logging versions -->
         <slf4j.version>2.0.0</slf4j.version>
-        <logback-classic.version>1.2.4</logback-classic.version>
+        <logback-classic.version>1.4.0</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
