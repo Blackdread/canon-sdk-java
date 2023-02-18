@@ -72,11 +72,7 @@ Do a pull request. Explain your changes, reasons, write tests.
 
 
 # Previous project
-It starts from scratch due to [older project](https://github.com/kritzikratzi/edsdk4j) that is not maintained (and some design could be changed).
-
-# Links
-
-[Previous project that allowed to communicate with Canon EDSDK with java](https://github.com/kritzikratzi/edsdk4j)
+This library started from scratch due to [edsdk4j](https://github.com/kritzikratzi/edsdk4j) that was not maintained; And I wanted to implement a complete different code architecture.
 
 # Software example using this Framework/SDK
 [![Example 1](https://i.imgur.com/UBHExoH.png?1)](https://i.imgur.com/UBHExoH.png?1)
