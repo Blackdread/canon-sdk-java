@@ -3,15 +3,15 @@ updates:
 - package-ecosystem: maven
   directory: "/"
   schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+    interval: monthly
+  open-pull-requests-limit: 15
 - package-ecosystem: maven
   directory: "/camera-framework"
   schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+    interval: monthly
+  open-pull-requests-limit: 15
 - package-ecosystem: maven
   directory: "/camera-binding"
   schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+    interval: monthly
+  open-pull-requests-limit: 15
