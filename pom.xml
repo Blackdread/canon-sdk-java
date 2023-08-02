@@ -60,17 +60,17 @@
         <jna.version>5.13.0</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
-        <guava.version>32.0.0-jre</guava.version>
+        <guava.version>32.1.2-jre</guava.version>
 
-        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-lang3.version>3.13.0</commons-lang3.version>
 
         <!-- Logging versions -->
         <slf4j.version>2.0.7</slf4j.version>
-        <logback-classic.version>1.4.7</logback-classic.version>
+        <logback-classic.version>1.4.8</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
-        <junit.jupiter.version>5.9.3</junit.jupiter.version>
+        <junit.jupiter.version>5.10.0</junit.jupiter.version>
         <mockito.version>5.4.0</mockito.version>
 
         <!-- Test System Properties -->
@@ -81,7 +81,7 @@
 
 
         <!-- Plugin versions -->
-        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
@@ -89,7 +89,7 @@
         <maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <maven-release-plugin.version>3.0.0</maven-release-plugin.version>
+        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
 
 
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
