@@ -66,12 +66,12 @@
 
         <!-- Logging versions -->
         <slf4j.version>2.0.12</slf4j.version>
-        <logback-classic.version>1.4.14</logback-classic.version>
+        <logback-classic.version>1.5.3</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
         <junit.jupiter.version>5.10.1</junit.jupiter.version>
-        <mockito.version>5.10.0</mockito.version>
+        <mockito.version>5.11.0</mockito.version>
 
         <!-- Test System Properties -->
         <!-- Value are changed by profiles -->
