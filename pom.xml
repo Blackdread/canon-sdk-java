@@ -60,12 +60,12 @@
         <jna.version>5.14.0</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
-        <guava.version>33.0.0-jre</guava.version>
+        <guava.version>33.1.0-jre</guava.version>
 
         <commons-lang3.version>3.14.0</commons-lang3.version>
 
         <!-- Logging versions -->
-        <slf4j.version>2.0.11</slf4j.version>
+        <slf4j.version>2.0.12</slf4j.version>
         <logback-classic.version>1.4.14</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
@@ -82,7 +82,7 @@
 
         <!-- Plugin versions -->
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
