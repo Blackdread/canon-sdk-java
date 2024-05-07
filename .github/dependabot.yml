@@ -11,25 +11,25 @@ updates:
         - "patch"
         - "minor"
         - "major"
-- package-ecosystem: maven
-  directory: "/camera-framework"
-  schedule:
-    interval: monthly
-  open-pull-requests-limit: 15
-  groups:
-    maven-dependencies:
-      update-types:
-        - "patch"
-        - "minor"
-        - "major"
-- package-ecosystem: maven
-  directory: "/camera-binding"
-  schedule:
-    interval: monthly
-  open-pull-requests-limit: 15
-  groups:
-    maven-dependencies:
-      update-types:
-        - "patch"
-        - "minor"
-        - "major"
+# - package-ecosystem: maven
+#   directory: "/camera-framework"
+#   schedule:
+#     interval: monthly
+#   open-pull-requests-limit: 15
+#   groups:
+#     maven-dependencies:
+#       update-types:
+#         - "patch"
+#         - "minor"
+#         - "major"
+# - package-ecosystem: maven
+#   directory: "/camera-binding"
+#   schedule:
+#     interval: monthly
+#   open-pull-requests-limit: 15
+#   groups:
+#     maven-dependencies:
+#       update-types:
+#         - "patch"
+#         - "minor"
+#         - "major"
