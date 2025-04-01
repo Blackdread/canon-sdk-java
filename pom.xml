@@ -57,21 +57,21 @@
         <!-- Cannot use separate version so instead ${project.version} and binding module is deployed every time with new version even if no changes -->
         <!--<camera-binding.version>0.0.1</camera-binding.version>-->
 
-        <jna.version>5.16.0</jna.version>
+        <jna.version>5.17.0</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
-        <guava.version>33.4.0-jre</guava.version>
+        <guava.version>33.4.6-jre</guava.version>
 
         <commons-lang3.version>3.17.0</commons-lang3.version>
 
         <!-- Logging versions -->
         <slf4j.version>2.0.17</slf4j.version>
-        <logback-classic.version>1.5.17</logback-classic.version>
+        <logback-classic.version>1.5.18</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
-        <junit.jupiter.version>5.12.0</junit.jupiter.version>
-        <mockito.version>5.15.2</mockito.version>
+        <junit.jupiter.version>5.12.1</junit.jupiter.version>
+        <mockito.version>5.16.1</mockito.version>
 
         <!-- Test System Properties -->
         <!-- Value are changed by profiles -->
@@ -81,7 +81,7 @@
 
 
         <!-- Plugin versions -->
-        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
