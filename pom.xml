@@ -66,11 +66,11 @@
 
         <!-- Logging versions -->
         <slf4j.version>2.0.17</slf4j.version>
-        <logback-classic.version>1.5.19</logback-classic.version>
+        <logback-classic.version>1.5.20</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
-        <junit.jupiter.version>6.0.0</junit.jupiter.version>
+        <junit.jupiter.version>6.0.1</junit.jupiter.version>
         <mockito.version>5.20.0</mockito.version>
 
         <!-- Test System Properties -->
@@ -86,13 +86,13 @@
         <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
-        <maven-enforcer-plugin.version>3.6.1</maven-enforcer-plugin.version>
+        <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
 
 
-        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
 
         <!-- Deploy versions -->
