@@ -26,7 +26,7 @@ package org.blackdread.cameraframework.api.command.builder;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef;
 import org.blackdread.cameraframework.api.camera.CanonCamera;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import java.util.Objects;
 import java.util.Optional;
