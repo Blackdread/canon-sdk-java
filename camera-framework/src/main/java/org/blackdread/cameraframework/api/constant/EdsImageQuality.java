@@ -126,6 +126,128 @@ public enum EdsImageQuality implements NativeEnum<Integer> {
     EdsImageQuality_CRM2J("CRAW + Jpeg Middle2", 2),
     EdsImageQuality_CRSJ("CRAW + Jpeg Small", 2),
 
+    /* HEIF */
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFL("HEIF Large", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFL("RAW + HEIF Large", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFL("CRAW + HEIF Large", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFLF("HEIF Large Fine", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFLN("HEIF Large Normal", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFMF("HEIF Middle Fine", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFMN("HEIF Middle Normal", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFS1F("HEIF Small1 Fine", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFS1N("HEIF Small1 Normal", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_HEIFS2F("HEIF Small2 Fine", 1),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFLF("RAW + HEIF Large Fine", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFLN("RAW + HEIF Large Normal", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFMF("RAW + HEIF Middle Fine", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFMN("RAW + HEIF Middle Normal", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFS1F("RAW + HEIF Small1 Fine", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFS1N("RAW + HEIF Small1 Normal", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_RHEIFS2F("RAW + HEIF Small2 Fine", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFLF("CRAW + HEIF Large Fine", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFLN("CRAW + HEIF Large Normal", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFMF("CRAW + HEIF Middle Fine", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFMN("CRAW + HEIF Middle Normal", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFS1F("CRAW + HEIF Small1 Fine", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFS1N("CRAW + HEIF Small1 Normal", 2),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    EdsImageQuality_CRHEIFS2F("CRAW + HEIF Small2 Fine", 2),
+
     EdsImageQuality_Unknown("Unknown", 0);
 
     private final int value;

@@ -441,7 +441,152 @@ public enum EdsPropertyID implements NativeEnum<Integer> {
      * @since edsdk 13.9.10
      * @since 1.2.0
      */
-    kEdsPropID_LensBarrelStatus("Indicates the lens barrel status", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE);
+    kEdsPropID_LensBarrelStatus("Indicates the lens barrel status", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_TempStatus("Temperature status", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsPropID_PowerZoom_Speed("Power zoom speed", EdsDataType.kEdsDataType_Int32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsPropID_Evf_PowerZoom_CurPosition("EVF power zoom current position", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsPropID_Evf_PowerZoom_MaxPosition("EVF power zoom maximum position", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsPropID_Evf_PowerZoom_MinPosition("EVF power zoom minimum position", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_UTCTime("UTC time", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_TimeZone("Time zone", EdsDataType.kEdsDataType_Int32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_SummerTimeSetting("Summer time setting", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_ManualWhiteBalanceData("Manual white balance data", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_MirrorLockUpState("Mirror lock-up state", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_FixedMovie("Fixed movie", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_MovieParam("Movie parameters", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_Aspect("Aspect ratio", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_MirrorUpSetting("Mirror up setting", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_MovieServoAf("Movie servo AF", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_AutoPowerOffSetting("Auto power off setting", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.14.0
+     * @since 1.2.1
+     */
+    kEdsPropID_AFEyeDetect("AF eye detection", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_Evf_ClickWBCoeffs("EVF click white balance coefficients", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_EVF_RollingPitching("EVF rolling and pitching level", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_Evf_VisibleRect("EVF visible rectangle", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_StillMovieDivideSetting("Still/Movie divide setting", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_CardExtension("Card extension", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_MovieCardExtension("Movie card extension", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_StillCurrentMedia("Still current media", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_MovieCurrentMedia("Movie current media", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.14.0
+     * @since 1.2.1
+     */
+    kEdsPropID_FocusShiftSetting("Focus shift/bracketing setting", EdsDataType.kEdsDataType_ByteBlock, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.14.0
+     * @since 1.2.1
+     */
+    kEdsPropID_MovieHFRSetting("Movie HFR setting", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_Evf_ViewType("EVF view type", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsPropID_MovieSoundRecord("Movie sound recording", EdsDataType.kEdsDataType_UInt32, TargetRefAccessType.GROUP_CAMERA_READ_WRITE);
 
     private final int value;
     private final String description;
