@@ -2426,10 +2426,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPropertyDesc(EdsBaseRef, EdsPropertyID, EdsPropertyDesc*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:280</i><br>
-	 * @deprecated use the safer methods {@link #EdsGetPropertyDesc(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef, com.sun.jna.NativeLong, org.blackdread.camerabinding.jna.tagEdsPropertyDesc)} and {@link #EdsGetPropertyDesc(com.sun.jna.Pointer, com.sun.jna.NativeLong, org.blackdread.camerabinding.jna.tagEdsPropertyDesc)} instead
+	 * @deprecated use the safer methods {@link #EdsGetPropertyDesc(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsBaseRef, com.sun.jna.NativeLong, org.blackdread.camerabinding.jna.EdsPropertyDesc)} and {@link #EdsGetPropertyDesc(com.sun.jna.Pointer, com.sun.jna.NativeLong, org.blackdread.camerabinding.jna.EdsPropertyDesc)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsGetPropertyDesc(Pointer inRef, NativeLong inPropertyID, tagEdsPropertyDesc outPropertyDesc);
+	NativeLong EdsGetPropertyDesc(Pointer inRef, NativeLong inPropertyID, EdsPropertyDesc outPropertyDesc);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //  <br>
@@ -2450,7 +2450,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetPropertyDesc(EdsBaseRef, EdsPropertyID, EdsPropertyDesc*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:280</i>
 	 */
-	NativeLong EdsGetPropertyDesc(EdsdkLibrary.EdsBaseRef inRef, NativeLong inPropertyID, tagEdsPropertyDesc outPropertyDesc);
+	NativeLong EdsGetPropertyDesc(EdsdkLibrary.EdsBaseRef inRef, NativeLong inPropertyID, EdsPropertyDesc outPropertyDesc);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2509,10 +2509,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetDeviceInfo(EdsCameraRef, EdsDeviceInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:336</i><br>
-	 * @deprecated use the safer methods {@link #EdsGetDeviceInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, org.blackdread.camerabinding.jna.tagEdsDeviceInfo)} and {@link #EdsGetDeviceInfo(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.tagEdsDeviceInfo)} instead
+	 * @deprecated use the safer methods {@link #EdsGetDeviceInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, org.blackdread.camerabinding.jna.EdsDeviceInfo)} and {@link #EdsGetDeviceInfo(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.EdsDeviceInfo)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsGetDeviceInfo(Pointer inCameraRef, tagEdsDeviceInfo outDeviceInfo);
+	NativeLong EdsGetDeviceInfo(Pointer inCameraRef, EdsDeviceInfo outDeviceInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2534,7 +2534,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetDeviceInfo(EdsCameraRef, EdsDeviceInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:336</i>
 	 */
-	NativeLong EdsGetDeviceInfo(EdsdkLibrary.EdsCameraRef inCameraRef, tagEdsDeviceInfo outDeviceInfo);
+	NativeLong EdsGetDeviceInfo(EdsdkLibrary.EdsCameraRef inCameraRef, EdsDeviceInfo outDeviceInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2729,10 +2729,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetCapacity(EdsCameraRef, EdsCapacity)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:441</i><br>
-	 * @deprecated use the safer methods {@link #EdsSetCapacity(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, org.blackdread.camerabinding.jna.tagEdsCapacity.ByValue)} and {@link #EdsSetCapacity(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.tagEdsCapacity.ByValue)} instead
+	 * @deprecated use the safer methods {@link #EdsSetCapacity(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, org.blackdread.camerabinding.jna.EdsCapacity.ByValue)} and {@link #EdsSetCapacity(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.EdsCapacity.ByValue)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsSetCapacity(Pointer inCameraRef, org.blackdread.camerabinding.jna.tagEdsCapacity.ByValue inCapacity);
+	NativeLong EdsSetCapacity(Pointer inCameraRef, org.blackdread.camerabinding.jna.EdsCapacity.ByValue inCapacity);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2762,7 +2762,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetCapacity(EdsCameraRef, EdsCapacity)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:441</i>
 	 */
-	NativeLong EdsSetCapacity(EdsdkLibrary.EdsCameraRef inCameraRef, org.blackdread.camerabinding.jna.tagEdsCapacity.ByValue inCapacity);
+	NativeLong EdsSetCapacity(EdsdkLibrary.EdsCameraRef inCameraRef, org.blackdread.camerabinding.jna.EdsCapacity.ByValue inCapacity);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2779,10 +2779,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetVolumeInfo(EdsVolumeRef, EdsVolumeInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:467</i><br>
-	 * @deprecated use the safer methods {@link #EdsGetVolumeInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsVolumeRef, org.blackdread.camerabinding.jna.tagEdsVolumeInfo)} and {@link #EdsGetVolumeInfo(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.tagEdsVolumeInfo)} instead
+	 * @deprecated use the safer methods {@link #EdsGetVolumeInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsVolumeRef, org.blackdread.camerabinding.jna.EdsVolumeInfo)} and {@link #EdsGetVolumeInfo(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.EdsVolumeInfo)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsGetVolumeInfo(Pointer inVolumeRef, tagEdsVolumeInfo outVolumeInfo);
+	NativeLong EdsGetVolumeInfo(Pointer inVolumeRef, EdsVolumeInfo outVolumeInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2800,7 +2800,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetVolumeInfo(EdsVolumeRef, EdsVolumeInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:467</i>
 	 */
-	NativeLong EdsGetVolumeInfo(EdsdkLibrary.EdsVolumeRef inVolumeRef, tagEdsVolumeInfo outVolumeInfo);
+	NativeLong EdsGetVolumeInfo(EdsdkLibrary.EdsVolumeRef inVolumeRef, EdsVolumeInfo outVolumeInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2854,10 +2854,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetDirectoryItemInfo(EdsDirectoryItemRef, EdsDirectoryItemInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:509</i><br>
-	 * @deprecated use the safer methods {@link #EdsGetDirectoryItemInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef, org.blackdread.camerabinding.jna.tagEdsDirectoryItemInfo)} and {@link #EdsGetDirectoryItemInfo(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.tagEdsDirectoryItemInfo)} instead
+	 * @deprecated use the safer methods {@link #EdsGetDirectoryItemInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef, org.blackdread.camerabinding.jna.EdsDirectoryItemInfo)} and {@link #EdsGetDirectoryItemInfo(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.EdsDirectoryItemInfo)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsGetDirectoryItemInfo(Pointer inDirItemRef, tagEdsDirectoryItemInfo outDirItemInfo);
+	NativeLong EdsGetDirectoryItemInfo(Pointer inDirItemRef, EdsDirectoryItemInfo outDirItemInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -2876,7 +2876,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetDirectoryItemInfo(EdsDirectoryItemRef, EdsDirectoryItemInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:509</i>
 	 */
-	NativeLong EdsGetDirectoryItemInfo(EdsdkLibrary.EdsDirectoryItemRef inDirItemRef, tagEdsDirectoryItemInfo outDirItemInfo);
+	NativeLong EdsGetDirectoryItemInfo(EdsdkLibrary.EdsDirectoryItemRef inDirItemRef, EdsDirectoryItemInfo outDirItemInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -3952,10 +3952,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetImageInfo(EdsImageRef, EdsImageSource, EdsImageInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:1034</i><br>
-	 * @deprecated use the safer methods {@link #EdsGetImageInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef, int, org.blackdread.camerabinding.jna.tagEdsImageInfo)} and {@link #EdsGetImageInfo(com.sun.jna.Pointer, int, org.blackdread.camerabinding.jna.tagEdsImageInfo)} instead
+	 * @deprecated use the safer methods {@link #EdsGetImageInfo(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef, int, org.blackdread.camerabinding.jna.EdsImageInfo)} and {@link #EdsGetImageInfo(com.sun.jna.Pointer, int, org.blackdread.camerabinding.jna.EdsImageInfo)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsGetImageInfo(Pointer inImageRef, int inImageSource, tagEdsImageInfo outImageInfo);
+	NativeLong EdsGetImageInfo(Pointer inImageRef, int inImageSource, EdsImageInfo outImageInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -3987,7 +3987,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetImageInfo(EdsImageRef, EdsImageSource, EdsImageInfo*)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:1034</i>
 	 */
-	NativeLong EdsGetImageInfo(EdsdkLibrary.EdsImageRef inImageRef, int inImageSource, tagEdsImageInfo outImageInfo);
+	NativeLong EdsGetImageInfo(EdsdkLibrary.EdsImageRef inImageRef, int inImageSource, EdsImageInfo outImageInfo);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -4031,10 +4031,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetImage(EdsImageRef, EdsImageSource, EdsTargetImageType, EdsRect, EdsSize, EdsStreamRef)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:1079</i><br>
-	 * @deprecated use the safer methods {@link #EdsGetImage(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef, int, int, org.blackdread.camerabinding.jna.tagEdsRect.ByValue, org.blackdread.camerabinding.jna.tagEdsSize.ByValue, org.blackdread.camerabinding.jna.EdsdkLibrary.EdsStreamRef)} and {@link #EdsGetImage(com.sun.jna.Pointer, int, int, org.blackdread.camerabinding.jna.tagEdsRect.ByValue, org.blackdread.camerabinding.jna.tagEdsSize.ByValue, com.sun.jna.Pointer)} instead
+	 * @deprecated use the safer methods {@link #EdsGetImage(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsImageRef, int, int, org.blackdread.camerabinding.jna.EdsRect.ByValue, org.blackdread.camerabinding.jna.EdsSize.ByValue, org.blackdread.camerabinding.jna.EdsdkLibrary.EdsStreamRef)} and {@link #EdsGetImage(com.sun.jna.Pointer, int, int, org.blackdread.camerabinding.jna.EdsRect.ByValue, org.blackdread.camerabinding.jna.EdsSize.ByValue, com.sun.jna.Pointer)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsGetImage(Pointer inImageRef, int inImageSource, int inImageType, org.blackdread.camerabinding.jna.tagEdsRect.ByValue inSrcRect, org.blackdread.camerabinding.jna.tagEdsSize.ByValue inDstSize, Pointer outStreamRef);
+	NativeLong EdsGetImage(Pointer inImageRef, int inImageSource, int inImageType, org.blackdread.camerabinding.jna.EdsRect.ByValue inSrcRect, org.blackdread.camerabinding.jna.EdsSize.ByValue inDstSize, Pointer outStreamRef);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -4079,7 +4079,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsGetImage(EdsImageRef, EdsImageSource, EdsTargetImageType, EdsRect, EdsSize, EdsStreamRef)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:1079</i>
 	 */
-	NativeLong EdsGetImage(EdsdkLibrary.EdsImageRef inImageRef, int inImageSource, int inImageType, org.blackdread.camerabinding.jna.tagEdsRect.ByValue inSrcRect, org.blackdread.camerabinding.jna.tagEdsSize.ByValue inDstSize, EdsdkLibrary.EdsStreamRef outStreamRef);
+	NativeLong EdsGetImage(EdsdkLibrary.EdsImageRef inImageRef, int inImageSource, int inImageType, org.blackdread.camerabinding.jna.EdsRect.ByValue inSrcRect, org.blackdread.camerabinding.jna.EdsSize.ByValue inDstSize, EdsdkLibrary.EdsStreamRef outStreamRef);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -4420,10 +4420,10 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * -----------------------------------------------------------------------------<br>
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetFramePoint(EdsCameraRef, EdsPoint, bool)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:1281</i><br>
-	 * @deprecated use the safer methods {@link #EdsSetFramePoint(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, org.blackdread.camerabinding.jna.tagEdsPoint.ByValue, byte)} and {@link #EdsSetFramePoint(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.tagEdsPoint.ByValue, byte)} instead
+	 * @deprecated use the safer methods {@link #EdsSetFramePoint(org.blackdread.camerabinding.jna.EdsdkLibrary.EdsCameraRef, org.blackdread.camerabinding.jna.EdsPoint.ByValue, byte)} and {@link #EdsSetFramePoint(com.sun.jna.Pointer, org.blackdread.camerabinding.jna.EdsPoint.ByValue, byte)} instead
 	 */
 	@Deprecated 
-	NativeLong EdsSetFramePoint(Pointer inCameraRef, org.blackdread.camerabinding.jna.tagEdsPoint.ByValue inFramepoint, byte inLockAfFrame);
+	NativeLong EdsSetFramePoint(Pointer inCameraRef, org.blackdread.camerabinding.jna.EdsPoint.ByValue inFramepoint, byte inLockAfFrame);
 	/**
 	 * -----------------------------------------------------------------------------<br>
 	 * //<br>
@@ -4445,7 +4445,7 @@ public interface EdsdkLibrary extends StdCallLibrary {
 	 * Original signature : <code>__attribute__((dllimport)) EdsError EdsSetFramePoint(EdsCameraRef, EdsPoint, bool)</code><br>
 	 * <i>native declaration : sdk-header\EDSDK.h:1281</i>
 	 */
-	NativeLong EdsSetFramePoint(EdsdkLibrary.EdsCameraRef inCameraRef, org.blackdread.camerabinding.jna.tagEdsPoint.ByValue inFramepoint, byte inLockAfFrame);
+	NativeLong EdsSetFramePoint(EdsdkLibrary.EdsCameraRef inCameraRef, org.blackdread.camerabinding.jna.EdsPoint.ByValue inFramepoint, byte inLockAfFrame);
 	public static class EdsImageRef extends PointerType {
 		public EdsImageRef(Pointer address) {
 			super(address);

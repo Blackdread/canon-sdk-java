@@ -41,8 +41,8 @@ public class EdsFocusInfo extends Structure {
 	public EdsRect imageRect;
 	/** C type : EdsUInt32 */
 	public NativeLong pointNumber;
-	/** C type : EdsFocusPoint[600] */
-	public EdsFrameDesc[] focusPoint = new EdsFrameDesc[600];
+	/** C type : EdsFocusPoint[1053] */
+	public EdsFrameDesc[] focusPoint = new EdsFrameDesc[1053];
 	/** C type : EdsUInt32 */
 	public NativeLong executeMode;
 	public EdsFocusInfo() {
@@ -55,7 +55,7 @@ public class EdsFocusInfo extends Structure {
 	/**
 	 * @param imageRect C type : EdsRect<br>
 	 * @param pointNumber C type : EdsUInt32<br>
-	 * @param focusPoint C type : EdsFocusPoint[600]<br>
+	 * @param focusPoint C type : EdsFocusPoint[1053]<br>
 	 * @param executeMode C type : EdsUInt32
 	 */
 	public EdsFocusInfo(EdsRect imageRect, NativeLong pointNumber, EdsFrameDesc focusPoint[], NativeLong executeMode) {
