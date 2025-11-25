@@ -27,7 +27,7 @@ import org.blackdread.camerabinding.jna.EdsDirectoryItemInfo;
 import org.blackdread.camerabinding.jna.EdsdkLibrary.EdsDirectoryItemRef;
 import org.blackdread.cameraframework.exception.error.EdsdkErrorException;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.io.File;
 
 /**

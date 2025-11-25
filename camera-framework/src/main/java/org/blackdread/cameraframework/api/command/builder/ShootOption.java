@@ -27,7 +27,7 @@ import org.blackdread.camerabinding.jna.EdsdkLibrary;
 import org.blackdread.cameraframework.api.constant.EdsObjectEvent;
 import org.blackdread.cameraframework.api.constant.EdsSaveTo;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import java.io.File;
 import java.util.Objects;

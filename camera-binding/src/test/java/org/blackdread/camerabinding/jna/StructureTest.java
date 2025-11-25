@@ -74,7 +74,7 @@ class StructureTest {
 
         final EdsFocusInfo eds2 = new EdsFocusInfo(new Pointer(0));
 
-        final EdsFocusInfo eds3 = new EdsFocusInfo(new EdsRect(), new NativeLong(0), new EdsFrameDesc[600], new NativeLong(0));
+        final EdsFocusInfo eds3 = new EdsFocusInfo(new EdsRect(), new NativeLong(0), new EdsFrameDesc[1053], new NativeLong(0));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new EdsFocusInfo(new EdsRect(), new NativeLong(0), new EdsFrameDesc[1], new NativeLong(0)));
 

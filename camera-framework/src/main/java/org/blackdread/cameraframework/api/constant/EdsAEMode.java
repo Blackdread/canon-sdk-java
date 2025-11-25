@@ -121,6 +121,36 @@ public enum EdsAEMode implements NativeEnum<Integer> {
      * @since 1.2.0
      */
     kEdsAEMode_Fireworks("Fireworks"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsAEMode_StarPortrait("Star Portrait"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsAEMode_StarNightscape("Star Nightscape"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsAEMode_StarTrails("Star Trails"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsAEMode_StarTimelapseMovie("Star Timelapse Movie"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsAEMode_BackgroundBlur("Background Blur"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsAEMode_VideoBlog("Video Blog"),
 
     kEdsAEMode_Unknown("Unknown");
 

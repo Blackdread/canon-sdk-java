@@ -80,7 +80,37 @@ public enum EdsCameraCommand implements NativeEnum<Integer> {
      * @since edsdk 13.9.10
      * @since 1.2.0
      */
-    kEdsCameraCommand_SetRemoteShootingMode("Controls remote shooting mode");
+    kEdsCameraCommand_SetRemoteShootingMode("Controls remote shooting mode"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsCameraCommand_MovieSelectSwON("Movie Select Switch ON"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsCameraCommand_MovieSelectSwOFF("Movie Select Switch OFF"),
+    /**
+     * @since edsdk 13.11.10
+     * @since 1.2.1
+     */
+    kEdsCameraCommand_RequestRollPitchLevel("Request Roll Pitch Level"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    kEdsCameraCommand_DrivePowerZoom("Drive Power Zoom"),
+    /**
+     * @since edsdk 13.14.0
+     * @since 1.2.1
+     */
+    kEdsCameraCommand_RequestSensorCleaning("Request Sensor Cleaning"),
+    /**
+     * @since edsdk 13.16.10
+     * @since 1.2.1
+     */
+    kEdsCameraCommand_SetModeDialDisable("Set Mode Dial Disable");
 
     private final int value;
     private final String description;

@@ -815,7 +815,151 @@ public interface EdsdkLibrary extends StdCallLibrary {
          */
         public static final int EdsImageQuality_CRSJ = 0x00630210;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:740</i>
+         * HEIF Large<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:780</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFL = 0x0080ff0f;
+        /**
+         * RAW + HEIF Large<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:781</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFL = 0x00640080;
+        /**
+         * CRAW + HEIF Large<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:782</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFL = 0x00630080;
+        /**
+         * HEIF Large Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:784</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFLF = 0x0083ff0f;
+        /**
+         * HEIF Large Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:785</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFLN = 0x0082ff0f;
+        /**
+         * HEIF Middle Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:786</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFMF = 0x0183ff0f;
+        /**
+         * HEIF Middle Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:787</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFMN = 0x0182ff0f;
+        /**
+         * HEIF Small1 Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:788</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFS1F = 0x0e83ff0f;
+        /**
+         * HEIF Small1 Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:789</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFS1N = 0x0e82ff0f;
+        /**
+         * HEIF Small2 Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:790</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_HEIFS2F = 0x0f83ff0f;
+        /**
+         * RAW + HEIF Large Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:791</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFLF = 0x00640083;
+        /**
+         * RAW + HEIF Large Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:792</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFLN = 0x00640082;
+        /**
+         * RAW + HEIF Middle Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:793</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFMF = 0x00640183;
+        /**
+         * RAW + HEIF Middle Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:794</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFMN = 0x00640182;
+        /**
+         * RAW + HEIF Small1 Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:795</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFS1F = 0x00640e83;
+        /**
+         * RAW + HEIF Small1 Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:796</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFS1N = 0x00640e82;
+        /**
+         * RAW + HEIF Small2 Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:797</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_RHEIFS2F = 0x00640f83;
+        /**
+         * CRAW + HEIF Large Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:798</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFLF = 0x00630083;
+        /**
+         * CRAW + HEIF Large Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:799</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFLN = 0x00630082;
+        /**
+         * CRAW + HEIF Middle Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:800</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFMF = 0x00630183;
+        /**
+         * CRAW + HEIF Middle Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:801</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFMN = 0x00630182;
+        /**
+         * CRAW + HEIF Small1 Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:802</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFS1F = 0x00630e83;
+        /**
+         * CRAW + HEIF Small1 Normal<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:803</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFS1N = 0x00630e82;
+        /**
+         * CRAW + HEIF Small2 Fine<br>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:804</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int EdsImageQuality_CRHEIFS2F = 0x00630f83;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:806</i>
          */
         public static final int EdsImageQuality_Unknown = -1;
     }
@@ -1457,222 +1601,252 @@ public interface EdsdkLibrary extends StdCallLibrary {
      */
     public static interface EdsAEMode {
         /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:998</i>
+         */
+        public static final int kEdsAEMode_Program = 0x00;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:999</i>
+         */
+        public static final int kEdsAEMode_Tv = 0x01;
+        /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1000</i>
          */
-        public static final int kEdsAEMode_Program = 0;
+        public static final int kEdsAEMode_Av = 0x02;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1001</i>
          */
-        public static final int kEdsAEMode_Tv = 1;
+        public static final int kEdsAEMode_Manual = 0x03;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1002</i>
          */
-        public static final int kEdsAEMode_Av = 2;
+        public static final int kEdsAEMode_Bulb = 0x04;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1003</i>
          */
-        public static final int kEdsAEMode_Manual = 3;
+        public static final int kEdsAEMode_A_DEP = 0x05;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1004</i>
          */
-        public static final int kEdsAEMode_Bulb = 4;
+        public static final int kEdsAEMode_DEP = 0x06;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1005</i>
          */
-        public static final int kEdsAEMode_A_DEP = 5;
+        public static final int kEdsAEMode_Custom = 0x07;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1006</i>
          */
-        public static final int kEdsAEMode_DEP = 6;
+        public static final int kEdsAEMode_Lock = 0x08;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1007</i>
          */
-        public static final int kEdsAEMode_Custom = 7;
+        public static final int kEdsAEMode_Green = 0x09;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1008</i>
          */
-        public static final int kEdsAEMode_Lock = 8;
+        public static final int kEdsAEMode_NightPortrait = 0x0A;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1009</i>
          */
-        public static final int kEdsAEMode_Green = 9;
+        public static final int kEdsAEMode_Sports = 0x0B;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1010</i>
          */
-        public static final int kEdsAEMode_NightPortrait = 10;
+        public static final int kEdsAEMode_Portrait = 0x0C;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1011</i>
          */
-        public static final int kEdsAEMode_Sports = 11;
+        public static final int kEdsAEMode_Landscape = 0x0D;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1012</i>
          */
-        public static final int kEdsAEMode_Portrait = 12;
+        public static final int kEdsAEMode_Closeup = 0x0E;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1013</i>
          */
-        public static final int kEdsAEMode_Landscape = 13;
+        public static final int kEdsAEMode_FlashOff = 0x0F;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1014</i>
          */
-        public static final int kEdsAEMode_Closeup = 14;
+        public static final int kEdsAEMode_CreativeAuto = 0x13;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1015</i>
          */
-        public static final int kEdsAEMode_FlashOff = 15;
+        public static final int kEdsAEMode_Movie = 0x14;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1016</i>
          */
-        public static final int kEdsAEMode_CreativeAuto = 19;
+        public static final int kEdsAEMode_PhotoInMovie = 0x15;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1017</i>
          */
-        public static final int kEdsAEMode_Movie = 20;
+        public static final int kEdsAEMode_SceneIntelligentAuto = 0x16;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1018</i>
          */
-        public static final int kEdsAEMode_PhotoInMovie = 21;
+        public static final int kEdsAEMode_SCN = 0x19;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1019</i>
          */
-        public static final int kEdsAEMode_SceneIntelligentAuto = 22;
+        public static final int kEdsAEMode_NightScenes = 0x17;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1020</i>
          */
-        public static final int kEdsAEMode_SCN = 25;
+        public static final int kEdsAEMode_BacklitScenes = 0x18;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1021</i>
          */
-        public static final int kEdsAEMode_NightScenes = 23;
+        public static final int kEdsAEMode_Children = 0x1A;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1022</i>
          */
-        public static final int kEdsAEMode_BacklitScenes = 24;
+        public static final int kEdsAEMode_Food = 0x1B;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1023</i>
          */
-        public static final int kEdsAEMode_Children = 26;
+        public static final int kEdsAEMode_CandlelightPortraits = 0x1C;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1024</i>
          */
-        public static final int kEdsAEMode_Food = 27;
+        public static final int kEdsAEMode_CreativeFilter = 0x1D;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1025</i>
          */
-        public static final int kEdsAEMode_CandlelightPortraits = 28;
+        public static final int kEdsAEMode_RoughMonoChrome = 0x1E;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1026</i>
          */
-        public static final int kEdsAEMode_CreativeFilter = 29;
+        public static final int kEdsAEMode_SoftFocus = 0x1F;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1027</i>
          */
-        public static final int kEdsAEMode_RoughMonoChrome = 30;
+        public static final int kEdsAEMode_ToyCamera = 0x20;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1028</i>
          */
-        public static final int kEdsAEMode_SoftFocus = 31;
+        public static final int kEdsAEMode_Fisheye = 0x21;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1029</i>
          */
-        public static final int kEdsAEMode_ToyCamera = 32;
+        public static final int kEdsAEMode_WaterColor = 0x22;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1030</i>
          */
-        public static final int kEdsAEMode_Fisheye = 33;
+        public static final int kEdsAEMode_Miniature = 0x23;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1031</i>
          */
-        public static final int kEdsAEMode_WaterColor = 34;
+        public static final int kEdsAEMode_Hdr_Standard = 0x24;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1032</i>
          */
-        public static final int kEdsAEMode_Miniature = 35;
+        public static final int kEdsAEMode_Hdr_Vivid = 0x25;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1033</i>
          */
-        public static final int kEdsAEMode_Hdr_Standard = 36;
+        public static final int kEdsAEMode_Hdr_Bold = 0x26;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1034</i>
          */
-        public static final int kEdsAEMode_Hdr_Vivid = 37;
+        public static final int kEdsAEMode_Hdr_Embossed = 0x27;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1035</i>
          */
-        public static final int kEdsAEMode_Hdr_Bold = 38;
+        public static final int kEdsAEMode_Movie_Fantasy = 0x28;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1036</i>
          */
-        public static final int kEdsAEMode_Hdr_Embossed = 39;
+        public static final int kEdsAEMode_Movie_Old = 0x29;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1037</i>
          */
-        public static final int kEdsAEMode_Movie_Fantasy = 40;
+        public static final int kEdsAEMode_Movie_Memory = 0x2A;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1038</i>
          */
-        public static final int kEdsAEMode_Movie_Old = 41;
+        public static final int kEdsAEMode_Movie_DirectMono = 0x2B;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1039</i>
          */
-        public static final int kEdsAEMode_Movie_Memory = 42;
+        public static final int kEdsAEMode_Movie_Mini = 0x2C;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1040</i>
          */
-        public static final int kEdsAEMode_Movie_DirectMono = 43;
+        public static final int kEdsAEMode_PanningAssist = 0x2D;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1041</i>
          */
-        public static final int kEdsAEMode_Movie_Mini = 44;
+        public static final int kEdsAEMode_GroupPhoto = 0x2E;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1042</i>
          */
-        public static final int kEdsAEMode_PanningAssist = 45;
+        public static final int kEdsAEMode_Myself = 0x32;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1043</i>
+         * @since edsdk 13.9.10
          */
-        public static final int kEdsAEMode_GroupPhoto = 46;
+        public static final int kEdsAEMode_PlusMovieAuto = 0x33;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1044</i>
          */
-        public static final int kEdsAEMode_Myself = 50;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
-         * @since edsdk 13.9.10
-         */
-        public static final int kEdsAEMode_PlusMovieAuto = 51;
+        public static final int kEdsAEMode_SmoothSkin = 0x34;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1045</i>
-         */
-        public static final int kEdsAEMode_SmoothSkin = 52;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
          * @since edsdk 13.9.10
          */
-        public static final int kEdsAEMode_Panorama = 53;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
-         * @since edsdk 13.9.10
-         */
-        public static final int kEdsAEMode_Silent = 54;
+        public static final int kEdsAEMode_Panorama = 0x35;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1046</i>
-         */
-        public static final int kEdsAEMode_Flexible = 55;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
          * @since edsdk 13.9.10
          */
-        public static final int kEdsAEMode_OilPainting = 56;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
-         * @since edsdk 13.9.10
-         */
-        public static final int kEdsAEMode_Fireworks = 57;
+        public static final int kEdsAEMode_Silent = 0x36;
         /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1047</i>
          */
-        public static final int kEdsAEMode_Unknown = -1;
+        public static final int kEdsAEMode_Flexible = 0x37;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1048</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int kEdsAEMode_OilPainting = 0x38;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1049</i>
+         * @since edsdk 13.9.10
+         */
+        public static final int kEdsAEMode_Fireworks = 0x39;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1050</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int kEdsAEMode_StarPortrait = 0x3A;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1051</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int kEdsAEMode_StarNightscape = 0x3B;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1052</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int kEdsAEMode_StarTrails = 0x3C;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1053</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int kEdsAEMode_StarTimelapseMovie = 0x3D;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1054</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int kEdsAEMode_BackgroundBlur = 0x3E;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1055</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int kEdsAEMode_VideoBlog = 0x3F;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1056</i>
+         */
+        public static final int kEdsAEMode_Unknown = 0xffffffff;
     }
 
     /**
@@ -1750,51 +1924,71 @@ public interface EdsdkLibrary extends StdCallLibrary {
      */
     public static interface EdsEvfAFMode {
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1090</i>
-         */
-        public static final int Evf_AFMode_Quick = 0;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1091</i>
-         */
-        public static final int Evf_AFMode_Live = 1;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1092</i>
-         */
-        public static final int Evf_AFMode_LiveFace = 2;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1093</i>
-         */
-        public static final int Evf_AFMode_LiveMulti = 3;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1094</i>
-         */
-        public static final int Evf_AFMode_LiveZone = 4;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1095</i>
-         */
-        public static final int Evf_AFMode_LiveSingleExpandCross = 5;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1096</i>
-         */
-        public static final int Evf_AFMode_LiveSingleExpandSurround = 6;
-        /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h:1097</i>
-         */
-        public static final int Evf_AFMode_LiveZoneLargeH = 7;
-        /**
          * <i>native declaration : sdk-header\EDSDKTypes.h:1098</i>
          */
-        public static final int Evf_AFMode_LiveZoneLargeV = 8;
+        public static final int Evf_AFMode_Quick = 0x00;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1099</i>
+         */
+        public static final int Evf_AFMode_Live = 0x01;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1100</i>
+         */
+        public static final int Evf_AFMode_LiveFace = 0x02;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1101</i>
+         */
+        public static final int Evf_AFMode_LiveMulti = 0x03;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1102</i>
+         */
+        public static final int Evf_AFMode_LiveZone = 0x04;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1103</i>
+         */
+        public static final int Evf_AFMode_LiveSingleExpandCross = 0x05;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1104</i>
+         */
+        public static final int Evf_AFMode_LiveSingleExpandSurround = 0x06;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1105</i>
+         */
+        public static final int Evf_AFMode_LiveZoneLargeH = 0x07;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1106</i>
+         */
+        public static final int Evf_AFMode_LiveZoneLargeV = 0x08;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1107</i>
          * @since edsdk 13.9.10
          */
-        public static final int Evf_AFMode_LiveCatchAF = 9;
+        public static final int Evf_AFMode_LiveCatchAF = 0x09;
         /**
-         * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1108</i>
          * @since edsdk 13.9.10
          */
-        public static final int Evf_AFMode_LiveSpotAF = 10;
+        public static final int Evf_AFMode_LiveSpotAF = 0x0a;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1109</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int Evf_AFMode_FlexibleZone1 = 0x0b;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1110</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int Evf_AFMode_FlexibleZone2 = 0x0c;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1111</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int Evf_AFMode_FlexibleZone3 = 0x0d;
+        /**
+         * <i>native declaration : sdk-header\EDSDKTypes.h:1112</i>
+         * @since edsdk 13.10.20
+         */
+        public static final int Evf_AFMode_WholeArea = 0x0e;
     }
 
     /**
@@ -2903,6 +3097,156 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * @since edsdk 13.9.10
      */
     public static final int kEdsPropID_LensBarrelStatus = 0x00000605;
+
+    /*----------------------------------
+     Limited Properties (SDK 13.16.10)
+    ----------------------------------*/
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_TempStatus = 0x01000415;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.10.20
+     */
+    public static final int kEdsPropID_PowerZoom_Speed = 0x00000444;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.10.20
+     */
+    public static final int kEdsPropID_Evf_PowerZoom_CurPosition = 0x00000550;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.10.20
+     */
+    public static final int kEdsPropID_Evf_PowerZoom_MaxPosition = 0x00000551;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.10.20
+     */
+    public static final int kEdsPropID_Evf_PowerZoom_MinPosition = 0x00000552;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_UTCTime = 0x01000016;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_TimeZone = 0x01000017;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_SummerTimeSetting = 0x01000018;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_ManualWhiteBalanceData = 0x01000204;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_MirrorLockUpState = 0x01000421;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_FixedMovie = 0x01000422;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_MovieParam = 0x01000423;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.13.20
+     */
+    public static final int kEdsPropID_Aspect = 0x01000431;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_MirrorUpSetting = 0x01000438;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.15.20
+     */
+    public static final int kEdsPropID_MovieServoAf = 0x0100043e;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.12.31
+     */
+    public static final int kEdsPropID_AutoPowerOffSetting = 0x0100045e;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.15.20
+     */
+    public static final int kEdsPropID_AFEyeDetect = 0x01000455;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_Evf_ClickWBCoeffs = 0x01000506;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsPropID_EVF_RollingPitching = 0x01000544;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.13.20
+     */
+    public static final int kEdsPropID_Evf_VisibleRect = 0x01000546;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.30
+     */
+    public static final int kEdsPropID_StillMovieDivideSetting = 0x01000470;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.30
+     */
+    public static final int kEdsPropID_CardExtension = 0x01000471;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.30
+     */
+    public static final int kEdsPropID_MovieCardExtension = 0x01000472;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.30
+     */
+    public static final int kEdsPropID_StillCurrentMedia = 0x01000473;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.30
+     */
+    public static final int kEdsPropID_MovieCurrentMedia = 0x01000474;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.40
+     */
+    public static final int kEdsPropID_FocusShiftSetting = 0x01000457;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.40
+     */
+    public static final int kEdsPropID_MovieHFRSetting = 0x0100045d;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.16.0
+     */
+    public static final int kEdsPropID_Evf_ViewType = 0x01000545;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.16.10
+     */
+    public static final int kEdsPropID_MovieSoundRecord = 0x01000436;
+
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */
@@ -2940,6 +3284,36 @@ public interface EdsdkLibrary extends StdCallLibrary {
      * @since edsdk 13.9.10
      */
     public static final int kEdsCameraCommand_SetRemoteShootingMode = 0x0000010f;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.10.20
+     */
+    public static final int kEdsCameraCommand_MovieSelectSwON = 0x00000107;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.10.20
+     */
+    public static final int kEdsCameraCommand_MovieSelectSwOFF = 0x00000108;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.11.10
+     */
+    public static final int kEdsCameraCommand_RequestRollPitchLevel = 0x00000109;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.10.20
+     */
+    public static final int kEdsCameraCommand_DrivePowerZoom = 0x0000010d;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.14.0
+     */
+    public static final int kEdsCameraCommand_RequestSensorCleaning = 0x00000112;
+    /**
+     * <i>native declaration : sdk-header\EDSDKTypes.h</i>
+     * @since edsdk 13.16.10
+     */
+    public static final int kEdsCameraCommand_SetModeDialDisable = 0x00000113;
     /**
      * <i>native declaration : sdk-header\EDSDKTypes.h</i>
      */

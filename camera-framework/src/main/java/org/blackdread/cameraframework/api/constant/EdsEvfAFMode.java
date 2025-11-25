@@ -55,7 +55,27 @@ public enum EdsEvfAFMode implements NativeEnum<Integer> {
      * @since edsdk 13.9.10
      * @since 1.2.0
      */
-    Evf_AFMode_LiveSpotAF("Live Spot AF");
+    Evf_AFMode_LiveSpotAF("Live Spot AF"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    Evf_AFMode_FlexibleZone1("FlexiZone - Single 1"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    Evf_AFMode_FlexibleZone2("FlexiZone - Single 2"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    Evf_AFMode_FlexibleZone3("FlexiZone - Single 3"),
+    /**
+     * @since edsdk 13.10.20
+     * @since 1.2.1
+     */
+    Evf_AFMode_WholeArea("Whole Area AF");
 
     private final int value;
     private final String description;
