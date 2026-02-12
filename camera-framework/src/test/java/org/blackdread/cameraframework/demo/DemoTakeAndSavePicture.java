@@ -74,7 +74,7 @@ public class DemoTakeAndSavePicture {
         try {
             ShootOption options = new ShootOptionBuilder()
                 .setSaveTo(EdsSaveTo.kEdsSaveTo_Host)
-                .setFolderDestination(new File(System.getProperty("user.dir")))
+                .setFolderDestination(new File(System.getProperty("user.dir"))) // current working directory
                 .setFilename("canon_sdk_capture.jpg")
                 .build();
             files = camera.getShoot().shoot(options);
