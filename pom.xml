@@ -68,12 +68,12 @@
 
         <!-- Logging versions -->
         <slf4j.version>2.0.17</slf4j.version>
-        <logback-classic.version>1.5.27</logback-classic.version>
+        <logback-classic.version>1.5.32</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
-        <junit.jupiter.version>6.0.2</junit.jupiter.version>
-        <mockito.version>5.21.0</mockito.version>
+        <junit.jupiter.version>6.0.3</junit.jupiter.version>
+        <mockito.version>5.22.0</mockito.version>
 
         <!-- Test System Properties -->
         <!-- Value are changed by profiles -->
@@ -83,8 +83,8 @@
 
 
         <!-- Plugin versions -->
-        <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
         <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
         <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
