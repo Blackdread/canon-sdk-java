@@ -60,7 +60,7 @@
         <jna.version>5.18.1</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
-        <guava.version>33.5.0-jre</guava.version>
+        <guava.version>33.6.0-jre</guava.version>
 
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
@@ -73,7 +73,7 @@
 
         <!-- Test versions -->
         <junit.jupiter.version>6.0.3</junit.jupiter.version>
-        <mockito.version>5.22.0</mockito.version>
+        <mockito.version>5.23.0</mockito.version>
 
         <!-- Test System Properties -->
         <!-- Value are changed by profiles -->
