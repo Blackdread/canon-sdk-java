@@ -60,7 +60,7 @@
         <jna.version>5.19.1</jna.version>
         <jnaerator.version>0.12</jnaerator.version>
 
-        <guava.version>33.6.0-jre</guava.version>
+        <guava.version>33.7.1-jre</guava.version>
 
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
@@ -68,11 +68,11 @@
 
         <!-- Logging versions -->
         <slf4j.version>2.0.18</slf4j.version>
-        <logback-classic.version>1.5.37</logback-classic.version>
+        <logback-classic.version>1.6.3</logback-classic.version>
         <log4j.version>2.11.1</log4j.version>
 
         <!-- Test versions -->
-        <junit.jupiter.version>6.1.1</junit.jupiter.version>
+        <junit.jupiter.version>6.1.3</junit.jupiter.version>
         <mockito.version>5.23.0</mockito.version>
 
         <!-- Test System Properties -->
